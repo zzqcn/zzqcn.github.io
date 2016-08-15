@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mbuf &mdash; zzq_blog 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="zzq_blog 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="DPDK Library" href="index.html"/>
+        <link rel="next" title="工具" href="../tools/index.html"/>
+        <link rel="prev" title="Mempool" href="mempool.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> zzq_blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">回收</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directindirect-mbuf">Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark二次开发</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">zzq_blog</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">DPDK Library</a> &raquo;</li>
+      
+    <li>Mbuf</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mbuf">
+<h1>Mbuf<a class="headerlink" href="#mbuf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>DPDK mbuf实现了message buffer，可以存储报文数据或者控制信息等。mbuf存储在mempool中，以便在数据面提高访问性能。</p>
+</div>
+<div class="section" id="id2">
+<h2>原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>DPDK把元数据(metadata)和实际数据存储在一个mbuf中，并且使mbuf结构体尽量小，目前仅占用2个cache line，且最常访问的成员在第1个cache line中。</p>
+<p>mbuf从前至后主要由mbuf首部(即rte_mbuf结构体)、head room、实际数据和tailroom构成。用户还可以在mbuf首部和head room之前加入一定长度的私有数据(private data)。head room的大小在DPDK编译配置文件(如common_linuxapp)中指定，如 <code class="docutils literal"><span class="pre">CONFIG_RTE_PKTMBUF_HEADROOM=128</span></code> 。mbuf的基本结构如下图所示：</p>
+<img alt="../_images/mbuf_single.png" src="../_images/mbuf_single.png" />
+<p>一些指针、成员或函数结果的内容在下表中列出，mbuf指针简写为m：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">项</th>
+<th class="head">内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>m</td>
+<td>首部，即mbuf结构体</td>
+</tr>
+<tr class="row-odd"><td>m-&gt;buf_addr</td>
+<td>headroom起始地址</td>
+</tr>
+<tr class="row-even"><td>m-&gt;data_off</td>
+<td>data起始地址相对于buf_addr的偏移</td>
+</tr>
+<tr class="row-odd"><td>m-&gt;buf_len</td>
+<td>mbuf和priv之后内存的长度，包含headroom</td>
+</tr>
+<tr class="row-even"><td>m-&gt;pkt_len</td>
+<td>整个mbuf链的data总长度</td>
+</tr>
+<tr class="row-odd"><td>m-&gt;data_len</td>
+<td>实际data的长度</td>
+</tr>
+<tr class="row-even"><td>m-&gt;buf_addr+m-&gt;data_off</td>
+<td>实际data的起始地址</td>
+</tr>
+<tr class="row-odd"><td>rte_pktmbuf_mtod(m)</td>
+<td>同上</td>
+</tr>
+<tr class="row-even"><td>rte_pktmbuf_data_len(m)</td>
+<td>同m-&gt;data_len</td>
+</tr>
+<tr class="row-odd"><td>rte_pktmbuf_pkt_len</td>
+<td>同m-&gt;pkt_len</td>
+</tr>
+<tr class="row-even"><td>rte_pktmbuf_data_room_size</td>
+<td>同m-&gt;buf_len</td>
+</tr>
+<tr class="row-odd"><td>rte_pktmbuf_headroom</td>
+<td>headroom长度</td>
+</tr>
+<tr class="row-even"><td>rte_pktmbuf_tailroom</td>
+<td>尾部剩余空间长度</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div>注：data_off = MIN(headroom_len, buf_len)</div></blockquote>
+<p>上图中的buf只有一个数据段，在某些情况下，比如要处理巨帧(jumbo frame)时，可以把多个mbuf链接起来组成一个mbuf。下图是包含3个数据段的mbuf：</p>
+<img alt="../_images/mbuf_multi.png" src="../_images/mbuf_multi.png" />
+<p>对于链式的mbuf，仅在第一个mbuf结构体中包含元数据信息。</p>
+<p>以下代码分别创建了两个mbuf，给它们添加数据，最后将它们组合成链。在此过程中打印了上表中的一些数据，可以帮助理解各指针和长度的含义，其中省去了错误处理代码。</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">mbuf_demo</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">rte_mempool</span><span class="o">*</span> <span class="n">mpool</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">rte_mbuf</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="o">*</span><span class="n">m2</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">rte_pktmbuf_pool_private</span> <span class="n">priv</span><span class="p">;</span>
+
+<span class="hll">    <span class="n">priv</span><span class="p">.</span><span class="n">mbuf_data_room_size</span> <span class="o">=</span> <span class="mi">1600</span> <span class="o">+</span> <span class="n">RTE_PKTMBUF_HEADROOM</span> <span class="o">-</span> <span class="mi">16</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">priv</span><span class="p">.</span><span class="n">mbuf_priv_size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+</span>    <span class="n">mpool</span> <span class="o">=</span> <span class="n">rte_mempool_create</span><span class="p">(</span><span class="s">&quot;test_pool&quot;</span><span class="p">,</span>
+                               <span class="n">ITEM_COUNT</span><span class="p">,</span>
+                               <span class="n">ITEM_SIZE</span><span class="p">,</span>
+                               <span class="n">CACHE_SIZE</span><span class="p">,</span>
+                               <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_pktmbuf_pool_private</span><span class="p">),</span>
+                               <span class="n">rte_pktmbuf_pool_init</span><span class="p">,</span>
+<span class="hll">                               <span class="o">&amp;</span><span class="n">priv</span><span class="p">,</span>
+</span>                               <span class="n">rte_pktmbuf_init</span><span class="p">,</span>
+                               <span class="nb">NULL</span><span class="p">,</span>
+                               <span class="mi">0</span><span class="p">,</span>
+                               <span class="n">MEMPOOL_F_SC_GET</span><span class="p">);</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">rte_pktmbuf_alloc</span><span class="p">(</span><span class="n">mpool</span><span class="p">);</span>
+<span class="hll">    <span class="n">mbuf_dump</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>   <span class="c1">// (1)</span>
+</span>
+    <span class="n">rte_pktmbuf_append</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1400</span><span class="p">);</span>
+<span class="hll">    <span class="n">mbuf_dump</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>   <span class="c1">// (2)</span>
+</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">rte_pktmbuf_alloc</span><span class="p">(</span><span class="n">mpool</span><span class="p">);</span>
+    <span class="n">rte_pktmbuf_append</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="n">mbuf_dump</span><span class="p">(</span><span class="n">m2</span><span class="p">);</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">rte_pktmbuf_chain</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m2</span><span class="p">);</span>
+<span class="hll">    <span class="n">mbuf_dump</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>   <span class="c1">// (3)</span>
+</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>首先注意第8，9，16行，为了演示用户私有数据，在创建mempool时传入了priv，这将在每个mbuf的首部后面添加16字节的私有数据，然后才是head room。内存池对象数目、第个对象的大小和cache大小分别是:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#define ITEM_COUNT 1024</span>
+<span class="c1">#define ITEM_SIZE  (1600 + sizeof(struct rte_mbuf) + RTE_PKTMBUF_HEADROOM)</span>
+<span class="c1">#define CACHE_SIZE 32</span>
+</pre></div>
+</div>
+<p>1600是预估的一个packet的最大长度。</p>
+<p>在(1)处，新分配了一个mbuf m，此时m的data长度为0，打印结果如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>RTE_PKTMBUF_HEADROOM: 128
+sizeof(mbuf): 128
+m: 0x7fbf1a810000
+m-&gt;buf_addr: 0x7fbf1a810090
+m-&gt;data_off: 128
+m-&gt;buf_len: 1712
+m-&gt;pkt_len: 0
+m-&gt;data_len: 0
+m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
+rte_pktmbuf_mtod(m): 0x7fbf1a810110
+rte_pktmbuf_data_len(m): 0
+rte_pktmbuf_pkt_len(m): 0
+rte_pktmbuf_headroom(m): 128
+rte_pktmbuf_tailroom(m): 1584
+rte_pktmbuf_data_room_size(mpool): 1712
+rte_pktmbuf_priv_size(mpool): 16
+</pre></div>
+</div>
+<p>用图表示如下：</p>
+<img alt="../_images/mbuf_layout1.png" src="../_images/mbuf_layout1.png" />
+<p>在(2)，用rte_pktmbuf_append模拟给m填充了1400字节的data，此时打印结果如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>m: 0x7fbf1a810000
+m-&gt;buf_addr: 0x7fbf1a810090
+m-&gt;data_off: 128
+m-&gt;buf_len: 1712
+m-&gt;pkt_len: 1400
+m-&gt;data_len: 1400
+m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
+rte_pktmbuf_mtod(m): 0x7fbf1a810110
+rte_pktmbuf_data_len(m): 1400
+rte_pktmbuf_pkt_len(m): 1400
+rte_pktmbuf_headroom(m): 128
+rte_pktmbuf_tailroom(m): 184
+rte_pktmbuf_data_room_size(mpool): 1712
+rte_pktmbuf_priv_size(mpool): 16
+</pre></div>
+</div>
+<p>用图表示如下：</p>
+<img alt="../_images/mbuf_layout2.png" src="../_images/mbuf_layout2.png" />
+<p>之后创建m2并给它添加data，在(3)处将m与m2连接，m做为链的首节点，此时m的打印结果如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>m: 0x7fbf1a810000
+m-&gt;buf_addr: 0x7fbf1a810090
+m-&gt;data_off: 128
+m-&gt;buf_len: 1712
+m-&gt;pkt_len: 1900
+m-&gt;data_len: 1400
+m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
+rte_pktmbuf_mtod(m): 0x7fbf1a810110
+rte_pktmbuf_data_len(m): 1400
+rte_pktmbuf_pkt_len(m): 1900
+rte_pktmbuf_headroom(m): 128
+rte_pktmbuf_tailroom(m): 184
+rte_pktmbuf_data_room_size(mpool): 1712
+rte_pktmbuf_priv_size(mpool): 16
+</pre></div>
+</div>
+<p>注意pkt_len的变化，它已经加上了m2的500字节。如果此时打印m—&gt;next，
+会发现m-&gt;next == m2。</p>
+</div>
+<div class="section" id="id3">
+<h2>数据结构<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>rte_mbuf(librte_mbuf/rte_mbuf.h):</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mbuf</span> <span class="p">{</span>
+    <span class="n">MARKER</span> <span class="n">cacheline0</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="o">*</span><span class="n">buf_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Virtual address of segment buffer. */</span>
+    <span class="n">phys_addr_t</span> <span class="n">buf_physaddr</span><span class="p">;</span> <span class="cm">/**&lt; Physical address of segment buffer. */</span>
+
+    <span class="kt">uint16_t</span> <span class="n">buf_len</span><span class="p">;</span>         <span class="cm">/**&lt; Length of segment buffer. */</span>
+
+    <span class="cm">/* next 6 bytes are initialised on RX descriptor rearm */</span>
+    <span class="n">MARKER8</span> <span class="n">rearm_data</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">data_off</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * 16-bit Reference counter.</span>
+<span class="cm">     * It should only be accessed using the following functions:</span>
+<span class="cm">     * rte_mbuf_refcnt_update(), rte_mbuf_refcnt_read(), and</span>
+<span class="cm">     * rte_mbuf_refcnt_set(). The functionality of these functions (atomic,</span>
+<span class="cm">     * or non-atomic) is controlled by the CONFIG_RTE_MBUF_REFCNT_ATOMIC</span>
+<span class="cm">     * config option.</span>
+<span class="cm">     */</span>
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="n">rte_atomic16_t</span> <span class="n">refcnt_atomic</span><span class="p">;</span> <span class="cm">/**&lt; Atomically accessed refcnt */</span>
+        <span class="kt">uint16_t</span> <span class="n">refcnt</span><span class="p">;</span>              <span class="cm">/**&lt; Non-atomically accessed refcnt */</span>
+    <span class="p">};</span>
+    <span class="kt">uint8_t</span> <span class="n">nb_segs</span><span class="p">;</span>          <span class="cm">/**&lt; Number of segments. */</span>
+    <span class="kt">uint8_t</span> <span class="n">port</span><span class="p">;</span>             <span class="cm">/**&lt; Input port. */</span>
+
+    <span class="kt">uint64_t</span> <span class="n">ol_flags</span><span class="p">;</span>        <span class="cm">/**&lt; Offload features. */</span>
+
+    <span class="cm">/* remaining bytes are set on RX when pulling packet from descriptor */</span>
+    <span class="n">MARKER</span> <span class="n">rx_descriptor_fields1</span><span class="p">;</span>
+
+    <span class="cm">/*</span>
+<span class="cm">     * The packet type, which is the combination of outer/inner L2, L3, L4</span>
+<span class="cm">     * and tunnel types.</span>
+<span class="cm">     */</span>
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="kt">uint32_t</span> <span class="n">packet_type</span><span class="p">;</span> <span class="cm">/**&lt; L2/L3/L4 and tunnel information. */</span>
+        <span class="k">struct</span> <span class="p">{</span>
+            <span class="kt">uint32_t</span> <span class="nl">l2_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; (Outer) L2 type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">l3_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; (Outer) L3 type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">l4_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; (Outer) L4 type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">tun_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; Tunnel type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">inner_l2_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; Inner L2 type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">inner_l3_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; Inner L3 type. */</span>
+            <span class="kt">uint32_t</span> <span class="nl">inner_l4_type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span> <span class="cm">/**&lt; Inner L4 type. */</span>
+        <span class="p">};</span>
+    <span class="p">};</span>
+
+    <span class="kt">uint32_t</span> <span class="n">pkt_len</span><span class="p">;</span>         <span class="cm">/**&lt; Total pkt len: sum of all segments. */</span>
+    <span class="kt">uint16_t</span> <span class="n">data_len</span><span class="p">;</span>        <span class="cm">/**&lt; Amount of data in segment buffer. */</span>
+    <span class="kt">uint16_t</span> <span class="n">vlan_tci</span><span class="p">;</span>        <span class="cm">/**&lt; VLAN Tag Control Identifier (CPU order) */</span>
+
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="kt">uint32_t</span> <span class="n">rss</span><span class="p">;</span>     <span class="cm">/**&lt; RSS hash result if RSS enabled */</span>
+        <span class="k">struct</span> <span class="p">{</span>
+            <span class="k">union</span> <span class="p">{</span>
+                <span class="k">struct</span> <span class="p">{</span>
+                    <span class="kt">uint16_t</span> <span class="n">hash</span><span class="p">;</span>
+                    <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">;</span>
+                <span class="p">};</span>
+                <span class="kt">uint32_t</span> <span class="n">lo</span><span class="p">;</span>
+                <span class="cm">/**&lt; Second 4 flexible bytes */</span>
+            <span class="p">};</span>
+            <span class="kt">uint32_t</span> <span class="n">hi</span><span class="p">;</span>
+            <span class="cm">/**&lt; First 4 flexible bytes or FD ID, dependent on</span>
+<span class="cm">                 PKT_RX_FDIR_* flag in ol_flags. */</span>
+        <span class="p">}</span> <span class="n">fdir</span><span class="p">;</span>           <span class="cm">/**&lt; Filter identifier if FDIR enabled */</span>
+        <span class="k">struct</span> <span class="p">{</span>
+            <span class="kt">uint32_t</span> <span class="n">lo</span><span class="p">;</span>
+            <span class="kt">uint32_t</span> <span class="n">hi</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">sched</span><span class="p">;</span>          <span class="cm">/**&lt; Hierarchical scheduler */</span>
+        <span class="kt">uint32_t</span> <span class="n">usr</span><span class="p">;</span>         <span class="cm">/**&lt; User defined tags. See rte_distributor_process() */</span>
+    <span class="p">}</span> <span class="n">hash</span><span class="p">;</span>                   <span class="cm">/**&lt; hash information */</span>
+
+    <span class="kt">uint32_t</span> <span class="n">seqn</span><span class="p">;</span> <span class="cm">/**&lt; Sequence number. See also rte_reorder_insert() */</span>
+
+    <span class="kt">uint16_t</span> <span class="n">vlan_tci_outer</span><span class="p">;</span>  <span class="cm">/**&lt; Outer VLAN Tag Control Identifier (CPU order) */</span>
+
+    <span class="cm">/* second cache line - fields only used in slow path or on TX */</span>
+    <span class="n">MARKER</span> <span class="n">cacheline1</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">;</span>   <span class="cm">/**&lt; Can be used for external metadata */</span>
+        <span class="kt">uint64_t</span> <span class="n">udata64</span><span class="p">;</span> <span class="cm">/**&lt; Allow 8-byte userdata on 32-bit */</span>
+    <span class="p">};</span>
+
+    <span class="k">struct</span> <span class="n">rte_mempool</span> <span class="o">*</span><span class="n">pool</span><span class="p">;</span> <span class="cm">/**&lt; Pool from which mbuf was allocated. */</span>
+    <span class="k">struct</span> <span class="n">rte_mbuf</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>    <span class="cm">/**&lt; Next segment of scattered packet. */</span>
+
+    <span class="cm">/* fields to support TX offloads */</span>
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="kt">uint64_t</span> <span class="n">tx_offload</span><span class="p">;</span>       <span class="cm">/**&lt; combined for easy fetch */</span>
+        <span class="k">struct</span> <span class="p">{</span>
+            <span class="kt">uint64_t</span> <span class="nl">l2_len</span><span class="p">:</span><span class="mi">7</span><span class="p">;</span> <span class="cm">/**&lt; L2 (MAC) Header Length. */</span>
+            <span class="kt">uint64_t</span> <span class="nl">l3_len</span><span class="p">:</span><span class="mi">9</span><span class="p">;</span> <span class="cm">/**&lt; L3 (IP) Header Length. */</span>
+            <span class="kt">uint64_t</span> <span class="nl">l4_len</span><span class="p">:</span><span class="mi">8</span><span class="p">;</span> <span class="cm">/**&lt; L4 (TCP/UDP) Header Length. */</span>
+            <span class="kt">uint64_t</span> <span class="nl">tso_segsz</span><span class="p">:</span><span class="mi">16</span><span class="p">;</span> <span class="cm">/**&lt; TCP TSO segment size */</span>
+
+            <span class="cm">/* fields for TX offloading of tunnels */</span>
+            <span class="kt">uint64_t</span> <span class="nl">outer_l3_len</span><span class="p">:</span><span class="mi">9</span><span class="p">;</span> <span class="cm">/**&lt; Outer L3 (IP) Hdr Length. */</span>
+            <span class="kt">uint64_t</span> <span class="nl">outer_l2_len</span><span class="p">:</span><span class="mi">7</span><span class="p">;</span> <span class="cm">/**&lt; Outer L2 (MAC) Hdr Length. */</span>
+
+            <span class="cm">/* uint64_t unused:8; */</span>
+        <span class="p">};</span>
+    <span class="p">};</span>
+
+    <span class="cm">/** Size of the application private data. In case of an indirect</span>
+<span class="cm">     * mbuf, it stores the direct mbuf private data size. */</span>
+    <span class="kt">uint16_t</span> <span class="n">priv_size</span><span class="p">;</span>
+
+    <span class="cm">/** Timesync flags for use with IEEE1588. */</span>
+    <span class="kt">uint16_t</span> <span class="n">timesync</span><span class="p">;</span>
+
+    <span class="cm">/* Chain of off-load operations to perform on mbuf */</span>
+    <span class="k">struct</span> <span class="n">rte_mbuf_offload</span> <span class="o">*</span><span class="n">offload_ops</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>分配与回收<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>初始化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>mbuf存放在mempool中，在创建mempool时，如果指定了对象初始化回调函数，如上面例子中的rte_pktmbuf_init()，将会对其中每个mbuf调用此函数进行初始化，为某些成员赋值。</p>
+</div>
+<div class="section" id="id6">
+<h3>分配<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>调用rte_mempool_get()从mempool中获取一个mbuf，并将其引用计数置1。</p>
+</div>
+<div class="section" id="id7">
+<h3>回收<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>对于direct mbuf，直接调用rte_mempool_put()进行放回mempool；对于indirect mbuf，需要先detach，然后再free它所attach的实际mbuf。</p>
+<p>回收mbuf时，会回收mbuf链上的所有mbuf节点。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>元信息<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>见 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mbuf_lib.html#meta-information">Meta Information</a> 。<em>似乎</em> Rx端网卡并不能填充l2_type, l3_type等信息。</p>
+</div>
+<div class="section" id="directindirect-mbuf">
+<h2>Direct和Indirect mbuf<a class="headerlink" href="#directindirect-mbuf" title="Permalink to this headline">¶</a></h2>
+<p>上面描述的mbuf，由mbuf结构体首部、headroom和data等部分组成，实际持有数据，这样的mbuf称为direct mbuf。但在某些时候，比如需要复制或分片报文时，可能会用到另一种mbuf，它并不真正的持有数据，而是引用direct mbuf的数据，类似于对象的浅拷贝，这种mbuf称为indirect mbuf。</p>
+<p>可以通过attach操作生成一个indirect mbuf。每个mbuf都有一个引用计数，当direct mbuf被attach时，它的引用计数+1；当被deattch时，引用计数-1。当引用计数为0时，意味着direct mbuf没人使用，可以被释放了。</p>
+<p>indirect mbuf机制有一些限制条件：</p>
+<ul class="simple">
+<li>不能attach一个indirect mbuf</li>
+<li>attach之前，mbuf的引用计数必须是1，也就是说，它没有被其他mbuf引用过</li>
+<li>不能把indirect mbuf再次attach到一个direct mbuf，除非先deattch</li>
+</ul>
+<p>虽然可以直接调用attach/detach操作，但推荐使用clone操作来浅拷贝mbuf，因为clone会正确处理链式mbuf。</p>
+</div>
+<div class="section" id="id9">
+<h2>参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="dpdk-guide-mbuf" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[dpdk_guide_mbuf]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mbuf_lib.html">DPDK programmer&#8217;s guide - Mbuf </a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="工具" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mempool.html" class="btn btn-neutral" title="Mempool" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

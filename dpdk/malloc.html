@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Malloc &mdash; zzq_blog 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="zzq_blog 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="DPDK Library" href="index.html"/>
+        <link rel="next" title="Mempool" href="mempool.html"/>
+        <link rel="prev" title="Memzone" href="memzone.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> zzq_blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#malloc-heap">malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#malloc-heap-alloc">内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark二次开发</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">zzq_blog</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">DPDK Library</a> &raquo;</li>
+      
+    <li>Malloc</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="malloc">
+<h1>Malloc<a class="headerlink" href="#malloc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>DPDK EAL提供了类似malloc的内存分配API，通过它可以分配任意大小的大页内存，同时有利于程序移植 (glibc malloc-&gt;rte_malloc)。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">不要在数据平面代码中使用DPDK malloc，因为它在分配和释放时使用了锁，影响效率；应该使用mempool获取内存。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>数据结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>主要有2个数据结构：</p>
+<ul>
+<li><p class="first">struct malloc_heap - 用于在每个socket上跟踪空闲内存</p>
+<blockquote>
+<div><p>每个NUMA节点有一个malloc_heap结构，用于给NUMA节点上的线程分配内存，然而，它无法保证此内存仅被当前NUMA节点所使用。</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_heap</span> <span class="p">{</span>
+    <span class="n">rte_spinlock_t</span> <span class="n">lock</span><span class="p">;</span>
+    <span class="n">LIST_HEAD</span><span class="p">(,</span> <span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_head</span><span class="p">[</span><span class="n">RTE_HEAP_NUM_FREELISTS</span><span class="p">];</span>
+    <span class="kt">unsigned</span> <span class="n">alloc_count</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">total_size</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>malloc_heap使用链表来维护空闲内存(free-list)，当多个线程都需要访问此链表时，使用锁lock来进行同步；free_head指向free-list的首节点。</p>
+<p>另外可以看到，free-list并非只有一个，而是对RTE_HEAD_NUM_FREELISTS(13)个。DPDK根据FREE内存块大小的不同，把它们挂到对应的链表上。</p>
+</div></blockquote>
+</li>
+<li><p class="first">struct malloc_elem - 用于分配和空闲内存跟踪的基本元素</p>
+<blockquote>
+<div><p>malloc_elem是不同内存块共用的通用首部结构体，它有3种用法：</p>
+<ol class="arabic simple">
+<li>normal：做为空闲或已分配内存块的首部</li>
+<li>在内存块内部作为填充首部(padding header)</li>
+<li>做为memseg的结束标记</li>
+</ol>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">malloc_heap</span><span class="o">*</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">malloc_elem</span><span class="o">*</span> <span class="k">volatile</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// points to prev elem in memseg</span>
+    <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_list</span><span class="p">;</span> <span class="c1">// list of free elements in heap</span>
+    <span class="k">const</span> <span class="k">struct</span> <span class="n">rte_memseg</span><span class="o">*</span> <span class="n">ms</span><span class="p">;</span>
+    <span class="k">volatile</span> <span class="k">enum</span> <span class="n">elem_state</span> <span class="n">state</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">pad</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">size</span><span class="p">;</span>
+<span class="cp">#ifdef RTE_LIBRTE_MALLOC_DEBUG</span>
+    <span class="kt">uint64_t</span> <span class="n">header_cookie</span><span class="p">;</span> <span class="c1">// Cookie marking start of data</span>
+                            <span class="c1">// trailer cookie at start + size</span>
+<span class="cp">#endif</span>
+<span class="p">}</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>其中，</p>
+<ul class="simple">
+<li>heap 用来指回分配此项的malloc_heap，当normal内存块被回收时，将它挂到heap上的空闲内存链表free-list</li>
+<li>prev 指向memseg中紧挨着的前一个节点。当释放内存时，会通过它来检查前一节点是否也可以被free，如果可以，那么当前节点和前一节点会合并成一个大节点</li>
+<li>next_free free_list是一个双向链表节点，它的next指针即next_free，仅用于normal节点，用于把空闲内存块链起来形成free-list</li>
+<li>state 节点状态，共有3个值：FREE，BUSY，和PAD。前两个用于表示normal节点的内存状态，最后一个表示当前节点是pad数据的尾部结构，用于内存对齐。当用于memseg的结束标记时，state置为BUSY，确保在释放内存时不会越过memseg的边界来合并空闲节点</li>
+<li>pad 填充数据的长度。对于normal节点，首部结束地址+pad就是实际数据的起始地址。对于normal节点内部的pad节点，它的pad值与外面normal节点的pad值相同</li>
+<li>size 节点的大小，包括首部长度。对于memseg结束标记，size值为0</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Malloc相关数据结构的内部布局如下图所示:</p>
+<img alt="../_images/malloc_struct.png" src="../_images/malloc_struct.png" />
+</div>
+<div class="section" id="malloc-heap">
+<span id="malloc-init"></span><h2>malloc heap初始化<a class="headerlink" href="#malloc-heap" title="Permalink to this headline">¶</a></h2>
+<p>在EAL初始化阶段，大页内存的memseg创建好之后，会调用rte_eal_malloc_heap_init()来初始化malloc heap。主要过程有：</p>
+<ul class="simple">
+<li>在每个memseg首部添加state为FREE的节点</li>
+<li>在每个memseg尾部添加state为BUSY的节点做为结束标记</li>
+<li>将FREE节点挂到malloc heap的空闲内存链表free-list中</li>
+</ul>
+<p>以下3行代码(librte_eal/common/malloc_heap.c: malloc_heap_add_memseg)分别对应这3个过程：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">malloc_elem_init</span><span class="p">(</span><span class="n">start_elem</span><span class="p">,</span> <span class="n">heap</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">);</span>
+<span class="n">malloc_elem_mkend</span><span class="p">(</span><span class="n">end_elem</span><span class="p">,</span> <span class="n">start_elem</span><span class="p">);</span>
+<span class="n">malloc_elem_free_list_insert</span><span class="p">(</span><span class="n">start_elem</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在把FREE节点挂到free-list的时候，如前所言，会根据其大小，挂入对应的free-list。</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">malloc_elem_free_list_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">idx</span><span class="p">;</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">malloc_elem_free_list_index</span><span class="p">(</span><span class="n">elem</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="n">MALLOC_ELEM_HEADER_LEN</span><span class="p">);</span>
+    <span class="n">elem</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">ELEM_FREE</span><span class="p">;</span>
+    <span class="n">LIST_INSERT_HEAD</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="o">-&gt;</span><span class="n">heap</span><span class="o">-&gt;</span><span class="n">free_head</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">elem</span><span class="p">,</span> <span class="n">free_list</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>malloc_elem_free_list_index()用于求得链表的索引，从这个函数的代码可以看到DPDK是怎么根据内存块大小来划分13个free-list的。</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">malloc_elem_free_list_index</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cp">#define MALLOC_MINSIZE_LOG2   8</span>
+<span class="cp">#define MALLOC_LOG2_INCREMENT 2</span>
+
+    <span class="kt">size_t</span> <span class="n">log2</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">index</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">1UL</span> <span class="o">&lt;&lt;</span> <span class="n">MALLOC_MINSIZE_LOG2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">log2</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">-</span> <span class="n">__builtin_clzl</span><span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">log2</span> <span class="o">-</span> <span class="n">MALLOC_MINSIZE_LOG2</span> <span class="o">+</span> <span class="n">MALLOC_LOG2_INCREMENT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span>
+            <span class="n">MALLOC_LOG2_INCREMENT</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="n">RTE_HEAP_NUM_FREELISTS</span><span class="o">-</span><span class="mi">1</span><span class="o">?</span>
+            <span class="nl">index</span><span class="p">:</span> <span class="n">RTE_HEAP_NUM_FREELISTS</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>过程如下：</p>
+<ol class="arabic simple">
+<li>如果size &lt;= 2^8，则放入free_list[0]，否则到2</li>
+<li>计算log2(size)，取整数，比如2^7到2^8之间的数，含2^7，log2值都是7</li>
+<li>根据log2值，求对应的free_list索引。由于log2步长是2，所以对于n&gt;8，2^n和2^(n+1)会共用一个相同的下标</li>
+<li>若idx&gt;(13-1)，则idx=12。大于等于2^31的全部会放入free_list[12]</li>
+</ol>
+<p>注：__builtin_clzl()用于求unsigned long数第一个bit 1前面0的个数。</p>
+</div>
+<div class="section" id="malloc-heap-alloc">
+<span id="id3"></span><h2>内存分配<a class="headerlink" href="#malloc-heap-alloc" title="Permalink to this headline">¶</a></h2>
+<p>核心函数malloc_heap_alloc(librte_eal/common/malloc_heap.c)。</p>
+<p>首先从free_list中找到size对应的空闲节点，然后根据需要对此节点做一些处理，比如如果节点的内存大于所需内存，会分裂成两个节点。内存分配是有锁的(heap-&gt;lock)。</p>
+</div>
+<div class="section" id="id4">
+<h2>内存释放<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>核心函数rte_free(librte_eal/common/rte_malloc.c)。</p>
+<p>首先从内存地址得到malloc_elem节点首部的地址，然后检查此节点紧挨着的前后是否有FREE内存块，如果有的话则将它们合并成一个FREE内存节点，
+添加到free_list。</p>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="dpdk-guide-malloc" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[dpdk_guide_malloc]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/env_abstraction_layer.html#malloc">DPDK Malloc </a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mempool.html" class="btn btn-neutral float-right" title="Mempool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="memzone.html" class="btn btn-neutral" title="Memzone" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

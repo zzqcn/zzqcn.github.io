@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mempool &mdash; zzq_blog 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="zzq_blog 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="DPDK Library" href="index.html"/>
+        <link rel="next" title="Mbuf" href="mbuf.html"/>
+        <link rel="prev" title="Malloc" href="malloc.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> zzq_blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Mempool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">内存对齐</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache">Cache机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">创建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">取出对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">还回对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark二次开发</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">zzq_blog</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">DPDK Library</a> &raquo;</li>
+      
+    <li>Mempool</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mempool">
+<h1>Mempool<a class="headerlink" href="#mempool" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>DPDK mempool(以下简称mempool)是储存固定大小对象的内存池。每个mempool都有一个名字，它使用DPDK ring来存储对象，并为每一个lcore提供cache以提升性能。mempool还提供内存填充/对齐机制，以确保将对象公平地布置在DRAM或DDR3 channel上。</p>
+<p>在数据面需要内存时应使用mempool来分配，例如报文的存储，而不应使用malloc。</p>
+</div>
+<div class="section" id="id2">
+<h2>特性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>内存对齐<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>//TODO 此内容和内存channel和rank有关，见 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html#memory-alignment-constraints">Memory Alignment Constraints</a></p>
+</div>
+<div class="section" id="cache">
+<h3>Cache机制<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h3>
+<p>mempool的对象存放在rte_ring中，当mempool所在NUMA节点(socket)上的多个lcore都需要通过这个ring来访问内存对象时，CAS(compare-and-set)操作会影响效率。为了解决这个问题，mempool为每个lcore维护了一个本地缓存(local cache)。lcore需要取出对象时，优先在这个cache取，如果不够，再从ring上拿。</p>
+<img alt="../_images/mempool_cache.png" src="../_images/mempool_cache.png" />
+</div>
+</div>
+<div class="section" id="id4">
+<h2>数据结构<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>rte_mempool(librte_mempool/rte_mempool.h)</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_MEMPOOL_NAMESIZE</span><span class="p">];</span> <span class="cm">/**&lt; Name of mempool. */</span>
+    <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">ring</span><span class="p">;</span>           <span class="cm">/**&lt; Ring to store objects. */</span>
+    <span class="n">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Phys. addr. of mempool struct. */</span>
+    <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags of the mempool. */</span>
+    <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>                   <span class="cm">/**&lt; Size of the mempool. */</span>
+    <span class="kt">uint32_t</span> <span class="n">cache_size</span><span class="p">;</span>             <span class="cm">/**&lt; Size of per-lcore local cache. */</span>
+    <span class="kt">uint32_t</span> <span class="n">cache_flushthresh</span><span class="p">;</span>
+    <span class="cm">/**&lt; Threshold before we flush excess elements. */</span>
+
+    <span class="kt">uint32_t</span> <span class="n">elt_size</span><span class="p">;</span>               <span class="cm">/**&lt; Size of an element. */</span>
+    <span class="kt">uint32_t</span> <span class="n">header_size</span><span class="p">;</span>            <span class="cm">/**&lt; Size of header (before elt). */</span>
+    <span class="kt">uint32_t</span> <span class="n">trailer_size</span><span class="p">;</span>           <span class="cm">/**&lt; Size of trailer (after elt). */</span>
+
+    <span class="kt">unsigned</span> <span class="n">private_data_size</span><span class="p">;</span>      <span class="cm">/**&lt; Size of private data. */</span>
+
+<span class="cp">#if RTE_MEMPOOL_CACHE_MAX_SIZE &gt; 0</span>
+    <span class="c1">// Per-lcore local cache</span>
+    <span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="n">local_cache</span><span class="p">[</span><span class="n">RTE_MAX_LCORE</span><span class="p">];</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef RTE_LIBRTE_MEMPOOL_DEBUG</span>
+    <span class="c1">// Per-lcore statistics. */</span>
+    <span class="k">struct</span> <span class="n">rte_mempool_debug_stats</span> <span class="n">stats</span><span class="p">[</span><span class="n">RTE_MAX_LCORE</span><span class="p">];</span>
+<span class="cp">#endif</span>
+
+    <span class="cm">/* Address translation support, starts from next cache line. */</span>
+
+    <span class="c1">// Number of elements in the elt_pa array</span>
+    <span class="kt">uint32_t</span>    <span class="n">pg_num</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+    <span class="kt">uint32_t</span>    <span class="n">pg_shift</span><span class="p">;</span>     <span class="cm">/**&lt; LOG2 of the physical pages. */</span>
+    <span class="kt">uintptr_t</span>   <span class="n">pg_mask</span><span class="p">;</span>      <span class="cm">/**&lt; physical page mask value. */</span>
+    <span class="kt">uintptr_t</span>   <span class="n">elt_va_start</span><span class="p">;</span>
+    <span class="cm">/**&lt; Virtual address of the first mempool object. */</span>
+    <span class="kt">uintptr_t</span>   <span class="n">elt_va_end</span><span class="p">;</span>
+    <span class="cm">/**&lt; Virtual address of the &lt;size + 1&gt; mempool object. */</span>
+    <span class="n">phys_addr_t</span> <span class="n">elt_pa</span><span class="p">[</span><span class="n">MEMPOOL_PG_NUM_DEFAULT</span><span class="p">];</span>
+    <span class="cm">/**&lt; Array of physical page addresses for the mempool objects buffer. */</span>
+
+<span class="p">}</span>  <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>mempool中存储的每一个对象的结构分3部分，首部，数据和尾部。每一部分都填充以做到字节对齐，在调试模式首部和尾部还可以加上cookie。</p>
+<img alt="../_images/mempool_obj.png" src="../_images/mempool_obj.png" />
+<p>rte_mempool_cache(librte_mempool/rte_mempool.h)</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/**&lt; Cache len */</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">objs</span><span class="p">[</span><span class="n">RTE_MEMPOOL_CACHE_MAX_SIZE</span> <span class="o">*</span> <span class="mi">3</span><span class="p">];</span> <span class="cm">/**&lt; Cache objects */</span>
+<span class="p">}</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>创建<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>rte_mempool_xmem_create (librte_mempool/rte_mempool.c)</p>
+<ol class="arabic simple">
+<li>计算mempool中每一个对象的大小</li>
+<li>计算mempool总大小</li>
+<li>调用rte_memzone_reserve分配所需内存空间
+memzone相关原理见 <a class="reference internal" href="memzone.html"><em>Memzone</em></a> ，它将同时返回虚拟地址和物理地址</li>
+<li>计算对象分配的起始地址，包括虚拟地址和起始地址</li>
+<li>调用mempool初始化回调函数，并对每一个对象调用对象初始化回调函数</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2>取出对象<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>核心函数是__mempool_get_bulk(librte_mempool/rte_mempool.h)，这里令n=对象个数，cache_size为cache配置大小，cache_len为cache当前大小，
+那么步骤为</p>
+<ol class="arabic simple">
+<li>如果配置的cache_size=0、是单消费者(sc)或者n&gt;=cache_len，则跳到4</li>
+<li>如果cache_len&lt;n，则从ring申请足够对象放到cache上，否则到3</li>
+<li>从cache上取出对象，结束</li>
+<li>在ring上进行出队操作，取出对象</li>
+</ol>
+</div>
+<div class="section" id="id7">
+<h2>还回对象<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>核心函数是__mempool_put_bulk(librte_mempool/rte_mempool.h)，步骤为</p>
+<ol class="arabic simple">
+<li>如果cache_size=0、是单生产者(sp)或者n大于cache最大限制值，则跳到3</li>
+<li>将对象添加到cache，然后如果cache_len&gt;=阈值，则将(cache_len-cache_size)个对象还回ring，结束</li>
+<li>在ring上进行入队操作，还回对象</li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h2>参考<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="dpdk-guide-mpool" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[dpdk_guide_mpool]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html">DPDK programmer&#8217;s guide - Mempool </a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mbuf.html" class="btn btn-neutral float-right" title="Mbuf" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="malloc.html" class="btn btn-neutral" title="Malloc" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

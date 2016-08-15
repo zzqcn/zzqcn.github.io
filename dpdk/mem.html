@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Memory &mdash; zzq_blog 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="zzq_blog 1.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="DPDK Library" href="index.html"/>
+        <link rel="next" title="Memseg" href="memseg.html"/>
+        <link rel="prev" title="Ring" href="ring.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> zzq_blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memzone">memzone初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark二次开发</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">zzq_blog</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">DPDK Library</a> &raquo;</li>
+      
+    <li>Memory</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="memory">
+<h1>Memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h1>
+<p>DPDK使用hugetlbfs内核文件系统支持大页的分配。连续的内存段抽象为rte_memseg，如果把rte_memseg中的一部分命名并以供使用，那么称为rte_memzone。三者的关系如下图所示。</p>
+<img alt="../_images/mem_struct.png" src="../_images/mem_struct.png" />
+<p>本章只对DPDK内存机制做一个概述，并介绍EAL初始化时内存的初始化过程，各种内存机制的详细介绍见其他章节，如下表所示：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">内存机制</th>
+<th class="head">章节</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>memseg</td>
+<td><a class="reference internal" href="memseg.html"><em>Memseg</em></a></td>
+</tr>
+<tr class="row-odd"><td>memzone</td>
+<td><a class="reference internal" href="memzone.html"><em>Memzone</em></a></td>
+</tr>
+<tr class="row-even"><td>malloc</td>
+<td><a class="reference internal" href="malloc.html"><em>Malloc</em></a></td>
+</tr>
+<tr class="row-odd"><td>mempool</td>
+<td><a class="reference internal" href="mempool.html"><em>Mempool</em></a></td>
+</tr>
+<tr class="row-even"><td>mbuf</td>
+<td><a class="reference internal" href="mbuf.html"><em>Mbuf</em></a></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h2>内存的初始化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>大页信息初始化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>eal_hugepage_info_init(librte_eal/linuxapp/eal/eal_hugepage_info.c):</p>
+<p>大页信息结构为：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">hugepage_info</span> <span class="p">{</span>
+     <span class="kt">uint64_t</span> <span class="n">hugepage_sz</span><span class="p">;</span>   <span class="cm">/**&lt; size of a huge page */</span>
+     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hugedir</span><span class="p">;</span>    <span class="cm">/**&lt; dir where hugetlbfs is mounted */</span>
+     <span class="kt">uint32_t</span> <span class="n">num_pages</span><span class="p">[</span><span class="n">RTE_MAX_NUMA_NODES</span><span class="p">];</span>
+     <span class="cm">/**&lt; number of hugepages of that size on each socket */</span>
+     <span class="kt">int</span> <span class="n">lock_descriptor</span><span class="p">;</span>    <span class="cm">/**&lt; file descriptor for hugepage dir */</span>
+ <span class="p">};</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>读取 <code class="docutils literal"><span class="pre">/sys/kernel/mm/hugepages</span></code> 中的“hugepages-XXX”目录，最多读取
+3个。比如读取到 <code class="docutils literal"><span class="pre">hugepages-2048kB</span></code> ，将其中的 <code class="docutils literal"><span class="pre">2048kB</span></code> 转换为2048*1024，存入internal_config.hugepage_info[num_sizes].hugepage_sz，
+num_sizes&lt;3</li>
+<li>打开 <code class="docutils literal"><span class="pre">/proc/meminfo</span></code> 文件，读取 <code class="docutils literal"><span class="pre">Hugepagesize</span></code> 项的值，做为大页默认大小。打开 <code class="docutils literal"><span class="pre">/proc/mounts</span></code> 文件，找到类似
+<code class="docutils literal"><span class="pre">hugetlbfs</span> <span class="pre">/dev/hugepages</span> <span class="pre">hugetlbfs</span> <span class="pre">rw,seclabel,relatime</span> <span class="pre">0</span> <span class="pre">0</span></code> 或
+<code class="docutils literal"><span class="pre">nodev</span> <span class="pre">/mnt/huge</span> <span class="pre">hugetlbfs</span> <span class="pre">rw,relatime</span> <span class="pre">0</span> <span class="pre">0</span></code> 的行，根据选项(rw,relatime)中出现的 <code class="docutils literal"><span class="pre">pagesize=</span></code> 项的值(如果有的话)，来返回对应的大页文件系统挂载路径，如 <code class="docutils literal"><span class="pre">/dev/hugepages</span></code> 或 <code class="docutils literal"><span class="pre">/mnt/huge</span></code> ，将其存入internal_config.hugepage_info[num_sizes].hugedir</li>
+<li>锁定hugedir(flock)</li>
+<li>打开 <code class="docutils literal"><span class="pre">sys/kernel/mm/hugepages/hugepages-XXX</span></code> 目录下面的
+<code class="docutils literal"><span class="pre">resv_hugepages</span></code> 和 <code class="docutils literal"><span class="pre">free_hugepages</span></code> 文件，计算可用大页数量，
+存入internal_config.hugepange_info-&gt;num_pages[0]，这个0是socket
+id，在支持NUMA的系统中先在socket 0上进行操作</li>
+<li>internal_config.num_hugepage_sizes数设置为num_sizes数，不大于3</li>
+<li>将上述过程发现的所有num_sizes个大页信息按从大到小排序，并检查至少有一个可用大页尺寸</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h3>大页内存初始化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>rte_eal_memory_init (librte_eal/common/eal_common_memory.c)</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">rte_eal_process_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">RTE_PROC_PRIMARY</span> <span class="o">?</span>
+            <span class="n">rte_eal_hugepage_init</span><span class="p">()</span> <span class="o">:</span>
+            <span class="n">rte_eal_hugepage_attach</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>这里对根据是主进程还是子进程，分别进行了处理。后续讲到多进程模式时还要说到这个问题。</p>
+<p>rte_eal_hugepage_init(librte_eal/linuxapp/eal/eal_memory.c)</p>
+<ol class="arabic">
+<li><p class="first">检查 <code class="docutils literal"><span class="pre">/proc/self/pagemap</span></code> 是否可读</p>
+</li>
+<li><p class="first">计算各种页尺寸总共需要的页总数，并分配一个页表，每一页占一项</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">num_hugepage_sizes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">used_hp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">hugepage_sz</span> <span class="o">=</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">hugepage_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">hugepage_sz</span><span class="p">;</span>
+    <span class="n">nr_hugepages</span> <span class="o">+=</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">hugepage_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="n">tmp_hp</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">nr_hugepages</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">hugepage_file</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">映射所有大页</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">map_all_hugepages</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在hugetlbfs挂载的路径，如 <code class="docutils literal"><span class="pre">/mnt/huge</span></code> 下面创建num_pages个文件，文件名默认为 <code class="docutils literal"><span class="pre">rtemap_XXX</span></code> ，XXX是数字。之后以页大小将这些文件映射：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
+<span class="n">virtaddr</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="n">vma_addr</span><span class="p">,</span> <span class="n">hugepage_sz</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span>
+                     <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>如果orig为真，则将映射后的虚拟地址virtaddr赋给页表项结构的orig_va。之后给文件加一把共享锁(LOCK_SH)。</p>
+</li>
+<li><p class="first">对所有页尺寸，取得上一步映射得到的虚拟地址的物理地址</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">find_physaddrs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在此函数中，调用rte_mem_virt2phy(librte_eal/linuxapp/eal/eal_memory.c)将虚拟地址转为物理地址:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">rte_mem_virt2phy</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">orig_va</span><span class="p">);</span>
+    <span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">=</span> <span class="n">addr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>rte_mem_virt2phy：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Cannot parse /proc/self/pagemap, no need to log errors everywhere</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">proc_pagemap_readable</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">RTE_BAD_PHYS_ADDR</span><span class="p">;</span>
+
+<span class="c1">// standard page size</span>
+<span class="n">page_size</span> <span class="o">=</span> <span class="n">getpagesize</span><span class="p">();</span>
+
+<span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/proc/self/pagemap&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>
+<span class="n">virt_pfn</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">virtaddr</span> <span class="o">/</span> <span class="n">page_size</span><span class="p">;</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">virt_pfn</span><span class="p">;</span>
+<span class="n">lseek</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+<span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">page</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">));</span>
+
+<span class="c1">// the pfn (page frame number) are bits 0-54 (see</span>
+<span class="c1">// pagemap.txt in linux Documentation)</span>
+<span class="n">physaddr</span> <span class="o">=</span> <span class="p">((</span><span class="n">page</span> <span class="o">&amp;</span> <span class="mh">0x7fffffffffffffULL</span><span class="p">)</span> <span class="o">*</span> <span class="n">page_size</span><span class="p">)</span>
+        <span class="o">+</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">virtaddr</span> <span class="o">%</span> <span class="n">page_size</span><span class="p">);</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">physaddr</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>其中，通过 <code class="docutils literal"><span class="pre">/proc/self/pagemap</span></code> 来从虚拟地址得到物理地址的可以参考 <a class="reference internal" href="#linux-pagemap" id="id4">[linux_pagemap]</a> 和 <a class="reference internal" href="#virt2phy" id="id5">[virt2phy]</a> 。</p>
+</li>
+<li><p class="first">获取每一个大页对应的NUMA socket Id</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">find_numasocket</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>打开 <code class="docutils literal"><span class="pre">/proc/self/numa_maps</span></code> 文件，解析其中的文本行，遇到类似 <code class="docutils literal"><span class="pre">7fd94fc00000</span> <span class="pre">prefer:0</span> <span class="pre">file=/dev/hugepages/rtemap_119</span> <span class="pre">huge</span> <span class="pre">dirty=1</span> <span class="pre">N0=1</span></code>
+的行，其中的7fd94fc00000是页的虚拟地址，N0=后面的数字0是该页对应的socket Id。</p>
+</li>
+<li><p class="first">根据物理地址排序页表项</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">sort_by_physaddr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在x86上，低地址在前，高地址在后。</p>
+</li>
+<li><p class="first">把排序后的页重新map一次 (此时orig参数为0)</p>
+<p>试图把连续的物理地址块映射到连续的虚拟地址块上。首先求物理地址连续的页的个数，算出需要的虚拟地址区域长度，然后再试图取得相应大小的虚拟地址，如果无法获取，则在mmap时让系统去决定虚拟地址：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">vma_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="n">j</span><span class="p">,</span> <span class="n">num_pages</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">!=</span> <span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">+</span> <span class="n">hugepage_sz</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">num_pages</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span>
+    <span class="n">vma_len</span> <span class="o">=</span> <span class="n">num_pages</span> <span class="o">*</span> <span class="n">hugepage_sz</span><span class="p">;</span>
+
+    <span class="n">vma_addr</span> <span class="o">=</span> <span class="n">get_virtual_area</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vma_len</span><span class="p">,</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">hugepage_sz</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">vma_addr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">vma_len</span> <span class="o">=</span> <span class="n">hugepage_sz</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">重新创建/打开大页文件并映射，把最终的虚拟地址存入final_va成员：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
+<span class="n">virtaddr</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="n">vma_addr</span><span class="p">,</span> <span class="n">hugepage_sz</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span>
+         <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">=</span> <span class="n">virtaddr</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">unmap第一次内存映射</p>
+</li>
+<li><p class="first">将页表项保存到共享内存</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">hugepage</span> <span class="o">=</span> <span class="n">create_shared_memory</span><span class="p">(</span><span class="n">eal_hugepage_info_path</span><span class="p">(),</span>
+         <span class="n">nr_hugefiles</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">hugepage_file</span><span class="p">));</span>
+<span class="n">copy_hugepages_to_shared_mem</span><span class="p">(</span><span class="n">hugepage</span><span class="p">,</span> <span class="n">nr_hugefiles</span><span class="p">,</span>
+            <span class="n">tmp_hp</span><span class="p">,</span> <span class="n">nr_hugefiles</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">将大页信息存入memory config结构rte_mem_config</p>
+<p>若干个页根据是否连续，是否同一个socket，是否相同页尺寸等，分成最多RTE_MAX_MEMSEG(默认256)个内存段(memory segment)：</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">new_memseg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">RTE_MAX_MEMSEG</span><span class="p">)</span>
+        <span class="k">break</span><span class="p">;</span>
+
+         <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">phys_addr</span> <span class="o">=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span><span class="p">;</span>
+         <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">addr</span> <span class="o">=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span><span class="p">;</span>
+         <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+         <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">socket_id</span> <span class="o">=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">socket_id</span><span class="p">;</span>
+         <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">hugepage_sz</span> <span class="o">=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// continuation of previous memseg</span>
+<span class="k">else</span>
+    <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span> <span class="o">+=</span> <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memseg</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">hugepage_sz</span><span class="p">;</span>
+
+<span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">memseg_id</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="memzone">
+<h3>memzone初始化<a class="headerlink" href="#memzone" title="Permalink to this headline">¶</a></h3>
+<p>在EAL初始化过程中，先调用rte_eal_memory_init()进行了大页内存初始化，紧接着调用rte_eal_memzone_init()进行了memzone的初始化。</p>
+<p>见 <a class="reference internal" href="memzone.html#memzone-init"><span>初始化</span></a></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="linux-hugetlb" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[linux_hugetlb]</td><td><a class="reference external" href="http://www.ibm.com/developerworks/cn/linux/l-cn-hugetlb/">Linux大页使用与实现简介 </a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="linux-pagemap" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[linux_pagemap]</a></td><td><a class="reference external" href="https://www.kernel.org/doc/Documentation/vm/pagemap.txt">Kernel pagemap </a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="virt2phy" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[virt2phy]</a></td><td><a class="reference external" href="https://shanetully.com/2014/12/translating-virtual-addresses-to-physcial-addresses-in-user-space/">Translating Virtual Addresses to Physical Addresses in User Space </a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="memseg.html" class="btn btn-neutral float-right" title="Memseg" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ring.html" class="btn btn-neutral" title="Ring" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
