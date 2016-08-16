@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Memzone &mdash; zzqblog 1.0.0 documentation</title>
+  <title>Memzone &mdash; zzq&#39;s blog</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="zzqblog 1.0.0 documentation" href="../index.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK Library" href="index.html"/>
         <link rel="next" title="Malloc" href="malloc.html"/>
         <link rel="prev" title="Memseg" href="memseg.html"/> 
@@ -88,7 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Memzone</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Memzone</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#memzone-init">初始化</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">内存分配</a></li>
@@ -126,7 +126,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -170,12 +170,12 @@
 </pre></div>
 </div>
 <p>在rte_eal_malloc_heap_init中，把各个memory segment挂到malloc
-heap链表中，以供之后使用。详见 <a class="reference internal" href="malloc.html#malloc-init"><span>malloc heap初始化</span></a></p>
+heap链表中，以供之后使用。详见 <a class="reference internal" href="malloc.html#malloc-init"><span class="std std-ref">malloc heap初始化</span></a></p>
 </div>
 <div class="section" id="id3">
 <h2>内存分配<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>核心函数是memzone_reserve_aligned_thread_unsafe(librte_eal/common/eal_common_memzone.c)。</p>
-<p>内存分配通过malloc_heap_alloc完成，见 <a class="reference internal" href="malloc.html#malloc-heap-alloc"><span>内存分配</span></a> 。之后构造memzone结构体并返回。</p>
+<p>内存分配通过malloc_heap_alloc完成，见 <a class="reference internal" href="malloc.html#malloc-heap-alloc"><span class="std std-ref">内存分配</span></a> 。之后构造memzone结构体并返回。</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="n">mz_addr</span> <span class="o">=</span> <span class="n">malloc_heap_alloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">malloc_heaps</span><span class="p">[</span><span class="n">socket</span><span class="p">],</span> <span class="nb">NULL</span><span class="p">,</span>
             <span class="n">requested_len</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">bound</span><span class="p">);</span>
 <span class="k">const</span> <span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span> <span class="o">=</span> <span class="n">malloc_elem_from_data</span><span class="p">(</span><span class="n">mz_addr</span><span class="p">);</span>

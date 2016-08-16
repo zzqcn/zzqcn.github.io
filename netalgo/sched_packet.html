@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>14 Scheduling Packets &mdash; zzqblog 1.0.0 documentation</title>
+  <title>14 Scheduling Packets &mdash; zzq&#39;s blog</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="zzqblog 1.0.0 documentation" href="../index.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="网络算法学" href="index.html"/>
         <link rel="next" title="wireshark二次开发" href="../wireshark/index.html"/>
         <link rel="prev" title="9 Protocol Processing" href="proto_process.html"/> 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">网络算法学</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="proto_process.html">9 Protocol Processing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">14 Scheduling Packets</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">14 Scheduling Packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">14.1 概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">14.2 拥塞控制</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id4">14.2.1 设计目标</a></li>
@@ -153,7 +153,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -255,7 +255,7 @@ bandwidth at the gateway</li>
 会导致瞬时拥塞无法通过滤波器；w<sub>q</sub>设置过小时，会使avg对实际队列长度的变化响应过慢，从而无法探测到拥塞的初始阶段。</p>
 <p>两个门限的设置取决于想要的平均队列长度。min<sub>th</sub>与典型流量的突发性有关；max<sub>th</sub>与时延有关。当(max<sub>th</sub> -
 min<sub>th</sub>)大于一次RTT内avg的增加值时RED算法最为有效。一个经验法则是把max<sub>th</sub>至少设为min<sub>th</sub>的两倍。</p>
-<p>EWMA见 <a class="reference internal" href="#id39" id="id7">[ewma]</a> , 附录 <a class="reference internal" href="#ewma-algo"><span>EWMA</span></a> 中也有介绍。</p>
+<p>EWMA见 <a class="reference internal" href="#id39" id="id7">[ewma]</a> , 附录 <a class="reference internal" href="#ewma-algo"><span class="std std-ref">EWMA</span></a> 中也有介绍。</p>
 </div>
 <div class="section" id="id8">
 <h4>参数选取原则<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
@@ -495,35 +495,35 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 <p>Meter的行为由模式和2个令牌桶C(CBS)、E(EBS)决定。C桶和E桶的速度相同，都是CIR。C的大小为CBS，E的大小是EBS。</p>
 <p>设Tc、Te分别为C桶和E桶的令牌计数器，在0时刻，Tc(0)=CBS，Te(0)=EBS，
 之后每秒钟按以下规则更新Tc和Te</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>if(Tc &lt; CBS)
-    Tc ++;
-else if(Te &lt; EBS)
-    Te ++;
-else
-    continue;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tc</span> <span class="o">&lt;</span> <span class="n">CBS</span><span class="p">)</span>
+    <span class="n">Tc</span> <span class="o">++</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Te</span> <span class="o">&lt;</span> <span class="n">EBS</span><span class="p">)</span>
+    <span class="n">Te</span> <span class="o">++</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="k">continue</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>当在时刻t有一个长度为B的报文到来时，在Color-Blind模式时</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>if(Tc(t) - B &gt;= 0)
-   Tc -= B;
-   color = GREEN;
-else if(Te(t) - B &gt;= 0)
-   Te -= B;
-   color = YELLOW;
-else
-   color = RED;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+   <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Te</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+   <span class="n">Te</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
+<span class="k">else</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>在Color-Aware模式时</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>if(color == GREEN &amp;&amp; Tc(t)-B &gt;= 0)
-    color = GREEN;
-    Tc -= B;
-else if((color == GREEN || color == YELLOW) &amp;&amp;
-        Te(t)-B &gt;= 0)
-    color = YELLOW;
-    Te -= B;
-else
-    color = RED;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">GREEN</span> <span class="o">&amp;&amp;</span> <span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
+    <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">color</span> <span class="o">==</span> <span class="n">GREEN</span> <span class="o">||</span> <span class="n">color</span> <span class="o">==</span> <span class="n">YELLOW</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="n">Te</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
+    <span class="n">Te</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -567,27 +567,27 @@ else
 <p>设Tp、Tc分别为P桶和C桶的令牌计数器，在0时刻，Tp(0)=PBS，Tc(0)=CBS，
 之后每一秒钟，Tp += PIR, Tc += CIR。</p>
 <p>当在时刻t有一个长度为B的报文到来时，在Color-Blind模式</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>if(Tp(t) - B &lt; 0)
-    color = RED;
-else if(Tc(t) - B &lt; 0)
-    color = YELLOW;
-    Tp -= B;
-else
-    color = GREEN;
-    Tp -= B;
-    Tc -= B;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
+    <span class="n">Tp</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
+    <span class="n">Tp</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+    <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>在Color-Aware模式时</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>if(color == RED || Tp(t)-B &lt; 0)
-    color = RED;
-else if(color == YELLOW || Tc(t)-B &lt; 0)
-    color = YELLOW;
-    Tp -= B;
-else
-    color = GREEN;
-    Tp -= B;
-    Tc -= B;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span> <span class="o">||</span> <span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">YELLOW</span> <span class="o">||</span> <span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
+    <span class="n">Tp</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
+    <span class="n">Tp</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
+    <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -878,7 +878,7 @@ traffic class TC, queue Q)的报文：</p>
 </tr>
 </tbody>
 </table>
-<p>以上所有参数的单位均是字节，时间与字节数之间的换算见 <a class="reference internal" href="#dpdk-time"><span>14.2.4.4 时间值的使用</span></a> 。</p>
+<p>以上所有参数的单位均是字节，时间与字节数之间的换算见 <a class="reference internal" href="#dpdk-time"><span class="std std-ref">14.2.4.4 时间值的使用</span></a> 。</p>
 <p>桶速度(bytes/sec)可以由以下公式算出：</p>
 <blockquote>
 <div>bucket_rate = (tb_credits_per_period / tb_period) * r</div></blockquote>

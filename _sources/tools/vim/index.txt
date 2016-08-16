@@ -5,11 +5,11 @@
    @date 2016.08.15
 
 
-工具
+Vim
 ====
 
 .. toctree::
    :maxdepth: 2
 
-   vim/index
+   intro
 

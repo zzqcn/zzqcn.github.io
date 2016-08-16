@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mbuf &mdash; zzqblog 1.0.0 documentation</title>
+  <title>Mbuf &mdash; zzq&#39;s blog</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="zzqblog 1.0.0 documentation" href="../index.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK Library" href="index.html"/>
         <link rel="next" title="工具" href="../tools/index.html"/>
         <link rel="prev" title="Mempool" href="mempool.html"/> 
@@ -91,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
 <li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Mbuf</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mbuf</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">原理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">数据结构</a></li>
@@ -133,7 +133,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -297,67 +297,67 @@
 </pre></div>
 </td></tr></table></div>
 <p>首先注意第8，9，16行，为了演示用户私有数据，在创建mempool时传入了priv，这将在每个mbuf的首部后面添加16字节的私有数据，然后才是head room。内存池对象数目、第个对象的大小和cache大小分别是:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#define ITEM_COUNT 1024</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#define ITEM_COUNT 1024</span>
 <span class="c1">#define ITEM_SIZE  (1600 + sizeof(struct rte_mbuf) + RTE_PKTMBUF_HEADROOM)</span>
 <span class="c1">#define CACHE_SIZE 32</span>
 </pre></div>
 </div>
 <p>1600是预估的一个packet的最大长度。</p>
 <p>在(1)处，新分配了一个mbuf m，此时m的data长度为0，打印结果如下:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>RTE_PKTMBUF_HEADROOM: 128
-sizeof(mbuf): 128
-m: 0x7fbf1a810000
-m-&gt;buf_addr: 0x7fbf1a810090
-m-&gt;data_off: 128
-m-&gt;buf_len: 1712
-m-&gt;pkt_len: 0
-m-&gt;data_len: 0
-m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
-rte_pktmbuf_mtod(m): 0x7fbf1a810110
-rte_pktmbuf_data_len(m): 0
-rte_pktmbuf_pkt_len(m): 0
-rte_pktmbuf_headroom(m): 128
-rte_pktmbuf_tailroom(m): 1584
-rte_pktmbuf_data_room_size(mpool): 1712
-rte_pktmbuf_priv_size(mpool): 16
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RTE_PKTMBUF_HEADROOM</span><span class="p">:</span> <span class="mi">128</span>
+<span class="n">sizeof</span><span class="p">(</span><span class="n">mbuf</span><span class="p">):</span> <span class="mi">128</span>
+<span class="n">m</span><span class="p">:</span> <span class="mh">0x7fbf1a810000</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="p">:</span> <span class="mh">0x7fbf1a810090</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mi">128</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_len</span><span class="p">:</span> <span class="mi">1712</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">pkt_len</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_len</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="o">+</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_mtod</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_data_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">0</span>
+<span class="n">rte_pktmbuf_pkt_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">0</span>
+<span class="n">rte_pktmbuf_headroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">128</span>
+<span class="n">rte_pktmbuf_tailroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">1584</span>
+<span class="n">rte_pktmbuf_data_room_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">1712</span>
+<span class="n">rte_pktmbuf_priv_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">16</span>
 </pre></div>
 </div>
 <p>用图表示如下：</p>
 <img alt="../_images/mbuf_layout1.png" src="../_images/mbuf_layout1.png" />
 <p>在(2)，用rte_pktmbuf_append模拟给m填充了1400字节的data，此时打印结果如下:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>m: 0x7fbf1a810000
-m-&gt;buf_addr: 0x7fbf1a810090
-m-&gt;data_off: 128
-m-&gt;buf_len: 1712
-m-&gt;pkt_len: 1400
-m-&gt;data_len: 1400
-m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
-rte_pktmbuf_mtod(m): 0x7fbf1a810110
-rte_pktmbuf_data_len(m): 1400
-rte_pktmbuf_pkt_len(m): 1400
-rte_pktmbuf_headroom(m): 128
-rte_pktmbuf_tailroom(m): 184
-rte_pktmbuf_data_room_size(mpool): 1712
-rte_pktmbuf_priv_size(mpool): 16
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="p">:</span> <span class="mh">0x7fbf1a810000</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="p">:</span> <span class="mh">0x7fbf1a810090</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mi">128</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_len</span><span class="p">:</span> <span class="mi">1712</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">pkt_len</span><span class="p">:</span> <span class="mi">1400</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_len</span><span class="p">:</span> <span class="mi">1400</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="o">+</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_mtod</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_data_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">1400</span>
+<span class="n">rte_pktmbuf_pkt_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">1400</span>
+<span class="n">rte_pktmbuf_headroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">128</span>
+<span class="n">rte_pktmbuf_tailroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">184</span>
+<span class="n">rte_pktmbuf_data_room_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">1712</span>
+<span class="n">rte_pktmbuf_priv_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">16</span>
 </pre></div>
 </div>
 <p>用图表示如下：</p>
 <img alt="../_images/mbuf_layout2.png" src="../_images/mbuf_layout2.png" />
 <p>之后创建m2并给它添加data，在(3)处将m与m2连接，m做为链的首节点，此时m的打印结果如下:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>m: 0x7fbf1a810000
-m-&gt;buf_addr: 0x7fbf1a810090
-m-&gt;data_off: 128
-m-&gt;buf_len: 1712
-m-&gt;pkt_len: 1900
-m-&gt;data_len: 1400
-m-&gt;buf_addr+m-&gt;data_off: 0x7fbf1a810110
-rte_pktmbuf_mtod(m): 0x7fbf1a810110
-rte_pktmbuf_data_len(m): 1400
-rte_pktmbuf_pkt_len(m): 1900
-rte_pktmbuf_headroom(m): 128
-rte_pktmbuf_tailroom(m): 184
-rte_pktmbuf_data_room_size(mpool): 1712
-rte_pktmbuf_priv_size(mpool): 16
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span><span class="p">:</span> <span class="mh">0x7fbf1a810000</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="p">:</span> <span class="mh">0x7fbf1a810090</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mi">128</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_len</span><span class="p">:</span> <span class="mi">1712</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">pkt_len</span><span class="p">:</span> <span class="mi">1900</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">data_len</span><span class="p">:</span> <span class="mi">1400</span>
+<span class="n">m</span><span class="o">-&gt;</span><span class="n">buf_addr</span><span class="o">+</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">data_off</span><span class="p">:</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_mtod</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mh">0x7fbf1a810110</span>
+<span class="n">rte_pktmbuf_data_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">1400</span>
+<span class="n">rte_pktmbuf_pkt_len</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">1900</span>
+<span class="n">rte_pktmbuf_headroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">128</span>
+<span class="n">rte_pktmbuf_tailroom</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="mi">184</span>
+<span class="n">rte_pktmbuf_data_room_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">1712</span>
+<span class="n">rte_pktmbuf_priv_size</span><span class="p">(</span><span class="n">mpool</span><span class="p">):</span> <span class="mi">16</span>
 </pre></div>
 </div>
 <p>注意pkt_len的变化，它已经加上了m2的500字节。如果此时打印m—&gt;next，

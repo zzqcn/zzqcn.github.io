@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Ring &mdash; zzqblog 1.0.0 documentation</title>
+  <title>Ring &mdash; zzq&#39;s blog</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="zzqblog 1.0.0 documentation" href="../index.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK Library" href="index.html"/>
         <link rel="next" title="Memory" href="mem.html"/>
         <link rel="prev" title="EAL" href="eal.html"/> 
@@ -85,7 +85,7 @@
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK Library</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Ring</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ring</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">应用场景</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">无锁队列操作图解</a><ul>
@@ -136,7 +136,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -610,7 +610,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <p>ring中的生产者和消费者指针(prod.head, prod.tail, cons.head, cons.tail)是用32位无符号整数来表示的，而ring存放对象指针的数组的大小是远小于UINT32_MAX的，计算存取对象的数组索引需要有一定技巧；另外，由于ring是一个环形buffer，这些指针值溢出后会发生回绕，计算ring中已用和空闲对象的数目也需要注意方法。</p>
 <ul>
 <li><p class="first"><strong>求索引</strong> ENQUEUE_PTRS和DEQUEUE_PTRS中:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>uint32_t idx = prod_head &amp; mask;
+<div class="highlight-default"><div class="highlight"><pre><span></span>uint32_t idx = prod_head &amp; mask;
 其中，mask = size-1
 </pre></div>
 </div>
@@ -656,7 +656,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <li><p class="first">初始化时，这4个指针值都为0</p>
 </li>
 <li><p class="first">p=14, c=3时:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
@@ -664,7 +664,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </div>
 </li>
 <li><p class="first">p=20, c=9时:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
