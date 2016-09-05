@@ -326,7 +326,7 @@ Scheduler维护一个内部NIC时间戳Ts，每当调度一个报文时，Ts加�
         {
             count += grinder_handle(port, i & (RTE_SCHED_PORT_N_GRINDERS - 1));
             if ((count == n_pkts) ||
-            rte_sched_port_exceptions(port, i >= RTE_SCHED_PORT_N_GRINDERS))
+                rte_sched_port_exceptions(port, i >= RTE_SCHED_PORT_N_GRINDERS))
             { break; }
         }
 
@@ -344,8 +344,7 @@ Scheduler维护一个内部NIC时间戳Ts，每当调度一个报文时，Ts加�
         port->time_cpu_cycles = cycles;
         port->time_cpu_bytes += (uint64_t) bytes_diff;
         if (port->time < port->time_cpu_bytes) {
-
-        port->time = port->time_cpu_bytes;
+            port->time = port->time_cpu_bytes;
         }
 
         /* Reset pipe loop detection */
@@ -415,10 +414,10 @@ srTCM的配置项包括模式和3个流量参数。
 
 srTCM有两种模式：
 
-* Color-Blind mode
-* Color-Aware mode 
+* Color-Blind mode, 之前没有其他实体对报文进行染色
+* Color-Aware mode, 之前已经有其他实体对报文染过色了
 
-CBS应配置为每秒IP报文的大小，它包含IP首部，但不包括链路层首部；
+CIR应配置为每秒IP报文的大小，它包含IP首部，但不包括链路层首部；
 CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大于等于\
 流内最大IP报文的大小。
 
@@ -539,7 +538,145 @@ PBS，速率为PIR；C桶的大小为CBS，速度为CIR。
 14.3.4 dpdk_meter的相关实现
 ...........................
 
-// TODO
+dpdk实现了srTCM和trTCM, 代码在<dpdk>/lib/librte_meter. 文档见
+http://dpdk.org/doc/guides/prog_guide/qos_framework.html#traffic-metering.
+
+这里只分析其中的srTCM的Color-Blind模式实现部分.
+
+dpdk meter库为每条流(flow)配置一个meter运行时上下文, 配置结构为::
+
+    struct rte_meter_srtcm_params {                                 
+        uint64_t cir; /**< Committed Information Rate (CIR). Measured in bytes per second. */
+        uint64_t cbs; /**< Committed Burst Size (CBS).  Measured in bytes. */
+        uint64_t ebs; /**< Excess Burst Size (EBS).  Measured in bytes. */
+    }; 
+
+meter运行时上下文::
+
+    struct rte_meter_srtcm {
+        uint64_t time; /* Time of latest update of C and E token buckets */
+        uint64_t tc;   /* Number of bytes currently available in the committed (C) token bucket */
+        uint64_t te;   /* Number of bytes currently available in the excess (E) token bucket */
+        uint64_t cbs;  /* Upper limit for C token bucket */
+        uint64_t ebs;  /* Upper limit for E token bucket */
+        uint64_t cir_period; /* Number of CPU cycles for one update of C and E token buckets */
+        uint64_t cir_bytes_per_period; /* Number of bytes to add to C and E token buckets on each update */
+    };
+
+这里值得注意的是time, cir_period和cir_bytes_per_period这3个成员. \
+其中, time是上一次桶更新的时间, cir_period是在指定限速速率下两次\
+桶更新之间的CPU cycle数, cir_bytes_per_period是每个cir_peroid桶\
+应添加的令牌数(单位是字节).
+
+
+根据meter参数配置运行时上下文:
+
+.. code-block:: c
+    :linenos:
+    :emphasize-lines: 8,10-16
+
+    #ifndef RTE_METER_TB_PERIOD_MIN
+    #define RTE_METER_TB_PERIOD_MIN      100
+    #endif
+
+    static void
+    rte_meter_get_tb_params(uint64_t hz, uint64_t rate, uint64_t *tb_period, uint64_t *tb_bytes_per_period)
+    {
+        double period = ((double) hz) / ((double) rate);
+
+        if (period >= RTE_METER_TB_PERIOD_MIN) {
+            *tb_bytes_per_period = 1;
+            *tb_period = (uint64_t) period;
+        } else {
+            *tb_bytes_per_period = (uint64_t) ceil(RTE_METER_TB_PERIOD_MIN / period);
+            *tb_period = (hz * (*tb_bytes_per_period)) / rate;
+        }
+    }
+
+    int
+    rte_meter_srtcm_config(struct rte_meter_srtcm *m, struct rte_meter_srtcm_params *params)
+    {
+        uint64_t hz;
+
+        /* Check input parameters */
+        if ((m == NULL) || (params == NULL)) {
+            return -1;
+        }
+
+        if ((params->cir == 0) || ((params->cbs == 0) && (params->ebs == 0))) {
+            return -2;
+        }
+
+        /* Initialize srTCM run-time structure */
+        hz = rte_get_tsc_hz();
+        m->time = rte_get_tsc_cycles();
+        m->tc = m->cbs = params->cbs;
+        m->te = m->ebs = params->ebs;
+        rte_meter_get_tb_params(hz, params->cir, &m->cir_period, &m->cir_bytes_per_period);
+
+        RTE_LOG(INFO, METER, "Low level srTCM config: \n"
+            "\tCIR period = %" PRIu64 ", CIR bytes per period = %" PRIu64 "\n",
+            m->cir_period, m->cir_bytes_per_period);
+
+        return 0;
+    }
+
+注意cir_peroid和cir_bytes_per_period的初始化. 首先计算period=\
+CPU频率数/限速速率, 如果这个值够大(dpdk中判断依据为是否大于等于\
+100个时钟周期), 则令牌桶更新单位周期就是period个cycles, 每个周期\
+添加1个字节(令牌); 否则, 每个桶更新周期应更新的令牌数(字节)大于\
+1, 需要特殊处理. 
+
+
+运行时的检测:
+
+.. code-block:: c
+    :linenos:
+    :emphasize-lines: 8-11
+
+    static inline enum rte_meter_color
+    rte_meter_srtcm_color_blind_check(struct rte_meter_srtcm *m,
+        uint64_t time,
+        uint32_t pkt_len)
+    {
+        uint64_t time_diff, n_periods, tc, te;
+
+        /* Bucket update */
+        time_diff = time - m->time;
+        n_periods = time_diff / m->cir_period;
+        m->time += n_periods * m->cir_period;
+
+        tc = m->tc + n_periods * m->cir_bytes_per_period;
+        if (tc > m->cbs)
+            tc = m->cbs;
+
+        te = m->te + n_periods * m->cir_bytes_per_period;
+        if (te > m->ebs)
+            te = m->ebs;
+
+        /* Color logic */
+        if (tc >= pkt_len) {
+            m->tc = tc - pkt_len;
+            m->te = te;
+            return e_RTE_METER_GREEN;
+        }
+
+        if (te >= pkt_len) {
+            m->tc = tc;
+            m->te = te - pkt_len;
+            return e_RTE_METER_YELLOW;
+        }
+
+        m->tc = tc;
+        m->te = te;
+        return e_RTE_METER_RED;
+    }
+
+第9到第11行, 由于dpdk没有定时器触发机制, 所以更新桶并不是每隔一个\
+固定的时间完成的, 而是在每次报文到来时, 用当时的时间减去上一次更新\
+时间, 再除以初始化时设置的周期peroid, 得到间隔周期数, 再乘以每周\
+期应增加的令牌数, 就是当前桶需要增加的令牌数. 注意这里所有的时间值\
+都以CPU cycle数表示.
 
 
 14.4 多队列与优先级 

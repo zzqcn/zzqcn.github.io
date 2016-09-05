@@ -11,8 +11,9 @@ zzq's blog
    :maxdepth: 1
 
    dpdk/index 
-   tools/index
    netalgo/index
    wireshark/index
+   perf/index
+   tools/index
    
 

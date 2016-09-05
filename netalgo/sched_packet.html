@@ -84,7 +84,6 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">网络算法学</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="proto_process.html">9 Protocol Processing</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">14 Scheduling Packets</a><ul>
@@ -131,6 +130,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark二次开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能评估与调优</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具</a></li>
 </ul>
 
             
@@ -419,7 +420,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
     <span class="p">{</span>
         <span class="n">count</span> <span class="o">+=</span> <span class="n">grinder_handle</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">i</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">RTE_SCHED_PORT_N_GRINDERS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
         <span class="k">if</span> <span class="p">((</span><span class="n">count</span> <span class="o">==</span> <span class="n">n_pkts</span><span class="p">)</span> <span class="o">||</span>
-        <span class="n">rte_sched_port_exceptions</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">RTE_SCHED_PORT_N_GRINDERS</span><span class="p">))</span>
+            <span class="n">rte_sched_port_exceptions</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">RTE_SCHED_PORT_N_GRINDERS</span><span class="p">))</span>
         <span class="p">{</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span>
     <span class="p">}</span>
 
@@ -437,8 +438,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
     <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_cycles</span> <span class="o">=</span> <span class="n">cycles</span><span class="p">;</span>
     <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_bytes</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">bytes_diff</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">port</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_bytes</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="n">port</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">=</span> <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_bytes</span><span class="p">;</span>
+        <span class="n">port</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">=</span> <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_bytes</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="cm">/* Reset pipe loop detection */</span>
@@ -484,10 +484,10 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
 <p>srTCM的配置项包括模式和3个流量参数。</p>
 <p>srTCM有两种模式：</p>
 <ul class="simple">
-<li>Color-Blind mode</li>
-<li>Color-Aware mode</li>
+<li>Color-Blind mode, 之前没有其他实体对报文进行染色</li>
+<li>Color-Aware mode, 之前已经有其他实体对报文染过色了</li>
 </ul>
-<p>CBS应配置为每秒IP报文的大小，它包含IP首部，但不包括链路层首部；
+<p>CIR应配置为每秒IP报文的大小，它包含IP首部，但不包括链路层首部；
 CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大于等于流内最大IP报文的大小。</p>
 </div>
 <div class="section" id="metering">
@@ -594,7 +594,200 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 </div>
 <div class="section" id="dpdk-meter">
 <h3>14.3.4 dpdk_meter的相关实现<a class="headerlink" href="#dpdk-meter" title="Permalink to this headline">¶</a></h3>
-<p>// TODO</p>
+<p>dpdk实现了srTCM和trTCM, 代码在&lt;dpdk&gt;/lib/librte_meter. 文档见
+<a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/qos_framework.html#traffic-metering">http://dpdk.org/doc/guides/prog_guide/qos_framework.html#traffic-metering</a>.</p>
+<p>这里只分析其中的srTCM的Color-Blind模式实现部分.</p>
+<p>dpdk meter库为每条流(flow)配置一个meter运行时上下文, 配置结构为:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_meter_srtcm_params</span> <span class="p">{</span>
+    <span class="n">uint64_t</span> <span class="n">cir</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Committed</span> <span class="n">Information</span> <span class="n">Rate</span> <span class="p">(</span><span class="n">CIR</span><span class="p">)</span><span class="o">.</span> <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span> <span class="n">per</span> <span class="n">second</span><span class="o">.</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">cbs</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Committed</span> <span class="n">Burst</span> <span class="n">Size</span> <span class="p">(</span><span class="n">CBS</span><span class="p">)</span><span class="o">.</span>  <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">.</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">ebs</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Excess</span> <span class="n">Burst</span> <span class="n">Size</span> <span class="p">(</span><span class="n">EBS</span><span class="p">)</span><span class="o">.</span>  <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">.</span> <span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>meter运行时上下文:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_meter_srtcm</span> <span class="p">{</span>
+    <span class="n">uint64_t</span> <span class="n">time</span><span class="p">;</span> <span class="o">/*</span> <span class="n">Time</span> <span class="n">of</span> <span class="n">latest</span> <span class="n">update</span> <span class="n">of</span> <span class="n">C</span> <span class="ow">and</span> <span class="n">E</span> <span class="n">token</span> <span class="n">buckets</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">tc</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">currently</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">committed</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">te</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">currently</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">excess</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">cbs</span><span class="p">;</span>  <span class="o">/*</span> <span class="n">Upper</span> <span class="n">limit</span> <span class="k">for</span> <span class="n">C</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">ebs</span><span class="p">;</span>  <span class="o">/*</span> <span class="n">Upper</span> <span class="n">limit</span> <span class="k">for</span> <span class="n">E</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">cir_period</span><span class="p">;</span> <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">CPU</span> <span class="n">cycles</span> <span class="k">for</span> <span class="n">one</span> <span class="n">update</span> <span class="n">of</span> <span class="n">C</span> <span class="ow">and</span> <span class="n">E</span> <span class="n">token</span> <span class="n">buckets</span> <span class="o">*/</span>
+    <span class="n">uint64_t</span> <span class="n">cir_bytes_per_period</span><span class="p">;</span> <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">to</span> <span class="n">add</span> <span class="n">to</span> <span class="n">C</span> <span class="ow">and</span> <span class="n">E</span> <span class="n">token</span> <span class="n">buckets</span> <span class="n">on</span> <span class="n">each</span> <span class="n">update</span> <span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>这里值得注意的是time, cir_period和cir_bytes_per_period这3个成员. 其中, time是上一次桶更新的时间, cir_period是在指定限速速率下两次桶更新之间的CPU cycle数, cir_bytes_per_period是每个cir_peroid桶应添加的令牌数(单位是字节).</p>
+<p>根据meter参数配置运行时上下文:</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#ifndef RTE_METER_TB_PERIOD_MIN</span>
+<span class="cp">#define RTE_METER_TB_PERIOD_MIN      100</span>
+<span class="cp">#endif</span>
+
+<span class="k">static</span> <span class="kt">void</span>
+<span class="nf">rte_meter_get_tb_params</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">hz</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">rate</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="o">*</span><span class="n">tb_period</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="o">*</span><span class="n">tb_bytes_per_period</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="hll">    <span class="kt">double</span> <span class="n">period</span> <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span> <span class="n">hz</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span> <span class="n">rate</span><span class="p">);</span>
+</span>
+<span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">period</span> <span class="o">&gt;=</span> <span class="n">RTE_METER_TB_PERIOD_MIN</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="o">*</span><span class="n">tb_bytes_per_period</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="o">*</span><span class="n">tb_period</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">period</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="hll">        <span class="o">*</span><span class="n">tb_bytes_per_period</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span> <span class="n">ceil</span><span class="p">(</span><span class="n">RTE_METER_TB_PERIOD_MIN</span> <span class="o">/</span> <span class="n">period</span><span class="p">);</span>
+</span><span class="hll">        <span class="o">*</span><span class="n">tb_period</span> <span class="o">=</span> <span class="p">(</span><span class="n">hz</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">tb_bytes_per_period</span><span class="p">))</span> <span class="o">/</span> <span class="n">rate</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">rte_meter_srtcm_config</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_meter_srtcm</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="k">struct</span> <span class="n">rte_meter_srtcm_params</span> <span class="o">*</span><span class="n">params</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">uint64_t</span> <span class="n">hz</span><span class="p">;</span>
+
+    <span class="cm">/* Check input parameters */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">m</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">params</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">cir</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">((</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">cbs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">params</span><span class="o">-&gt;</span><span class="n">ebs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Initialize srTCM run-time structure */</span>
+    <span class="n">hz</span> <span class="o">=</span> <span class="n">rte_get_tsc_hz</span><span class="p">();</span>
+    <span class="n">m</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">=</span> <span class="n">rte_get_tsc_cycles</span><span class="p">();</span>
+    <span class="n">m</span><span class="o">-&gt;</span><span class="n">tc</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cbs</span> <span class="o">=</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">cbs</span><span class="p">;</span>
+    <span class="n">m</span><span class="o">-&gt;</span><span class="n">te</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">ebs</span> <span class="o">=</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">ebs</span><span class="p">;</span>
+    <span class="n">rte_meter_get_tb_params</span><span class="p">(</span><span class="n">hz</span><span class="p">,</span> <span class="n">params</span><span class="o">-&gt;</span><span class="n">cir</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_period</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_bytes_per_period</span><span class="p">);</span>
+
+    <span class="n">RTE_LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">,</span> <span class="n">METER</span><span class="p">,</span> <span class="s">&quot;Low level srTCM config: </span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="s">&quot;</span><span class="se">\t</span><span class="s">CIR period = %&quot;</span> <span class="n">PRIu64</span> <span class="s">&quot;, CIR bytes per period = %&quot;</span> <span class="n">PRIu64</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+        <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_period</span><span class="p">,</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_bytes_per_period</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>注意cir_peroid和cir_bytes_per_period的初始化. 首先计算period=CPU频率数/限速速率, 如果这个值够大(dpdk中判断依据为是否大于等于100个时钟周期), 则令牌桶更新单位周期就是period个cycles, 每个周期添加1个字节(令牌); 否则, 每个桶更新周期应更新的令牌数(字节)大于1, 需要特殊处理.</p>
+<p>运行时的检测:</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="k">enum</span> <span class="n">rte_meter_color</span>
+<span class="nf">rte_meter_srtcm_color_blind_check</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_meter_srtcm</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span>
+    <span class="kt">uint64_t</span> <span class="n">time</span><span class="p">,</span>
+    <span class="kt">uint32_t</span> <span class="n">pkt_len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">uint64_t</span> <span class="n">time_diff</span><span class="p">,</span> <span class="n">n_periods</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">te</span><span class="p">;</span>
+
+<span class="hll">    <span class="cm">/* Bucket update */</span>
+</span><span class="hll">    <span class="n">time_diff</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">time</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">n_periods</span> <span class="o">=</span> <span class="n">time_diff</span> <span class="o">/</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_period</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">m</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">+=</span> <span class="n">n_periods</span> <span class="o">*</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_period</span><span class="p">;</span>
+</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">tc</span> <span class="o">+</span> <span class="n">n_periods</span> <span class="o">*</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_bytes_per_period</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tc</span> <span class="o">&gt;</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cbs</span><span class="p">)</span>
+        <span class="n">tc</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cbs</span><span class="p">;</span>
+
+    <span class="n">te</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">te</span> <span class="o">+</span> <span class="n">n_periods</span> <span class="o">*</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">cir_bytes_per_period</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">te</span> <span class="o">&gt;</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">ebs</span><span class="p">)</span>
+        <span class="n">te</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">ebs</span><span class="p">;</span>
+
+    <span class="cm">/* Color logic */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tc</span> <span class="o">&gt;=</span> <span class="n">pkt_len</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">m</span><span class="o">-&gt;</span><span class="n">tc</span> <span class="o">=</span> <span class="n">tc</span> <span class="o">-</span> <span class="n">pkt_len</span><span class="p">;</span>
+        <span class="n">m</span><span class="o">-&gt;</span><span class="n">te</span> <span class="o">=</span> <span class="n">te</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">e_RTE_METER_GREEN</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">te</span> <span class="o">&gt;=</span> <span class="n">pkt_len</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">m</span><span class="o">-&gt;</span><span class="n">tc</span> <span class="o">=</span> <span class="n">tc</span><span class="p">;</span>
+        <span class="n">m</span><span class="o">-&gt;</span><span class="n">te</span> <span class="o">=</span> <span class="n">te</span> <span class="o">-</span> <span class="n">pkt_len</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">e_RTE_METER_YELLOW</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">m</span><span class="o">-&gt;</span><span class="n">tc</span> <span class="o">=</span> <span class="n">tc</span><span class="p">;</span>
+    <span class="n">m</span><span class="o">-&gt;</span><span class="n">te</span> <span class="o">=</span> <span class="n">te</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">e_RTE_METER_RED</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>第9到第11行, 由于dpdk没有定时器触发机制, 所以更新桶并不是每隔一个固定的时间完成的, 而是在每次报文到来时, 用当时的时间减去上一次更新时间, 再除以初始化时设置的周期peroid, 得到间隔周期数, 再乘以每周期应增加的令牌数, 就是当前桶需要增加的令牌数. 注意这里所有的时间值都以CPU cycle数表示.</p>
 </div>
 </div>
 <div class="section" id="id24">
