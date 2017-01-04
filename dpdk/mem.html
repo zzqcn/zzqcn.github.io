@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Memory &mdash; zzq&#39;s blog</title>
+  <title>3. Memory &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="Memseg" href="memseg.html"/>
-        <link rel="prev" title="Ring" href="ring.html"/> 
+        <link rel="next" title="4. Memseg" href="memseg.html"/>
+        <link rel="prev" title="2. Ring" href="ring.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,24 +86,24 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Memory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">内存的初始化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">大页信息初始化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">大页内存初始化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#memzone">memzone初始化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eal.html">1. EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">2. Ring</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">3.1. 内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.1.1. 大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.1.2. 大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memzone">3.1.3. memzone初始化</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">3.2. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">4. Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">6. Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">8. Mbuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -143,7 +143,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>Memory</li>
+    <li>3. Memory</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -156,7 +156,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="memory">
-<h1>Memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h1>
+<h1>3. Memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h1>
 <p>DPDK使用hugetlbfs内核文件系统支持大页的分配。连续的内存段抽象为rte_memseg，如果把rte_memseg中的一部分命名并以供使用，那么称为rte_memzone。三者的关系如下图所示。</p>
 <img alt="../_images/mem_struct.png" src="../_images/mem_struct.png" />
 <p>本章只对DPDK内存机制做一个概述，并介绍EAL初始化时内存的初始化过程，各种内存机制的详细介绍见其他章节，如下表所示：</p>
@@ -189,9 +189,9 @@
 </tbody>
 </table>
 <div class="section" id="id1">
-<h2>内存的初始化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>3.1. 内存的初始化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
-<h3>大页信息初始化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3>3.1.1. 大页信息初始化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>eal_hugepage_info_init(librte_eal/linuxapp/eal/eal_hugepage_info.c):</p>
 <p>大页信息结构为：</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">hugepage_info</span> <span class="p">{</span>
@@ -220,7 +220,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 </ol>
 </div>
 <div class="section" id="id3">
-<h3>大页内存初始化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>3.1.2. 大页内存初始化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>rte_eal_memory_init (librte_eal/common/eal_common_memory.c)</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">rte_eal_process_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">RTE_PROC_PRIMARY</span> <span class="o">?</span>
             <span class="n">rte_eal_hugepage_init</span><span class="p">()</span> <span class="o">:</span>
@@ -361,13 +361,13 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 </ol>
 </div>
 <div class="section" id="memzone">
-<h3>memzone初始化<a class="headerlink" href="#memzone" title="Permalink to this headline">¶</a></h3>
+<h3>3.1.3. memzone初始化<a class="headerlink" href="#memzone" title="Permalink to this headline">¶</a></h3>
 <p>在EAL初始化过程中，先调用rte_eal_memory_init()进行了大页内存初始化，紧接着调用rte_eal_memzone_init()进行了memzone的初始化。</p>
 <p>见 <a class="reference internal" href="memzone.html#memzone-init"><span class="std std-ref">初始化</span></a></p>
 </div>
 </div>
 <div class="section" id="id6">
-<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>3.2. 参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="linux-hugetlb" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -396,10 +396,10 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="memseg.html" class="btn btn-neutral float-right" title="Memseg" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="memseg.html" class="btn btn-neutral float-right" title="4. Memseg" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ring.html" class="btn btn-neutral" title="Ring" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ring.html" class="btn btn-neutral" title="2. Ring" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

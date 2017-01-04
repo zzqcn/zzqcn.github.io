@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Ring &mdash; zzq&#39;s blog</title>
+  <title>2. Ring &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="Memory" href="mem.html"/>
-        <link rel="prev" title="EAL" href="eal.html"/> 
+        <link rel="next" title="3. Memory" href="mem.html"/>
+        <link rel="prev" title="1. EAL" href="eal.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,32 +86,32 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Ring</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">应用场景</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">无锁队列操作图解</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#step1">Step1</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#step2">Step2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#step3">Step3</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#step4">Step4</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#step5">Step5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eal.html">1. EAL</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Ring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.2. 应用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.3. 无锁队列操作图解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step1">2.3.1. Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step2">2.3.2. Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step3">2.3.3. Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step4">2.3.4. Step4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step5">2.3.5. Step5</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">数据结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">多生产者入队</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">多消费者出队</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">索引计算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.4. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.5. 多生产者入队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.6. 多消费者出队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.7. 索引计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">2.8. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">3. Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">4. Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">6. Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">8. Mbuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -151,7 +151,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>Ring</li>
+    <li>2. Ring</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -164,9 +164,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ring">
-<h1>Ring<a class="headerlink" href="#ring" title="Permalink to this headline">¶</a></h1>
+<h1>2. Ring<a class="headerlink" href="#ring" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>2.1. 概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>rte_ring(以下简称ring)是一个高效率的无锁环形队列，它具有以下特点：</p>
 <ul class="simple">
 <li>FIFO</li>
@@ -193,24 +193,24 @@
 <p>ring的实现借鉴了 <a class="reference internal" href="#freebsd-ring" id="id2">[freebsd_ring]</a> 和 <a class="reference internal" href="#linux-ringbuffer" id="id3">[linux_ringbuffer]</a> 。</p>
 </div>
 <div class="section" id="id4">
-<h2>应用场景<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>2.2. 应用场景<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>DPDK应用程序之间的通信</li>
 <li>DPDK mempool</li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h2>无锁队列操作图解<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>2.3. 无锁队列操作图解<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>下面将以多生产者(multi-producer, mp)的情形来说明ring入队时的操作，多消费者出队的基本原理可以此类比。</p>
 <p>每个ring都有两对head，tail指针，一对用于生产者(入队)，另一对用于消费者(出队)。在下面各图中，上半部分表示lcore入队函数的局部变量，
 下半部分表示ring的成员变量。objX表示队列中的对象。</p>
 <div class="section" id="step1">
-<h3>Step1<a class="headerlink" href="#step1" title="Permalink to this headline">¶</a></h3>
+<h3>2.3.1. Step1<a class="headerlink" href="#step1" title="Permalink to this headline">¶</a></h3>
 <p>一开始，lcore1和lcore2局部变量pro_head和cons_tail都和queue成员一致，局部变量prod_next都指向队列插入位置，即prod_head的前面。</p>
 <img alt="../_images/ring_mpenq_1.png" src="../_images/ring_mpenq_1.png" />
 </div>
 <div class="section" id="step2">
-<h3>Step2<a class="headerlink" href="#step2" title="Permalink to this headline">¶</a></h3>
+<h3>2.3.2. Step2<a class="headerlink" href="#step2" title="Permalink to this headline">¶</a></h3>
 <p>接下来两个lcore通过CAS指令进行竞争，更新ring-&gt;prod_head改为胜者lcore的prod_next：</p>
 <ul class="simple">
 <li>如果ring-&gt;prod_head != prod_head, CAS失败，返回Step1</li>
@@ -220,12 +220,12 @@
 <img alt="../_images/ring_mpenq_2.png" src="../_images/ring_mpenq_2.png" />
 </div>
 <div class="section" id="step3">
-<h3>Step3<a class="headerlink" href="#step3" title="Permalink to this headline">¶</a></h3>
+<h3>2.3.3. Step3<a class="headerlink" href="#step3" title="Permalink to this headline">¶</a></h3>
 <p>lcore2上的CAS操作也成功。lcore1将obj4入队，lcore2将obj5入队。</p>
 <img alt="../_images/ring_mpenq_3.png" src="../_images/ring_mpenq_3.png" />
 </div>
 <div class="section" id="step4">
-<h3>Step4<a class="headerlink" href="#step4" title="Permalink to this headline">¶</a></h3>
+<h3>2.3.4. Step4<a class="headerlink" href="#step4" title="Permalink to this headline">¶</a></h3>
 <p>两个lcore进行竞争，更新ring-&gt;prod_tail：</p>
 <ul class="simple">
 <li>如果ring-&gt;prod_tail != prod_head，CAS失败，继续尝试</li>
@@ -235,13 +235,13 @@
 <img alt="../_images/ring_mpenq_4.png" src="../_images/ring_mpenq_4.png" />
 </div>
 <div class="section" id="step5">
-<h3>Step5<a class="headerlink" href="#step5" title="Permalink to this headline">¶</a></h3>
+<h3>2.3.5. Step5<a class="headerlink" href="#step5" title="Permalink to this headline">¶</a></h3>
 <p>lcore2如Step4一样，更新ring-&gt;prod_tail。至此lcore2的入队操作也已完成。</p>
 <img alt="../_images/ring_mpenq_5.png" src="../_images/ring_mpenq_5.png" />
 </div>
 </div>
 <div class="section" id="id6">
-<h2>数据结构<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>2.4. 数据结构<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_RING_NAMESIZE</span><span class="p">];</span>    <span class="cm">/**&lt; Name of the ring. */</span>
     <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags supplied at creation. */</span>
@@ -281,7 +281,7 @@
 </div>
 </div>
 <div class="section" id="id7">
-<h2>多生产者入队<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>2.5. 多生产者入队<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>第34-36行处理多个producer的竞争，没有竞争到写入位置的线程将继续循环。第39行插入了一个rte_smp_wmb()调用，对这个函数DPDK文档的解释是：</p>
 <blockquote>
 <div>Write memory barrier between lcores. Guarantees that the STORE
@@ -458,7 +458,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </td></tr></table></div>
 </div>
 <div class="section" id="id8">
-<h2>多消费者出队<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>2.6. 多消费者出队<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -611,7 +611,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </td></tr></table></div>
 </div>
 <div class="section" id="id9">
-<h2>索引计算<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>2.7. 索引计算<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>ring中的生产者和消费者指针(prod.head, prod.tail, cons.head, cons.tail)是用32位无符号整数来表示的，而ring存放对象指针的数组的大小是远小于UINT32_MAX的，计算存取对象的数组索引需要有一定技巧；另外，由于ring是一个环形buffer，这些指针值溢出后会发生回绕，计算ring中已用和空闲对象的数目也需要注意方法。</p>
 <ul>
 <li><p class="first"><strong>求索引</strong> ENQUEUE_PTRS和DEQUEUE_PTRS中:</p>
@@ -683,7 +683,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </div>
 </div>
 <div class="section" id="id10">
-<h2>参考<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2>2.8. 参考<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="dpdk-guide-ring" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -724,10 +724,10 @@ visible across the lcores before the the STORE operations that follows it.</div>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mem.html" class="btn btn-neutral float-right" title="Memory" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mem.html" class="btn btn-neutral float-right" title="3. Memory" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="eal.html" class="btn btn-neutral" title="EAL" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="eal.html" class="btn btn-neutral" title="1. EAL" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Memseg &mdash; zzq&#39;s blog</title>
+  <title>4. Memseg &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="Memzone" href="memzone.html"/>
-        <link rel="prev" title="Memory" href="mem.html"/> 
+        <link rel="next" title="5. Memzone" href="memzone.html"/>
+        <link rel="prev" title="3. Memory" href="mem.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,20 +86,20 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Memseg</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">数据结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">初始化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eal.html">1. EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">2. Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">3. Memory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Memseg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">4.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.3. 初始化</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">6. Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">8. Mbuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -139,7 +139,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>Memseg</li>
+    <li>4. Memseg</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -152,14 +152,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="memseg">
-<h1>Memseg<a class="headerlink" href="#memseg" title="Permalink to this headline">¶</a></h1>
+<h1>4. Memseg<a class="headerlink" href="#memseg" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>4.1. 概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>DPDK把连续的内存段称之为memseg，它的示意图如下：</p>
 <img alt="../_images/mem_struct.png" src="../_images/mem_struct.png" />
 </div>
 <div class="section" id="id2">
-<h2>数据结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>4.2. 数据结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>librte_eal/common/include/rte_memory.h</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * Physical memory segment descriptor.</span>
@@ -187,7 +187,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>初始化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>4.3. 初始化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>在rte_eal_hugepage_init(librte_eal/linuxapp/eal/eal_memory.c)中：</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_hugefiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -234,10 +234,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="memzone.html" class="btn btn-neutral float-right" title="Memzone" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="memzone.html" class="btn btn-neutral float-right" title="5. Memzone" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="mem.html" class="btn btn-neutral" title="Memory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mem.html" class="btn btn-neutral" title="3. Memory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

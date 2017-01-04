@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Malloc &mdash; zzq&#39;s blog</title>
+  <title>6. Malloc &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="Mempool" href="mempool.html"/>
-        <link rel="prev" title="Memzone" href="memzone.html"/> 
+        <link rel="next" title="7. Mempool" href="mempool.html"/>
+        <link rel="prev" title="5. Memzone" href="memzone.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,23 +86,23 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Malloc</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">数据结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#malloc-heap">malloc heap初始化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#malloc-heap-alloc">内存分配</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">内存释放</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">参考</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eal.html">1. EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">2. Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">3. Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">4. Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">6.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">6.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">6.5. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">6.6. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">8. Mbuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -142,7 +142,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>Malloc</li>
+    <li>6. Malloc</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -155,9 +155,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="malloc">
-<h1>Malloc<a class="headerlink" href="#malloc" title="Permalink to this headline">¶</a></h1>
+<h1>6. Malloc<a class="headerlink" href="#malloc" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>6.1. 概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>DPDK EAL提供了类似malloc的内存分配API，通过它可以分配任意大小的大页内存，同时有利于程序移植 (glibc malloc-&gt;rte_malloc)。</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -165,7 +165,7 @@
 </div>
 </div>
 <div class="section" id="id2">
-<h2>数据结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>6.2. 数据结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>主要有2个数据结构：</p>
 <ul>
 <li><p class="first">struct malloc_heap - 用于在每个socket上跟踪空闲内存</p>
@@ -222,7 +222,7 @@
 <img alt="../_images/malloc_struct.png" src="../_images/malloc_struct.png" />
 </div>
 <div class="section" id="malloc-heap">
-<span id="malloc-init"></span><h2>malloc heap初始化<a class="headerlink" href="#malloc-heap" title="Permalink to this headline">¶</a></h2>
+<span id="malloc-init"></span><h2>6.3. malloc heap初始化<a class="headerlink" href="#malloc-heap" title="Permalink to this headline">¶</a></h2>
 <p>在EAL初始化阶段，大页内存的memseg创建好之后，会调用rte_eal_malloc_heap_init()来初始化malloc heap。主要过程有：</p>
 <ul class="simple">
 <li>在每个memseg首部添加state为FREE的节点</li>
@@ -278,18 +278,18 @@
 <p>注：__builtin_clzl()用于求unsigned long数第一个bit 1前面0的个数。</p>
 </div>
 <div class="section" id="malloc-heap-alloc">
-<span id="id3"></span><h2>内存分配<a class="headerlink" href="#malloc-heap-alloc" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>6.4. 内存分配<a class="headerlink" href="#malloc-heap-alloc" title="Permalink to this headline">¶</a></h2>
 <p>核心函数malloc_heap_alloc(librte_eal/common/malloc_heap.c)。</p>
 <p>首先从free_list中找到size对应的空闲节点，然后根据需要对此节点做一些处理，比如如果节点的内存大于所需内存，会分裂成两个节点。内存分配是有锁的(heap-&gt;lock)。</p>
 </div>
 <div class="section" id="id4">
-<h2>内存释放<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>6.5. 内存释放<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>核心函数rte_free(librte_eal/common/rte_malloc.c)。</p>
 <p>首先从内存地址得到malloc_elem节点首部的地址，然后检查此节点紧挨着的前后是否有FREE内存块，如果有的话则将它们合并成一个FREE内存节点，
 添加到free_list。</p>
 </div>
 <div class="section" id="id5">
-<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>6.6. 参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="dpdk-guide-malloc" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -306,10 +306,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mempool.html" class="btn btn-neutral float-right" title="Mempool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mempool.html" class="btn btn-neutral float-right" title="7. Mempool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="memzone.html" class="btn btn-neutral" title="Memzone" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="memzone.html" class="btn btn-neutral" title="5. Memzone" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

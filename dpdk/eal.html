@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>EAL &mdash; zzq&#39;s blog</title>
+  <title>1. EAL &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,7 +34,7 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="Ring" href="ring.html"/>
+        <link rel="next" title="2. Ring" href="ring.html"/>
         <link rel="prev" title="DPDK" href="index.html"/> 
 
   
@@ -86,24 +86,24 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">EAL</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#linuxeal">Linux环境的EAL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">内存机制与初始化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cpu">CPU信息取得与核绑定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lcore">线程/lcore的初始化与启动</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">多进程应用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">其他注意事项</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">参考</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. EAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">1.7. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mbuf.html">Mbuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">2. Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">3. Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">4. Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">6. Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbuf.html">8. Mbuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -143,7 +143,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>EAL</li>
+    <li>1. EAL</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -156,7 +156,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="eal">
-<h1>EAL<a class="headerlink" href="#eal" title="Permalink to this headline">¶</a></h1>
+<h1>1. EAL<a class="headerlink" href="#eal" title="Permalink to this headline">¶</a></h1>
 <p>EAL(Environment Abstraction Layer)负责获得对低层资源，如硬件和内存空间的访问。它通过提供通用接口隐藏了应用程序和库环境的区别。初始化例程负责分配资源(内存空间，PCI设备，计时器，控制台等)。</p>
 <p>EAL提供的服务有：</p>
 <ul class="simple">
@@ -171,7 +171,7 @@
 <li>Alarm功能</li>
 </ul>
 <div class="section" id="linuxeal">
-<h2>Linux环境的EAL<a class="headerlink" href="#linuxeal" title="Permalink to this headline">¶</a></h2>
+<h2>1.1. Linux环境的EAL<a class="headerlink" href="#linuxeal" title="Permalink to this headline">¶</a></h2>
 <p>在Linux用户空间，DPDK使用pthread库运行为一个用户程序。设备的PCI信息和地址空间使用/sys内核接口和uio相关内核模块来发现。内存通过mmap取得。</p>
 <p>EAL通过在hugetlbfs中使用mmap()来分配物理内存，这些内存暴露给DPDK服务层，如mempool库。</p>
 <p>EAL会初始化DPDK服务层，并通过pthread的setaffinity调用，把执行单元绑定到特定逻辑核心上，运行为一个用户线程。</p>
@@ -180,27 +180,27 @@
 <img alt="../_images/eal_init.png" src="../_images/eal_init.png" />
 </div>
 <div class="section" id="id1">
-<h2>内存机制与初始化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>1.2. 内存机制与初始化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>见 <a class="reference internal" href="mem.html"><span class="doc">Memory</span></a> 。</p>
 </div>
 <div class="section" id="cpu">
-<h2>CPU信息取得与核绑定<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h2>
+<h2>1.3. CPU信息取得与核绑定<a class="headerlink" href="#cpu" title="Permalink to this headline">¶</a></h2>
 <p>// TODO</p>
 </div>
 <div class="section" id="lcore">
-<h2>线程/lcore的初始化与启动<a class="headerlink" href="#lcore" title="Permalink to this headline">¶</a></h2>
+<h2>1.4. 线程/lcore的初始化与启动<a class="headerlink" href="#lcore" title="Permalink to this headline">¶</a></h2>
 <p>// TODO</p>
 </div>
 <div class="section" id="id2">
-<h2>多进程应用<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>1.5. 多进程应用<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>// TODO</p>
 </div>
 <div class="section" id="id3">
-<h2>其他注意事项<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>1.6. 其他注意事项<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>// TODO</p>
 </div>
 <div class="section" id="id4">
-<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>1.7. 参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="dpdk-guide-eal" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -217,7 +217,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ring.html" class="btn btn-neutral float-right" title="Ring" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ring.html" class="btn btn-neutral float-right" title="2. Ring" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="DPDK" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

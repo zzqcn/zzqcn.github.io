@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mbuf &mdash; zzq&#39;s blog</title>
+  <title>8. Mbuf &mdash; zzq&#39;s blog</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="DPDK" href="index.html"/>
-        <link rel="next" title="编译系统" href="build_sys.html"/>
-        <link rel="prev" title="Mempool" href="mempool.html"/> 
+        <link rel="next" title="9. 编译系统" href="build_sys.html"/>
+        <link rel="prev" title="7. Mempool" href="mempool.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,29 +86,29 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">DPDK</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="eal.html">EAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring.html">Ring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mem.html">Memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memseg.html">Memseg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="memzone.html">Memzone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="malloc.html">Malloc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mempool.html">Mempool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Mbuf</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">原理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">数据结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">分配与回收</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">初始化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">分配</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">回收</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eal.html">1. EAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">2. Ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mem.html">3. Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memseg.html">4. Memseg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memzone.html">5. Memzone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="malloc.html">6. Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mempool.html">7. Mempool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8. Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">8.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">8.2. 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">8.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">8.4. 分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">8.4.1. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">8.4.2. 分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">8.4.3. 回收</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">元信息</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#directindirect-mbuf">Direct和Indirect mbuf</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">8.5. 元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">8.7. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="build_sys.html">编译系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_sys.html">9. 编译系统</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a></li>
@@ -148,7 +148,7 @@
       
           <li><a href="index.html">DPDK</a> &raquo;</li>
       
-    <li>Mbuf</li>
+    <li>8. Mbuf</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -161,13 +161,13 @@
            <div itemprop="articleBody">
             
   <div class="section" id="mbuf">
-<h1>Mbuf<a class="headerlink" href="#mbuf" title="Permalink to this headline">¶</a></h1>
+<h1>8. Mbuf<a class="headerlink" href="#mbuf" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>8.1. 概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>DPDK mbuf实现了message buffer，可以存储报文数据或者控制信息等。mbuf存储在mempool中，以便在数据面提高访问性能。</p>
 </div>
 <div class="section" id="id2">
-<h2>原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>8.2. 原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>DPDK把元数据(metadata)和实际数据存储在一个mbuf中，并且使mbuf结构体尽量小，目前仅占用2个cache line，且最常访问的成员在第1个cache line中。</p>
 <p>mbuf从前至后主要由mbuf首部(即rte_mbuf结构体)、head room、实际数据和tailroom构成。用户还可以在mbuf首部和head room之前加入一定长度的私有数据(private data)。head room的大小在DPDK编译配置文件(如common_linuxapp)中指定，如 <code class="docutils literal"><span class="pre">CONFIG_RTE_PKTMBUF_HEADROOM=128</span></code> 。mbuf的基本结构如下图所示：</p>
 <img alt="../_images/mbuf_single.png" src="../_images/mbuf_single.png" />
@@ -369,7 +369,7 @@
 会发现m-&gt;next == m2。</p>
 </div>
 <div class="section" id="id3">
-<h2>数据结构<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>8.3. 数据结构<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>rte_mbuf(librte_mbuf/rte_mbuf.h):</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mbuf</span> <span class="p">{</span>
     <span class="n">MARKER</span> <span class="n">cacheline0</span><span class="p">;</span>
@@ -492,27 +492,27 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2>分配与回收<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>8.4. 分配与回收<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id5">
-<h3>初始化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.1. 初始化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>mbuf存放在mempool中，在创建mempool时，如果指定了对象初始化回调函数，如上面例子中的rte_pktmbuf_init()，将会对其中每个mbuf调用此函数进行初始化，为某些成员赋值。</p>
 </div>
 <div class="section" id="id6">
-<h3>分配<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.2. 分配<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>调用rte_mempool_get()从mempool中获取一个mbuf，并将其引用计数置1。</p>
 </div>
 <div class="section" id="id7">
-<h3>回收<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.3. 回收<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>对于direct mbuf，直接调用rte_mempool_put()进行放回mempool；对于indirect mbuf，需要先detach，然后再free它所attach的实际mbuf。</p>
 <p>回收mbuf时，会回收mbuf链上的所有mbuf节点。</p>
 </div>
 </div>
 <div class="section" id="id8">
-<h2>元信息<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>8.5. 元信息<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>见 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mbuf_lib.html#meta-information">Meta Information</a> 。<em>似乎</em> Rx端网卡并不能填充l2_type, l3_type等信息。</p>
 </div>
 <div class="section" id="directindirect-mbuf">
-<h2>Direct和Indirect mbuf<a class="headerlink" href="#directindirect-mbuf" title="Permalink to this headline">¶</a></h2>
+<h2>8.6. Direct和Indirect mbuf<a class="headerlink" href="#directindirect-mbuf" title="Permalink to this headline">¶</a></h2>
 <p>上面描述的mbuf，由mbuf结构体首部、headroom和data等部分组成，实际持有数据，这样的mbuf称为direct mbuf。但在某些时候，比如需要复制或分片报文时，可能会用到另一种mbuf，它并不真正的持有数据，而是引用direct mbuf的数据，类似于对象的浅拷贝，这种mbuf称为indirect mbuf。</p>
 <p>可以通过attach操作生成一个indirect mbuf。每个mbuf都有一个引用计数，当direct mbuf被attach时，它的引用计数+1；当被deattch时，引用计数-1。当引用计数为0时，意味着direct mbuf没人使用，可以被释放了。</p>
 <p>indirect mbuf机制有一些限制条件：</p>
@@ -524,7 +524,7 @@
 <p>虽然可以直接调用attach/detach操作，但推荐使用clone操作来浅拷贝mbuf，因为clone会正确处理链式mbuf。</p>
 </div>
 <div class="section" id="id9">
-<h2>参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>8.7. 参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="dpdk-guide-mbuf" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -541,10 +541,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="build_sys.html" class="btn btn-neutral float-right" title="编译系统" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="build_sys.html" class="btn btn-neutral float-right" title="9. 编译系统" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="mempool.html" class="btn btn-neutral" title="Mempool" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mempool.html" class="btn btn-neutral" title="7. Mempool" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
