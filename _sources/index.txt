@@ -14,6 +14,7 @@ zzq's blog
    netalgo/index
    wireshark/index
    perf/index
+   asm/index
    tools/index
    
 
