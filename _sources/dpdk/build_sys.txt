@@ -18,13 +18,13 @@
 dpdk源码包可以在 `dpdk.org <http://www.dpdk.org/download>`_ 下载。\
 2.2版本后，版本号直接变为16.04。
 
-git方式获取源码（只读）：::
+git方式获取源码（只读）::
 
     git clone git://dpdk.org/dpdk , 或
     git clone http://dpdk.org/git/dpdk
 
 RTE_SDK是编译dpdk之前需要设置的一个环境变量，其值是dpdk源码包解压\
-后的主目录。以下就以<RTE_SDK>表示dpdk源码主目录。::
+后的主目录。以下就以<RTE_SDK>表示dpdk源码主目录::
 
     <RTE_SDK>
     ├── app           # 一些测试程序
@@ -107,7 +107,7 @@ examples
 
 在编译dpdk前，需要设置RTE_SDK环境变量，以及"arch-machine-execenv-\
 toolchain"组成的编译目标（target）。比如，要使用gcc为x86_64架构\
-native处理器，linux环境编译dpdk，编译目录同target：::
+native处理器，linux环境编译dpdk，编译目录同target::
     
     export RTE_TARGET=x86_64-native-linuxapp-gcc
     cd $RTE_SDK
@@ -120,7 +120,7 @@ native处理器，linux环境编译dpdk，编译目录同target：::
     和RTE_TARGET不一致，会发生找不到库的错误. 更多环境变量见X.X节
 
 完成后，将在<RTE_SDK>生成mybuild子目录，其中包含对应此target的配置\
-文件Makefile等。接着可以进行编译：::
+文件Makefile等。接着可以进行编译::
 
     cd $RTE_TARGET
     make
@@ -129,7 +129,7 @@ native处理器，linux环境编译dpdk，编译目录同target：::
 
     make O=$RTE_TARGET
 
-编译完成后，mybuild目录内容为：::
+编译完成后，mybuild目录内容为::
 
     x86_64-native-linuxapp-gcc
     ├── .config  # 针对此target生成的配置文件
@@ -150,7 +150,7 @@ $RTE_SDK/mk/rte.vas.mk，$RTE_SDK/mk/rte.app.mk等。具体见
 `Building Your Own Application 
 <http://dpdk.org/doc/guides/prog_guide/build_app.html>`_
 
-首先确保设置了RTE_SDK和RTE_TARGET环境变量：::
+首先确保设置了RTE_SDK和RTE_TARGET环境变量::
 
     export RTE_SDK=/home/zzq/dpdk-stable-16.07.2
     export RTE_TARGET=x86_64-native-linuxapp-gcc
@@ -175,7 +175,7 @@ dpdk Makefile一般都是遵循以下方案：
    extlib,obj等等，取决于要编译的目标文件类型
 #. 包含用户自定义的规则和变量
 
-以下是一个极简示例（取自examples/helloworld）：::
+以下是一个极简示例（取自examples/helloworld）::
 
     ifeq ($(RTE_SDK),)
     $(error "Please define RTE_SDK environment variable")
@@ -303,7 +303,7 @@ objects
 见 :ref:`root_makefile_help` 和 `External Application/Library Makefile Help \
 <http://dpdk.org/doc/guides/prog_guide/ext_app_lib_make_help.html>`_ 。
 
-* **WERROR_CFLAGS** 默认设置为依赖于编译器的某特定值，推荐用法如：::
+* **WERROR_CFLAGS** 默认设置为依赖于编译器的某特定值，推荐用法如::
     
     CFLAGS += $(WERROR_CFLAGS)
 
@@ -332,7 +332,7 @@ config target
 
 编译此target必须通过 ``T=`` 指定target名称，所有可用的target名称\
 见<RTE_SDK>/config/defconfig_XXX。还可以通过 ``O=`` 指定输出目录，\
-默认目录是build。示例：::
+默认目录是build。示例::
 
     export RTE_TARGET=x86_64-native-linuxapp-gcc
     make config T=$RTE_TARGET O=$RTE_TARGET
@@ -380,7 +380,7 @@ deps target
   /.depdirs文件。
 * depgraph 此命令生成依赖项的dot graph，可用于调试循环引用问题。
 
-    示例：::
+    示例::
         
         make depgraph O=$RTE_TARGET > /tmp/graph.dot && dotty /tmp/graph.dot
 
@@ -403,7 +403,7 @@ deps target
 编译Debug版本
 ..............
 
-修改EXTRA_CFLAGS环境变量即可：::
+修改EXTRA_CFLAGS环境变量即可::
 
     export EXTRA_CFLAGS='-O0 -g'
 
@@ -478,7 +478,7 @@ ABI宏及示例
 而使用ABI宏可以让多个函数映射到同一符号，让新版动态库保持向后兼容，\
 旧程序不需要修改代码。
 
-首先需要修改此库对应的.map文件，原本的文件内容如下（rte_acl_version.map）：::
+首先需要修改此库对应的.map文件，原本的文件内容如下（rte_acl_version.map）::
 
     DPDK_2.0 {
         global:
@@ -502,7 +502,7 @@ ABI宏及示例
         local: *;
     };
 
-需要修改为：::
+需要修改为::
 
     DPDK_2.0 {
         global:
@@ -537,7 +537,7 @@ ABI宏及示例
 为动态库时，此列表会直接翻译成导出符号表。
 
 接下来，需要在代码中指定哪个版本映射哪个rte_acl_create。首先，需\
-要改变原函数的定义，使其命名唯一且不和公用符号名冲突：::
+要改变原函数的定义，使其命名唯一且不和公用符号名冲突::
 
     struct rte_acl_ctx *
     -rte_acl_create(const struct rte_acl_param *param)
@@ -549,7 +549,7 @@ ABI宏及示例
 
 注意符号的基本名称（指的应该是rte_acl_create_v20中的rte_acl_create\
 前缀）保持不变，这对用于符号版本化的宏有好处。接着，把新符号名映射\
-到版本节点2.0中的原始符号名。紧接着此函数的定义，添加一行代码：::
+到版本节点2.0中的原始符号名。紧接着此函数的定义，添加一行代码::
 
     VERSION_SYMBOL(rte_acl_create, _v20, 2.0);
 
@@ -559,7 +559,7 @@ ABI宏及示例
 符号映射到原始函数，只不过改了一个新名字。
 
 然后，需要创建符号的2.1版本。实现的新版函数使用一个新的函数名，\
-带不同的后缀：::
+带不同的后缀::
 
     struct rte_acl_ctx *
     rte_acl_create_v21(const struct rte_acl_param *param, int debug);
@@ -573,7 +573,7 @@ ABI宏及示例
 
 同样地，需要把此函数映射到符号 ``rte_acl_create@DPDK_2.1`` 。修改\
 此API原型所在的头文件，添加版本宏，通知调用此函数的程序在重新链接\
-时，默认的rte_acl_create符号应指向新版本函数：::
+时，默认的rte_acl_create符号应指向新版本函数::
 
     struct rte_acl_ctx *
     -rte_acl_create(const struct rte_acl_param *param);
@@ -588,7 +588,7 @@ BIND_DEFAULT_SYMBOL宏显式地告诉包含此头文件的程序链接函数rte_
 
 要解决此问题，可以用MAP_STATIC_SYMBOL宏将指定函数映射到公用符号。\
 一般来说要映射的特定函数就是最新版本的函数。因此，回到函数定义所在\
-的.c文件，在 ``rte_acl_create_v21`` 定义之后，紧接着添加宏代码：::
+的.c文件，在 ``rte_acl_create_v21`` 定义之后，紧接着添加宏代码::
 
     struct rte_acl_ctx *
     rte_acl_create_v21(const struct rte_acl_param *param, int debug)
@@ -628,11 +628,11 @@ dpdk从某个版本（可能是16.04）起，编译系统取消了对“编译�
 config/common_base
 ....................
 
-修改：::
+修改::
 
     CONFIG_RTE_BUILD_SHARED_LIB=y
 
-添加：::
+添加::
 
     CONFIG_RTE_BUILD_COMBINE_LIBS=y
     CONFIG_RTE_LIBNAME=intel_dpdk
@@ -640,7 +640,7 @@ config/common_base
 mk/rte.lib.mk
 ...............
 
-在 ``-include .$(LIB).cmd`` 之前，添加：::
+在 ``-include .$(LIB).cmd`` 之前，添加::
 
     ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
     O_TO_C = $(AR) crus $(LIB_ONE) $(OBJS-y)
@@ -664,7 +664,7 @@ mk/rte.lib.mk
 $(copy_obj)把编译成的.o文件拷贝到$(RTE_OUTPUT)/build/lib目录。
 
 在 ``ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB), y)`` 判断语句块的第一个\
-else前，添加：::
+else前，添加::
 
     ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
         $(if $(or \
@@ -675,7 +675,7 @@ else前，添加：::
             $(O_TO_C_DO))
     endif
    
-在这语句块结束的最后一个 ``endif`` 前，添加：::
+在这语句块结束的最后一个 ``endif`` 前，添加::
 
     ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
         $(if $(or \
@@ -689,26 +689,26 @@ else前，添加：::
 mk/rte.combinedlib.mk
 ......................
 
-首先要包含rte.build-pre.mk：::
+首先要包含rte.build-pre.mk::
 
     include $(RTE_SDK)/mk/internal/rte.build-pre.mk
 
-修改输出库文件名，删除：::
+修改输出库文件名，删除::
 
     RTE_LIBNAME := dpdk
 
-因为库名称在common_base文件中配置了。修改：::
+因为库名称在common_base文件中配置了。修改::
     
     COMBINEDLIB := lib$(CONFIG_RTE_LIBNAME)$(EXT)
     
-在LIBS后面添加：::
+在LIBS后面添加::
 
     OBJS = $(wildcard $(RTE_OUTPUT)/build/lib/*.o)
     CPU_LDFLAGS += --version-script=$(SRCDIR)/lib/libdpdk.map
 
 之后需要链接OBJS，libdpdk.map是上文说到的版本控制脚本。
 
-在 ``all: FORCE`` 前添加：::
+在 ``all: FORCE`` 前添加::
 
     ifeq ($(LINK_USING_CC),1)
     # Override the definition of LD here, since we're linking with CC
@@ -727,7 +727,7 @@ mk/rte.combinedlib.mk
         echo $(O_TO_S_DISP); \
         $(O_TO_S)
     
-修改all目标( ``all: FORCE`` 下一行）：::
+修改all目标( ``all: FORCE`` 下一行）::
 
     all: FORCE
         $(O_TO_S_DO)
@@ -737,13 +737,13 @@ mk/rte.app.mk
 ..............
 
 此文件改动较大。首先在 ``_LDLIBS-y += -L$(RTE_SDK_BIN)/lib`` 之后\
-添加：::
+添加::
 
     _LDLIBS-$(CONFIG_RTE_BUILD_COMBINE_LIBS)    += -l$(CONFIG_RTE_LIBNAME)
     _LDLIBS-y += -lm
     _LDLIBS-y += -lpcap
 
-之后，在 ``_LDLIBS-y += --whole-archive`` 之前，修改为：::
+之后，在 ``_LDLIBS-y += --whole-archive`` 之前，修改为::
 
 
     ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),n)
@@ -776,7 +776,7 @@ mk/rte.app.mk
     endif # ! CONFIG_RTE_BUILD_COMBINE_LIBS
 
 之后，在 ``_LDLIBS-$(CONFIG_RTE_LIBRTE_KVARGS) += -lrte_kvargs`` 
-之前，添加：::
+之前，添加::
 
     ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
     # The static libraries do not know their dependencies.
@@ -799,7 +799,7 @@ mk/rte.app.mk
     ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),n)
 
 之后，在 ``endif # CONFIG_RTE_LIBRTE_CRYPTODEV`` 之后，
-``_LDLIBS-y += --no-whole-archive`` 之前，添加：::
+``_LDLIBS-y += --no-whole-archive`` 之前，添加::
 
     endif # !CONFIG_RTE_BUILD_SHARED_LIB
     endif # ! CONFIG_RTE_BUILD_COMBINE_LIBS
@@ -807,13 +807,13 @@ mk/rte.app.mk
     _LDLIBS-y += $(EXECENV_LDLIBS)
     _LDLIBS-y += --end-group
 
-删除下面的：::
+删除下面的::
 
     _LDLIBS-y += $(EXECENV_LDLIBS)
 
 最后，将 ``exe2cmd = $(strip $(call dotfile,$(patsubst %,%.cmd,$(1))))``
 之后，``O_TO_EXE_STR = $(subst ','\'',$(O_TO_EXE)) #'# fix syntax highlight``
-之前的内容，修改为：::
+之前的内容，修改为::
 
     ifeq ($(LINK_USING_CC),1)
     override EXTRA_LDFLAGS := $(call linkerprefix,$(EXTRA_LDFLAGS))
@@ -829,7 +829,7 @@ libdpdk.map
 ............
 
 最后，需要提供一个版本控制脚本libdpdk.map，将它放在$RTE_SDK/lib目录中，
-该文件内容为：::
+该文件内容为::
 
     DPDK_2.0 {
 
