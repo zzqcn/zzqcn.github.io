@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="网络算法学" href="index.html"/>
         <link rel="next" title="wireshark" href="../wireshark/index.html"/>
@@ -135,6 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../asm/index.html">汇编语言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具与杂项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a></li>
 </ul>
 
             
@@ -979,42 +983,36 @@ RRP指向下一个活动队列F2。</p>
 <p>每个port的内部数据结构如下图所示(struct rte_sched_port)：</p>
 <img alt="../_images/dpdk_sched_datastruct.png" src="../_images/dpdk_sched_datastruct.png" />
 <p>其中：</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>subport表项</dt>
-<dd><p class="first last">struct rte_sched_subport</p>
-</dd>
+<dd>struct rte_sched_subport</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>pipe表项</dt>
-<dd><p class="first last">struct rte_sched_pipe，多个pipe可以共享同一个pipe配置，因为配置结构不包括在pipe表项中，而是有一个专门的结构struct
-rte_sched_pipe_profile</p>
-</dd>
+<dd>struct rte_sched_pipe，多个pipe可以共享同一个pipe配置，因为配置结构不包括在pipe表项中，而是有一个专门的结构struct
+rte_sched_pipe_profile</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>queue表项</dt>
-<dd><p class="first last">struct rte_sched_queue，存放队列的读写指针</p>
-</dd>
+<dd>struct rte_sched_queue，存放队列的读写指针</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>队列存储区</dt>
-<dd><p class="first last">struct rte_mbuf*，报文队列，即一个rte_mbuf*数组</p>
-</dd>
+<dd>struct rte_mbuf*，报文队列，即一个rte_mbuf*数组</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>活动队列bitmap</dt>
-<dd><p class="first last">struct rte_bitmap，标识报文队列是否活动</p>
-</dd>
+<dd>struct rte_bitmap，标识报文队列是否活动</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>grinder</dt>
-<dd><p class="first last">struct rte_sched_grinder，存放当前活动pipes的短列表，包含pipe处理期间所需的临时数据</p>
-</dd>
+<dd>struct rte_sched_grinder，存放当前活动pipes的短列表，包含pipe处理期间所需的临时数据</dd>
 </dl>
 </li>
 </ul>

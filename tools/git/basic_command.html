@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Git常用命令 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="Git" href="index.html"/>
+        <link rel="next" title="兴趣爱好" href="../../hobby/index.html"/>
+        <link rel="prev" title="Git" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> zzqblog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../dpdk/index.html">DPDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../netalgo/index.html">网络算法学</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../wireshark/index.html">wireshark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asm/index.html">汇编语言</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">工具与杂项</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vim/index.html">Vim</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Git</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">十、其他</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">zzqblog</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">工具与杂项</a> &raquo;</li>
+      
+          <li><a href="index.html">Git</a> &raquo;</li>
+      
+    <li>Git常用命令</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="git">
+<h1>Git常用命令<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h1>
+<p><strong>原文链接:</strong> <a class="reference external" href="https://zhuanlan.zhihu.com/p/25868120">https://zhuanlan.zhihu.com/p/25868120</a></p>
+<div class="line-block">
+<div class="line">作者：挖地兔</div>
+<div class="line">个人公众号：挖地兔</div>
+<div class="line">出处： <a class="reference external" href="http://link.zhihu.com/?target=https%3A//ask.hellobi.com/blog/waditu">挖地兔的博客专栏</a></div>
+</div>
+<img alt="../../_images/basic_command.png" src="../../_images/basic_command.png" />
+<p>下面是我整理的常用 Git 命令清单。几个专用名词的译名如下。</p>
+<ul class="simple">
+<li>Workspace：工作区</li>
+<li>Index / Stage：暂存区</li>
+<li>Repository：仓库区（或本地仓库）</li>
+<li>Remote：远程仓库</li>
+</ul>
+<div class="section" id="id2">
+<h2>一、新建代码库<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 在当前目录新建一个 Git 代码库</span>
+$ git init
+
+<span class="c1"># 新建一个目录，将其初始化为 Git 代码库</span>
+$ git init <span class="o">[</span>project-name<span class="o">]</span>
+
+<span class="c1"># 下载一个项目和它的整个代码历史</span>
+$ git clone <span class="o">[</span>url<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>二、配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Git 的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 显示当前的 Git 配置</span>
+$ git config --list
+
+<span class="c1"># 编辑 Git 配置文件</span>
+$ git config -e <span class="o">[</span>--global<span class="o">]</span>
+
+<span class="c1"># 设置提交代码时的用户信息</span>
+$ git config <span class="o">[</span>--global<span class="o">]</span> user.name <span class="s2">&quot;[name]&quot;</span>
+$ git config <span class="o">[</span>--global<span class="o">]</span> user.email <span class="s2">&quot;[email address]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>三、增加/删除文件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 添加指定文件到暂存区</span>
+$ git add <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ...
+
+<span class="c1"># 添加指定目录到暂存区，包括子目录</span>
+$ git add <span class="o">[</span>dir<span class="o">]</span>
+
+<span class="c1"># 添加当前目录的所有文件到暂存区</span>
+$ git add .
+
+<span class="c1"># 删除工作区文件，并且将这次删除放入暂存区</span>
+$ git rm <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ...
+
+<span class="c1"># 停止追踪指定文件，但该文件会保留在工作区</span>
+$ git rm --cached <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 改名文件，并且将这个改名放入暂存区</span>
+$ git mv <span class="o">[</span>file-original<span class="o">]</span> <span class="o">[</span>file-renamed<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>四、代码提交<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 提交暂存区到仓库区</span>
+$ git commit -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 提交暂存区的指定文件到仓库区</span>
+$ git commit <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ... -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 提交工作区自上次 commit 之后的变化，直接到仓库区</span>
+$ git commit -a
+
+<span class="c1"># 提交时显示所有 diff 信息</span>
+$ git commit -v
+
+<span class="c1"># 使用一次新的 commit，替代上一次提交</span>
+<span class="c1"># 如果代码没有任何新变化，则用来改写上一次 commit 的提交信息</span>
+$ git commit --amend -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 重做上一次 commit，并包括指定文件的新变化</span>
+$ git commit --amend   ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>五、分支<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 列出所有本地分支</span>
+$ git branch
+
+<span class="c1"># 列出所有远程分支</span>
+$ git branch -r
+
+<span class="c1"># 列出所有本地分支和远程分支</span>
+$ git branch -a
+
+<span class="c1"># 新建一个分支，但依然停留在当前分支</span>
+$ git branch <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，并切换到该分支</span>
+$ git checkout -b <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，指向指定 commit</span>
+$ git branch <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，与指定的远程分支建立追踪关系</span>
+$ git branch --track <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>remote-branch<span class="o">]</span>
+
+<span class="c1"># 切换到指定分支，并更新工作区</span>
+$ git checkout <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 建立追踪关系，在现有分支与指定的远程分支之间</span>
+$ git branch --set-upstream <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>remote-branch<span class="o">]</span>
+
+<span class="c1"># 合并指定分支到当前分支</span>
+$ git merge <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 选择一个 commit，合并进当前分支</span>
+$ git cherry-pick <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 删除分支</span>
+$ git branch -d <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 删除远程分支</span>
+$ git push origin --delete <span class="o">[</span>branch-name<span class="o">]</span>
+$ git branch -dr <span class="o">[</span>branch-name<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>六、标签<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 列出所有 tag</span>
+$ git tag
+
+<span class="c1"># 新建一个 tag 在当前 commit</span>
+$ git tag <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 新建一个 tag 在指定 commit</span>
+$ git tag <span class="o">[</span>tag<span class="o">]</span> <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 查看 tag 信息</span>
+$ git show <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 提交指定 tag</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 提交所有 tag</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --tags
+
+<span class="c1"># 新建一个分支，指向某个 tag</span>
+$ git checkout -b <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>tag<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>七、查看信息<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 显示有变更的文件</span>
+$ git status
+
+<span class="c1"># 显示当前分支的版本历史</span>
+$ git log
+
+<span class="c1"># 显示 commit 历史，以及每次 commit 发生变更的文件</span>
+$ git log --stat
+
+<span class="c1"># 显示某个文件的版本历史，包括文件改名</span>
+$ git log --follow <span class="o">[</span>file<span class="o">]</span>
+$ git whatchanged <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示指定文件相关的每一次 diff</span>
+$ git log -p <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示指定文件是什么人在什么时间修改过</span>
+$ git blame <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示暂存区和工作区的差异</span>
+$ git diff
+
+<span class="c1"># 显示暂存区和上一个 commit 的差异</span>
+$ git diff --cached <span class="o">[]</span>
+
+<span class="c1"># 显示工作区与当前分支最新 commit 之间的差异</span>
+$ git diff HEAD
+
+<span class="c1"># 显示两次提交之间的差异</span>
+$ git diff <span class="o">[</span>first-branch<span class="o">]</span>...<span class="o">[</span>second-branch<span class="o">]</span>
+
+<span class="c1"># 显示某次提交的元数据和内容变化</span>
+$ git show <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 显示某次提交发生变化的文件</span>
+$ git show --name-only <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 显示某次提交时，某个文件的内容</span>
+$ git show <span class="o">[</span>commit<span class="o">]</span>:<span class="o">[</span>filename<span class="o">]</span>
+
+<span class="c1"># 显示当前分支的最近几次提交</span>
+$ git reflog
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>八、远程同步<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 下载远程仓库的所有变动</span>
+$ git fetch <span class="o">[</span>remote<span class="o">]</span>
+
+<span class="c1"># 显示所有远程仓库</span>
+$ git remote -v
+
+<span class="c1"># 显示某个远程仓库的信息</span>
+$ git remote show <span class="o">[</span>remote<span class="o">]</span>
+
+<span class="c1"># 增加一个新的远程仓库，并命名</span>
+$ git remote add <span class="o">[</span>shortname<span class="o">]</span> <span class="o">[</span>url<span class="o">]</span>
+
+<span class="c1"># 取回远程仓库的变化，并与本地分支合并</span>
+$ git pull <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 上传本地指定分支到远程仓库</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 强行推送当前分支到远程仓库，即使有冲突</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --force
+
+<span class="c1"># 推送所有分支到远程仓库</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --all
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>九、撤销<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 恢复暂存区的指定文件到工作区</span>
+$ git checkout <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 恢复某个 commit 的指定文件到工作区</span>
+$ git checkout <span class="o">[</span>commit<span class="o">]</span> <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 恢复上一个 commit 的所有文件到工作区</span>
+$ git checkout .
+
+<span class="c1"># 重置暂存区的指定文件，与上一次 commit 保持一致，但工作区不变</span>
+$ git reset <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 重置暂存区与工作区，与上一次 commit 保持一致</span>
+$ git reset --hard
+
+<span class="c1"># 重置当前分支的指针为指定 commit，同时重置暂存区，但工作区不变</span>
+$ git reset <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 重置当前分支的 HEAD 为指定 commit，同时重置暂存区和工作区，与指定 commit 一致</span>
+$ git reset --hard <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 重置当前 HEAD 为指定 commit，但保持暂存区和工作区不变</span>
+$ git reset --keep <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 新建一个 commit，用来撤销指定 commit</span>
+<span class="c1"># 后者的所有变化都将被前者抵消，并且应用到当前分支</span>
+$ git revert <span class="o">[</span>commit<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>十、其他<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># 生成一个可供发布的压缩包</span>
+$ git archive
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../hobby/index.html" class="btn btn-neutral float-right" title="兴趣爱好" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Git" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
