@@ -38,7 +38,7 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
-        <link rel="up" title="用sphinx+reST编写文档" href="index.html"/>
+        <link rel="up" title="用reST编写文档" href="index.html"/>
         <link rel="next" title="生成API文档" href="doxygen.html"/>
         <link rel="prev" title="修改样式" href="style.html"/> 
 
@@ -377,7 +377,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">用sphinx+reST编写文档</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">用reST编写文档</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="intro.html">简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
@@ -399,9 +399,9 @@
 <li class="toctree-l4"><a class="reference internal" href="grammar.html#id10">脚注</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grammar.html#id11">提醒</a></li>
 <li class="toctree-l4"><a class="reference internal" href="grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="grammar.html#id13">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="grammar.html#id13">参考</a></li>
 <li class="toctree-l3"><a class="reference internal" href="style.html">修改样式</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="style.html#step1">Step1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="style.html#step2">Step2</a></li>
@@ -487,7 +487,7 @@
         
           <li><a href="../index.html">工具与杂项</a> &raquo;</li>
         
-          <li><a href="index.html">用sphinx+reST编写文档</a> &raquo;</li>
+          <li><a href="index.html">用reST编写文档</a> &raquo;</li>
         
       <li>生成PDF</li>
     
@@ -594,8 +594,6 @@
 <li><p class="first">下载sphinx源码包, 目前(2017.07.03)最好用1.5.6, 最新版本有bug,
 地址 <a class="reference external" href="https://github.com/sphinx-doc/sphinx/archive/1.5.6.tar.gz">https://github.com/sphinx-doc/sphinx/archive/1.5.6.tar.gz</a></p>
 </li>
-</ol>
-<ol class="arabic" start="3">
 <li><p class="first">解压源码包, 假设为/home/zzq/sphinx-1.5.6, 下文都基于此目录讨论</p>
 </li>
 <li><p class="first">修改 <code class="docutils literal"><span class="pre">sphinx/texinputs/Makefile_t</span></code> , 将PDFLATEX修改为xelatex:</p>
