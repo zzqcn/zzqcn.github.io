@@ -1,0 +1,1038 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>reST语法介绍 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="用sphinx+reST编写文档" href="index.html"/>
+        <link rel="next" title="修改样式" href="style.html"/>
+        <link rel="prev" title="安装与基本使用" href="setup.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> zzqblog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/eal.html">1. EAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id4">1.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/ring.html">2. Ring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id1">2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id4">2.2. 应用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id5">2.3. 无锁队列操作图解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step1">2.3.1. Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step2">2.3.2. Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step3">2.3.3. Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step4">2.3.4. Step4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step5">2.3.5. Step5</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id6">2.4. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id7">2.5. 多生产者入队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id8">2.6. 多消费者出队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id9">2.7. 索引计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id10">2.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mem.html">3. Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mem.html#id1">3.1. 内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#id2">3.1.1. 大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#id3">3.1.2. 大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#memzone">3.1.3. memzone初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mem.html#id6">3.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/memseg.html">4. Memseg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id1">4.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id2">4.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id3">4.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/memzone.html">5. Memzone</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id1">5.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#memzone-init">5.2. 初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id3">5.3. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id4">5.4. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id5">5.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/malloc.html">6. Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id1">6.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id2">6.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id4">6.5. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id5">6.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mempool.html">7. Mempool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id1">7.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id2">7.2. 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mempool.html#id3">7.2.1. 内存对齐</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mempool.html#cache">7.2.2. Cache机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id4">7.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id5">7.4. 创建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id6">7.5. 取出对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id7">7.6. 还回对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id8">7.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mbuf.html">8. Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id1">8.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id2">8.2. 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id3">8.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id4">8.4. 分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id5">8.4.1. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id6">8.4.2. 分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id7">8.4.3. 回收</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id8">8.5. 元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id9">8.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/build_sys.html">9. 编译系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id2">9.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id3">9.2. 源码组织</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config">9.2.1. config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk">9.2.2. mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#drivers">9.2.3. drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#lib">9.2.4. lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#tools">9.2.5. tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#app">9.2.6. app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#examples">9.2.7. examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id5">9.3. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk">9.3.1. 编译dpdk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id6">9.3.2. 编译外部程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk-makefile">9.4. dpdk Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id7">9.4.1. 一般规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id8">9.4.2. 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id13">9.4.3. 常用变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#makefile">9.4.4. 仅可以在Makefile中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id14">9.4.5. 仅可以在命令行中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id15">9.4.6. 可以在Makefile或命令行中设置的变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#root-makefile-help">9.5. 根Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config-target">9.5.1. config target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#build-target">9.5.2. build target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#install-target">9.5.3. install target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#test-target">9.5.4. test target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#target">9.5.5. 文档target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#deps-target">9.5.6. deps target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id17">9.5.7. 杂项target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id18">9.5.8. 其他命令行变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#debug">9.5.9. 编译Debug版本</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#abi">9.6. ABI管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id19">9.6.1. 什么是ABI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk-abi">9.6.2. DPDK ABI策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id20">9.6.3. ABI宏及示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id21">9.6.4. 验证ABI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#v16-07-2">9.7. 实例：将v16.07.2编译为单个动态库</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config-common-base">9.7.1. config/common_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-lib-mk">9.7.2. mk/rte.lib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-combinedlib-mk">9.7.3. mk/rte.combinedlib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-app-mk">9.7.4. mk/rte.app.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#libdpdk-map">9.7.5. libdpdk.map</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id22">9.8. 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id1">9.1 缓存管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id2">9.1.1 缓存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id3">9.1.2 缓存的共享</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#dpdk">9.1.3 dpdk内存实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id5">9.4 重组</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id6">9.4.1 高效重组</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id2">14.2 拥塞控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id4">14.2.1 设计目标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id5">14.2.2 算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#wred">14.2.3 WRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-red">14.2.4 dpdk red的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id16">14.3.1 基本原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#srtcm">14.3.2 srTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#trtcm">14.3.3 trTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-meter">14.3.4 dpdk_meter的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id26">14.6 带宽保证</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id27">14.6.1 问题引入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#deficit-round-robin">14.6.1 Deficit Round-Robin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#drr">14.6.2 DRR的实现与扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id31">14.9.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id32">14.9.2 调度分层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id33">14.9.3 实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id37">附录</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#ewma">EWMA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/reassemble.html">报文重组</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id3">协议分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#ip">IP协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#tcp">TCP协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#http">HTTP协议</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id18">已有软件实现思想</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#wireshark">wireshark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#suricata">suricata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id21">张加林实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id22">总体设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id23">需要注意的问题</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id24">内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id25">性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id26">复杂性与容错性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id27">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../perf/vtune.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id2">一般应用: 图形界面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id3">一般应用: 命令行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../asm/index.html">汇编语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../asm/pcasm.html">PC Assembly Language读书笔记</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">工具与杂项</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">用sphinx+reST编写文档</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setup.html#index">index页配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">替换</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">zzqblog</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">工具与杂项</a> &raquo;</li>
+        
+          <li><a href="index.html">用sphinx+reST编写文档</a> &raquo;</li>
+        
+      <li>reST语法介绍</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rest">
+<h1>reST语法介绍<a class="headerlink" href="#rest" title="Permalink to this headline">¶</a></h1>
+<p>reStructuredText标记语言比Markdown强大很多，支持多种排版样式。不过这里只介绍开发人员主要会用到的一些样式。reST文档的详细介绍见<a class="reference external" href="http://docutils.sourceforge.net/rst.html">http://docutils.sourceforge.net/rst.html</a></p>
+<div class="section" id="id1">
+<h2>章节标题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>在文本下一行（或上一行）添加至少与文本长度同宽的符号，即可以使文本成为标题。但并没有规定某一个级别的标题必须用什么字符，可以参考python文档的一些约定:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="c1"># with overline, for parts</span>
+<span class="o">*</span> <span class="o">*</span> <span class="k">with</span> <span class="n">overline</span><span class="p">,</span> <span class="k">for</span> <span class="n">chapters</span>
+<span class="o">*</span> <span class="o">=</span><span class="p">,</span> <span class="k">for</span> <span class="n">sections</span>
+<span class="o">*</span> <span class="o">-</span><span class="p">,</span> <span class="k">for</span> <span class="n">subsections</span>
+<span class="o">*</span> <span class="o">^</span><span class="p">,</span> <span class="k">for</span> <span class="n">subsubsections</span>
+<span class="o">*</span> <span class="s2">&quot;, for paragraphs</span>
+</pre></div>
+</div>
+<p>我们把intro.rst改成下面这样:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">intro</span>
+<span class="o">=====</span>
+
+<span class="n">aaa</span>
+<span class="o">---</span>
+<span class="n">aaaaaaaaaaaa</span>
+
+<span class="n">bbbb</span>
+<span class="o">----</span>
+<span class="n">bbbbbbbbbbb</span>
+</pre></div>
+</div>
+<p>其中，intro是一级标题，aaa和bbbb是二级标题。生成的html标签分别是&lt;h1&gt;和&lt;h2&gt;。  回到上一级目录重新make html，此时首页index.html效果如下：</p>
+<img alt="../../_images/doc_head.png" src="../../_images/doc_head.png" />
+<p>在右边的Contents中，sphinx已经给我们生成了各文件的标题链接，深度为2，深度可以在index.rst中的maxdepth中设置。然而index.html左边的导航里并没有各文件的链接，像intro.html里那样，这个可以通过修改conf.py实现，找到html_sidebars，改为:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_sidebars</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;**&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;globaltoc.html&#39;</span><span class="p">,</span> <span class="s1">&#39;sourcelink.html&#39;</span><span class="p">,</span> <span class="s1">&#39;searchbox.html&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>修改后保存，重新make html，index.html左边导航变为如下这样：</p>
+<img alt="../../_images/doc_head2.png" src="../../_images/doc_head2.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">有些主题(theme)会自动完成添加左侧导航的功能</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>段落<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>段落是构成reST文档的基本单位。通过一个或一个以上的空行隔开的文本区块就是一个段落。正如在python里一样，reST中的缩进非常重要。同一段落的多个文本行必须有一样的缩进。</p>
+<p>注意在段落内换行并不会在html中生成换行符，要想保持在文本编辑器中的换行符，需要在这些行前面加上|和空格:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="n">aaaaaaaa</span>
+<span class="o">|</span> <span class="n">bbbbbbbbb</span>
+<span class="o">|</span> <span class="n">cccccccccccc</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">如果编写中文reST文档，在编辑器中由于一行文字太长需要强制换行时，记得在行末加\，否则生成的html会在行末和下一行行首之前插入一个空格</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>行内标记<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>行内标记常用的有:</p>
+<ul class="simple">
+<li>字体加粗 两个星号</li>
+<li>字体倾斜 一个星号</li>
+<li>代码或内容引用 两个反引号（`）</li>
+</ul>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>aaaa **加粗** aaaaa
+aaaa *倾斜* aaaaa
+aaaaa ``引用`` aaaaaa
+</pre></div>
+</div>
+<p>效果：</p>
+<p>aaaa <strong>加粗</strong> aaaaa
+aaaa <em>倾斜</em> aaaaa
+aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaaaa</p>
+<p>注意这些符号在前后不能有非空白字符，否则无法生效。</p>
+</div>
+<div class="section" id="id4">
+<h2>列表<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>符号列表 *号后空格</li>
+<li>编号列表 数字加点加空格，或者#号加点加空格</li>
+<li>定义列表 术语（只能一行）的下一行缩进，下一行为定义内容</li>
+</ul>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">item</span>
+<span class="o">*</span> <span class="n">item</span>
+<span class="o">*</span> <span class="n">item</span>
+
+<span class="mf">1.</span> <span class="n">item1</span>
+<span class="mf">2.</span> <span class="n">item2</span>
+<span class="mf">3.</span> <span class="n">item3</span>
+
+<span class="c1">#. item4</span>
+<span class="c1">#. item5</span>
+<span class="c1">#. item6</span>
+
+<span class="n">FOO</span>
+<span class="n">this</span> <span class="ow">is</span> <span class="n">very</span> <span class="n">interesting</span><span class="o">.</span>
+
+<span class="n">BAR</span>
+<span class="n">this</span> <span class="ow">is</span> <span class="n">interesting</span><span class="p">,</span> <span class="n">too</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>效果：</p>
+<ul class="simple">
+<li>item</li>
+<li>item</li>
+<li>item</li>
+</ul>
+<ol class="arabic simple">
+<li>item1</li>
+<li>item2</li>
+<li>item3</li>
+<li>item4</li>
+<li>item5</li>
+<li>item6</li>
+</ol>
+<p>FOO
+this is very interesting.</p>
+<p>BAR
+this is interesting, too.</p>
+</div>
+<div class="section" id="id5">
+<h2>代码<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>在文档中列出代码是开发人员经常用到的一个功能。在reST文档中列出代码有三种方式：</p>
+<ul class="simple">
+<li>行内代码 用``code``</li>
+<li>简单代码块 在代码块的上一个段落后面加2个冒号，空一行后开始代码块，代码块要缩进</li>
+<li>复杂代码块 使用code-block指导语句，还可以选择列出行号和高亮重点行等</li>
+</ul>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">code</span> <span class="n">below</span> <span class="p">::</span>
+
+<span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">source</span> <span class="n">code</span> <span class="n">again</span>
+
+<span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">c</span>
+    <span class="p">:</span><span class="n">linenos</span><span class="p">:</span>
+    <span class="p">:</span><span class="n">emphasize</span><span class="o">-</span><span class="n">lines</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span><span class="mi">6</span>
+
+    <span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>效果：</p>
+<p>source code below</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>source code again</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="hll">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="hll">    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;i: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</span><span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id6">
+<h2>超链接<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>主要有两种方式：</p>
+<ul class="simple">
+<li>行内超链接 语法`链接文字 &lt;URL&gt;`_</li>
+<li>分开的超链接 用到链接的地方`链接文字`_, 定义链接的地方 .. _链接文字: URL</li>
+<li>记住链接URL要加http://前缀，不要直接从网址开始写。</li>
+</ul>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>visit `baidu &lt;http://www.baidu.com&gt;`_
+
+visit `baidu URL`_
+
+.. _baidu URL: http://www.baidu.com
+</pre></div>
+</div>
+<p>效果：</p>
+<p>visit <a class="reference external" href="http://www.baidu.com">baidu</a></p>
+<p>visit <a class="reference external" href="http://www.baidu.com">baidu URL</a></p>
+</div>
+<div class="section" id="id7">
+<h2>图片<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>使用image指导语句。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">baidu</span> <span class="n">logo</span><span class="p">:</span>
+
+<span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">img</span><span class="o">/</span><span class="n">bdlogo</span><span class="o">.</span><span class="n">png</span>
+    <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">200</span><span class="n">px</span>
+</pre></div>
+</div>
+<p>效果：</p>
+<p>baidu logo:</p>
+<a class="reference internal image-reference" href="../../_images/bdlogo.png"><img alt="../../_images/bdlogo.png" src="../../_images/bdlogo.png" style="width: 200px;" /></a>
+<p>也可以使用figure指导语句，figure可以空一行，接着写图片标题。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">figure</span><span class="p">::</span> <span class="n">img</span><span class="o">/</span><span class="n">bdlogo</span><span class="o">.</span><span class="n">png</span>
+    <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">200</span><span class="n">px</span>
+
+    <span class="n">Baidu</span> <span class="n">LOGO</span>
+</pre></div>
+</div>
+<p>效果：</p>
+<div class="figure" id="id15">
+<a class="reference internal image-reference" href="../../_images/bdlogo.png"><img alt="../../_images/bdlogo.png" src="../../_images/bdlogo.png" style="width: 200px;" /></a>
+<p class="caption"><span class="caption-text">Baidu LOGO</span></p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>表格<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>使用文本字符绘制的表格。简单表格用的字符较少，但功能有限，如不能表格行不能换行；复杂不及格使用的字符较多。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">simple</span> <span class="n">table</span><span class="p">:</span>
+
+<span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+<span class="n">Inputs</span>        <span class="n">Output</span>
+<span class="o">------------</span>  <span class="o">------</span>
+<span class="n">A</span>      <span class="n">B</span>      <span class="n">A</span> <span class="ow">or</span> <span class="n">B</span>
+<span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+<span class="kc">False</span>  <span class="kc">False</span>  <span class="kc">False</span>
+<span class="kc">True</span>   <span class="kc">False</span>  <span class="kc">True</span>
+<span class="kc">False</span>  <span class="kc">True</span>   <span class="kc">True</span>
+<span class="kc">True</span>   <span class="kc">True</span>   <span class="kc">True</span>
+<span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+
+<span class="n">grid</span> <span class="n">table</span><span class="p">:</span>
+
+<span class="o">+------------------------+------------+----------+----------+</span>
+<span class="o">|</span> <span class="n">Header</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="mi">1</span>   <span class="o">|</span> <span class="n">Header</span> <span class="mi">2</span>   <span class="o">|</span> <span class="n">Header</span> <span class="mi">3</span> <span class="o">|</span> <span class="n">Header</span> <span class="mi">4</span> <span class="o">|</span>
+<span class="o">|</span> <span class="p">(</span><span class="n">header</span> <span class="n">rows</span> <span class="n">optional</span><span class="p">)</span> <span class="o">|</span>            <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">+========================+============+==========+==========+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="mi">1</span>   <span class="o">|</span> <span class="n">column</span> <span class="mi">2</span>   <span class="o">|</span> <span class="n">column</span> <span class="mi">3</span> <span class="o">|</span> <span class="n">column</span> <span class="mi">4</span> <span class="o">|</span>
+<span class="o">+------------------------+------------+----------+----------+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">2</span>             <span class="o">|</span> <span class="n">Cells</span> <span class="n">may</span> <span class="n">span</span> <span class="n">columns</span><span class="o">.</span>          <span class="o">|</span>
+<span class="o">+------------------------+------------+---------------------+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">3</span>             <span class="o">|</span> <span class="n">Cells</span> <span class="n">may</span>  <span class="o">|</span> <span class="o">-</span> <span class="n">Table</span> <span class="n">cells</span>       <span class="o">|</span>
+<span class="o">+------------------------+</span> <span class="n">span</span> <span class="n">rows</span><span class="o">.</span> <span class="o">|</span> <span class="o">-</span> <span class="n">contain</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">4</span>             <span class="o">|</span>            <span class="o">|</span> <span class="o">-</span> <span class="n">body</span> <span class="n">elements</span><span class="o">.</span>    <span class="o">|</span>
+<span class="o">+------------------------+------------+---------------------+</span>
+</pre></div>
+</div>
+<p>效果:</p>
+<p>simple table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2">Inputs</th>
+<th class="head">Output</th>
+</tr>
+<tr class="row-even"><th class="head">A</th>
+<th class="head">B</th>
+<th class="head">A or B</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>False</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>grid table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="21%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Header row, column 1
+(header rows optional)</th>
+<th class="head">Header 2</th>
+<th class="head">Header 3</th>
+<th class="head">Header 4</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>body row 1, column 1</td>
+<td>column 2</td>
+<td>column 3</td>
+<td>column 4</td>
+</tr>
+<tr class="row-odd"><td>body row 2</td>
+<td colspan="3">Cells may span columns.</td>
+</tr>
+<tr class="row-even"><td>body row 3</td>
+<td rowspan="2">Cells may
+span rows.</td>
+<td colspan="2" rowspan="2"><ul class="first last simple">
+<li>Table cells</li>
+<li>contain</li>
+<li>body elements.</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>body row 4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h2>引用<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>一种是传统的参考文献引用格式。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>It is methioned by [Ref]_ that C++ is good.
+
+.. [Ref] 《zzq&#39;s talk》
+</pre></div>
+</div>
+<p>效果：</p>
+<img alt="../../_images/doc_ref.png" src="../../_images/doc_ref.png" />
+<p>类似于书签的引用，被引用的内容可以在另一个reST文档中。在引用的地方, 使用 <code class="docutils literal"><span class="pre">:ref:`bookmark`</span></code> 这种语法，在被引用内容的上方, 使用
+<code class="docutils literal"><span class="pre">_bookmark:</span></code> 的语法。下方的标题将变成书签链接的文本。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>附录 :ref:`ewma_algo` 中也有介绍。
+
+.. _ewma_algo:
+
+EWMA Algo
+---------
+(被引用的内容）
+</pre></div>
+</div>
+<p>文档间引用，引用另一文档，格式是 <code class="docutils literal"><span class="pre">:doc:`file_name`</span></code> 。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>sniper知识库格式发生了一些变化，见 :doc:`rule_format` 。
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>脚注<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>与引用语法类似，只是它在正文中显示的不是文本，而是编号。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">orem</span> <span class="n">ipsum</span> <span class="p">[</span><span class="c1">#f1]_ dolor sit amet ... [#f2]_</span>
+
+<span class="n">Footnotes</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="c1">#f1] Text of the first footnote.</span>
+<span class="o">..</span> <span class="p">[</span><span class="c1">#f2] Text of the second footnote.</span>
+</pre></div>
+</div>
+<p>效果：</p>
+<img alt="../../_images/doc_foot.png" src="../../_images/doc_foot.png" />
+</div>
+<div class="section" id="id11">
+<h2>提醒<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>可以使用提醒指导语句来添加需要提醒读者注意的说明文字。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">note</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">note</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="n">warning</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">warning</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="n">error</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">error</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>效果:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this is a note.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">this is a warning.</p>
+</div>
+<div class="admonition error">
+<p class="first admonition-title">Error</p>
+<p class="last">this is an error.</p>
+</div>
+<p>已实现的提醒指导语句有：</p>
+<ul class="simple">
+<li>attention</li>
+<li>caution</li>
+<li>danger</li>
+<li>error</li>
+<li>hint</li>
+<li>important</li>
+<li>note</li>
+<li>tip</li>
+<li>warning</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2>替换<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>替换类似脚注，在正文中使用|text|这样标签，然后可以设定使用其他文本或者图片来代替text这个占位符。</p>
+<p>示例:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="o">|</span><span class="n">apple</span><span class="o">|</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="o">|</span><span class="n">apple</span><span class="o">|</span> <span class="n">replace</span><span class="p">::</span> <span class="n">苹果</span>
+</pre></div>
+</div>
+<p>效果:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="n">苹果</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h1>参考<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h1>
+<table class="docutils citation" frame="void" id="sphinx-site" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[sphinx_site]</td><td><a class="reference external" href="http://sphinx-doc.org/index.html">sphinx-doc官网</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[reST]</td><td><a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">reStructuredText标记语言规范</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="gen-chn-pdf" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[gen_chn_pdf]</td><td><a class="reference external" href="http://www.tuicool.com/articles/nAJJVb">使用sphinx制作中文PDF</a></td></tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="style.html" class="btn btn-neutral float-right" title="修改样式" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="setup.html" class="btn btn-neutral" title="安装与基本使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

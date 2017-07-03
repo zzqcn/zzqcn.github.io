@@ -1,0 +1,1340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>报文重组 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
+        <link rel="up" title="算法与问题" href="index.html"/>
+        <link rel="next" title="性能优化" href="../perf/index.html"/>
+        <link rel="prev" title="算法与问题" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> zzqblog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id4">1.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/ring.html">2. Ring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id1">2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id4">2.2. 应用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id5">2.3. 无锁队列操作图解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step1">2.3.1. Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step2">2.3.2. Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step3">2.3.3. Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step4">2.3.4. Step4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step5">2.3.5. Step5</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id6">2.4. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id7">2.5. 多生产者入队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id8">2.6. 多消费者出队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id9">2.7. 索引计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id10">2.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mem.html">3. Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mem.html#id1">3.1. 内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id2">3.1.1. 大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id3">3.1.2. 大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#memzone">3.1.3. memzone初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mem.html#id6">3.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/memseg.html">4. Memseg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id1">4.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id2">4.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id3">4.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/memzone.html">5. Memzone</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id1">5.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#memzone-init">5.2. 初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id3">5.3. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id4">5.4. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id5">5.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/malloc.html">6. Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id1">6.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id2">6.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id4">6.5. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id5">6.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mempool.html">7. Mempool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id1">7.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id2">7.2. 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id3">7.2.1. 内存对齐</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#cache">7.2.2. Cache机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id4">7.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id5">7.4. 创建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id6">7.5. 取出对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id7">7.6. 还回对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id8">7.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mbuf.html">8. Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id1">8.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id2">8.2. 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id3">8.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id4">8.4. 分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id5">8.4.1. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id6">8.4.2. 分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id7">8.4.3. 回收</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id8">8.5. 元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id9">8.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/build_sys.html">9. 编译系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id2">9.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id3">9.2. 源码组织</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config">9.2.1. config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk">9.2.2. mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#drivers">9.2.3. drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#lib">9.2.4. lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#tools">9.2.5. tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#app">9.2.6. app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#examples">9.2.7. examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id5">9.3. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#dpdk">9.3.1. 编译dpdk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id6">9.3.2. 编译外部程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#dpdk-makefile">9.4. dpdk Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id7">9.4.1. 一般规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id8">9.4.2. 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id13">9.4.3. 常用变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#makefile">9.4.4. 仅可以在Makefile中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id14">9.4.5. 仅可以在命令行中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id15">9.4.6. 可以在Makefile或命令行中设置的变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#root-makefile-help">9.5. 根Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config-target">9.5.1. config target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#build-target">9.5.2. build target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#install-target">9.5.3. install target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#test-target">9.5.4. test target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#target">9.5.5. 文档target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#deps-target">9.5.6. deps target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id17">9.5.7. 杂项target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id18">9.5.8. 其他命令行变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#debug">9.5.9. 编译Debug版本</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#abi">9.6. ABI管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id19">9.6.1. 什么是ABI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#dpdk-abi">9.6.2. DPDK ABI策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id20">9.6.3. ABI宏及示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id21">9.6.4. 验证ABI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#v16-07-2">9.7. 实例：将v16.07.2编译为单个动态库</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config-common-base">9.7.1. config/common_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-lib-mk">9.7.2. mk/rte.lib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-combinedlib-mk">9.7.3. mk/rte.combinedlib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-app-mk">9.7.4. mk/rte.app.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#libdpdk-map">9.7.5. libdpdk.map</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id22">9.8. 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id1">9.1 缓存管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id2">9.1.1 缓存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id3">9.1.2 缓存的共享</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#dpdk">9.1.3 dpdk内存实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id5">9.4 重组</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id6">9.4.1 高效重组</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id2">14.2 拥塞控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id4">14.2.1 设计目标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id5">14.2.2 算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#wred">14.2.3 WRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-red">14.2.4 dpdk red的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id16">14.3.1 基本原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#srtcm">14.3.2 srTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#trtcm">14.3.3 trTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-meter">14.3.4 dpdk_meter的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id26">14.6 带宽保证</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id27">14.6.1 问题引入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#deficit-round-robin">14.6.1 Deficit Round-Robin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#drr">14.6.2 DRR的实现与扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id31">14.9.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id32">14.9.2 调度分层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id33">14.9.3 实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id37">附录</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#ewma">EWMA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">算法与问题</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">报文重组</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">协议分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ip">IP协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tcp">TCP协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#http">HTTP协议</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">已有软件实现思想</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#wireshark">wireshark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#suricata">suricata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">张加林实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">总体设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">需要注意的问题</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id24">内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">复杂性与容错性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perf/vtune.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id2">一般应用: 图形界面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id3">一般应用: 命令行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../asm/index.html">汇编语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../asm/pcasm.html">PC Assembly Language读书笔记</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/rest/index.html">用sphinx+reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#index">index页配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id12">替换</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/grammar.html#id13">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">zzqblog</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">算法与问题</a> &raquo;</li>
+        
+      <li>报文重组</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>报文重组<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>// TODO: XXX</p>
+</div>
+<div class="section" id="id3">
+<h2>协议分析<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>物理网络层一般要限制每次发送数据帧的最大长度. 任何时候IP层接收到一份要发送的IP数据报时, 它要判断向本地哪个接口发送数据(选路), 并查询该接口获得其MTU(最大传输单元). IP把MTU与数据报长度进行比较, 如果需要则进行分片. 分片可能发生在原始发送端主机上, 也可能发生在中间路由器上.</p>
+<p>最终目的接收端主机需要对报文进行重组, 以还原原始数据.</p>
+<p>下面介绍与分片和重组相关的协议细节.</p>
+<div class="section" id="ip">
+<h3>IP协议<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ipv4">
+<h4>IPv4首部<a class="headerlink" href="#ipv4" title="Permalink to this headline">¶</a></h4>
+<p>IPv4协议标准见RFC791. 下面是IPv4首部的各字段:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Version|  IHL  |Type of Service|          Total Length         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         Identification        |Flags|      Fragment Offset    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Time to Live |    Protocol   |         Header Checksum       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       Source Address                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Destination Address                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options                    |    Padding    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+               Example Internet Datagram Header
+</pre></div>
+</div>
+<p>其中, 总长度(Total Length)共16bit, 表示此IP数据报的总字节数, 包含首部. 当数据报被分片时, 每个分片的总长度值要改为该片的长度值.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">但我在公司设备输出的GRE封装报文中发现, 当发生分片时,
+第一个分片的内层IP报文的总长度字段值并不是该分片实际长度,
+仍是分片前的总长度.</p>
+</div>
+<p>标识字段(Identification)共16bit, 唯一地标识主机发送的每一份数据报.
+通常每发送一份报文它的值就会加1. 当一个IP数据报分生分片时, 标识字段的值会被复制到每一个分片中.</p>
+<p>标志字段(Flags)共3bit, 它的构成如下:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>0   1   2
++---+---+---+
+|   | D | M |
+| 0 | F | F |
++---+---+---+
+</pre></div>
+</div>
+<p>bit0保留; bit1为DF(Don&#8217;t Fragment)标志, 置1时表示不得分片; bit2为MF(More Fragments)标志, 置1时表示该报文是一个分片, 且后续还有更多分片, 当发生分片时, 除最后一片外, 其他分片都要把该bit置1.</p>
+<p>分片偏移字段(Fragment Offset)共13bit, 表示该分片相对于原始报文开始处的偏移位置, 该值以8字节为单位, 比如如果某分片中该值为0x00ae=174,
+则表示该分片的偏移是174x8=1392.</p>
+<p>任何运输层首部, 只出现在第1个分片中.</p>
+</div>
+<div class="section" id="id4">
+<h4>IP分片<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id5">
+<h4>与IP相关的攻击<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="tcp">
+<h3>TCP协议<a class="headerlink" href="#tcp" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h4>TCP首部<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>TCP协议标准见RFC793. 下面是TCP首部的各字段:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |       Destination Port        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Sequence Number                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Acknowledgment Number                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Data |           |U|A|P|R|S|F|                               |
+| Offset| Reserved  |R|C|S|S|Y|I|            Window             |
+|       |           |G|K|H|T|N|N|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|           Checksum            |         Urgent Pointer        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options                    |    Padding    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             data                              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                        TCP Header Format
+</pre></div>
+</div>
+<p>其中, 序号(Sequence Number)用来标识从TCP发送端向TCP接收端发送的数据字节流, 它是32bit的无符号数, 到达2^32-1后又从0开始.</p>
+<p>确认序号(Acknowledgment Number)标识发送确认的一端所期望收到的下一个序号, 因此, 确认序号应是上次已成功收到的数据字节序号加1. 只有ACK标志置1时确认序号字段才有效.</p>
+<p>TCP为应用层提供全双工服务, 这意味着数据在两个方向上独立地进行传输,
+因此连接的每一端必须保持每个方向上的序号.</p>
+<p>首部长度(Data Offset)共4bit, 它以4字节为单位给出TCP首部的总长度,
+所以TCP首部最大长度为60字节, 其中正常长度为20字节, 其他是可能的选项.</p>
+<p>TCP的6个标志bit含义为:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">标志</th>
+<th class="head">含义</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>URG</td>
+<td>紧急指针有效</td>
+</tr>
+<tr class="row-odd"><td>ACK</td>
+<td>确认序号有效</td>
+</tr>
+<tr class="row-even"><td>PSH</td>
+<td>接收方应该尽快将报文段交给应用层</td>
+</tr>
+<tr class="row-odd"><td>RST</td>
+<td>连接重置</td>
+</tr>
+<tr class="row-even"><td>SYN</td>
+<td>用于发起连接</td>
+</tr>
+<tr class="row-odd"><td>FIN</td>
+<td>发端完成发送任务</td>
+</tr>
+</tbody>
+</table>
+<p>窗口大小(Window)用于实现流量控制, 单位为字节数, 超始于确认序号字段指明的值. 窗口扩大选项(Window Scale)允许此值按比例变化, 那么实际的窗口大小=此值x窗口扩大比例.</p>
+<p>最常见的TCP选项是最长报文大小(Maximum Segment Size: MSS), 每个连接方通常都在建立连接时的第一个报文段(带有SYN的报文段)中指明这个选项.</p>
+</div>
+<div class="section" id="id7">
+<h4>TCP的连接管理<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h5>基本情况<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h5>
+<p>TCP最基本的连接建立和终止过程如下图所示, 分别为3次握手和4次握手,
+注意序号的变化.</p>
+<div class="figure" id="id28">
+<img alt="../_images/tcp_normal_conn.png" src="../_images/tcp_normal_conn.png" />
+<p class="caption"><span class="caption-text">TCP连接的建立与终止(基本情况)</span></p>
+</div>
+</div>
+<div class="section" id="id9">
+<h5>异常中止<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h5>
+<p>TCP可以使用RST置1的报文来异常中止一个连接, 而不是基本情况中的发送FIN报文. RST报文段不会导致另一端产生响应, 另一端根本不进行确认.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h4>TCP的状态转换<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>TCP的状态转换如下图所示:</p>
+<div class="figure" id="id29">
+<img alt="../_images/tcp_state_trans.png" src="../_images/tcp_state_trans.png" />
+<p class="caption"><span class="caption-text">TCP的状态转换</span></p>
+</div>
+<p>下图显示了在正常的TCP连接建立与终止中, 客户与服务器所经历的不同状态:</p>
+<div class="figure" id="id30">
+<img alt="../_images/tcp_state_trans2.png" src="../_images/tcp_state_trans2.png" />
+<p class="caption"><span class="caption-text">TCP正常连接建立和终止时所经历的状态</span></p>
+</div>
+<p>其中, TIME_WAIT状态也称为2MSL状态. 每个TCP实现必须先择一个报文段最大生存时间(Maximum Segement Lifetime: MSL), 它是任何报文段被丢弃前在网络内的最长时间. 当TCP执行主动关闭, 并发送最后一个ACK, 该连接必须在TIME_WAIT状态停留的时间为2倍的MSL. 这样可以让TCP再次发送最后的ACK以防这个ACK丢失.</p>
+</div>
+<div class="section" id="id11">
+<h4>TCP数据流及窗口管理<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="delayed-acknowledgment">
+<h5>延时确认(Delayed Acknowledgment)<a class="headerlink" href="#delayed-acknowledgment" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+<div class="section" id="nagle">
+<h5>Nagle算法<a class="headerlink" href="#nagle" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+<div class="section" id="id12">
+<h5>滑动窗口协议<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+<div class="section" id="id13">
+<h5>慢启动<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+<div class="section" id="id14">
+<h5>紧急方式<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h4>TCP的超时与和重传<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p>// TODO</p>
+<div class="section" id="keepalive">
+<h5>保活(Keepalive)定时器<a class="headerlink" href="#keepalive" title="Permalink to this headline">¶</a></h5>
+<p>// TODO</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h4>TCP拥塞控制<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<p>// TODO</p>
+</div>
+<div class="section" id="id17">
+<h4>与TCP相关的攻击<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<p>// TODO
+Attacks Involving TCP Connection Management</p>
+</div>
+</div>
+<div class="section" id="http">
+<h3>HTTP协议<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h3>
+<p>// TODO</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>已有软件实现思想<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wireshark">
+<h3>wireshark<a class="headerlink" href="#wireshark" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="suricata">
+<h3>suricata<a class="headerlink" href="#suricata" title="Permalink to this headline">¶</a></h3>
+<p>Packet pipeline:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>+---------+  queue  +--------+  queue  +--------+  queue  +--------+
+<span class="p">|</span> Capture <span class="p">|</span> ------- <span class="p">|</span> Decode <span class="p">|</span> ------- <span class="p">|</span> Stream <span class="p">|</span> ------- <span class="p">|</span> Detect <span class="p">|</span>
++---------+         +--------+         +--------+         +--------+
+                                            ^
+                                            <span class="p">|</span>
+                                StreamTCP <span class="o">(</span>track/reassemble<span class="o">)</span>
+</pre></div>
+</div>
+<p>Suricata的TCP/IP引擎支持以下特性:</p>
+<ul>
+<li><p class="first">Scalable flow engine</p>
+</li>
+<li><p class="first">Full IPv6 support</p>
+</li>
+<li><p class="first">Tunnel decoding</p>
+<blockquote>
+<div><ul class="simple">
+<li>Teredo</li>
+<li>IP-IP</li>
+<li>IP6-IP4</li>
+<li>IP4-IP6</li>
+<li>GRE</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">TCP stream engine</p>
+<blockquote>
+<div><ul class="simple">
+<li>tracking sessions</li>
+<li>stream reassembly</li>
+<li>target based stream reassembly</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">IP Defrag engine</p>
+<blockquote>
+<div><ul class="simple">
+<li>target based reassembly</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>可见, Suricata在IP和TCP两个层面上支持报文的重组.</p>
+<div class="section" id="ip-defrag-engine">
+<h4>IP defrag engine<a class="headerlink" href="#ip-defrag-engine" title="Permalink to this headline">¶</a></h4>
+<p>suricata在IP解码(DecodeIP)时调用分片重组例程, 主要文件src/defrag.c.</p>
+<p>Suriata负责处理IP分片重组的模块称为defragment-engine. 有以下几个主要数据结构:</p>
+<ul>
+<li><p class="first">分片重组上下文 DefragContext</p>
+<blockquote>
+<div><ul class="simple">
+<li>分片内存池</li>
+<li>分片内存池锁</li>
+<li>重组超时</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">分片 Frag</p>
+<blockquote>
+<div><ul class="simple">
+<li>长度</li>
+<li>偏移</li>
+<li>更多分片等标志</li>
+<li>分片链表项(tailQ)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">分片重组跟踪器 DefragTracker</p>
+<blockquote>
+<div><ul class="simple">
+<li>链表锁</li>
+<li>vlan_id</li>
+<li>IP序号(ID)</li>
+<li>IP协议号</li>
+<li>重组策略(host-os-policy)</li>
+<li>超时</li>
+<li>引用计数</li>
+<li>分片链表(tailQ)</li>
+<li>hash指针</li>
+<li>链表指针</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>主要接口:</p>
+<ul>
+<li><p class="first">DefragInit() 分片重组初始化</p>
+<blockquote>
+<div><ul class="simple">
+<li>读取配置</li>
+<li>创建frag内存池</li>
+<li>创建frag tracker hash表</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Defrag() 分片重组</p>
+<blockquote>
+<div><ul class="simple">
+<li>ipv4/v6判断</li>
+<li>获得pkt对应的defrag tracker</li>
+<li>调用DefragInsertFrag()</li>
+<li>释放tracker</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">DefragInsertFrag() 将分片插入tracker</p>
+<blockquote>
+<div><ul class="simple">
+<li>更新tracker</li>
+<li>遍历tracker的frag链表,根据不同policy计算相关值</li>
+<li>分配新frag并插入frag链表</li>
+<li>如果是最后一个分片, 则调用DefragReassemble()进行重组</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="tcp-stream-engine">
+<h4>TCP Stream engine<a class="headerlink" href="#tcp-stream-engine" title="Permalink to this headline">¶</a></h4>
+<p>suricata的stream engine会跟踪TCP连接, 此引擎由2部分构成: stream跟踪(track)和stream重组(reassemble). track引擎监控TCP连接的状态信息,
+包括TCP状态, TCP序号和窗口大小等; 重组引擎进行TCP数据的重组.</p>
+<p>在normal/IDS模式, suricata检测数据块(chunk)内容; 在inline/IPS模式,
+它检测滑动窗口, 见下图. 在inline模式下, suricata必须在把报文送往接收者之前进行检测, 这样它就可以在需要时直接丢弃报文. 非常重要的一点是suricata需要了解接收者的操作系统种类, 因为不同操作系统处理不规则数据的方式不同(见host-os-policy).</p>
+<div class="figure" id="id31">
+<img alt="../_images/suricata_normal_ids.png" src="../_images/suricata_normal_ids.png" />
+<p class="caption"><span class="caption-text">Normal/IDS mode</span></p>
+</div>
+<div class="figure" id="id32">
+<img alt="../_images/suricata_inline_mode.png" src="../_images/suricata_inline_mode.png" />
+<p class="caption"><span class="caption-text">Inline/IPS Sliding Window</span></p>
+</div>
+<div class="figure" id="id33">
+<img alt="../_images/suricata_normal_ids_ack_d.png" src="../_images/suricata_normal_ids_ack_d.png" />
+<p class="caption"><span class="caption-text">Normal/IDS (reasembly on ACK&#8217;D data)</span></p>
+</div>
+<div class="figure" id="id34">
+<img alt="../_images/suricata_inline_reassembly_unackd_data.png" src="../_images/suricata_inline_reassembly_unackd_data.png" />
+<p class="caption"><span class="caption-text">Inline/IPS (reasembly on UNACK&#8217;D data)</span></p>
+</div>
+<p>重组引擎需要在内存中保存需要重组的报文, &#8220;重组&#8221;是一个开销很高的操作.
+相关配置项有:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">reassembly</span><span class="p">:</span>
+  <span class="n">memcap</span><span class="p">:</span> <span class="mi">67108864</span>             <span class="c1">#Amount of packets (in bytes) to keep in memory.</span>
+  <span class="n">depth</span><span class="p">:</span> <span class="mi">1048576</span>               <span class="c1">#The depth of the reassembling.</span>
+  <span class="n">toserver_chunk_size</span><span class="p">:</span> <span class="mi">2560</span>    <span class="c1"># inspect raw stream in chunks of at least this size</span>
+  <span class="n">toclient_chunk_size</span><span class="p">:</span> <span class="mi">2560</span>    <span class="c1"># inspect raw stream in chunks of at least</span>
+</pre></div>
+</div>
+<div class="figure" id="id35">
+<img alt="../_images/suricata_reassembly1.png" src="../_images/suricata_reassembly1.png" />
+<p class="caption"><span class="caption-text">Stream reassembly</span></p>
+</div>
+<div class="figure" id="id36">
+<img alt="../_images/suricata_IDS_chunk_size.png" src="../_images/suricata_IDS_chunk_size.png" />
+<p class="caption"><span class="caption-text">toserver_chunk_size</span></p>
+</div>
+<p>suricata中tcp stream engine的主要代码在src/stream-tcp.c和src/stream-tcp-reassemble.c中.</p>
+<p>主要数据结构:</p>
+<ul>
+<li><p class="first">TcpSession</p>
+<blockquote>
+<div><ul class="simple">
+<li>TCP状态</li>
+<li>TCP状态队列</li>
+<li>标志/TCP标志</li>
+<li>重组深度</li>
+<li>server/client两方向的TcpStream</li>
+<li>server/client两方向的StreamMsg队列</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">TcpStream</p>
+<blockquote>
+<div><ul class="simple">
+<li>标志/TCP标志</li>
+<li>窗口scale</li>
+<li>host-os-policy</li>
+<li>初始序号(ISN)</li>
+<li>下一序号</li>
+<li>上一个被确认的序号</li>
+<li>当前窗口(已应用scale)</li>
+<li>TcpSegment链表</li>
+<li>StreamTcpSackRecord链表</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">TcpSegment</p>
+<blockquote>
+<div><ul class="simple">
+<li>数据指针与长度</li>
+<li>序号</li>
+<li>链表项</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>TCP各状态与对应的处理函数:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="49%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">状态</th>
+<th class="head">处理函数</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TCP_NONE</td>
+<td>StreamTcpPacketStateNone</td>
+<td>首包,建session</td>
+</tr>
+<tr class="row-odd"><td>TCP_LISTEN</td>
+<td>无</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TCP_SYN_SENT</td>
+<td>StreamTcpPacketStateSynSent</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TCP_SYN_RECV</td>
+<td>StreamTcpPacketStateSynRecv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TCP_ESTABLISD</td>
+<td>StreamTcpPacketStateEstablished</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TCP_FIN_WAIT1</td>
+<td>StreamTcpPacketStateFinWait1</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TCP_FIN_WAIT2</td>
+<td>StreamTcpPacketStateFinWait2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TCP_TIME_WAIT</td>
+<td>StreamTcpPacketStateTimeWait</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TCP_LAST_ACK</td>
+<td>StreamTcpPacketStateLastAck</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TCP_CLOSE_WAIT</td>
+<td>StreamTcpPacketStateCloseWait</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TCP_CLOSING</td>
+<td>StreamTcpPacketStateClosing</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TCP_CLOSED</td>
+<td>无</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>以下为代码分析,
+原文链接: <a class="reference external" href="https://my.oschina.net/openadrian/blog/188261">https://my.oschina.net/openadrian/blog/188261</a></p>
+<div class="section" id="id19">
+<h5>模块初始化<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
+<p>这个初始化指的是StreamTCP作为一个Thread Module，在其所嵌入的线程初始化阶段所被调用的该模块的ThreadInit函数。</p>
+<p>TmModuleStreamTcpRegister注册时，将ThreadInit注册为了**StreamTcpThreadInit**，
+该函数流程为：</p>
+<ol class="arabic">
+<li><p class="first">创建一个StreamTcpThread类型结构体stt作为该模块的在本线程的context。</p>
+</li>
+<li><p class="first">设置stt-&gt;ssn_pool_id为-1。</p>
+</li>
+<li><p class="first">注册一些性能计数器，例如TCP会话数、无效checksum包数、syn包数、
+synack包数、rst包数等。</p>
+</li>
+<li><p class="first">调用StreamTcpReassembleInitThreadCtx初始化重组的context，保存在
+stt-&gt;ra_ctx。</p>
+<blockquote>
+<div><ul class="simple">
+<li>创建TcpReassemblyThreadCtx结构ra_ctx</li>
+<li>将ra_ctx-&gt;app_tctx设为应用层线程上下文(AppLayerThreadCtx)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若ssn_pool为NULL，则调用PoolThreadGrow为它创建一个新的PoolThread,
+预分配大小即为stream_config.prealloc_sessions，而创建的对象为TcpSession。</p>
+</li>
+<li><p class="first">若不为NULL，则调用PoolThreadGrow扩充原有的ssn_pool。</p>
+</li>
+</ol>
+<p>注：Pool是一个Suricata中实现的一个通用的池存储，可以避免不断malloc和free的开销，并且显著减少堆碎片。PoolThread只是在Pool上做了一层包装，允许多个同类线程共用一个Pool数组，每个线程对应其中一项。
+为什么要这么麻烦而不是每个线程自己创建自己的Pool呢？我也不太理解，
+有待进一步研究。</p>
+</div>
+<div class="section" id="id20">
+<h5>模块执行<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h5>
+<p>&#8220;StreamTCP&#8221;所属的线程使用的slot类型为&#8221;var&#8221;，其对应的线程执行函数为TmThreadsSlotVar。该函数与TmThreadsSlotPktAcqLoop大同小异，
+只不过数据包获取是通过tmqh_in，然后会直接调用TmThreadsSlotVarRun把数据包送往每一个slot去处理。这个函数之前已经介绍过，它会依次调用每个slot的SlotFunc，而包含&#8221;StreamTCP&#8221;的slot的SlotFunc，就是**StreamTCP**,
+其流程如下：</p>
+<ol class="arabic simple">
+<li>获取之前已经初始化好的StreamTcpThread结构体。</li>
+<li>若不是TCP包，则直接返回。</li>
+<li>若p-&gt;flow为空，也直接返回。</li>
+<li>若stream_config的CHECKSUM_VALIDATION打开了，则调用StreamTcpValidateChecksum对数据包进行校验和检查，不通过就返回。</li>
+<li>调用StreamTcpPacket，最后解锁并返回。</li>
+</ol>
+<p><strong>StreamTcpPacket</strong> 完成实际的工作，流程为：</p>
+<ol class="arabic">
+<li><p class="first">获取存储在flow-&gt;protoctx中的TcpSession指针，变量名为ssn。 (//TODO:
+TcpSession怎么和pkt-&gt;flow联系起来的?)</p>
+</li>
+<li><p class="first">如果包的ACK字段不为空，然而ACK位却没设置，则设置STREAM_PKT_BROKEN_ACK事件。</p>
+</li>
+<li><p class="first">调用StreamTcpCheckFlowDrops检查这个流是否已经被设置了drop action，若是
+则给该包也打上drop标记，然后返回。</p>
+</li>
+<li><p class="first">若ssn为NULL，或者其state为TCP_NONE，说明这个流还没有session或者session
+刚建立，则调用StreamTcpPacketStateNone处理：</p>
+<blockquote>
+<div><ul>
+<li><p class="first">若为RST包，说明这个这个流还没建立session就已经要结束了，添加
+STREAM_RST_BUT_NO_SESSION事件并返回。</p>
+</li>
+<li><p class="first">若为FIN包，与上面类似，添加STREAM_FIN_BUT_NO_SESSION事件并返回。</p>
+</li>
+<li><p class="first">若为SYN/ACK包，说明之前的SYN包没收到，若midstream和async_oneside配置都没打开，就返回。否则：</p>
+<blockquote>
+<div><ul class="simple">
+<li>若ssn为NULL，则先调用StreamTcpNewSession新建一个session。</li>
+<li>给session添加TCP_SYN_RECV状态，并打上一些midstream标志。</li>
+<li>设置session中的server和client相关数据（类型都为TcpStream），
+包括初始序列号、下一个序列号、窗口大小、时间戳等，另外还会设置是否支持SACK机制。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若为SYN包，这是最正常的情况，处理情况与上面类似，主要区别：</p>
+<blockquote>
+<div><ul class="simple">
+<li>给session添加的是TCP_SYN_SENT状态。</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">先发SYN的为client?</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">若为ACK包，说明之前的SYN/ACK、ACK都没，若midstream没打开就返回，
+否则处理与上面类似，主要区别：</p>
+<blockquote>
+<div><ul class="simple">
+<li>给session添加的是TCP_ESTABLISHED状态。</li>
+<li>会调用 <code class="docutils literal"><span class="pre">StreamTcpReassembleHandleSegment</span></code> 进行重组，因为这个包可能包含协议数据。</li>
+<li>会给client和server都默认打开SACK标志。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">否则，说明这个流已经建立session了，流程如下：</p>
+<blockquote>
+<div><ul>
+<li><p class="first">如果报文带有PKT_PSEUDO_STREAM_END标志, 调用
+<code class="docutils literal"><span class="pre">StreamTcpReassembleHandleSegment</span></code> 进行重组, 之后跳过同级所有流程</p>
+</li>
+<li><p class="first">如果这个流是syn/ack类型的midstream，则反转这个包的方向。因为流的初始方向应该为SYN包的方向，而不是SYN/ACK的方向。</p>
+</li>
+<li><p class="first">若这个包是keep-alive包或这种包的ack，则跳过下面一步处理。</p>
+</li>
+<li><p class="first">判断这个包是否是窗口更新（window update）包。目前没有根据这个信息做任何动作。</p>
+</li>
+<li><p class="first">根据session的state进行不同操作：</p>
+<blockquote>
+<div><ul class="simple">
+<li>TCP_SYN_SENT -&gt; StreamTcpPacketStateSynSent</li>
+<li>TCP_SYN_RECV -&gt; StreamTcpPacketStateSynRecv</li>
+<li>TCP_ESTABLISHED -&gt; StreamTcpPacketStateEstablished</li>
+<li>TCP_FIN_WAIT1 -&gt; StreamTcpPacketStateFinWait</li>
+<li>TCP_FIN_WAIT2 -&gt; StreamTcpPacketStateFinWait2</li>
+<li>TCP_CLOSING -&gt; StreamTcpPacketStateClosing</li>
+<li>TCP_CLOSE_WAIT -&gt; StreamTcpPacketStateCloseWait</li>
+<li>TCP_LAST_ACK -&gt; StreamTcpPacketStateLastAck</li>
+<li>TCP_TIME_WAIT -&gt; StreamTcpPacketStateTimeWait</li>
+<li>TCP_CLOSED：说明client在结束一个session后，又新建了一个session
+且端口重用了。若这是一个SYN包，则可以重用这个TCPSession，进行一些重初始化，并把stat设为TCP_NONE，然后调用StreamTcpPacketStateNone去处理。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若session状态为ESTABLISHED及以后的，则把包的状态设为PKT_STREAM_EST。</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">处理pseudo packet。目前只有在收到RST包时会产生，用来强制另一方向进行重组。</p>
+</li>
+<li><p class="first">若包有PKT_STREAM_MODIFIED标志，说明被自身模块修改过，就重新计算校验和（为什么需要？）。</p>
+</li>
+<li><p class="first">若两端都达到重组depth且bypass enable, 调用PacketBypassCallback</p>
+</li>
+<li><p class="first">若两端都要求不进行后续检测且bypass enbale, 调用PacketBypassCallback</p>
+</li>
+<li><p class="first">正常情况下，到这里就返回了。但如果之前有发现出错的数据包，则跳转到最后的
+error标号后执行：</p>
+<blockquote>
+<div><ul class="simple">
+<li>若有pseudo packet，就把它们enqueue到post_queue中去，防止丢失，下次就会处理。</li>
+<li>若包有PKT_STREAM_MODIFIED标志，说明被自身模块修改过，就重新计算校验和（为什么需要？）。</li>
+<li>若stream_inline打开了，就给数据包打上DROP标记，后续将会丢弃这个数据包。</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="stream-tracking">
+<h5>Stream Tracking<a class="headerlink" href="#stream-tracking" title="Permalink to this headline">¶</a></h5>
+<p>那么，根据不同session状态处理数据包的那一簇函数StreamTcpPacketState*，做了什么事情呢？</p>
+<p>简要来说，这些函数对不同session当前所属的状态进行了跟踪，并相应地进行错误检测、
+事件记录以及状态更新。以StreamTcpPacketStateSynSent为例，处理流程为：</p>
+<ol class="arabic">
+<li><p class="first">若为RST包：</p>
+<blockquote>
+<div><ul class="simple">
+<li>调用StreamTcpValidateRst进行验证，不合法则返回。</li>
+<li>将session状态设置为CLOSED。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若为FIN包：</p>
+<blockquote>
+<div><ul class="simple">
+<li>代码中写着todo…</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若为SYN/ACK包：</p>
+<blockquote>
+<div><ul>
+<li><p class="first">处理4WHS（SYN-SYN-SYN/ACK-ACK）的特殊情况。</p>
+</li>
+<li><p class="first">若数据包方向为TO_SERVER，添加STREAM_3WHS_SYNACK_IN_WRONG_DIRECTION事件并返回。</p>
+</li>
+<li><p class="first">若ACK值不等于client.isn（initial sequence number）+1，则添加STREAM_3WHS_SYNACK_WITH_WRONG_ACK事件并返回。</p>
+</li>
+<li><p class="first">到这里，就说明是个正常的3WHS SYN/ACK包了，则调用StreamTcp3whsSynAckUpdate更新session的各个属性值，这个函数会：</p>
+<blockquote>
+<div><ul class="simple">
+<li>将session状态更新为TCP_SYN_RECV。</li>
+<li>将server.isn设为该包的seq，next_seq设为isn+1（SYN/FIN包都会使序列号+1，参见Understanding TCP Sequence and Acknowledgment Numbers）</li>
+<li>将client.window设为该包的win值，从这可以看出TCPStream的window为流的目标端所宣传的窗口值。</li>
+<li>更新时间戳选项相关的值和标志。</li>
+<li>将client.last_ack设为该包的ack，而server.last_ack设为server.isn+1（这个不太理解，因为客户端的ACK还没发过来呢，为什么就设置了？）。</li>
+<li>若支持，则设置client.wscale为该包的wscale，即窗口扩大因子。</li>
+<li>更新SACK相关的标志。</li>
+<li>将server.next_win（在窗口范围内能发送的下一个最大的seq）和client.next_win分别设为各自的last_ack+window。</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若为SYN包：</p>
+<blockquote>
+<div><ul class="simple">
+<li>若数据包方向不为TO_CLIENT，则不会做任何处理。</li>
+<li>否则，说明这是一个4WHS，给session打上相应标记。</li>
+<li>与SYN/ACK的处理类似，更新server的isn、next_seq、timestamp、window、
+wscale、sack。注意的是，并没有更新client相应数据。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">若为ACK包：</p>
+<blockquote>
+<div><ul class="simple">
+<li>异步（单边）流的情况：从同一个主机收到SYN后再收到ACK，而没有收到SYN/ACK。若async_oneside配置未打开，就返回。</li>
+<li>检查p.seq是否等于client.next_seq，若不是则添加STREAM_3WHS_ASYNC_WRONG_SEQ事件并返回。</li>
+<li>给session打上STREAMTCP_FLAG_ASYNC标记，并更新状态为ESTABLISHED。</li>
+<li>与上面类似，更新client和server的相应属性值。</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>其他状态处理函数也类似，组合到一起，就构成了一个非常复杂的有限状态机，
+其中有多个错误终止状态（如错误序列号），但只有一个正常终止状态（TCP_CLOSED），
+并且还存在很多“捷径”（如从SYN_SENT直接到CLOSED）。状态的跳转并不只是依赖于当前的主状态（session-&gt;state），还包括很多附属状态（TCPSession、
+TCPStream的各种字段），这些附属状态在跳转过程中也会不断更新。这个理解不一定准确，但从源码中来看，TCP会话的跟踪和验证确实非常繁琐。</p>
+</div>
+<div class="section" id="stream-reassembly">
+<h5>Stream Reassembly<a class="headerlink" href="#stream-reassembly" title="Permalink to this headline">¶</a></h5>
+</div>
+</div>
+<div class="section" id="host-os-policy">
+<h4>host-os-policy<a class="headerlink" href="#host-os-policy" title="Permalink to this headline">¶</a></h4>
+<p>Operating systems differ in the way they process fragmented
+packets and streams. Suricata performs differently with anomalies
+for different operating systems. It is important to set of which
+operating system your IP-address makes use of, so Suricata knows
+how to process fragmented packets and streams. For example in
+stream-reassembly there can be packets with overlapping payloads.</p>
+<div class="figure" id="id37">
+<img alt="../_images/suricata_overlap.png" src="../_images/suricata_overlap.png" />
+<p class="caption"><span class="caption-text">Overlapping payloads</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>张加林实现<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id22">
+<h2>总体设计<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id23">
+<h2>需要注意的问题<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h3>内存<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id25">
+<h3>性能<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id26">
+<h3>复杂性与容错性<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>对decode和flow模块的影响</li>
+<li>ipv6</li>
+<li>多层协议(如IP in IP, Suricata中称为tunnel)</li>
+<li>中间TCP流(已错过三次握手: midstream)的处理</li>
+<li>非对称链接时的状态处理</li>
+<li>是否检查校验和</li>
+<li>操作系统不同(host-os-policy in suricata)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id27">
+<h2>参考<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="ref1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Judy Novak, Steve Sturges: Target-Based TCP Stream Reassembly August, 2007</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../perf/index.html" class="btn btn-neutral float-right" title="性能优化" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="算法与问题" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
