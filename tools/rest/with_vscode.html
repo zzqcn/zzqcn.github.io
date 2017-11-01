@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>用reST编写文档 &mdash; zzq&#39;s blog</title>
+  <title>在Visual Studio Code中使用 &mdash; zzq&#39;s blog</title>
   
 
   
@@ -38,9 +38,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="搜索" href="../../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
-        <link rel="up" title="工具与杂项" href="../index.html"/>
-        <link rel="next" title="简介" href="intro.html"/>
-        <link rel="prev" title="小技巧" href="../git/tricks.html"/> 
+        <link rel="up" title="用reST编写文档" href="index.html"/>
+        <link rel="next" title="补丁工具patch" href="../patch.html"/>
+        <link rel="prev" title="生成API文档" href="doxygen.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -424,7 +424,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">用reST编写文档</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">用reST编写文档</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="intro.html">简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
@@ -468,11 +468,11 @@
 <li class="toctree-l4"><a class="reference internal" href="doxygen.html#step4">Step4</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="with_vscode.html">在Visual Studio Code中使用</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#windows">安装步骤(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id1">配置(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id2">使用(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id3">问题记录</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#windows">安装步骤(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -580,7 +580,9 @@
         
           <li><a href="../index.html">工具与杂项</a> &raquo;</li>
         
-      <li>用reST编写文档</li>
+          <li><a href="index.html">用reST编写文档</a> &raquo;</li>
+        
+      <li>在Visual Studio Code中使用</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -597,61 +599,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rest">
-<h1>用reST编写文档<a class="headerlink" href="#rest" title="永久链接至标题">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">简介</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#id3">项目建立</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#conf-py">conf.py配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#index">index页配置</a></li>
-</ul>
+  <div class="section" id="visual-studio-code">
+<h1>在Visual Studio Code中使用<a class="headerlink" href="#visual-studio-code" title="永久链接至标题">¶</a></h1>
+<p>Visual Studio Code是一款非常好用的免费编辑器, 可以在Windows, Mac, Linux多平台使用. 借助于vscode扩展, 我们也可以在vscode中编译预览reST文档.</p>
+<div class="section" id="windows">
+<h2>安装步骤(Windows)<a class="headerlink" href="#windows" title="永久链接至标题">¶</a></h2>
+<p>参考: <a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/blob/master/docs/sphinx.md">https://github.com/vscode-restructuredtext/vscode-restructuredtext/blob/master/docs/sphinx.md</a></p>
+<ol class="arabic">
+<li><p class="first">安装Python (2.7.10+)</p>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="grammar.html">reST语法介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id1">章节标题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id2">段落</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id3">行内标记</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id4">列表</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id5">代码</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id6">超链接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id7">图片</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id8">表格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id9">引用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id10">脚注</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id11">提醒</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id12">替换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id13">参考</a></li>
-</ul>
+<li><p class="first">安装pip.</p>
+<p>假设python安装在C:\Python27, 进入其中的Scripts目录, 运行 <code class="docutils literal"><span class="pre">easy_install</span> <span class="pre">pip</span></code></p>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="style.html">修改样式</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step1">Step1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step2">Step2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step3">Step3</a></li>
-</ul>
+<li><p class="first">安装sphinx</p>
+<p><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sphinx</span> <span class="pre">sphinx-autobuild</span></code></p>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="topdf.html">生成PDF</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#id1">终极解决办法</a></li>
-</ul>
+<li><p class="first">安装restructuredtext-lint</p>
+<p><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">restructuredtext-lint</span></code></p>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doxygen.html">生成API文档</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step1">Step1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step2">Step2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step3">Step3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step4">Step4</a></li>
-</ul>
+<li><p class="first">安装reStructuredText插件, 作者LeXtudio</p>
+<p>可以在vscode中安装或者到 <a class="reference external" href="https://marketplace.visualstudio.com/items">https://marketplace.visualstudio.com/items</a>?itemName=lextudio.restructuredtext安装</p>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="with_vscode.html">在Visual Studio Code中使用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#windows">安装步骤(Windows)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id1">配置(Windows)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id2">使用(Windows)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id3">问题记录</a></li>
-</ul>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>配置(Windows)<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">全局配置</p>
+<p>依次打开菜单: 文件/首选项/设置, 加入:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">restructuredtext-lint.exe&quot;</span>
+</pre></div>
+</div>
 </li>
+<li><p class="first">当前文件夹配置</p>
+<p>假设项目文件夹为D:\dev\hds, 且reST文档源文件位于D:\dev\hds\doc, conf.py也在这个目录下,
+在D:\dev\hds\.vscode\setting.json中加入以下配置:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">sphinx-build.exe&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>使用(Windows)<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>在vscode中打开reST文件, 按下 <code class="docutils literal"><span class="pre">Ctrl+Shift+R</span></code> 组合键, 稍等几秒, 即可打开该文件的HTML预览.</p>
+</div>
+<div class="section" id="id3">
+<h2>问题记录<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="restructuredtext40-0-0bug">
+<h3>reStructuredText插件40.0.0版本bug<a class="headerlink" href="#restructuredtext40-0-0bug" title="永久链接至标题">¶</a></h3>
+<p>此版本存在bug, 会使reST文档目录与项目文件夹根目录不同时无法预览, 我已在github提交issue:
+<a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69">https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69</a>
+并自己编译了一个版本修正了这个bug.</p>
+<p>reStructuredText插件编译步骤(Linux):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
+git clone https://github.com/vscode-restructuredtext/vscode-restructuredtext.git
+<span class="nb">cd</span> ~/vscode-restructuredtext
+npm install --unsafe-perm<span class="o">=</span><span class="nb">true</span>
+npm install vscode
+npm install thenable
+npm run compile
+</pre></div>
+</div>
+<p>编译完成后, 将整个rscode-restructuredtext目录拷贝到vscode插件目录即可, 不同操作系统这个目录不同:</p>
+<ul class="simple">
+<li>Windows  %USERPROFILE%\.vscode\extensions</li>
+<li>Mac  $HOME/.vscode/extensions</li>
+<li>Linux  $HOME/.vscode/extensions</li>
 </ul>
+<p>也可以打包成vsix文件然后安装:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>npm install -g vsce
+vsce package
+</pre></div>
+</div>
+<p>但我打包好的vsix在windows 10上安装失败, 我怀疑是没有经过签名所以被拒绝.</p>
+</div>
 </div>
 </div>
 
@@ -665,10 +690,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="intro.html" class="btn btn-neutral float-right" title="简介" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../patch.html" class="btn btn-neutral float-right" title="补丁工具patch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../git/tricks.html" class="btn btn-neutral" title="小技巧" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="doxygen.html" class="btn btn-neutral" title="生成API文档" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

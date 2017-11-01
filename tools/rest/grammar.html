@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -460,6 +468,13 @@
 <li class="toctree-l4"><a class="reference internal" href="doxygen.html#step4">Step4</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#windows">安装步骤(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id1">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id3">问题记录</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../patch.html">补丁工具patch</a><ul>
@@ -603,11 +618,11 @@
 <span class="o">=====</span>
 
 <span class="n">aaa</span>
-<span class="o">---</span>
+
 <span class="n">aaaaaaaaaaaa</span>
 
 <span class="n">bbbb</span>
-<span class="o">----</span>
+
 <span class="n">bbbbbbbbbbb</span>
 </pre></div>
 </div>
@@ -632,6 +647,12 @@
 <span class="o">|</span> <span class="n">bbbbbbbbb</span>
 <span class="o">|</span> <span class="n">cccccccccccc</span>
 </pre></div>
+</div>
+<p>效果:</p>
+<div class="line-block">
+<div class="line">aaaaaaaa</div>
+<div class="line">bbbbbbbbb</div>
+<div class="line">cccccccccccc</div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
@@ -679,10 +700,10 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <span class="c1">#. item6</span>
 
 <span class="n">FOO</span>
-<span class="n">this</span> <span class="ow">is</span> <span class="n">very</span> <span class="n">interesting</span><span class="o">.</span>
+    <span class="n">this</span> <span class="ow">is</span> <span class="n">very</span> <span class="n">interesting</span><span class="o">.</span>
 
 <span class="n">BAR</span>
-<span class="n">this</span> <span class="ow">is</span> <span class="n">interesting</span><span class="p">,</span> <span class="n">too</span><span class="o">.</span>
+    <span class="n">this</span> <span class="ow">is</span> <span class="n">interesting</span><span class="p">,</span> <span class="n">too</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>效果：</p>
@@ -699,10 +720,12 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <li>item5</li>
 <li>item6</li>
 </ol>
-<p>FOO
-this is very interesting.</p>
-<p>BAR
-this is interesting, too.</p>
+<dl class="docutils">
+<dt>FOO</dt>
+<dd>this is very interesting.</dd>
+<dt>BAR</dt>
+<dd>this is interesting, too.</dd>
+</dl>
 </div>
 <div class="section" id="id5">
 <h2>代码<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
