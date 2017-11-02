@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#windows">安装步骤(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id1">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -586,6 +580,27 @@
             
   <div class="section" id="id1">
 <h1>小技巧<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="shellsshgithub">
+<h2>shell通过SSH连接github<a class="headerlink" href="#shellsshgithub" title="永久链接至标题">¶</a></h2>
+<p>这里以Windows上的Git Bash连接github为例, Linux, gitlab等情况相似.</p>
+<ol class="arabic">
+<li><p class="first">生成SSH key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">C</span> <span class="s2">&quot;user@site.com&quot;</span>
+</pre></div>
+</div>
+<p>一路回车, 会在~/.ssh目录下生成id_rsa和id_rsa.pub两个文件, 即公钥私钥对.</p>
+</li>
+<li><p class="first">将公钥添加到github</p>
+<p>依次点击github网页上的settings/SSH and GPG keys/New SSH key,
+把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如&#8221;windows-home&#8221;</p>
+</li>
+<li><p class="first">测试添加是否正确</p>
+<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似&#8221;Hi zzqcn! You&#8217;ve successfully
+authenticated&#8221;的字样, 说明SSH key配置成功. 如果出现&#8221;Permission denied (publickey)&#8221;
+等字样, 说明配置失败, 可以运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-v</span> <span class="pre">git&#64;github.com</span></code> 来查看详细信息.</p>
+</li>
+</ol>
+</div>
 <div class="section" id="id2">
 <h2>在命令提示符中显示当前分支<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <div class="section" id="macos">
