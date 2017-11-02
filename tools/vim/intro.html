@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -620,56 +614,56 @@
 <div class="section" id="id3">
 <h2>学习之前的基本配置和几个需要了解的基本操作<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>在学习vim前，先指定一些基本配置，了解几个基本操作对学习过程会有帮助。类UNIX系统上当前用户的vim配置文件的位置是~/.vimrc。这是一个隐藏文件。打开它进行编辑，加入以下内容:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot; 设置字符编码</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot; 设置字符编码</span>
 <span class="nb">set</span> <span class="n">fileencoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
 <span class="nb">set</span> <span class="n">fileencodings</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="n">gb2312</span><span class="p">,</span><span class="n">gb18030</span><span class="p">,</span><span class="n">latin1</span>
 <span class="nb">set</span> <span class="n">termencoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
 <span class="nb">set</span> <span class="n">encoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
 
-<span class="s2">&quot; 语法高亮</span>
+<span class="s">&quot; 语法高亮</span>
 <span class="n">syntax</span> <span class="n">on</span>
-<span class="s2">&quot; 深色背景</span>
+<span class="s">&quot; 深色背景</span>
 <span class="n">color</span> <span class="n">evening</span>
-<span class="s2">&quot; 检测文件类型</span>
+<span class="s">&quot; 检测文件类型</span>
 <span class="n">filetype</span> <span class="n">on</span>
-<span class="s2">&quot; 根据文件类型加载对应的插件</span>
+<span class="s">&quot; 根据文件类型加载对应的插件</span>
 <span class="n">filetype</span> <span class="n">plugin</span> <span class="n">on</span>
 
-<span class="s2">&quot; 显示行号</span>
+<span class="s">&quot; 显示行号</span>
 <span class="nb">set</span> <span class="n">number</span>
-<span class="s2">&quot; 在第80,100列显示竖线</span>
+<span class="s">&quot; 在第80,100列显示竖线</span>
 <span class="nb">set</span> <span class="n">cc</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span><span class="mi">100</span>
-<span class="s2">&quot; 高亮显示当前行</span>
+<span class="s">&quot; 高亮显示当前行</span>
 <span class="nb">set</span> <span class="n">cursorline</span>
 
-<span class="s2">&quot; 设置各种缩进</span>
+<span class="s">&quot; 设置各种缩进</span>
 <span class="nb">set</span> <span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span>
 <span class="nb">set</span> <span class="n">softtabstop</span><span class="o">=</span><span class="mi">4</span>
 <span class="nb">set</span> <span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>
 <span class="nb">set</span> <span class="n">autoindent</span>
 <span class="nb">set</span> <span class="n">smartindent</span>
 <span class="nb">set</span> <span class="n">cindent</span>
-<span class="s2">&quot; tab转换为空格</span>
+<span class="s">&quot; tab转换为空格</span>
 <span class="nb">set</span> <span class="n">expandtab</span>
 
-<span class="s2">&quot; 将ESC键映射为两次j键</span>
+<span class="s">&quot; 将ESC键映射为两次j键</span>
 <span class="n">inoremap</span> <span class="n">jj</span> <span class="o">&lt;</span><span class="n">Esc</span><span class="o">&gt;</span>
 
-<span class="s2">&quot; 自动完成大括号</span>
+<span class="s">&quot; 自动完成大括号</span>
 <span class="n">imap</span> <span class="p">{</span> <span class="p">{</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="n">Esc</span><span class="o">&gt;</span><span class="n">kA</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="n">noremap</span>
 </pre></div>
 </div>
 <p>什么？不知道怎么编辑？命令是这样：:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>zzq@ubuntu14:~$ vim ~/.vimrc
+<div class="highlight-default"><div class="highlight"><pre>zzq@ubuntu14:~$ vim ~/.vimrc
 </pre></div>
 </div>
 <p>或者，直接执行vim，启动后输入:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">e</span> <span class="o">~/.</span><span class="n">vimrc</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">:</span><span class="n">e</span> <span class="o">~/.</span><span class="n">vimrc</span>
 </pre></div>
 </div>
 <p>即冒号后跟字母e，在加上.vimrc文件的路径。是的，e是编辑(Edit)的意思，冒号是vim“命令模式”的提示符。下一篇会说到 。</p>
 <p>打开文件后，按 i 键进入编辑模式，输入以上内容（也可以先用其他文本编辑器编好，然后复制、改名到~/.vimrc）。在输入的过程中，可以使用方向键移动光标（也可以按&lt;Esc&gt;切换到正常模式使用h j k l四个键，分别是光标向左、下、上、右，移动后再按i进入编辑模式）。输入完成后，按&lt;Esc&gt;键回到正常模式，然后输入命令:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">wq</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">:</span><span class="n">wq</span>
 </pre></div>
 </div>
 <p>保存并退出。w是写入，q是退出。</p>

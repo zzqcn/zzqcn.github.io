@@ -40,7 +40,7 @@
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="工具与杂项" href="index.html"/>
         <link rel="next" title="libpcap使用" href="libpcap.html"/>
-        <link rel="prev" title="生成API文档" href="rest/doxygen.html"/> 
+        <link rel="prev" title="在Visual Studio Code中使用" href="rest/with_vscode.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#windows">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -588,11 +582,11 @@
 <p>在使用diff之前, 你需要保留一份未修改过的源码, 然后在其它地方修改源码的一份拷贝. diff对比这两份源码生成patch. 修改过的源码必须保留原来的文件名, 例如, 如果你修改源码中的a.c文件, 那么, 修改后的文件还是名为a.c, 在修改之前你可以复制a.c为a.orig.c进行备份.</p>
 <div class="section" id="id1">
 <h2>1 为单个文件生成补丁<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -up origin.c modify.c
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -up origin.c modify.c
 </pre></div>
 </div>
 <p>这条命令会产生类似如下的输出, 你将它重定向到一个文件中, 这个文件就是patch.</p>
-<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
 <span class="gi">+++ modify.c 2017-07-04 19:18:41.859375000 +0800</span>
 <span class="gu">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</span>
 </pre></div>
@@ -605,7 +599,7 @@
 </div>
 <div class="section" id="id2">
 <h2>2 为多个文件生成补丁<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uprN origin/ modify/
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uprN origin/ modify/
 </pre></div>
 </div>
 <p>这条命令对比了origin/和modify/两个目录下的所有源码差异.</p>
@@ -620,7 +614,7 @@
 <div class="section" id="id3">
 <h2>3 打补丁<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>生成的补丁中, 路径信息包含了你的源码根目录的名称, 但其他人的源码根目录可能是其它名字, 所以, 打补丁时, 要进入你的源码根目录, 并且告诉patch工具, 请忽略补丁中的路径的第一级目录(参数-p1).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ patch -p1 &lt; patch1.diff
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>patch -p1 &lt; patch1.diff
 </pre></div>
 </div>
 <p>diff命令必须在整个源码根目录的上一级目录中执行.</p>
@@ -629,9 +623,9 @@
 <h2>4 示例<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>给修改过的内核生成patch，然后用生成的patch给未修改过的内核打补丁</p>
 <p>其中，目录linux-2.6.31.3为未修改过的内核，目录linux-2.6.31.3_1为修改过的内核</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
-$ <span class="nb">cd</span> linux-2.6.31.3
-$ patch -p1 &lt; mypatch
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
+<span class="nv">$ </span><span class="nb">cd </span>linux-2.6.31.3
+<span class="nv">$ </span>patch -p1 &lt; mypatch
 </pre></div>
 </div>
 </div>
@@ -650,7 +644,7 @@ $ patch -p1 &lt; mypatch
         <a href="libpcap.html" class="btn btn-neutral float-right" title="libpcap使用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rest/doxygen.html" class="btn btn-neutral" title="生成API文档" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rest/with_vscode.html" class="btn btn-neutral" title="在Visual Studio Code中使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

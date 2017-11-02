@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#windows">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -592,17 +586,17 @@
 <div class="section" id="id2">
 <h2>4.2. 数据结构<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>librte_eal/common/include/rte_memory.h</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * Physical memory segment descriptor.</span>
 <span class="cm"> */</span>
  <span class="k">struct</span> <span class="n">rte_memseg</span> <span class="p">{</span>
-     <span class="n">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>      <span class="cm">/**&lt; Start physical address. */</span>
+     <span class="kt">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>      <span class="cm">/**&lt; Start physical address. */</span>
      <span class="k">union</span> <span class="p">{</span>
          <span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">;</span>         <span class="cm">/**&lt; Start virtual address. */</span>
          <span class="kt">uint64_t</span> <span class="n">addr_64</span><span class="p">;</span>   <span class="cm">/**&lt; Makes sure addr is always 64 bits */</span>
      <span class="p">};</span>
  <span class="cp">#ifdef RTE_LIBRTE_IVSHMEM</span>
-     <span class="n">phys_addr_t</span> <span class="n">ioremap_addr</span><span class="p">;</span> <span class="cm">/**&lt; Real physical address inside the VM */</span>
+     <span class="kt">phys_addr_t</span> <span class="n">ioremap_addr</span><span class="p">;</span> <span class="cm">/**&lt; Real physical address inside the VM */</span>
  <span class="cp">#endif</span>
      <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>               <span class="cm">/**&lt; Length of the segment. */</span>
      <span class="kt">uint64_t</span> <span class="n">hugepage_sz</span><span class="p">;</span>     <span class="cm">/**&lt; The pagesize of underlying memory */</span>
@@ -620,20 +614,20 @@
 <div class="section" id="id3">
 <h2>4.3. 初始化<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>在rte_eal_hugepage_init(librte_eal/linuxapp/eal/eal_memory.c)中：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_hugefiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_hugefiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="cm">/* if this is a new section, create a new memseg */</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">socket_id</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">socket_id</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">socket_id</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">socket_id</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">((</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">-</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span><span class="p">)</span> <span class="o">!=</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">-</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span><span class="p">)</span> <span class="o">!=</span>
         <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">-</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">-</span>
         <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">final_va</span><span class="p">)</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 

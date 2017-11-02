@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#windows">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -599,8 +593,8 @@
 <li><p class="first">struct malloc_heap - 用于在每个socket上跟踪空闲内存</p>
 <blockquote>
 <div><p>每个NUMA节点有一个malloc_heap结构，用于给NUMA节点上的线程分配内存，然而，它无法保证此内存仅被当前NUMA节点所使用。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_heap</span> <span class="p">{</span>
-    <span class="n">rte_spinlock_t</span> <span class="n">lock</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">malloc_heap</span> <span class="p">{</span>
+    <span class="kt">rte_spinlock_t</span> <span class="n">lock</span><span class="p">;</span>
     <span class="n">LIST_HEAD</span><span class="p">(,</span> <span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_head</span><span class="p">[</span><span class="n">RTE_HEAP_NUM_FREELISTS</span><span class="p">];</span>
     <span class="kt">unsigned</span> <span class="n">alloc_count</span><span class="p">;</span>
     <span class="kt">size_t</span> <span class="n">total_size</span><span class="p">;</span>
@@ -619,7 +613,7 @@
 <li>在内存块内部作为填充首部(padding header)</li>
 <li>做为memseg的结束标记</li>
 </ol>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">malloc_heap</span><span class="o">*</span> <span class="n">heap</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">malloc_elem</span><span class="o">*</span> <span class="k">volatile</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// points to prev elem in memseg</span>
     <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_list</span><span class="p">;</span> <span class="c1">// list of free elements in heap</span>
@@ -658,13 +652,13 @@
 <li>将FREE节点挂到malloc heap的空闲内存链表free-list中</li>
 </ul>
 <p>以下3行代码(librte_eal/common/malloc_heap.c: malloc_heap_add_memseg)分别对应这3个过程：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">malloc_elem_init</span><span class="p">(</span><span class="n">start_elem</span><span class="p">,</span> <span class="n">heap</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">malloc_elem_init</span><span class="p">(</span><span class="n">start_elem</span><span class="p">,</span> <span class="n">heap</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">);</span>
 <span class="n">malloc_elem_mkend</span><span class="p">(</span><span class="n">end_elem</span><span class="p">,</span> <span class="n">start_elem</span><span class="p">);</span>
 <span class="n">malloc_elem_free_list_insert</span><span class="p">(</span><span class="n">start_elem</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在把FREE节点挂到free-list的时候，如前所言，会根据其大小，挂入对应的free-list。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">malloc_elem_free_list_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">malloc_elem_free_list_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">size_t</span> <span class="n">idx</span><span class="p">;</span>
 
@@ -675,7 +669,7 @@
 </pre></div>
 </div>
 <p>malloc_elem_free_list_index()用于求得链表的索引，从这个函数的代码可以看到DPDK是怎么根据内存块大小来划分13个free-list的。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">malloc_elem_free_list_index</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">size_t</span> <span class="nf">malloc_elem_free_list_index</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="cp">#define MALLOC_MINSIZE_LOG2   8</span>
 <span class="cp">#define MALLOC_LOG2_INCREMENT 2</span>

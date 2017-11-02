@@ -240,6 +240,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -309,30 +317,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -410,6 +396,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -457,6 +444,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -583,7 +577,7 @@
 <h1>Lua语言<a class="headerlink" href="#lua" title="永久链接至标题">¶</a></h1>
 <p>Lua本身以简单优雅为美, 着眼于处理那些C不擅长的任务. 借助C/C++为其扩展, Lua可以展现无穷的魅力. Lua本身完全遵循ANSI C写成, 只要有C编译器的地方, Lua便可以发挥它的力量. Lua不需要追求python那样大而全的库, 太多的累赘, 反而会破坏她的优美.</p>
 <blockquote>
-<div>&#8212; &lt;Lua中文教程&gt;译序</div></blockquote>
+<div>--- &lt;Lua中文教程&gt;译序</div></blockquote>
 <p>本系列文章基于lua 5.2</p>
 <div class="toctree-wrapper compound">
 <ul>

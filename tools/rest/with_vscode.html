@@ -318,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -419,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -469,10 +448,10 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">在Visual Studio Code中使用</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#windows">安装步骤(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">配置(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">使用(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">问题记录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -602,8 +581,8 @@
   <div class="section" id="visual-studio-code">
 <h1>在Visual Studio Code中使用<a class="headerlink" href="#visual-studio-code" title="永久链接至标题">¶</a></h1>
 <p>Visual Studio Code是一款非常好用的免费编辑器, 可以在Windows, Mac, Linux多平台使用. 借助于vscode扩展, 我们也可以在vscode中编译预览reST文档.</p>
-<div class="section" id="windows">
-<h2>安装步骤(Windows)<a class="headerlink" href="#windows" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id1">
+<h2>安装步骤<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>参考: <a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/blob/master/docs/sphinx.md">https://github.com/vscode-restructuredtext/vscode-restructuredtext/blob/master/docs/sphinx.md</a></p>
 <ol class="arabic">
 <li><p class="first">安装Python (2.7.10+)</p>
@@ -622,40 +601,56 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id1">
-<h2>配置(Windows)<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h2>配置<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">全局配置</p>
 <p>依次打开菜单: 文件/首选项/设置, 加入:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">restructuredtext-lint.exe&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># windows</span>
+<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">restructuredtext-lint.exe&quot;</span>
+<span class="c"># Mac/Linux, 应该是默认值，不用设置</span>
+<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;restructuredtext-lint&quot;</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">当前文件夹配置</p>
+<p><strong>Windows</strong></p>
 <p>假设项目文件夹为D:\dev\hds, 且reST文档源文件位于D:\dev\hds\doc, conf.py也在这个目录下,
-在D:\dev\hds\.vscode\setting.json中加入以下配置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">sphinx-build.exe&quot;</span>
+在D:\dev\hds\.vscode\settings.json中加入以下配置:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">sphinx-build.exe&quot;</span>
 </pre></div>
 </div>
+<p><strong>Mac</strong></p>
+<p>假设项目文件夹为/Users/zzq/dev/hds, 且reST文档源文件位于/Users/zzq/dev/hds/doc,
+conf.py也在这个目录下, /Users/zzq/dev/hds/.vscode/settings.json中加入以下配置:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span>
+</pre></div>
+</div>
+<p>sphinx-build路径不用设置，用默认值即可.</p>
 </li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h2>使用(Windows)<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>在vscode中打开reST文件, 按下 <code class="docutils literal"><span class="pre">Ctrl+Shift+R</span></code> 组合键, 稍等几秒, 即可打开该文件的HTML预览.</p>
-</div>
 <div class="section" id="id3">
-<h2>问题记录<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2>使用<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>Windows:</p>
+<p>在vscode中打开reST文件, 按下 <code class="docutils literal"><span class="pre">Ctrl+Shift+R</span></code> 组合键, 稍等几秒, 即可打开该文件的HTML预览.</p>
+<p>Mac:</p>
+<p>在vscode中打开reST文件, 按下 <code class="docutils literal"><span class="pre">Command+Shift+R</span></code> 组合键, 稍等几秒, 即可打开该文件的HTML预览.</p>
+</div>
+<div class="section" id="id4">
+<h2>问题记录<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <div class="section" id="restructuredtext40-0-0bug">
 <h3>reStructuredText插件40.0.0版本bug<a class="headerlink" href="#restructuredtext40-0-0bug" title="永久链接至标题">¶</a></h3>
 <p>此版本存在bug, 会使reST文档目录与项目文件夹根目录不同时无法预览, 我已在github提交issue:
 <a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69">https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69</a>
 并自己编译了一个版本修正了这个bug.</p>
 <p>reStructuredText插件编译步骤(Linux):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd</span> ~
 git clone https://github.com/vscode-restructuredtext/vscode-restructuredtext.git
 <span class="nb">cd</span> ~/vscode-restructuredtext
 npm install --unsafe-perm<span class="o">=</span><span class="nb">true</span>
@@ -671,7 +666,7 @@ npm run compile
 <li>Linux  $HOME/.vscode/extensions</li>
 </ul>
 <p>也可以打包成vsix文件然后安装:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>npm install -g vsce
+<div class="highlight-bash"><div class="highlight"><pre>npm install -g vsce
 vsce package
 </pre></div>
 </div>

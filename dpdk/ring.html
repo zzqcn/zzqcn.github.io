@@ -241,6 +241,14 @@
 <li class="toctree-l3"><a class="reference internal" href="build_sys.html#id22">9.8. 参考</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
@@ -310,30 +318,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/reassemble.html">报文重组</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id2">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id3">协议分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#ip">IP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#tcp">TCP协议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#http">HTTP协议</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id18">已有软件实现思想</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#wireshark">wireshark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#suricata">suricata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id21">张加林实现</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id22">总体设计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id23">需要注意的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id24">内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id25">性能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/reassemble.html#id26">复杂性与容错性</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/reassemble.html#id27">参考</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -411,6 +397,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
 </ul>
 </li>
@@ -458,6 +445,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#windows">配置(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">使用(Windows)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -661,7 +655,7 @@
 </div>
 <div class="section" id="id6">
 <h2>2.4. 数据结构<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_ring</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_RING_NAMESIZE</span><span class="p">];</span>    <span class="cm">/**&lt; Name of the ring. */</span>
     <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags supplied at creation. */</span>
     <span class="k">const</span> <span class="k">struct</span> <span class="n">rte_memzone</span> <span class="o">*</span><span class="n">memzone</span><span class="p">;</span>
@@ -766,7 +760,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 57
 58
 59
-60</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
+60</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
 <span class="n">__rte_ring_mp_do_enqueue</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">const</span> <span class="o">*</span><span class="n">obj_table</span><span class="p">,</span>
              <span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="k">enum</span> <span class="n">rte_ring_queue_behavior</span> <span class="n">behavior</span><span class="p">)</span>
 <span class="p">{</span>
@@ -851,7 +845,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 19
 20
 21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define ENQUEUE_PTRS() do { \</span>
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define ENQUEUE_PTRS() do { \</span>
 <span class="cp">    const uint32_t size = r-&gt;prod.size; \</span>
 <span class="cp">    uint32_t idx = prod_head &amp; mask; \</span>
 <span class="cp">    if (likely(idx + n &lt; size)) { \</span>
@@ -929,7 +923,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 49
 50
 51
-52</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
+52</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
 <span class="n">__rte_ring_mc_do_dequeue</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">obj_table</span><span class="p">,</span>
          <span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="k">enum</span> <span class="n">rte_ring_queue_behavior</span> <span class="n">behavior</span><span class="p">)</span>
 <span class="p">{</span>
@@ -1004,7 +998,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 19
 20
 21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define DEQUEUE_PTRS() do { \</span>
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define DEQUEUE_PTRS() do { \</span>
 <span class="cp">    uint32_t idx = cons_head &amp; mask; \</span>
 <span class="cp">    const uint32_t size = r-&gt;cons.size; \</span>
 <span class="cp">    if (likely(idx + n &lt; size)) { \</span>
@@ -1034,7 +1028,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <p>ring中的生产者和消费者指针(prod.head, prod.tail, cons.head, cons.tail)是用32位无符号整数来表示的，而ring存放对象指针的数组的大小是远小于UINT32_MAX的，计算存取对象的数组索引需要有一定技巧；另外，由于ring是一个环形buffer，这些指针值溢出后会发生回绕，计算ring中已用和空闲对象的数目也需要注意方法。</p>
 <ul>
 <li><p class="first"><strong>求索引</strong> ENQUEUE_PTRS和DEQUEUE_PTRS中:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>uint32_t idx = prod_head &amp; mask;
+<div class="highlight-default"><div class="highlight"><pre>uint32_t idx = prod_head &amp; mask;
 其中，mask = size-1
 </pre></div>
 </div>
@@ -1042,7 +1036,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <li><p class="first"><strong>求已有项数</strong></p>
 </li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
 <span class="nf">rte_ring_count</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">uint32_t</span> <span class="n">prod_tail</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prod</span><span class="p">.</span><span class="n">tail</span><span class="p">;</span>
@@ -1052,13 +1046,13 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </pre></div>
 </div>
 <p>或</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">prod_tail</span> <span class="o">-</span> <span class="n">cons_head</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">prod_tail</span> <span class="o">-</span> <span class="n">cons_head</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>求空闲项数</strong></li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
 <span class="nf">rte_ring_free_count</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">uint32_t</span> <span class="n">prod_tail</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prod</span><span class="p">.</span><span class="n">tail</span><span class="p">;</span>
@@ -1068,7 +1062,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </pre></div>
 </div>
 <p>或</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">free_entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">cons_tail</span> <span class="o">-</span> <span class="n">prod_head</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">free_entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">cons_tail</span> <span class="o">-</span> <span class="n">prod_head</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1080,7 +1074,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <li><p class="first">初始化时，这4个指针值都为0</p>
 </li>
 <li><p class="first">p=14, c=3时:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
@@ -1088,7 +1082,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </div>
 </li>
 <li><p class="first">p=20, c=9时:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
@@ -1106,7 +1100,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <table class="docutils citation" frame="void" id="dpdk-guide-ring" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_guide_ring]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/ring_lib.html">DPDK programmer&#8217;s guide - Ring Library </a></td></tr>
+<tr><td class="label">[dpdk_guide_ring]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/ring_lib.html">DPDK programmer's guide - Ring Library </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="freebsd-ring" rules="none">
