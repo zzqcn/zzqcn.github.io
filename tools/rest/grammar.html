@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -495,6 +519,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
@@ -584,16 +612,16 @@
 <div class="section" id="id1">
 <h2>章节标题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>在文本下一行（或上一行）添加至少与文本长度同宽的符号，即可以使文本成为标题。但并没有规定某一个级别的标题必须用什么字符，可以参考python文档的一些约定:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">*</span> <span class="c"># with overline, for parts</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="c1"># with overline, for parts</span>
 <span class="o">*</span> <span class="o">*</span> <span class="k">with</span> <span class="n">overline</span><span class="p">,</span> <span class="k">for</span> <span class="n">chapters</span>
 <span class="o">*</span> <span class="o">=</span><span class="p">,</span> <span class="k">for</span> <span class="n">sections</span>
 <span class="o">*</span> <span class="o">-</span><span class="p">,</span> <span class="k">for</span> <span class="n">subsections</span>
 <span class="o">*</span> <span class="o">^</span><span class="p">,</span> <span class="k">for</span> <span class="n">subsubsections</span>
-<span class="o">*</span> <span class="s">&quot;, for paragraphs</span>
+<span class="o">*</span> <span class="s2">&quot;, for paragraphs</span>
 </pre></div>
 </div>
 <p>我们把intro.rst改成下面这样:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">intro</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">intro</span>
 <span class="o">=====</span>
 
 <span class="n">aaa</span>
@@ -608,7 +636,7 @@
 <p>其中，intro是一级标题，aaa和bbbb是二级标题。生成的html标签分别是&lt;h1&gt;和&lt;h2&gt;。  回到上一级目录重新make html，此时首页index.html效果如下：</p>
 <img alt="../../_images/doc_head.png" src="../../_images/doc_head.png" />
 <p>在右边的Contents中，sphinx已经给我们生成了各文件的标题链接，深度为2，深度可以在index.rst中的maxdepth中设置。然而index.html左边的导航里并没有各文件的链接，像intro.html里那样，这个可以通过修改conf.py实现，找到html_sidebars，改为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">html_sidebars</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;**&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;globaltoc.html&#39;</span><span class="p">,</span> <span class="s">&#39;sourcelink.html&#39;</span><span class="p">,</span> <span class="s">&#39;searchbox.html&#39;</span><span class="p">]}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_sidebars</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;**&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;globaltoc.html&#39;</span><span class="p">,</span> <span class="s1">&#39;sourcelink.html&#39;</span><span class="p">,</span> <span class="s1">&#39;searchbox.html&#39;</span><span class="p">]}</span>
 </pre></div>
 </div>
 <p>修改后保存，重新make html，index.html左边导航变为如下这样：</p>
@@ -622,7 +650,7 @@
 <h2>段落<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>段落是构成reST文档的基本单位。通过一个或一个以上的空行隔开的文本区块就是一个段落。正如在python里一样，reST中的缩进非常重要。同一段落的多个文本行必须有一样的缩进。</p>
 <p>注意在段落内换行并不会在html中生成换行符，要想保持在文本编辑器中的换行符，需要在这些行前面加上|和空格:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">|</span> <span class="n">aaaaaaaa</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="n">aaaaaaaa</span>
 <span class="o">|</span> <span class="n">bbbbbbbbb</span>
 <span class="o">|</span> <span class="n">cccccccccccc</span>
 </pre></div>
@@ -647,7 +675,7 @@
 <li>代码或内容引用 两个反引号（`）</li>
 </ul>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre>aaaa **加粗** aaaaa
+<div class="highlight-default"><div class="highlight"><pre><span></span>aaaa **加粗** aaaaa
 aaaa *倾斜* aaaaa
 aaaaa ``引用`` aaaaaa
 </pre></div>
@@ -666,7 +694,7 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <li>定义列表 术语（只能一行）的下一行缩进，下一行为定义内容</li>
 </ul>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">*</span> <span class="n">item</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">item</span>
 <span class="o">*</span> <span class="n">item</span>
 <span class="o">*</span> <span class="n">item</span>
 
@@ -674,9 +702,9 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <span class="mf">2.</span> <span class="n">item2</span>
 <span class="mf">3.</span> <span class="n">item3</span>
 
-<span class="c">#. item4</span>
-<span class="c">#. item5</span>
-<span class="c">#. item6</span>
+<span class="c1">#. item4</span>
+<span class="c1">#. item5</span>
+<span class="c1">#. item6</span>
 
 <span class="n">FOO</span>
     <span class="n">this</span> <span class="ow">is</span> <span class="n">very</span> <span class="n">interesting</span><span class="o">.</span>
@@ -715,14 +743,14 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <li>复杂代码块 使用code-block指导语句，还可以选择列出行号和高亮重点行等</li>
 </ul>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">source</span> <span class="n">code</span> <span class="n">below</span> <span class="p">::</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">code</span> <span class="n">below</span> <span class="p">::</span>
 
 <span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
 
     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;i: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="n">source</span> <span class="n">code</span> <span class="n">again</span>
@@ -736,18 +764,18 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
         <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
 
         <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;i: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
     <span class="p">}</span>
 </pre></div>
 </div>
 <p>效果：</p>
 <p>source code below</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">foo</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
 
     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;i: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;i: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -758,7 +786,7 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="hll">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 </span>
@@ -777,7 +805,7 @@ aaaaa <code class="docutils literal"><span class="pre">引用</span></code> aaaa
 <li>记住链接URL要加http://前缀，不要直接从网址开始写。</li>
 </ul>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre>visit `baidu &lt;http://www.baidu.com&gt;`_
+<div class="highlight-default"><div class="highlight"><pre><span></span>visit `baidu &lt;http://www.baidu.com&gt;`_
 
 visit `baidu URL`_
 
@@ -792,7 +820,7 @@ visit `baidu URL`_
 <h2>图片<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>使用image指导语句。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">baidu</span> <span class="n">logo</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">baidu</span> <span class="n">logo</span><span class="p">:</span>
 
 <span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">img</span><span class="o">/</span><span class="n">bdlogo</span><span class="o">.</span><span class="n">png</span>
     <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">200</span><span class="n">px</span>
@@ -803,7 +831,7 @@ visit `baidu URL`_
 <a class="reference internal image-reference" href="../../_images/bdlogo.png"><img alt="../../_images/bdlogo.png" src="../../_images/bdlogo.png" style="width: 200px;" /></a>
 <p>也可以使用figure指导语句，figure可以空一行，接着写图片标题。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">..</span> <span class="n">figure</span><span class="p">::</span> <span class="n">img</span><span class="o">/</span><span class="n">bdlogo</span><span class="o">.</span><span class="n">png</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">figure</span><span class="p">::</span> <span class="n">img</span><span class="o">/</span><span class="n">bdlogo</span><span class="o">.</span><span class="n">png</span>
     <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">200</span><span class="n">px</span>
 
     <span class="n">Baidu</span> <span class="n">LOGO</span>
@@ -819,17 +847,17 @@ visit `baidu URL`_
 <h2>表格<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p>使用文本字符绘制的表格。简单表格用的字符较少，但功能有限，如不能表格行不能换行；复杂不及格使用的字符较多。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">simple</span> <span class="n">table</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">simple</span> <span class="n">table</span><span class="p">:</span>
 
 <span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
 <span class="n">Inputs</span>        <span class="n">Output</span>
 <span class="o">------------</span>  <span class="o">------</span>
 <span class="n">A</span>      <span class="n">B</span>      <span class="n">A</span> <span class="ow">or</span> <span class="n">B</span>
 <span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
-<span class="k">False</span>  <span class="k">False</span>  <span class="k">False</span>
-<span class="k">True</span>   <span class="k">False</span>  <span class="k">True</span>
-<span class="k">False</span>  <span class="k">True</span>   <span class="k">True</span>
-<span class="k">True</span>   <span class="k">True</span>   <span class="k">True</span>
+<span class="kc">False</span>  <span class="kc">False</span>  <span class="kc">False</span>
+<span class="kc">True</span>   <span class="kc">False</span>  <span class="kc">True</span>
+<span class="kc">False</span>  <span class="kc">True</span>   <span class="kc">True</span>
+<span class="kc">True</span>   <span class="kc">True</span>   <span class="kc">True</span>
 <span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
 
 <span class="n">grid</span> <span class="n">table</span><span class="p">:</span>
@@ -925,7 +953,7 @@ body elements.</td>
 <h2>引用<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <p>一种是传统的参考文献引用格式。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre>It is methioned by [Ref]_ that C++ is good.
+<div class="highlight-default"><div class="highlight"><pre><span></span>It is methioned by [Ref]_ that C++ is good.
 
 .. [Ref] 《zzq&#39;s talk》
 </pre></div>
@@ -935,7 +963,7 @@ body elements.</td>
 <p>类似于书签的引用，被引用的内容可以在另一个reST文档中。在引用的地方, 使用 <code class="docutils literal"><span class="pre">:ref:`bookmark`</span></code> 这种语法，在被引用内容的上方, 使用
 <code class="docutils literal"><span class="pre">_bookmark:</span></code> 的语法。下方的标题将变成书签链接的文本。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre>附录 :ref:`ewma_algo` 中也有介绍。
+<div class="highlight-default"><div class="highlight"><pre><span></span>附录 :ref:`ewma_algo` 中也有介绍。
 
 .. _ewma_algo:
 
@@ -946,7 +974,7 @@ EWMA Algo
 </div>
 <p>文档间引用，引用另一文档，格式是 <code class="docutils literal"><span class="pre">:doc:`file_name`</span></code> 。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre>sniper知识库格式发生了一些变化，见 :doc:`rule_format` 。
+<div class="highlight-default"><div class="highlight"><pre><span></span>sniper知识库格式发生了一些变化，见 :doc:`rule_format` 。
 </pre></div>
 </div>
 </div>
@@ -954,12 +982,12 @@ EWMA Algo
 <h2>脚注<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
 <p>与引用语法类似，只是它在正文中显示的不是文本，而是编号。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">orem</span> <span class="n">ipsum</span> <span class="p">[</span><span class="c">#f1]_ dolor sit amet ... [#f2]_</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">orem</span> <span class="n">ipsum</span> <span class="p">[</span><span class="c1">#f1]_ dolor sit amet ... [#f2]_</span>
 
 <span class="n">Footnotes</span>
 
-<span class="o">..</span> <span class="p">[</span><span class="c">#f1] Text of the first footnote.</span>
-<span class="o">..</span> <span class="p">[</span><span class="c">#f2] Text of the second footnote.</span>
+<span class="o">..</span> <span class="p">[</span><span class="c1">#f1] Text of the first footnote.</span>
+<span class="o">..</span> <span class="p">[</span><span class="c1">#f2] Text of the second footnote.</span>
 </pre></div>
 </div>
 <p>效果：</p>
@@ -969,7 +997,7 @@ EWMA Algo
 <h2>提醒<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
 <p>可以使用提醒指导语句来添加需要提醒读者注意的说明文字。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">..</span> <span class="n">note</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">note</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">note</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">note</span><span class="o">.</span>
 
 <span class="o">..</span> <span class="n">warning</span><span class="p">::</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">warning</span><span class="o">.</span>
 
@@ -1006,13 +1034,13 @@ EWMA Algo
 <h2>替换<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
 <p>替换类似脚注，在正文中使用|text|这样标签，然后可以设定使用其他文本或者图片来代替text这个占位符。</p>
 <p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="o">|</span><span class="n">apple</span><span class="o">|</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="o">|</span><span class="n">apple</span><span class="o">|</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
 
 <span class="o">..</span> <span class="o">|</span><span class="n">apple</span><span class="o">|</span> <span class="n">replace</span><span class="p">::</span> <span class="n">苹果</span>
 </pre></div>
 </div>
 <p>效果:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="n">苹果</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">like</span> <span class="n">eat</span> <span class="n">苹果</span> <span class="n">very</span> <span class="n">much</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>

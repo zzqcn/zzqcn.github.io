@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -449,9 +473,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="with_vscode.html">在Visual Studio Code中使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id1">安装步骤</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#windows">配置(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id2">使用(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id3">问题记录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -493,6 +517,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../cunit.html">CUnit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 </ul>
 </li>
 </ul>
@@ -588,7 +616,7 @@
 <li><a class="reference external" href="http://brianhsu.moe/blog/2012-03-23-SphinxXeTex.html">http://brianhsu.moe/blog/2012-03-23-SphinxXeTex.html</a></li>
 </ul>
 <p>生成PDF的前提是安装了texlive:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">full</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">full</span>
 </pre></div>
 </div>
 <p>我们一般是生成带中文的pdf，会比较复杂，主要有两种方法。</p>
@@ -596,30 +624,30 @@
 <h2>方法一：使用xeTex(推荐)<a class="headerlink" href="#xetex" title="永久链接至标题">¶</a></h2>
 <p>xeTex支持UTF8编码的源文件，并且可以用系统中已有的中文字体来生成pdf。</p>
 <p>安装xetex软件包:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">xetex</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">xetex</span>
 </pre></div>
 </div>
 <p>使用fc-list命令可以查看系统当前可用的中文字体:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">fc</span><span class="o">-</span><span class="nb">list</span> <span class="p">:</span><span class="n">lang</span><span class="o">=</span><span class="n">zh</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fc</span><span class="o">-</span><span class="nb">list</span> <span class="p">:</span><span class="n">lang</span><span class="o">=</span><span class="n">zh</span>
 </pre></div>
 </div>
 <p>如果觉得已有字体不够用，可以从windows系统拷贝字体:
 <a class="reference external" href="http://linux-wiki.cn/wiki/zh-hans">http://linux-wiki.cn/wiki/zh-hans</a>/LaTeX中文排版（使用XeTeX）</p>
 <p>接着配置conf.py，把latex_elements中premble改成:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># Additional stuff for the LaTeX preamble.</span>
-<span class="s">&#39;preamble&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="se">\\</span><span class="s">hypersetup{unicode=true}</span>
-<span class="se">\\</span><span class="s">usepackage{xeCJK}</span>
-<span class="se">\\</span><span class="s">usepackage{hyperref}</span>
-<span class="se">\\</span><span class="s">setCJKmainfont{NSimSun}</span>
-<span class="se">\\</span><span class="s">setCJKmonofont{NSimSun}</span>
-<span class="s">&#39;&#39;&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Additional stuff for the LaTeX preamble.</span>
+<span class="s1">&#39;preamble&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="se">\\</span><span class="s1">hypersetup{unicode=true}</span>
+<span class="se">\\</span><span class="s1">usepackage</span><span class="si">{xeCJK}</span><span class="s1"></span>
+<span class="se">\\</span><span class="s1">usepackage</span><span class="si">{hyperref}</span><span class="s1"></span>
+<span class="se">\\</span><span class="s1">setCJKmainfont</span><span class="si">{NSimSun}</span><span class="s1"></span>
+<span class="se">\\</span><span class="s1">setCJKmonofont</span><span class="si">{NSimSun}</span><span class="s1"></span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>这里是用了新宋体。</p>
 <p>然后，首先在文档源文件主目录运行 <code class="docutils literal"><span class="pre">make</span> <span class="pre">latex</span></code> 生成latex文件，
 如xxx.tex，打开xxx.tex，将含有inputenc的行注释掉，因为inputenc组件与xeTex冲突:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="o">%</span>\<span class="n">usepackage</span><span class="p">[</span><span class="n">utf8</span><span class="p">]{</span><span class="n">inputenc</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span>\<span class="n">usepackage</span><span class="p">[</span><span class="n">utf8</span><span class="p">]{</span><span class="n">inputenc</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>最后再用 <code class="docutils literal"><span class="pre">xelatex</span> <span class="pre">xxx.tex</span></code> 编译生成的latex文件两次即可。编译两次的原因是第1次不会生成目录和索引。</p>
@@ -627,24 +655,24 @@
 <div class="section" id="cjkutf8">
 <h2>方法二: 使用CJKutf8包 (默认)<a class="headerlink" href="#cjkutf8" title="永久链接至标题">¶</a></h2>
 <p>安装东亚语言包和字体包(texlive-lang-cjk, texlive-fonts-recommands之类）:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">langextra</span> <span class="n">texlive</span><span class="o">-</span><span class="n">langcjk</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">langextra</span> <span class="n">texlive</span><span class="o">-</span><span class="n">langcjk</span>
 </pre></div>
 </div>
 <p>配置conf.py，在latex_elements中加入:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">latex_elements</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c"># The paper size (&#39;letterpaper&#39; or &#39;a4paper&#39;).</span>
-<span class="c">#&#39;papersize&#39;: &#39;letterpaper&#39;,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">latex_elements</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1"># The paper size (&#39;letterpaper&#39; or &#39;a4paper&#39;).</span>
+<span class="c1">#&#39;papersize&#39;: &#39;letterpaper&#39;,</span>
 
-<span class="c"># The font size (&#39;10pt&#39;, &#39;11pt&#39; or &#39;12pt&#39;).</span>
-<span class="c">#&#39;pointsize&#39;: &#39;10pt&#39;,</span>
+<span class="c1"># The font size (&#39;10pt&#39;, &#39;11pt&#39; or &#39;12pt&#39;).</span>
+<span class="c1">#&#39;pointsize&#39;: &#39;10pt&#39;,</span>
 
-<span class="c"># Additional stuff for the LaTeX preamble.</span>
-<span class="s">&#39;preamble&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="se">\\</span><span class="s">hypersetup{unicode=true}</span>
-<span class="se">\\</span><span class="s">usepackage{CJKutf8}</span>
-<span class="se">\\</span><span class="s">AtBeginDocument{</span><span class="se">\\</span><span class="s">begin{CJK}{UTF8}{gbsn}}</span>
-<span class="se">\\</span><span class="s">AtEndDocument{</span><span class="se">\\</span><span class="s">end{CJK}}</span>
-<span class="s">&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="c1"># Additional stuff for the LaTeX preamble.</span>
+<span class="s1">&#39;preamble&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="se">\\</span><span class="s1">hypersetup{unicode=true}</span>
+<span class="se">\\</span><span class="s1">usepackage</span><span class="si">{CJKutf8}</span><span class="s1"></span>
+<span class="se">\\</span><span class="s1">AtBeginDocument{</span><span class="se">\\</span><span class="s1">begin</span><span class="si">{CJK}{UTF8}{gbsn}</span><span class="s1">}</span>
+<span class="se">\\</span><span class="s1">AtEndDocument{</span><span class="se">\\</span><span class="s1">end</span><span class="si">{CJK}</span><span class="s1">}</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>最后运行 <code class="docutils literal"><span class="pre">make</span> <span class="pre">latexpdf</span></code> 即可。</p>
@@ -657,7 +685,7 @@
 <a class="reference external" href="http://apacal.cn/article/76.html">http://apacal.cn/article/76.html</a></p>
 <ol class="arabic">
 <li><p class="first">确认conf.py里的语言设置为中文:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">language</span> <span class="o">=</span> <span class="s">&#39;zh_CN&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;zh_CN&#39;</span>
 </pre></div>
 </div>
 </li>
@@ -669,21 +697,21 @@
 <li><p class="first">解压源码包, 假设为/home/zzq/sphinx-1.5.6, 下文都基于此目录讨论</p>
 </li>
 <li><p class="first">修改 <code class="docutils literal"><span class="pre">sphinx/texinputs/Makefile_t</span></code> , 将PDFLATEX修改为xelatex:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">PDFLATEX</span> <span class="o">=</span> <span class="n">xelatex</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PDFLATEX</span> <span class="o">=</span> <span class="n">xelatex</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">修改 <code class="docutils literal"><span class="pre">sphinx/writers/latex.py</span></code> , 在第442行左右, 加入以下代码:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># zzq</span>
-<span class="k">if</span> <span class="n">builder</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s">&#39;zh_CN&#39;</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s">&#39;babel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s">&#39;inputenc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s">&#39;utf8extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># zzq</span>
+<span class="k">if</span> <span class="n">builder</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s1">&#39;zh_CN&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;babel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;inputenc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;utf8extra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 </pre></div>
 </div>
 <p>加入的位置在以下代码之前:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># pTeX (Japanese TeX) for support</span>
-<span class="k">if</span> <span class="n">builder</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s">&#39;ja&#39;</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># pTeX (Japanese TeX) for support</span>
+<span class="k">if</span> <span class="n">builder</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s1">&#39;ja&#39;</span><span class="p">:</span>
 </pre></div>
 </div>
 </li>

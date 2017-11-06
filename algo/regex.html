@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">算法与问题</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ac.html">AC算法</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">正则表达式</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -495,6 +519,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
@@ -578,6 +606,209 @@
             
   <div class="section" id="id1">
 <h1>正则表达式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>1. 概述<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>正则表达式在现实中有着极为重要的作用, 很多软件使用了正则表达式, 很多语言也提供了正则表达式支持, 虽然其内部实现方式各有不同.</p>
+<p>本文不打算讨论PCRE和re等通用正则引擎, 而是尝试从原理到实现来讨论一种和
+<a class="reference external" href="https://github.com/intel/hyperscan">hyperscan</a>
+功能相似的多模正则引擎zre.</p>
+<p>本文内容涉及到了词法和语法分析, 有限状态机等知识, 可以参考 <a class="reference internal" href="#cptt" id="id3">[cptt]</a> .</p>
+<p>正则引擎的工作流程主要分为:</p>
+<ol class="arabic simple">
+<li>解析. 将正则表达式转换为抽象语法树(AST)</li>
+<li>编译. 将AST编译为非确定性有限自动机(NFA)</li>
+<li>转换. 将NFA转换为确定性有限自动机(DFA)</li>
+<li>匹配. 将数据依次送入NFA/DFA, 给出匹配结果</li>
+</ol>
+<p>其中前3步如下图所示:</p>
+<img alt="../_images/regex_main_flow.png" src="../_images/regex_main_flow.png" />
+</div>
+<div class="section" id="parse">
+<h2>2. 解析(parse)<a class="headerlink" href="#parse" title="永久链接至标题">¶</a></h2>
+<p>解析使用词法(lexical)分析器和语法(grammar)分析器完成,  其中词法分析器主要解析正则元字符, 语法分析器解析正则语法. 解析完成后, 在内存中生成抽象语法树.</p>
+<p>zre使用flex和bison来完成词法和语法分析工作.</p>
+<div class="section" id="id4">
+<h3>2.1 词法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>编写词法分析文件, 分析正则元字符,字符组等. flex会根据此文件生成相应的C代码,
+最终和其他代码一起编译.</p>
+<img alt="../_images/regex_lex.png" src="../_images/regex_lex.png" />
+</div>
+<div class="section" id="id5">
+<h3>2.2 语法<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>编写语法分析文件, 在上一步词法分析器生成的记号(token)流, 根据正则语法生成AST.
+bison会根据此文件生成相应的C代码, 最终和其他代码一起编译.</p>
+<img alt="../_images/regex_grammar.png" src="../_images/regex_grammar.png" />
+</div>
+<div class="section" id="id6">
+<h3>2.3 抽象语法树<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>经过前两步解析后, 每个正则表达式都生成一棵AST, 将此AST转换成NFA, 即可用于匹配.
+将多个正则表达式生成的AST进行适当的合并, 再转换成NFA, 则可以用于多模匹配.</p>
+<p>zre目前的AST类型包括:</p>
+<ul class="simple">
+<li>普通字符树 ast_char_t</li>
+<li>字符范围树 ast_range_t</li>
+<li>POSIX/PERL字符组树 ast_class_t</li>
+<li>重复树 ast_repeat_t</li>
+<li>字符分组树 ast_group_t</li>
+<li>锚点树 ast_anchor_t</li>
+<li>泛型树 ast_t</li>
+</ul>
+<p>构造AST时, 还需要进行某些处理, 比如</p>
+<ul class="simple">
+<li>将ast_class_t转换为ast_group_t</li>
+<li>简化某些重复树
+某些重复树是无法直接编译的, 比如子表达式a{m, n}生成的重复树, 需要简化成仅含*, +, ?
+这3个重复量词的树, 比如a{1, 3}需要转换成a(aa?)?</li>
+</ul>
+<p>这里给一个例子, 正则表达式 <cite>(a|b)*abb</cite> 生成的AST如下图所示:</p>
+<img alt="../_images/regex_ast_example.png" src="../_images/regex_ast_example.png" />
+</div>
+</div>
+<div class="section" id="compile">
+<h2>3. 编译(compile)<a class="headerlink" href="#compile" title="永久链接至标题">¶</a></h2>
+<div class="section" id="nfa">
+<h3>3.1 构造NFA<a class="headerlink" href="#nfa" title="永久链接至标题">¶</a></h3>
+<p>AST构造并简化之后, 就可以编译为NFA了.  有以下要点:</p>
+<ul class="simple">
+<li>对AST使用后序遍历算法(先左子树,再右子树,最后父节点)</li>
+<li>使用一个辅助栈, 里面存放子NFA;每个子NFA有一个入状态和一个出状态</li>
+<li>将子树编译成子NFA, 入栈; 遇到操作符(与或之类), 将子NFA出栈, 进行运算后入栈</li>
+<li>到最后栈中必仅剩一个子NFA, 这就是最终的NFA</li>
+<li>每个正则表达式编译成一个NFA, 并对其对应的id挂在最终NFA的匹配列表上</li>
+<li>构造时e?, e*的NFA时, 弹出的子NFA的每一个节点都需要与新NFA的出状态有一个ε连接</li>
+<li>进行多模编译时, 依次编译每个模式, 并将它的NFA与上一个模式生成的NFA合并(merge)</li>
+</ul>
+<div class="section" id="id7">
+<h4>表达式与NFA的对应关系举例<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<p>普通字符a与字符组[abc]</p>
+<img alt="../_images/regex_nfa_1.png" src="../_images/regex_nfa_1.png" />
+<p>e1,e2两个表达式的连接和多选结构</p>
+<img alt="../_images/regex_nfa_2.png" src="../_images/regex_nfa_2.png" />
+<p>表达式e的匹配优先量词</p>
+<img alt="../_images/regex_nfa_3.png" src="../_images/regex_nfa_3.png" />
+</div>
+</div>
+<div class="section" id="nfadfa">
+<h3>3.2 NFA转DFA<a class="headerlink" href="#nfadfa" title="永久链接至标题">¶</a></h3>
+<p>使用”子集构造法”, 此算法需要以下3个针对NFA的操作例程:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">操作</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ε-closure(s)</td>
+<td>求从状态s开始只通过ε转换即可到达的状态集合</td>
+</tr>
+<tr class="row-odd"><td>ε-closure(T)</td>
+<td>求可以从T中某个状态s开始, 只通过ε转换即可到达的状态集合</td>
+</tr>
+<tr class="row-even"><td>move(T, a)</td>
+<td>求从T中某个状态s出发通过标号为a的转换到达的状态的集合</td>
+</tr>
+</tbody>
+</table>
+<p>其中s是NFA状态, T是NFA状态集合, a是输入条件.
+可见DFA中每个状态实际是原NFA状态的”集合”.</p>
+<p>子集构造法:</p>
+<div class="line-block">
+<div class="line">一开始, ε-closure(s0)唯一的DFA状态, 且它未标记;</div>
+<div class="line">while(在DFA中有一个未标记状态T) {</div>
+<div class="line-block">
+<div class="line">标记T;</div>
+<div class="line">for(每个输入a) {</div>
+<div class="line-block">
+<div class="line">U= ε-closure(move(T,a));</div>
+<div class="line">if(U不在DFA中)</div>
+<div class="line-block">
+<div class="line">将U加入DFA, 且不标记;</div>
+</div>
+<div class="line">DFA[T, a] = U;  // 表示DFA输入为a时,T转换到U</div>
+</div>
+<div class="line">}</div>
+</div>
+<div class="line">}</div>
+</div>
+<p>实例: 模式 (a|b)*abb 的NFA转DFA. 设可能输入为{a, b}. DFA状态用大写字母表示.</p>
+<p>构造好的NFA:</p>
+<img alt="../_images/regex_nfa_example.png" src="../_images/regex_nfa_example.png" />
+<p>转换步骤:</p>
+<ol class="arabic">
+<li><p class="first">起始状态为0, 令A=ε-closure(0) = {0, 1, 2, 4, 7}, 注意也包含它自身</p>
+</li>
+<li><p class="first">计算DFA[A,a] = ε-closure(move(A,a)) = ε-closure(3, 8) = {1,2,3,4,6,7,8}, 记为B;
+同理, DFA[A,b] = {1,2,4,5,6,7}, 记为C</p>
+</li>
+<li><p class="first">对B,C继续以上过程, 最终会构造完整的DFA, 见下图</p>
+<img alt="../_images/regex_dfa_example.png" src="../_images/regex_dfa_example.png" />
+</li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h3>3.4 消除死状态<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>当NFA转换成DFA后, DFA中可能存在”死状态”, 即进入这个状态后, 无论输入条件是什么,
+都无法转换到其他状态. 这种状态会导致匹配时, 状态机陷入这一状态, 无法根据后续数据正确进行匹配.</p>
+<p>若DFA[s,a]=n,n为死状态, 则计算DFA[0, a] = n2, 如果n2!=n, 则DFA[s,a] = n2;否则DFA[s,a] = 0.</p>
+<img alt="../_images/regex_dead_state.png" src="../_images/regex_dead_state.png" />
+</div>
+<div class="section" id="dfa">
+<h3>3.5 DFA最小化<a class="headerlink" href="#dfa" title="永久链接至标题">¶</a></h3>
+<p>上文中构造的DFA可以经过DFA最小化算法, 将不必要的状态去除. 算法由于时间关系暂略, 以后有空会补上.</p>
+</div>
+<div class="section" id="id9">
+<h3>3.6 DFA序列化<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>对DFA进行最小化, 生成DFAMin后, 可以将内存中的DFAMin进行序列化, 方便导出到文件中,
+以后使用时导入即可, 不需要从头编译. 毕竟编译大量的正则表达式会消耗大量时间.</p>
+<p>这一步比较简单, 主要是去掉DFAMin中所有指针相关的数据结构, 转换成”偏移+数组”这种”平面化(flat)”的形式.</p>
+<p>当然这一步也可以在DFA最小化时一起完成. 在这里我把序列化后的DFAMin称为database.</p>
+</div>
+</div>
+<div class="section" id="match">
+<h2>4. 匹配(match)<a class="headerlink" href="#match" title="永久链接至标题">¶</a></h2>
+<p>匹配可以在NFA, DFA, DFAMin或者database上进行. 由于ZRE最终构造成database, 所以仅在database上进行匹配. 前3者仅用于调试bug.</p>
+<p>使用正则表达式编译而成的状态机进行模式匹配, 与使用普通字符串经AC算法编译而成的状态机相比, 并没有什么不同. 除了为兼容Hyperscan, 命中模式时报告的位置是命中位置的第一位置. 比如特征串 <cite>bcd</cite> 命中了 <cite>abcdefg</cite> , 而报告的位置是e的位置,而不是d.</p>
+</div>
+<div class="section" id="id10">
+<h2>5. 优化<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id11">
+<h3>5.1 内存<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id12">
+<h3>5.2 性能<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>参考<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
+<table class="docutils citation" frame="void" id="mre" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[mre]</td><td>&lt;&lt;精通正则表达式&gt;&gt; 第3版</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="flexbison" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[flexbison]</td><td>&lt;&lt;flex与bison&gt;&gt;</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="cptt" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[cptt]</a></td><td>&lt;&lt;编译原理&gt;&gt; 第2版, 第3章</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="regex-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[regex_1]</td><td><a class="reference external" href="https://swtch.com/~rsc/regexp/regexp1.html">Regular Expression Matching Can Be Simple And Fast </a></td></tr>
+</tbody>
+</table>
+</div>
 </div>
 
 

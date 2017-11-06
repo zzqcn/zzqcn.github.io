@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -449,9 +473,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#windows">配置(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">使用(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">问题记录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -493,6 +517,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/cunit.html">CUnit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 </ul>
 </li>
 </ul>
@@ -598,10 +626,10 @@
 <div class="section" id="id4">
 <h2>7.3. 数据结构<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>rte_mempool(librte_mempool/rte_mempool.h)</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_mempool</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_MEMPOOL_NAMESIZE</span><span class="p">];</span> <span class="cm">/**&lt; Name of mempool. */</span>
     <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">ring</span><span class="p">;</span>           <span class="cm">/**&lt; Ring to store objects. */</span>
-    <span class="kt">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Phys. addr. of mempool struct. */</span>
+    <span class="n">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Phys. addr. of mempool struct. */</span>
     <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags of the mempool. */</span>
     <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>                   <span class="cm">/**&lt; Size of the mempool. */</span>
     <span class="kt">uint32_t</span> <span class="n">cache_size</span><span class="p">;</span>             <span class="cm">/**&lt; Size of per-lcore local cache. */</span>
@@ -634,7 +662,7 @@
     <span class="cm">/**&lt; Virtual address of the first mempool object. */</span>
     <span class="kt">uintptr_t</span>   <span class="n">elt_va_end</span><span class="p">;</span>
     <span class="cm">/**&lt; Virtual address of the &lt;size + 1&gt; mempool object. */</span>
-    <span class="kt">phys_addr_t</span> <span class="n">elt_pa</span><span class="p">[</span><span class="n">MEMPOOL_PG_NUM_DEFAULT</span><span class="p">];</span>
+    <span class="n">phys_addr_t</span> <span class="n">elt_pa</span><span class="p">[</span><span class="n">MEMPOOL_PG_NUM_DEFAULT</span><span class="p">];</span>
     <span class="cm">/**&lt; Array of physical page addresses for the mempool objects buffer. */</span>
 
 <span class="p">}</span>  <span class="n">__rte_cache_aligned</span><span class="p">;</span>
@@ -643,7 +671,7 @@
 <p>mempool中存储的每一个对象的结构分3部分，首部，数据和尾部。每一部分都填充以做到字节对齐，在调试模式首部和尾部还可以加上cookie。</p>
 <img alt="../_images/mempool_obj.png" src="../_images/mempool_obj.png" />
 <p>rte_mempool_cache(librte_mempool/rte_mempool.h)</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/**&lt; Cache len */</span>
     <span class="kt">void</span> <span class="o">*</span><span class="n">objs</span><span class="p">[</span><span class="n">RTE_MEMPOOL_CACHE_MAX_SIZE</span> <span class="o">*</span> <span class="mi">3</span><span class="p">];</span> <span class="cm">/**&lt; Cache objects */</span>
 <span class="p">}</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
@@ -687,7 +715,7 @@ memzone相关原理见 <a class="reference internal" href="memzone.html"><span c
 <table class="docutils citation" frame="void" id="dpdk-guide-mpool" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_guide_mpool]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html">DPDK programmer's guide - Mempool </a></td></tr>
+<tr><td class="label">[dpdk_guide_mpool]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html">DPDK programmer&#8217;s guide - Mempool </a></td></tr>
 </tbody>
 </table>
 </div>

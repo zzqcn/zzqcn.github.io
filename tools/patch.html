@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -449,9 +473,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id1">安装步骤</a></li>
-<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#windows">配置(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id2">使用(Windows)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id3">问题记录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
 </ul>
@@ -493,6 +517,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cunit.html">CUnit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 </ul>
 </li>
 </ul>
@@ -582,11 +610,11 @@
 <p>在使用diff之前, 你需要保留一份未修改过的源码, 然后在其它地方修改源码的一份拷贝. diff对比这两份源码生成patch. 修改过的源码必须保留原来的文件名, 例如, 如果你修改源码中的a.c文件, 那么, 修改后的文件还是名为a.c, 在修改之前你可以复制a.c为a.orig.c进行备份.</p>
 <div class="section" id="id1">
 <h2>1 为单个文件生成补丁<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -up origin.c modify.c
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -up origin.c modify.c
 </pre></div>
 </div>
 <p>这条命令会产生类似如下的输出, 你将它重定向到一个文件中, 这个文件就是patch.</p>
-<div class="highlight-diff"><div class="highlight"><pre><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
+<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
 <span class="gi">+++ modify.c 2017-07-04 19:18:41.859375000 +0800</span>
 <span class="gu">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</span>
 </pre></div>
@@ -599,7 +627,7 @@
 </div>
 <div class="section" id="id2">
 <h2>2 为多个文件生成补丁<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uprN origin/ modify/
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uprN origin/ modify/
 </pre></div>
 </div>
 <p>这条命令对比了origin/和modify/两个目录下的所有源码差异.</p>
@@ -614,7 +642,7 @@
 <div class="section" id="id3">
 <h2>3 打补丁<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>生成的补丁中, 路径信息包含了你的源码根目录的名称, 但其他人的源码根目录可能是其它名字, 所以, 打补丁时, 要进入你的源码根目录, 并且告诉patch工具, 请忽略补丁中的路径的第一级目录(参数-p1).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>patch -p1 &lt; patch1.diff
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ patch -p1 &lt; patch1.diff
 </pre></div>
 </div>
 <p>diff命令必须在整个源码根目录的上一级目录中执行.</p>
@@ -623,9 +651,9 @@
 <h2>4 示例<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>给修改过的内核生成patch，然后用生成的patch给未修改过的内核打补丁</p>
 <p>其中，目录linux-2.6.31.3为未修改过的内核，目录linux-2.6.31.3_1为修改过的内核</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
-<span class="nv">$ </span><span class="nb">cd </span>linux-2.6.31.3
-<span class="nv">$ </span>patch -p1 &lt; mypatch
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
+$ <span class="nb">cd</span> linux-2.6.31.3
+$ patch -p1 &lt; mypatch
 </pre></div>
 </div>
 </div>

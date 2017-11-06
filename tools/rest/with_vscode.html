@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -495,6 +519,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
@@ -606,10 +634,10 @@
 <ol class="arabic">
 <li><p class="first">全局配置</p>
 <p>依次打开菜单: 文件/首选项/设置, 加入:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c"># windows</span>
-<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">restructuredtext-lint.exe&quot;</span>
-<span class="c"># Mac/Linux, 应该是默认值，不用设置</span>
-<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;restructuredtext-lint&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># windows</span>
+<span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">restructuredtext-lint.exe&quot;</span>
+<span class="c1"># Mac/Linux, 应该是默认值，不用设置</span>
+<span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;restructuredtext-lint&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -617,18 +645,18 @@
 <p><strong>Windows</strong></p>
 <p>假设项目文件夹为D:\dev\hds, 且reST文档源文件位于D:\dev\hds\doc, conf.py也在这个目录下,
 在D:\dev\hds\.vscode\settings.json中加入以下配置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
-<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
-<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
-<span class="s">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">sphinx-build.exe&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">sphinx-build.exe&quot;</span>
 </pre></div>
 </div>
 <p><strong>Mac</strong></p>
 <p>假设项目文件夹为/Users/zzq/dev/hds, 且reST文档源文件位于/Users/zzq/dev/hds/doc,
 conf.py也在这个目录下, /Users/zzq/dev/hds/.vscode/settings.json中加入以下配置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
-<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
-<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
+<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span>
 </pre></div>
 </div>
 <p>sphinx-build路径不用设置，用默认值即可.</p>
@@ -650,7 +678,7 @@ conf.py也在这个目录下, /Users/zzq/dev/hds/.vscode/settings.json中加入�
 <a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69">https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69</a>
 并自己编译了一个版本修正了这个bug.</p>
 <p>reStructuredText插件编译步骤(Linux):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd</span> ~
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
 git clone https://github.com/vscode-restructuredtext/vscode-restructuredtext.git
 <span class="nb">cd</span> ~/vscode-restructuredtext
 npm install --unsafe-perm<span class="o">=</span><span class="nb">true</span>
@@ -666,7 +694,7 @@ npm run compile
 <li>Linux  $HOME/.vscode/extensions</li>
 </ul>
 <p>也可以打包成vsix文件然后安装:</p>
-<div class="highlight-bash"><div class="highlight"><pre>npm install -g vsce
+<div class="highlight-bash"><div class="highlight"><pre><span></span>npm install -g vsce
 vsce package
 </pre></div>
 </div>

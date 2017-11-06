@@ -319,7 +319,31 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">算法与问题</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id6">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id9">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id10">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id12">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id13">参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -495,6 +519,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
@@ -585,18 +613,18 @@
 <p>这里以Windows上的Git Bash连接github为例, Linux, gitlab等情况相似.</p>
 <ol class="arabic">
 <li><p class="first">生成SSH key:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">C</span> <span class="s">&quot;user@site.com&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">C</span> <span class="s2">&quot;user@site.com&quot;</span>
 </pre></div>
 </div>
 <p>一路回车, 会在~/.ssh目录下生成id_rsa和id_rsa.pub两个文件, 即公钥私钥对.</p>
 </li>
 <li><p class="first">将公钥添加到github</p>
 <p>依次点击github网页上的settings/SSH and GPG keys/New SSH key,
-把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如&quot;windows-home&quot;</p>
+把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如&#8221;windows-home&#8221;</p>
 </li>
 <li><p class="first">测试添加是否正确</p>
-<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似&quot;Hi zzqcn! You've successfully
-authenticated&quot;的字样, 说明SSH key配置成功. 如果出现&quot;Permission denied (publickey)&quot;
+<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似&#8221;Hi zzqcn! You&#8217;ve successfully
+authenticated&#8221;的字样, 说明SSH key配置成功. 如果出现&#8221;Permission denied (publickey)&#8221;
 等字样, 说明配置失败, 可以运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-v</span> <span class="pre">git&#64;github.com</span></code> 来查看详细信息.</p>
 </li>
 </ol>
@@ -614,14 +642,14 @@ authenticated&quot;的字样, 说明SSH key配置成功. 如果出现&quot;Permi
 <li><p class="first">将脚本拷贝到用户目录(~/)</p>
 </li>
 <li><p class="first">修改~/.bash_profile, 比如</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f ~/.git-completion.bash <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ~/.git-completion.bash <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-completion.bash
 <span class="k">fi</span>
 
 <span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span><span class="nv">$&quot;</span><span class="s2"></span>
-<span class="s2">fi</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span>$<span class="s2">&quot;</span>
+<span class="k">fi</span>
 </pre></div>
 </div>
 <p>其中PS1可以设置成自己喜欢的样式; 另外要注意修改~/.bashrc无效</p>
@@ -638,10 +666,10 @@ authenticated&quot;的字样, 说明SSH key配置成功. 如果出现&quot;Permi
 <li><p class="first">将此脚本拷贝到用户目录, 如~/.git-prompt.sh</p>
 </li>
 <li><p class="first">修改~/.bashrc, 加入</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span><span class="nv">$&quot;</span><span class="s2"></span>
-<span class="s2">fi</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span>$<span class="s2">&quot;</span>
+<span class="k">fi</span>
 </pre></div>
 </div>
 </li>
@@ -650,7 +678,7 @@ authenticated&quot;的字样, 说明SSH key配置成功. 如果出现&quot;Permi
 </ol>
 <p>另外要提醒, 最好在~/.bashrc里把force_color_prompt打开, 不然Secure
 CRT登录上去命令提示符没有彩色效果:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">force_color_prompt</span><span class="o">=</span><span class="n">yes</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">force_color_prompt</span><span class="o">=</span><span class="n">yes</span>
 </pre></div>
 </div>
 </div>
