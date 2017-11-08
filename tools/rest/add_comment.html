@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>用reST编写文档 &mdash; zzq&#39;s blog</title>
+  <title>给github博客添加评论功能 &mdash; zzq&#39;s blog</title>
   
 
   
@@ -38,9 +38,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="搜索" href="../../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
-        <link rel="up" title="工具与杂项" href="../index.html"/>
-        <link rel="next" title="简介" href="intro.html"/>
-        <link rel="prev" title="小技巧" href="../git/tricks.html"/> 
+        <link rel="up" title="用reST编写文档" href="index.html"/>
+        <link rel="next" title="补丁工具patch" href="../patch.html"/>
+        <link rel="prev" title="在Visual Studio Code中使用" href="with_vscode.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -427,7 +427,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">用reST编写文档</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">用reST编写文档</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="intro.html">简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
@@ -478,11 +478,11 @@
 <li class="toctree-l4"><a class="reference internal" href="with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="add_comment.html">给github博客添加评论功能</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
-<li class="toctree-l4"><a class="reference internal" href="add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="add_comment.html#id2">3. 初始化评论</a></li>
-<li class="toctree-l4"><a class="reference internal" href="add_comment.html#id3">参考链接</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">参考链接</a></li>
 </ul>
 </li>
 </ul>
@@ -594,7 +594,9 @@
         
           <li><a href="../index.html">工具与杂项</a> &raquo;</li>
         
-      <li>用reST编写文档</li>
+          <li><a href="index.html">用reST编写文档</a> &raquo;</li>
+        
+      <li>给github博客添加评论功能</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -611,69 +613,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rest">
-<h1>用reST编写文档<a class="headerlink" href="#rest" title="永久链接至标题">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">简介</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">安装与基本使用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#id2">安装软件包</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#id3">项目建立</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#conf-py">conf.py配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#index">index页配置</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="grammar.html">reST语法介绍</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id1">章节标题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id2">段落</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id3">行内标记</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id4">列表</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id5">代码</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id6">超链接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id7">图片</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id8">表格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id9">引用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id10">脚注</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id11">提醒</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id12">替换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="grammar.html#id13">参考</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="style.html">修改样式</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step1">Step1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step2">Step2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html#step3">Step3</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="topdf.html">生成PDF</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topdf.html#id1">终极解决办法</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doxygen.html">生成API文档</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step1">Step1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step2">Step2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step3">Step3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doxygen.html#step4">Step4</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="with_vscode.html">在Visual Studio Code中使用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id1">安装步骤</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id2">配置</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id3">使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="with_vscode.html#id4">问题记录</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="add_comment.html">给github博客添加评论功能</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="add_comment.html#id2">3. 初始化评论</a></li>
-<li class="toctree-l2"><a class="reference internal" href="add_comment.html#id3">参考链接</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="github">
+<h1>给github博客添加评论功能<a class="headerlink" href="#github" title="永久链接至标题">¶</a></h1>
+<p>使用 <code class="docutils literal"><span class="pre">github</span> <span class="pre">Pages</span> <span class="pre">+</span> <span class="pre">sphinx</span> <span class="pre">+</span> <span class="pre">reST</span></code> 构建好个人技术博客(静态HTML页面)后, 可能还需要添加评论功能. 实现第3方社会化评论的插件有不少, 如Disqus, facebook comment,
+多说, 友言等等, 但这些有的是国外的被屏蔽, 有的已经停止服务…</p>
+<p>现在`imsun &lt;<a class="reference external" href="https://github.com/imsun/">https://github.com/imsun/</a>&gt;`_ 实现了一个开源的评论系统
+<a class="reference external" href="https://github.com/imsun/gitment">gitment</a> , 原理是利用github的issue功能,
+访问博客页面的用户只需登录github账号, 就可以进行评论, 感觉非常适合技术博客.</p>
+<p>接下来就介绍一下如何使用gitment给自己的github Pages页面添加评论功能</p>
+<div class="section" id="oauth-application">
+<h2>1. 注册OAuth Application<a class="headerlink" href="#oauth-application" title="永久链接至标题">¶</a></h2>
+<p>到 <a class="reference external" href="https://github.com/settings/applications/new">https://github.com/settings/applications/new</a> 注册一个OAuth Application,
+其中 <strong>Home page URL</strong> 填自己的博客地址, 如我的https://zzqcn.github.io/,
+<strong>Authorization callback URL</strong> 也填自己的博客地址.</p>
+<p>填好后提交, 得到client ID和client secret, 后面会用到.</p>
 </div>
+<div class="section" id="id1">
+<h2>2. 编辑博客页面, 引入gitment<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>将以下代码拷贝到生成的HTML页面里:</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://imsun.github.io/gitment/style/default.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="kd">var</span> <span class="nx">gitment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitment</span><span class="p">({</span>
+<span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;页面 ID&#39;</span><span class="p">,</span> <span class="c1">// 可选。默认为 location.href</span>
+<span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;你的 GitHub ID&#39;</span><span class="p">,</span>
+<span class="nx">repo</span><span class="o">:</span> <span class="s1">&#39;存储评论的 repo&#39;</span><span class="p">,</span>
+<span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">client_id</span><span class="o">:</span> <span class="s1">&#39;你的 client ID&#39;</span><span class="p">,</span>
+    <span class="nx">client_secret</span><span class="o">:</span> <span class="s1">&#39;你的 client secret&#39;</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="p">})</span>
+<span class="nx">gitment</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;container&#39;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>注意id可以不填, owner就是你自己的github账号, repo填自己的一个访问权限为public的repo就可以, 比如我直接填zzqcn.github.io, 之后用户的评论都将放在这个repo的issue里.</p>
+<p>由于我是使用sphinx+reST编译出来的静态HTML页面, 在编译好HTML页面之后再一个一个添加这段HTML代码不太方便, 可以直接在需要评论功能的reST源码中使用 <code class="docutils literal"><span class="pre">..</span> <span class="pre">raw::</span> <span class="pre">html</span></code>
+语法填加这段HTML, 在编译时它会被原样写入生成的HTML.</p>
+</div>
+<div class="section" id="id2">
+<h2>3. 初始化评论<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>生成的HTML页面发布后, 你需要到该页面, 用github账号(和那个owner一致)登录一下, 然后点击初始化按钮. 每个页面都需要初始化.</p>
+</div>
+<div class="section" id="id3">
+<h2>参考链接<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://yq.aliyun.com/articles/27504">如何实现Github博客评论功能</a></li>
+<li><a class="reference external" href="https://imsun.net/posts/gitment-introduction">Gitment：使用 GitHub Issues 搭建评论系统</a></li>
+</ul>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  //id: '页面 ID', // 可选。默认为 location.href
+  owner: 'zzqcn',
+  repo: 'zzqcn.github.io',
+  oauth: {
+    client_id: 'a6db218e886efe4953d8',
+    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
+  },
+})
+gitment.render('container')
+</script></div>
 </div>
 
 
@@ -686,10 +689,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="intro.html" class="btn btn-neutral float-right" title="简介" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../patch.html" class="btn btn-neutral float-right" title="补丁工具patch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../git/tricks.html" class="btn btn-neutral" title="小技巧" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="with_vscode.html" class="btn btn-neutral" title="在Visual Studio Code中使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

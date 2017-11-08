@@ -478,6 +478,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/patch.html">补丁工具patch</a><ul>
@@ -780,18 +787,6 @@ bison会根据此文件生成相应的C代码, 最终和其他代码一起编译
 </div>
 <div class="section" id="id12">
 <h3>5.2 性能<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
-<div class="line-block">
-<div class="line">test <code class="docutils literal"><span class="pre">test</span></code> test</div>
-<div class="line"><br /></div>
-<div class="line">.. code-block:: c</div>
-<div class="line"><br /></div>
-<div class="line-block">
-<div class="line">printf(“hello worldn”);</div>
-<div class="line"><br /></div>
-</div>
-<div class="line">* aaaa</div>
-<div class="line">* bbbb</div>
-</div>
 </div>
 </div>
 <div class="section" id="id13">
@@ -827,7 +822,7 @@ bison会根据此文件生成相应的C代码, 最终和其他代码一起编译
 var gitment = new Gitment({
   //id: '页面 ID', // 可选。默认为 location.href
   owner: 'zzqcn',
-  repo: 'https://github.com/zzqcn/blog',
+  repo: 'zzqcn.github.io',
   oauth: {
     client_id: 'a6db218e886efe4953d8',
     client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
