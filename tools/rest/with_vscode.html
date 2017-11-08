@@ -644,7 +644,7 @@
 <li><p class="first">当前文件夹配置</p>
 <p><strong>Windows</strong></p>
 <p>假设项目文件夹为D:\dev\hds, 且reST文档源文件位于D:\dev\hds\doc, conf.py也在这个目录下,
-在D:\dev\hds\.vscode\settings.json中加入以下配置:</p>
+在D:\dev\hds.vscode\settings.json中加入以下配置:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
 <span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
 <span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
@@ -689,7 +689,7 @@ npm run compile
 </div>
 <p>编译完成后, 将整个rscode-restructuredtext目录拷贝到vscode插件目录即可, 不同操作系统这个目录不同:</p>
 <ul class="simple">
-<li>Windows  %USERPROFILE%\.vscode\extensions</li>
+<li>Windows  %USERPROFILE%.vscode\extensions</li>
 <li>Mac  $HOME/.vscode/extensions</li>
 <li>Linux  $HOME/.vscode/extensions</li>
 </ul>

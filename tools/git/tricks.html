@@ -620,11 +620,11 @@
 </li>
 <li><p class="first">将公钥添加到github</p>
 <p>依次点击github网页上的settings/SSH and GPG keys/New SSH key,
-把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如&#8221;windows-home&#8221;</p>
+把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如”windows-home”</p>
 </li>
 <li><p class="first">测试添加是否正确</p>
-<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似&#8221;Hi zzqcn! You&#8217;ve successfully
-authenticated&#8221;的字样, 说明SSH key配置成功. 如果出现&#8221;Permission denied (publickey)&#8221;
+<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似”Hi zzqcn! You’ve successfully
+authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission denied (publickey)”
 等字样, 说明配置失败, 可以运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-v</span> <span class="pre">git&#64;github.com</span></code> 来查看详细信息.</p>
 </li>
 </ol>

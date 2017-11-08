@@ -640,7 +640,7 @@
 <p>RED(Random Early Detection, 参考 <a class="reference internal" href="#id41" id="id3">[red]</a> )是一种用于拥塞控制的调度机制，它已经成为一个事实上的标准，被广泛应用。</p>
 <p>RED通过监视报文队列，动态计算其拥塞程度，并据此以某种规则丢弃队列中的报文(即使此时队列仍有空间)，实现拥塞控制。</p>
 <p>相比于简单的Tail Drop，RED可以避免TCP的全局同步(即TCP发现丢了多个包，从而急剧减小window&lt;慢开始&gt;，拥塞解除；
-但后来不再拥塞时又开始加快发送速度，又一次造成拥塞...这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
+但后来不再拥塞时又开始加快发送速度，又一次造成拥塞…这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
 <p>RED只在设备上实现，不需要依赖连接双方。</p>
 <div class="section" id="id4">
 <h3>14.2.1 设计目标<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
@@ -1924,7 +1924,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="net-algo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[net_algo]</td><td>&#8220;Network Algorithmics&#8221;, George Varghese, 2005</td></tr>
+<tr><td class="label">[net_algo]</td><td>“Network Algorithmics”, George Varghese, 2005</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="id39" rules="none">
@@ -1936,7 +1936,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="id41" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> &#8220;Random Early Detection Gateways for Congestion Avoidance&#8221;,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
+<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> “Random Early Detection Gateways for Congestion Avoidance”,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="rfc2697" rules="none">

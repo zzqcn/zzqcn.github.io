@@ -687,7 +687,7 @@
 </ul>
 <div class="section" id="dpdk">
 <h3>9.3.1. 编译dpdk<a class="headerlink" href="#dpdk" title="永久链接至标题">¶</a></h3>
-<p>在编译dpdk前，需要设置RTE_SDK环境变量，以及&#8221;arch-machine-execenv-toolchain&#8221;组成的编译目标（target）。比如，要使用gcc为x86_64架构native处理器，linux环境编译dpdk，编译目录同target:</p>
+<p>在编译dpdk前，需要设置RTE_SDK环境变量，以及”arch-machine-execenv-toolchain”组成的编译目标（target）。比如，要使用gcc为x86_64架构native处理器，linux环境编译dpdk，编译目录同target:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>export RTE_TARGET=x86_64-native-linuxapp-gcc
 cd $RTE_SDK
 make config T=$RTE_TARGET O=$RTE_TARGET
@@ -829,11 +829,11 @@ include $(RTE_SDK)/mk/rte.extapp.mk
 <li><strong>RTE_OUTPUT</strong> 输出文件路径，默认是$(RTE_SDK)/build，但可以通过命令行中的 <code class="docutils literal"><span class="pre">O=</span></code> 选项来指定</li>
 <li><strong>RTE_TARGET</strong> 用于识别当前编译目标的字符串，格式是 <code class="docutils literal"><span class="pre">arch-machine\</span>
 <span class="pre">-execenv-toolchain</span></code></li>
-<li><strong>RTE_SDK_BIN</strong> 引用$(RTE_SDK)/$(RTE_TARGET)。注意，编译基于dpdk的外部程序时会通过$RTE_SDK_BIN来引用dpdk库，因此编译dpdk时，最好通过O=$(RTE_TARGET)指定输出目录到$(RTE_TARGET)，而不是&#8221;build&#8221;,&#8221;mybuild&#8221;等目录</li>
-<li><strong>RTE_ARCH</strong> 定义CPU架构(i686,x86_64等)，它与CONFIG_RTE_ARCH值相同，但没有两边的&#8221;号</li>
-<li><strong>RTE_MACHINE</strong> 定义machine(native, armv8a等)，它与CONFIG_RTE_MACHINE值相同，但没有两边的&#8221;号</li>
-<li><strong>RTE_TOOLCHAIN</strong> 定义编译工具链(gcc,icc,clang等)，它与CONFIG_RTE_TOOLCHAIN值相同，但没有两边的&#8221;号</li>
-<li><strong>RTE_EXEC_ENV</strong> 定义执行环境(linuxapp,bsdapp等)，它与CONFIG_RTE_EXEC_ENV值相同，但没有两边的&#8221;号</li>
+<li><strong>RTE_SDK_BIN</strong> 引用$(RTE_SDK)/$(RTE_TARGET)。注意，编译基于dpdk的外部程序时会通过$RTE_SDK_BIN来引用dpdk库，因此编译dpdk时，最好通过O=$(RTE_TARGET)指定输出目录到$(RTE_TARGET)，而不是”build”,”mybuild”等目录</li>
+<li><strong>RTE_ARCH</strong> 定义CPU架构(i686,x86_64等)，它与CONFIG_RTE_ARCH值相同，但没有两边的”号</li>
+<li><strong>RTE_MACHINE</strong> 定义machine(native, armv8a等)，它与CONFIG_RTE_MACHINE值相同，但没有两边的”号</li>
+<li><strong>RTE_TOOLCHAIN</strong> 定义编译工具链(gcc,icc,clang等)，它与CONFIG_RTE_TOOLCHAIN值相同，但没有两边的”号</li>
+<li><strong>RTE_EXEC_ENV</strong> 定义执行环境(linuxapp,bsdapp等)，它与CONFIG_RTE_EXEC_ENV值相同，但没有两边的”号</li>
 <li><strong>RTE_KERNELDIR</strong> 包含用于编译内核模块的内核源码的绝对路径，默认是/lib/modules/$(shell uname -r)/build，当目标机器也是编译机器时是没问题的，否则要在目标机器上重新编译</li>
 <li><strong>RTE_DEVEL_BUILD</strong> Stricter options (stop on warning). It defaults to y in a git tree.</li>
 </ul>
@@ -1358,25 +1358,25 @@ endif
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-source-org" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_source_org]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/source_org.html">DPDK Programmer&#8217;s Guide - Source Organization </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_source_org]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/source_org.html">DPDK Programmer’s Guide - Source Organization </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-build-system" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_build_system]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_build_system.html">DPDK Programmer&#8217;s Guide - Development Kit Build System </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_build_system]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_build_system.html">DPDK Programmer’s Guide - Development Kit Build System </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-makefile-help" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_makefile_help]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_root_make_help.html">DPDK Programmer&#8217;s Guide - Development Kit Root Makefile Help </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_makefile_help]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_root_make_help.html">DPDK Programmer’s Guide - Development Kit Root Makefile Help </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-contr-abi" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_contr_abi]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/contributing/versioning.html">DPDK Contributor&#8217;s Guidelines - Managing ABI updates </a></td></tr>
+<tr><td class="label">[dpdk_contr_abi]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/contributing/versioning.html">DPDK Contributor’s Guidelines - Managing ABI updates </a></td></tr>
 </tbody>
 </table>
 </div>
