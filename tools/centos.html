@@ -322,26 +322,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id2">1. 概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#parse">2. 解析(parse)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id4">2.1 词法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id5">2.2 语法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id6">2.3 抽象语法树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id5">2.3 抽象语法树</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#compile">3. 编译(compile)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfa">3.1 构造NFA</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id7">3.4 消除死状态</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#dfa">3.5 DFA最小化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id9">3.6 DFA序列化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id8">3.6 DFA序列化</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#match">4. 匹配(match)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id10">5. 优化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id11">5.1 内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id12">5.2 性能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id11">5.2 性能</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id13">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id12">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -478,6 +478,13 @@
 <li class="toctree-l4"><a class="reference internal" href="rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="patch.html">补丁工具patch</a><ul>
@@ -520,6 +527,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 </ul>
 </li>
@@ -606,6 +614,125 @@
             
   <div class="section" id="centos">
 <h1>CentOS应用<a class="headerlink" href="#centos" title="永久链接至标题">¶</a></h1>
+<div class="section" id="centos7-3minimalc-c">
+<h2>CentOS7.3Minimal从零配置C/C++开发环境<a class="headerlink" href="#centos7-3minimalc-c" title="永久链接至标题">¶</a></h2>
+<p>VMware Workstation虚拟机环境, 系统为CentOS-7-x86_64-Minimal-1611.</p>
+<ol class="arabic">
+<li><p class="first">安装以下软件包:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vim</span>
+<span class="n">git</span>
+<span class="n">gcc</span>
+<span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span>
+<span class="n">cmake</span>
+<span class="n">gdb</span>
+<span class="nb">open</span><span class="o">-</span><span class="n">vm</span><span class="o">-</span><span class="n">tools</span> <span class="p">(</span><span class="n">可选</span><span class="p">,</span> <span class="n">共享文件夹</span><span class="p">,</span><span class="n">和本机时间同步等</span><span class="p">)</span>
+<span class="n">unzip</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">配置vim+YouCompleteMe等插件环境</p>
+<ul>
+<li><p class="first">安装 python-devel</p>
+</li>
+<li><p class="first">git clone <a class="reference external" href="https://github.com/VundleVim/Vundle.vim.git">https://github.com/VundleVim/Vundle.vim.git</a> ~/.vim/bundle/Vundle.vim</p>
+</li>
+<li><p class="first">构造~/.vimrc, 在里面配置要装的plugin, 比如:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="s2">&quot; Vundle</span>
+<span class="nb">set</span> <span class="n">nocompatible</span>              <span class="s2">&quot; be iMproved, required</span>
+<span class="n">filetype</span> <span class="n">off</span>                  <span class="s2">&quot; required</span>
+
+<span class="s2">&quot; set the runtime path to include Vundle and initialize</span>
+<span class="nb">set</span> <span class="n">rtp</span><span class="o">+=~/.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span><span class="n">Vundle</span><span class="o">.</span><span class="n">vim</span>
+<span class="n">call</span> <span class="n">vundle</span><span class="c1">#begin()</span>
+<span class="s2">&quot; alternatively, pass a path where Vundle should install plugins</span>
+<span class="s2">&quot;call vundle#begin(&#39;~/some/path/here&#39;)</span>
+
+<span class="s2">&quot; let Vundle manage Vundle, required</span>
+<span class="n">Plugin</span> <span class="s1">&#39;VundleVim/Vundle.vim&#39;</span>
+
+<span class="s2">&quot; The following are examples of different formats supported.</span>
+<span class="s2">&quot; Keep Plugin commands between vundle#begin/end.</span>
+<span class="s2">&quot; plugin on GitHub repo</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Lokaltog/vim-powerline&#39;</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Valloric/YouCompleteMe&#39;</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/molokai&#39;</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/DoxygenToolkit.vim&#39;</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/cpp_cppcheck.vim&#39;</span>
+<span class="s2">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span>
+<span class="s2">&quot;Plugin &#39;L9&#39;</span>
+<span class="s2">&quot;Plugin &#39;DfrankUtil&#39;</span>
+<span class="s2">&quot; Git plugin not hosted on GitHub</span>
+<span class="s2">&quot;Plugin &#39;git://git.wincent.com/command-t.git&#39;</span>
+<span class="s2">&quot; git repos on your local machine (i.e. when working on your own plugin)</span>
+<span class="s2">&quot;Plugin &#39;file:///home/gmarik/path/to/plugin&#39;</span>
+<span class="s2">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span>
+<span class="s2">&quot; Pass the path to set the runtimepath properly.</span>
+<span class="s2">&quot;Plugin &#39;rstacruz/sparkup&#39;, {&#39;rtp&#39;: &#39;vim/&#39;}</span>
+<span class="s2">&quot; Avoid a name conflict with L9</span>
+<span class="s2">&quot;Plugin &#39;user/L9&#39;, {&#39;name&#39;: &#39;newL9&#39;}</span>
+
+<span class="s2">&quot; All of your Plugins must be added before the following line</span>
+<span class="n">call</span> <span class="n">vundle</span><span class="c1">#end()            &quot; required</span>
+<span class="n">filetype</span> <span class="n">plugin</span> <span class="n">indent</span> <span class="n">on</span>    <span class="s2">&quot; required</span>
+<span class="s2">&quot; To ignore plugin indent changes, instead use:</span>
+<span class="s2">&quot;filetype plugin on</span>
+<span class="s2">&quot;</span>
+<span class="s2">&quot; Brief help</span>
+<span class="s2">&quot; :PluginList       - lists configured plugins</span>
+<span class="s2">&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span>
+<span class="s2">&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache</span>
+<span class="s2">&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span>
+<span class="s2">&quot;</span>
+<span class="s2">&quot; see :h vundle for more details or wiki for FAQ</span>
+<span class="s2">&quot; Put your non-Plugin stuff after this line</span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+<span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="s2">&quot; YCM</span>
+<span class="s2">&quot; 允许自动加载.ycm_extra_conf.py，不再提示</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_confirm_extra_conf</span><span class="o">=</span><span class="mi">0</span>
+<span class="s2">&quot; 补全功能在注释中同样有效</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_complete_in_comments</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 开启tags补全引擎</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_collect_identifiers_from_tags_files</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 键入第一个字符时就开始列出匹配项</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_min_num_of_chars_for_completion</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 语法关键字补全</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_seed_identifiers_with_syntax</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; YCM相关快捷键</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">gl</span> <span class="p">:</span><span class="n">YcmCompleter</span> <span class="n">GoToDeclaration</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">gf</span> <span class="p">:</span><span class="n">YcmCompleter</span> <span class="n">GoToDefinition</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">gg</span> <span class="p">:</span><span class="n">YcmCompleter</span> <span class="n">GoToDefinitionElseDeclaration</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F4</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">YcmDiags</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F5</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">lclose</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="s2">&quot; Doxygen</span>
+<span class="s2">let g:DoxygenToolkit_authorName=&quot;zzqcn&quot;</span>
+<span class="s2">let g:DoxygenToolkit_enhanced_color=1</span>
+<span class="s2">let g:DoxygenToolkit_versionTag=0</span>
+<span class="s2">let g:DoxygenToolkit_versionString=0</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动vim, 执行命令 <code class="docutils literal"><span class="pre">:PluginInstall</span></code> (等待下载插件)</p>
+</li>
+<li><p class="first">cd ~/.vim/bundle/YouCompleteMe, 由于此CentOS安装的vim版本为7.4.160,
+而YouCompleteMe git仓库最新版本要求7.4.1568+, 因此需要回退到老版本.
+当然也可以下载vim新版本源码并编译, 要编译它又需要安装一堆软件包,
+而且可能C/C++环境也需要更新, 太麻烦. 直接运行</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">git</span> <span class="pre">reset</span> <span class="pre">--hard</span> <span class="pre">61b5aa7</span></code></li>
+<li><code class="docutils literal"><span class="pre">./install.py</span> <span class="pre">--clang-completer</span></code> (编译C/C++支持)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">在命令行显示当前分支, 见 <a class="reference external" href="https://zzqcn.github.io/tools/git/tricks.html#id2">https://zzqcn.github.io/tools/git/tricks.html#id2</a></p>
+</li>
+</ol>
+</div>
 <div class="section" id="failed-to-start-lsb-bring-up-down-networking">
 <h2>网络配置失败,显示Failed to start LSB: Bring up/down networking<a class="headerlink" href="#failed-to-start-lsb-bring-up-down-networking" title="永久链接至标题">¶</a></h2>
 <p>假设要配置的接口是ens33,</p>
@@ -622,7 +749,21 @@
 <li><p class="first">运行service network restart即可</p>
 </li>
 </ol>
-</div>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  //id: '页面 ID', // 可选。默认为 location.href
+  owner: 'zzqcn',
+  repo: 'zzqcn.github.io',
+  oauth: {
+    client_id: 'a6db218e886efe4953d8',
+    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
+  },
+})
+gitment.render('container')
+</script></div>
 </div>
 
 

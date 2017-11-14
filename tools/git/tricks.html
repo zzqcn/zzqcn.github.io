@@ -322,26 +322,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.1 词法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.2 语法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id6">2.3 抽象语法树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id9">3.6 DFA序列化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id10">5. 优化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.1 内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id12">5.2 性能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id13">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -478,6 +478,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../patch.html">补丁工具patch</a><ul>
@@ -520,6 +527,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 </ul>
 </li>
@@ -648,7 +656,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 
 <span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span>$<span class="s2">&quot;</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span>$<span class="s2">&quot;</span>
 <span class="k">fi</span>
 </pre></div>
 </div>
@@ -668,7 +676,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 <li><p class="first">修改~/.bashrc, 加入</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \$(__git_ps1 &#39;(%s)&#39;)\n</span>$<span class="s2">&quot;</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span>$<span class="s2">&quot;</span>
 <span class="k">fi</span>
 </pre></div>
 </div>
@@ -676,8 +684,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 <li><p class="first"><code class="docutils literal"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code> , 使更改生效</p>
 </li>
 </ol>
-<p>另外要提醒, 最好在~/.bashrc里把force_color_prompt打开, 不然Secure
-CRT登录上去命令提示符没有彩色效果:</p>
+<p>另外要提醒, 最好在~/.bashrc里把force_color_prompt打开, 不然SecureCRT登录上去命令提示符没有彩色效果:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">force_color_prompt</span><span class="o">=</span><span class="n">yes</span>
 </pre></div>
 </div>
