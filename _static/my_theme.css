@@ -25,6 +25,8 @@
 }
 
 .wy-body-for-nav {background:#fcfcfc;}
+
+/*
 .wy-nav-top {display:block;}
 .wy-nav-side {width:20%;left:0;}
 .wy-side-scroll {width:auto;}
@@ -35,13 +37,8 @@
 
 .wy-nav-side.shift {width:0px;}
 .wy-nav-content-wrap.shift {position:fixed;min-width:100%;margin-left:0px;top:0;height:100%;overflow:scroll;}
-
-/*
-@media screen and (max-width: 768px) {
-    .rst-versions {width:85%;display:none}
-    .rst-versions.shift {display:block}
-}
 */
+
 
 p {
     margin-top: 12px;

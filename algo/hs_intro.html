@@ -1,0 +1,1833 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperscan介绍 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../genindex.html"/>
+        <link rel="search" title="搜索" href="../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
+        <link rel="up" title="算法与问题" href="index.html"/>
+        <link rel="next" title="hyperscan预备知识" href="hs_pre.html"/>
+        <link rel="prev" title="正则表达式" href="regex.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#id4">1.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/ring.html">2. Ring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id1">2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id4">2.2. 应用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id5">2.3. 无锁队列操作图解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step1">2.3.1. Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step2">2.3.2. Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step3">2.3.3. Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step4">2.3.4. Step4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#step5">2.3.5. Step5</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id6">2.4. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id7">2.5. 多生产者入队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id8">2.6. 多消费者出队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id9">2.7. 索引计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html#id10">2.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mem.html">3. Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mem.html#id1">3.1. 内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id2">3.1.1. 大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id3">3.1.2. 大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#memzone">3.1.3. memzone初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mem.html#id6">3.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/memseg.html">4. Memseg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id1">4.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id2">4.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html#id3">4.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/memzone.html">5. Memzone</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id1">5.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#memzone-init">5.2. 初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id3">5.3. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id4">5.4. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html#id5">5.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/malloc.html">6. Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id1">6.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id2">6.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id4">6.5. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html#id5">6.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mempool.html">7. Mempool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id1">7.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id2">7.2. 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id3">7.2.1. 内存对齐</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#cache">7.2.2. Cache机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id4">7.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id5">7.4. 创建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id6">7.5. 取出对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id7">7.6. 还回对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html#id8">7.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/mbuf.html">8. Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id1">8.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id2">8.2. 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id3">8.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id4">8.4. 分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id5">8.4.1. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id6">8.4.2. 分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id7">8.4.3. 回收</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id8">8.5. 元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html#id9">8.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/build_sys.html">9. 编译系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id2">9.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id3">9.2. 源码组织</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config">9.2.1. config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk">9.2.2. mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#drivers">9.2.3. drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#lib">9.2.4. lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#tools">9.2.5. tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#app">9.2.6. app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#examples">9.2.7. examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id5">9.3. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#dpdk">9.3.1. 编译dpdk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id6">9.3.2. 编译外部程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#dpdk-makefile">9.4. dpdk Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id7">9.4.1. 一般规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id8">9.4.2. 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id13">9.4.3. 常用变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#makefile">9.4.4. 仅可以在Makefile中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id14">9.4.5. 仅可以在命令行中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id15">9.4.6. 可以在Makefile或命令行中设置的变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#root-makefile-help">9.5. 根Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config-target">9.5.1. config target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#build-target">9.5.2. build target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#install-target">9.5.3. install target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#test-target">9.5.4. test target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#target">9.5.5. 文档target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#deps-target">9.5.6. deps target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id17">9.5.7. 杂项target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id18">9.5.8. 其他命令行变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#debug">9.5.9. 编译Debug版本</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#abi">9.6. ABI管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id19">9.6.1. 什么是ABI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#dpdk-abi">9.6.2. DPDK ABI策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id20">9.6.3. ABI宏及示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id21">9.6.4. 验证ABI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#v16-07-2">9.7. 实例：将v16.07.2编译为单个动态库</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#config-common-base">9.7.1. config/common_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-lib-mk">9.7.2. mk/rte.lib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-combinedlib-mk">9.7.3. mk/rte.combinedlib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#mk-rte-app-mk">9.7.4. mk/rte.app.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#libdpdk-map">9.7.5. libdpdk.map</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html#id22">9.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">算法与问题</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id12">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">hyperscan介绍</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">源码结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gdb-compile">gdb分析: compile</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rose-add">rose-&gt;add()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gdb-match">gdb分析: match</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">gdb分析: 带^锚点的compile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">gdb分析: 带^锚点的match</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-graph-library">Boost Graph Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id1">编译</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id2">第3方依赖库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#cmake">CMake配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id3">编译过程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id4">生成源码文档</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hs_parse.html">hyperscan表达式解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hs_compile.html">hyperscan编译期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hs_scan.html">hyperscan运行时匹配</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id1">9.1 缓存管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id2">9.1.1 缓存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id3">9.1.2 缓存的共享</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#dpdk">9.1.3 dpdk内存实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id5">9.4 重组</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/proto_process.html#id6">9.4.1 高效重组</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id2">14.2 拥塞控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id4">14.2.1 设计目标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id5">14.2.2 算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#wred">14.2.3 WRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-red">14.2.4 dpdk red的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id16">14.3.1 基本原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#srtcm">14.3.2 srTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#trtcm">14.3.3 trTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-meter">14.3.4 dpdk_meter的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id26">14.6 带宽保证</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id27">14.6.1 问题引入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#deficit-round-robin">14.6.1 Deficit Round-Robin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#drr">14.6.2 DRR的实现与扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id31">14.9.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id32">14.9.2 调度分层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#id33">14.9.3 实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id37">附录</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../netalgo/sched_packet.html#ewma">EWMA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lang/cpp11.html">C++ 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perf/vtune.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id2">一般应用: 图形界面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id3">一般应用: 命令行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/setup.html#index">index页配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">算法与问题</a> &raquo;</li>
+        
+      <li>hyperscan介绍</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hyperscan">
+<h1>hyperscan介绍<a class="headerlink" href="#hyperscan" title="永久链接至标题">¶</a></h1>
+<div class="section" id="how-we-match-regular-expressions">
+<h2>首席工程师: How we match regular expressions<a class="headerlink" href="#how-we-match-regular-expressions" title="永久链接至标题">¶</a></h2>
+<p>Hyperscan is an automata-based (e.g. NFA/DFA) style approach rather than a
+back-tracking approach. The automata-based approach yields advantages and
+disadvantages: on the plus side, an automata-based approach is amenable to
+streaming and handling of multiple regular expressions. On the minus side,
+automata-based regular expression matching cannot handle some regular expression
+constructs easily, or at all – backreferences and arbitrary lookaround asserts
+are notable regular expression features that we do not support.</p>
+<p>Hyperscan makes use of many different techniques to try to make the regular
+expression matching task tractable for large numbers of regular expressions.
+We have not found a single, elegant automata approach that handles arbitrary
+regular expressions in arbitrary number – although we are still looking! Instead,
+we have a lot of optimizations in order to try to extract the best possible
+performance whether we have one simple regular expression or tens of thousands.</p>
+<p>Some of these techniques include:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>* Discovery of literal (fixed string) factors and decomposition of regular
+  expressions into smaller chunks (which we call &quot;engines&quot;) separated by these
+  literal factors.
+* These engines can be of many different types:
+  * Deterministic Finite Automata (DFA)
+  * Bit-parallel Glushkov Non-deterministic Finite Automata (NFA) engines
+  * Custom engines for special cases (such as large bounded repeats).
+    * These engines can take many different roles:
+      * &quot;Prefix&quot; engines that precede our literal factors
+      * &quot;Suffix&quot; engines that follow our literal factors
+      * &quot;Infix&quot; engines that lie between two literal factors
+      * &quot;Outfix&quot; engines that aren’t connected at all with literal factors
+        (when no satisfactory factors can be found in a regular expression)
+    * These engines can often run lazily or not at all to reduce overhead.
+* We merge smaller DFA/NFA engines into larger ones, where this can be done
+  without performance loss.
+* SIMD &quot;acceleration&quot; of automata based scanning: where we can substitute
+  relatively simple SIMD tests of our input for complex automata execution,
+  we do it.
+* We use Intel SIMD instructions to handle larger-scale NFA and literal matching
+  tasks: having 128 or 256 (or more) bits for a bit-parallel automaton is often helpful.
+* ... and many more short-cuts to attempt to avoid doing expensive automata
+  calculations that we ultimately won’t need.
+</pre></div>
+</div>
+<p>Hyperscan is very much a work in progress – from 2008, we have been rapidly
+iterating the product and supporting customers. There are many inelegant bits to
+our code – sometimes because the real world seems to dictate inelegant solutions
+(e.g. corner cases), sometimes because we haven’t had a chance to clean things up.</p>
+<p>Many parts of our codebase are earmarked for cleanup and streamlining, and if
+something looks peculiar to you, please call it out – it might look peculiar
+because it is peculiar and be amenable to a simple fix. Bear in mind the following, though:</p>
+<p>Hyperscan is trying to accomplish a lot of goals (some of which are contradictory):</p>
+<ul class="simple">
+<li>We’d like to be fast – providing high levels of performance under normal use cases
+and in boundary conditions (e.g. short writes, floods of single characters, worst case inputs)</li>
+<li>We’d like to have a small bytecode (our read-only pattern database)</li>
+<li>We’d like to have a small stream state if we’re running in streaming mode (our
+‘per stream’ cost – if we use 192 bytes for a pattern set then it’s going to
+take 1920Mbytes to support 10M streams, of course)</li>
+</ul>
+<p>We also have some constraints:</p>
+<ul class="simple">
+<li>Our run-time must be written in C, as some data-plane environments don’t support C++</li>
+<li>We cannot make arbitrary requests for memory in our run-time; we can only work
+within our bytecode (read-only and fixed at compile time), scratch space and
+stream state space.</li>
+<li>Our bytecode must be serializable to a flat representation and needs to be able
+to be moved from memory location to memory location (i.e. no pointers internally)</li>
+<li>Our data structures – especially stream states and inputs – may be allocated
+‘next door’ to parts of memory that cannot be read, so we must be careful to
+not use large data reads outside our input or stream state areas.</li>
+<li>As a rule, we prefer to support constructs only if they can be implemented
+efficiently in streaming mode as well as block mode, and prefer to take an
+all-or-nothing approach to supporting whole classes of constructs.</li>
+</ul>
+<p>Parts of the regular expression task are unsolved in Hyperscan due to a lack of
+demand thus far in our target markets – but are not necessarily unsolvable in
+the Hyperscan framework. We think that there are a lot of possibilities to improve
+Hyperscan’s support of some regular expression constructs (lookaround asserts,
+particularly) and regular expression functionality (capturing subexpressions and
+accurate simulation of the behavior of quantifiers in backtracking engines).</p>
+</div>
+<div class="section" id="id1">
+<h2>源码结构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>这里的源码指hyperscan软件包解压后的src目录中的内容.</p>
+<p>目录树:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>src
+ ├─compiler    #
+ ├─fdr         #
+ ├─hwlm        #
+ ├─nfa         #
+ ├─nfagraph    #
+ ├─parser      #
+ ├─rose        #
+ ├─smallwrite  #
+ ├─som         #
+ └─util        #
+</pre></div>
+</div>
+<p>src目录下还有一些文件, 包括基本结构体的定义, 对外接口等.</p>
+<p>以下通过调试分析hsgrep, 一个从hyperscan自带示例simplegrep修改的程序, 接受多个正则表达式, 最后一个参数是要匹配的数据. 用法:
+<code class="docutils literal"><span class="pre">Usage:</span> <span class="pre">./hsgrep</span> <span class="pre">&lt;regex1&gt;</span> <span class="pre">&lt;regex2&gt;</span> <span class="pre">...</span> <span class="pre">&lt;regexN&gt;</span> <span class="pre">&lt;data&gt;</span></code></p>
+<p>我分析用的源码fork自intel hyperscan github仓库， 并修改或添加了一些东西，比如为了在MacOS正确编译修改了某个源码，添加了doxygen生成的html文档等等，地址是
+<a class="reference external" href="https://github.com/zzqcn/hyperscan">https://github.com/zzqcn/hyperscan</a></p>
+</div>
+<div class="section" id="gdb-compile">
+<h2>gdb分析: compile<a class="headerlink" href="#gdb-compile" title="永久链接至标题">¶</a></h2>
+<p>执行命令: <code class="docutils literal"><span class="pre">./hsgrep</span> <span class="pre">a</span> <span class="pre">aaa</span></code> 其中data是一个内容为abcdef的数据文件.</p>
+<p>执行流程:</p>
+<ol class="arabic">
+<li><p class="first">hs_compile()</p>
+</li>
+<li><p class="first">hs_compile_multi_int()</p>
+</li>
+<li><p class="first">创建NG对象</p>
+</li>
+<li><p class="first">遍历表达式, 对每一个表达式调用addExpression()
+#. 构造ParsedExpression
+#. 检查是否有不支持的语法
+#. 检查start和end锚点
+#. 优化ParsedExpression
+#. 如果是普通字符串(literal), 直接shortcutLiteral()使用rose, 返回</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ng.addLiteral()
+#. rose-&gt;add()
+#. smwr-&gt;add() (smwr: small writer)</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li>否则, buildGraph()构造NFA</li>
+<li>ng.addGraph(), 将子NFA添加到NG</li>
+</ol>
+</li>
+<li><p class="first">调用build()创建database</p>
+</li>
+</ol>
+<p>部分输出:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">compiler</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">addExpression</span><span class="p">:</span><span class="mi">223</span><span class="p">:</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">expr</span><span class="o">=</span><span class="s1">&#39;abc&#39;</span>
+<span class="n">AsciiComponentClass</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">add</span><span class="p">:</span><span class="mi">114</span><span class="p">:</span><span class="n">adding</span> \<span class="n">x61</span>
+<span class="n">AsciiComponentClass</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">add</span><span class="p">:</span><span class="mi">114</span><span class="p">:</span><span class="n">adding</span> \<span class="n">x62</span>
+<span class="n">AsciiComponentClass</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">add</span><span class="p">:</span><span class="mi">114</span><span class="p">:</span><span class="n">adding</span> \<span class="n">x63</span>
+<span class="n">compiler</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">dumpExpression</span><span class="p">:</span><span class="mi">185</span><span class="p">:</span><span class="o">=====</span> <span class="n">Rule</span> <span class="n">ID</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="n">expression</span> <span class="n">index</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=====</span>
+<span class="n">SEQUENCE</span> <span class="p">(</span><span class="n">capture</span> <span class="n">index</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">a</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">b</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">c</span>
+
+<span class="n">compiler</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">optimise</span><span class="p">:</span><span class="mi">214</span><span class="p">:</span><span class="n">optimising</span>
+<span class="n">ComponentSequence</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">optimise</span><span class="p">:</span><span class="mi">355</span><span class="p">:</span><span class="n">opt</span> <span class="mi">1</span>
+<span class="n">ComponentSequence</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">optimise</span><span class="p">:</span><span class="mi">357</span><span class="p">:</span><span class="n">opt</span> <span class="mi">0</span><span class="p">:</span> <span class="n">ctsds</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">ComponentSequence</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">optimise</span><span class="p">:</span><span class="mi">357</span><span class="p">:</span><span class="n">opt</span> <span class="mi">1</span><span class="p">:</span> <span class="n">ctsds</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">ComponentSequence</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">optimise</span><span class="p">:</span><span class="mi">357</span><span class="p">:</span><span class="n">opt</span> <span class="mi">2</span><span class="p">:</span> <span class="n">ctsds</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">compiler</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">dumpExpression</span><span class="p">:</span><span class="mi">185</span><span class="p">:</span><span class="o">=====</span> <span class="n">Rule</span> <span class="n">ID</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="n">expression</span> <span class="n">index</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=====</span>
+<span class="n">SEQUENCE</span> <span class="p">(</span><span class="n">capture</span> <span class="n">index</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">a</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">b</span>
+  <span class="n">ASCII</span> <span class="n">CLASS</span>
+    <span class="n">c</span>
+
+<span class="n">rose_in_graph</span><span class="o">.</span><span class="n">h</span><span class="p">:</span><span class="n">makeStart</span><span class="p">:</span><span class="mi">115</span><span class="p">:</span><span class="n">making</span> <span class="n">start</span>
+<span class="n">rose_in_graph</span><span class="o">.</span><span class="n">h</span><span class="p">:</span><span class="n">makeAccept</span><span class="p">:</span><span class="mi">96</span><span class="p">:</span><span class="n">making</span> <span class="n">accept</span> <span class="k">for</span> <span class="mi">0</span> <span class="n">reports</span>
+<span class="n">rose_in_graph</span><span class="o">.</span><span class="n">h</span><span class="p">:</span><span class="n">makeLiteral</span><span class="p">:</span><span class="mi">90</span><span class="p">:</span><span class="n">making</span> <span class="n">literal</span> <span class="n">abc</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">130</span><span class="p">:</span><span class="n">vertex</span> <span class="s1">&#39;abc&#39;</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">141</span><span class="p">:</span><span class="ow">in</span><span class="o">-</span><span class="n">edge</span> <span class="kn">from</span> <span class="nn">u</span> <span class="k">with</span> <span class="n">offsets</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">163</span><span class="p">:</span><span class="n">edge</span> <span class="n">has</span> <span class="n">bounds</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">168</span><span class="p">:</span><span class="n">lit</span> <span class="nb">len</span> <span class="mi">3</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">178</span><span class="p">:</span><span class="n">vertex</span> <span class="n">depths</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">130</span><span class="p">:</span><span class="n">vertex</span> <span class="s1">&#39;&#39;</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">141</span><span class="p">:</span><span class="ow">in</span><span class="o">-</span><span class="n">edge</span> <span class="kn">from</span> <span class="nn">u</span> <span class="k">with</span> <span class="n">offsets</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">163</span><span class="p">:</span><span class="n">edge</span> <span class="n">has</span> <span class="n">bounds</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rose_in_util</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">calcVertexOffsets</span><span class="p">:</span><span class="mi">178</span><span class="p">:</span><span class="n">vertex</span> <span class="n">depths</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">addRose</span><span class="p">:</span><span class="mi">1508</span><span class="p">:</span><span class="n">trying</span> <span class="n">to</span> <span class="n">rose</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">transformSuffixDelay</span><span class="p">:</span><span class="mi">1484</span><span class="p">:</span><span class="mi">0</span> <span class="n">modified</span> <span class="n">accepts</span>
+<span class="n">ue2_graph</span><span class="o">.</span><span class="n">h</span><span class="p">:</span><span class="n">renumber_vertices_impl</span><span class="p">:</span><span class="mi">967</span><span class="p">:</span><span class="n">renumbering</span> <span class="n">above</span> <span class="mi">0</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">946</span><span class="p">:</span><span class="n">rose</span> <span class="n">pop</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">suitableForEod</span><span class="p">:</span><span class="mi">836</span><span class="p">:[</span><span class="n">ACCEPT</span><span class="p">]</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">suitableForEod</span><span class="p">:</span><span class="mi">839</span><span class="p">:</span><span class="n">floating</span> <span class="n">accept</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">966</span><span class="p">:</span><span class="n">vertex</span> <span class="mi">0</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">969</span><span class="p">:</span><span class="ow">is</span> <span class="n">root</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">966</span><span class="p">:</span><span class="n">vertex</span> <span class="mi">2</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">1008</span><span class="p">:</span><span class="n">LITERAL</span> <span class="s1">&#39;abc&#39;</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">doRoseLiteralVertex</span><span class="p">:</span><span class="mi">582</span><span class="p">:</span><span class="n">rose</span> <span class="n">find</span> <span class="n">vertex</span>
+<span class="n">rose_build_misc</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">getLiteralId</span><span class="p">:</span><span class="mi">456</span><span class="p">:</span><span class="n">getting</span> <span class="nb">id</span> <span class="k">for</span> <span class="n">abc</span> <span class="ow">in</span> <span class="n">table</span> <span class="mi">1</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">doRoseLiteralVertex</span><span class="p">:</span><span class="mi">636</span><span class="p">:</span><span class="n">literal</span><span class="o">=</span><span class="mi">0</span> <span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsets</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">]</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">createVertices</span><span class="p">:</span><span class="mi">261</span><span class="p">:</span><span class="n">vertex</span> <span class="n">has</span> <span class="mi">1</span> <span class="n">parents</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">createVertex</span><span class="p">:</span><span class="mi">115</span><span class="p">:</span><span class="n">insert</span> <span class="n">vertex</span> <span class="mi">2</span> <span class="n">into</span> <span class="n">literal</span> <span class="mi">0</span><span class="s1">&#39;s vertex set</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">createVertices</span><span class="p">:</span><span class="mi">303</span><span class="p">:</span>  <span class="n">adding</span> <span class="n">new</span> <span class="n">vertex</span> <span class="n">index</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">createVertices</span><span class="p">:</span><span class="mi">313</span><span class="p">:</span><span class="n">adding</span> <span class="n">edge</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">)</span> <span class="n">to</span> <span class="n">parent</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">selectHistory</span><span class="p">:</span><span class="mi">222</span><span class="p">:</span><span class="n">edge</span> <span class="mi">0</span><span class="o">-&gt;</span><span class="mi">2</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4294967295</span><span class="p">],</span> <span class="n">fixed_u</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">966</span><span class="p">:</span><span class="n">vertex</span> <span class="mi">1</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">1014</span><span class="p">:</span><span class="n">ACCEPT</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">doRoseAcceptVertex</span><span class="p">:</span><span class="mi">784</span><span class="p">:</span><span class="n">adding</span> <span class="n">boring</span> <span class="n">accept</span> <span class="n">to</span> <span class="n">i2</span>
+<span class="n">rose_build_add</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">populateRoseGraph</span><span class="p">:</span><span class="mi">1023</span><span class="p">:</span><span class="n">done</span>
+<span class="n">smallwrite_build</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">add_to_trie</span><span class="p">:</span><span class="mi">350</span><span class="p">:</span><span class="n">added</span> <span class="s1">&#39;abc&#39;</span> <span class="p">(</span><span class="n">report</span> <span class="mi">0</span><span class="p">)</span> <span class="n">to</span> <span class="n">trie</span><span class="p">,</span> <span class="n">now</span> <span class="mi">4</span> <span class="n">vertices</span>
+<span class="n">compiler</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="n">addExpression</span><span class="p">:</span><span class="mi">268</span><span class="p">:</span><span class="n">took</span> <span class="n">literal</span> <span class="n">short</span> <span class="n">cut</span>
+</pre></div>
+</div>
+<div class="section" id="rose-add">
+<h3>rose-&gt;add()<a class="headerlink" href="#rose-add" title="永久链接至标题">¶</a></h3>
+<div class="highlight-c++"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">RoseInGraph</span> <span class="n">ig</span><span class="p">;</span>
+<span class="n">RoseInVertex</span> <span class="n">start</span> <span class="o">=</span> <span class="n">add_vertex</span><span class="p">(</span><span class="n">RoseInVertexProps</span><span class="o">::</span><span class="n">makeStart</span><span class="p">(</span><span class="n">anchored</span><span class="p">),</span> <span class="n">ig</span><span class="p">);</span>
+<span class="n">RoseInVertex</span> <span class="n">accept</span> <span class="o">=</span> <span class="n">add_vertex</span><span class="p">(</span>
+                <span class="n">eod</span> <span class="o">?</span> <span class="n">RoseInVertexProps</span><span class="o">::</span><span class="n">makeAcceptEod</span><span class="p">(</span><span class="n">set</span><span class="o">&lt;</span><span class="n">ReportID</span><span class="o">&gt;</span><span class="p">())</span>
+                    <span class="o">:</span> <span class="n">RoseInVertexProps</span><span class="o">::</span><span class="n">makeAccept</span><span class="p">(</span><span class="n">set</span><span class="o">&lt;</span><span class="n">ReportID</span><span class="o">&gt;</span><span class="p">()),</span> <span class="n">ig</span><span class="p">);</span>
+<span class="n">RoseInVertex</span> <span class="n">v</span> <span class="o">=</span> <span class="n">add_vertex</span><span class="p">(</span><span class="n">RoseInVertexProps</span><span class="o">::</span><span class="n">makeLiteral</span><span class="p">(</span><span class="n">lit</span><span class="p">),</span> <span class="n">ig</span><span class="p">);</span>
+
+<span class="n">add_edge</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">RoseInEdgeProps</span><span class="p">(</span><span class="mi">0U</span><span class="p">,</span> <span class="n">anchored</span> <span class="o">?</span> <span class="mi">0U</span> <span class="o">:</span> <span class="n">ROSE_BOUND_INF</span><span class="p">),</span> <span class="n">ig</span><span class="p">);</span>
+<span class="n">add_edge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">accept</span><span class="p">,</span> <span class="n">RoseInEdgeProps</span><span class="p">(</span><span class="mi">0U</span><span class="p">,</span> <span class="mi">0U</span><span class="p">),</span> <span class="n">ig</span><span class="p">);</span>
+
+<span class="n">calcVertexOffsets</span><span class="p">(</span><span class="n">ig</span><span class="p">);</span>
+
+<span class="n">ig</span><span class="p">[</span><span class="n">accept</span><span class="p">].</span><span class="n">reports</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">reports</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">reports</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+<span class="n">addRose</span><span class="p">(</span><span class="n">ig</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="gdb-match">
+<h2>gdb分析: match<a class="headerlink" href="#gdb-match" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="id2">
+<h2>gdb分析: 带^锚点的compile<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>执行命令: <code class="docutils literal"><span class="pre">./hsgrep</span> <span class="pre">^a</span> <span class="pre">aaa</span></code></p>
+<p>执行流程:</p>
+<ol class="arabic">
+<li><p class="first">hs_compile()</p>
+</li>
+<li><p class="first">hs_compile_multi_int()</p>
+</li>
+<li><p class="first">创建NG对象</p>
+</li>
+<li><p class="first">遍历表达式, 对每一个表达式调用addExpression()
+#. 构造ParsedExpression
+#. 检查是否有不支持的语法
+#. 检查start和end锚点
+#. 优化ParsedExpression
+#. 如果是普通字符串(literal), 直接shortcutLiteral()使用rose, 返回</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ng.addLiteral()
+#. rose-&gt;add()
+#. smwr-&gt;add() (smwr: small writer)</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li>否则, buildGraph()构造NFA</li>
+<li>ng.addGraph(), 将子NFA添加到NG</li>
+</ol>
+</li>
+<li><p class="first">调用build()创建database</p>
+</li>
+</ol>
+<p>部分输出:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$./hsgrep ^a aaa
+cpuid_flags.c:check_avx2:128:AVX2 enabled
+cpuid_flags.c:cpuid_flags:182:AVX2 enabled
+cpuid_flags.c:check_avx512:156:AVX512 registers not enabled
+cpuid_flags.c:cpuid_tune:299:family = 6h model = 3ch
+cpuid_flags.c:cpuid_tune:310:found tune flag HS_TUNE_FAMILY_HSW
+compiler.cpp:addExpression:223:index=0, id=0, flags=0, expr=&#39;^a&#39;
+AsciiComponentClass.cpp:add:114:adding \x61
+compiler.cpp:dumpExpression:185:===== Rule ID: 0 (expression index: 0) =====
+SEQUENCE (capture index 0)
+  BOUNDARY
+    ComponentBoundary::BEGIN_STRING
+  ASCII CLASS
+    a
+
+compiler.cpp:optimise:214:optimising
+ComponentSequence.cpp:optimise:355:opt 1
+ComponentSequence.cpp:optimise:357:opt 0: ctsds: 1
+ComponentSequence.cpp:optimise:357:opt 1: ctsds: 0
+compiler.cpp:dumpExpression:185:===== Rule ID: 0 (expression index: 0) =====
+SEQUENCE (capture index 0)
+  BOUNDARY
+    ComponentBoundary::BEGIN_STRING
+  ASCII CLASS
+    a
+
+compiler.cpp:addExpression:255:component=0x1af0260, nfaId=0, reportId=0
+shortcut_literal.cpp:shortcutLiteral:184:not a literal
+buildstate.cpp:connectSuccessors:331:FROM = 0 TO = [1]
+buildstate.cpp:connectSuccessors:358:connect 0 -&gt; [1]
+buildstate.cpp:connectSuccessors:360:0 curr succ: []
+buildstate.cpp:connectSuccessors:369:0 succ: [1]
+buildstate.cpp:connectSuccessors:331:FROM = 1 TO = [1]
+buildstate.cpp:connectSuccessors:358:connect 1 -&gt; [1]
+buildstate.cpp:connectSuccessors:360:1 curr succ: []
+buildstate.cpp:connectSuccessors:369:1 succ: [1]
+ng_builder.cpp:setNodeReportID:172:setting report id on 0 = (0, 0, 4294967295)
+report_manager.cpp:getInternalId:71:new report 0
+ng_builder.cpp:setNodeReportID:172:setting report id on 1 = (0, 0, 4294967295)
+report_manager.cpp:getInternalId:58:existing report 0
+ng_builder.cpp:makePositions:250:built 1 positions from base 4
+ng_builder.cpp:setNodeReportID:172:setting report id on 4 = (0, 0, 4294967295)
+report_manager.cpp:getInternalId:58:existing report 0
+buildstate.cpp:cleanupPositions:465:in 2; out 2
+ComponentSequence.cpp:first:177:2 firsts
+compiler.cpp:connectInitialStates:400:wiring initials = [4&lt;nofloat&gt; 0]
+buildstate.cpp:connectSuccessors:331:FROM = 0 TO = [4&lt;nofloat&gt;]
+buildstate.cpp:connectSuccessors:358:connect 0 -&gt; [4&lt;nofloat&gt;]
+buildstate.cpp:connectSuccessors:360:0 curr succ: [1]
+buildstate.cpp:connectSuccessors:369:0 succ: [1 4&lt;nofloat&gt;]
+buildstate.cpp:connectSuccessors:331:FROM = 1 TO = [4&lt;nofloat&gt;]
+buildstate.cpp:connectSuccessors:358:connect 1 -&gt; []
+buildstate.cpp:connectSuccessors:360:1 curr succ: [1]
+buildstate.cpp:connectSuccessors:369:1 succ: [1]
+compiler.cpp:buildGraph:465:wire up body of expr
+ComponentSequence.cpp:buildFollowSet:275:sequence of 2 components
+ComponentSequence.cpp:buildFollowSet:307:connecting lasts (|| 0) to firsts of comp 1
+ComponentSequence.cpp:buildFollowSet:318:swapped lasts
+buildstate.cpp:cleanupPositions:465:in 1; out 1
+ComponentSequence.cpp:last:251:lasts = [4]
+compiler.cpp:connectFinalStates:431:wiring finals = [4]
+buildstate.cpp:connectSuccessors:331:FROM = 4 TO = [2]
+buildstate.cpp:connectSuccessors:358:connect 4 -&gt; [2]
+buildstate.cpp:connectSuccessors:360:4 curr succ: []
+buildstate.cpp:connectSuccessors:369:4 succ: [2]
+ng_builder.cpp:addEdge:203:0 -&gt; 4
+ng_builder.cpp:addEdge:203:4 -&gt; 2
+ng_builder.cpp:getGraph:157:built graph has 5 vertices and 5 edges
+asserts.cpp:removeAssertVertices:273:before: graph has 5 vertices
+asserts.cpp:removeAssertVertices:278:no assert vertices, done
+ng_util.cpp:clearReports:472:clearing reports without an accept edge
+ng_prune.cpp:pruneUseless:140:pruning useless vertices
+ng_prune.cpp:pruneEmptyVertices:162:pruning empty vertices
+ng_extparam.cpp:reduceExtendedParams:994:no extparam bounds
+ng_width.cpp:findMinWidth:117:d[accept]=2, d[acceptEod]=unr
+ng_width.cpp:findMinWidth:117:d[accept]=unr, d[acceptEod]=unr
+ng_width.cpp:findMinWidth:197:startDepth=1, dotstarDepth=unr
+smallwrite_build.cpp:add:288:g=0x1af0460
+ng_util.cpp:cloneHolder:588:adding edge 0-&gt;1
+ng_util.cpp:cloneHolder:588:adding edge 0-&gt;4
+ng_util.cpp:cloneHolder:588:adding edge 1-&gt;1
+ng_util.cpp:cloneHolder:588:adding edge 2-&gt;3
+ng_util.cpp:cloneHolder:588:adding edge 4-&gt;2
+ng_depth.cpp:calcBidiDepths:352:doing start
+ng_depth.cpp:calcDepthFromSource:225:0: dm 0 0
+ng_depth.cpp:calcDepthFromSource:225:1: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:2: dm 2 -2
+ng_depth.cpp:calcDepthFromSource:225:3: dm 3 -3
+ng_depth.cpp:calcDepthFromSource:225:4: dm 1 -1
+ng_depth.cpp:getDepths:257:idx=0, depths=[0,0]
+ng_depth.cpp:getDepths:257:idx=1, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=2, depths=[2,2]
+ng_depth.cpp:getDepths:257:idx=3, depths=[3,3]
+ng_depth.cpp:getDepths:257:idx=4, depths=[1,1]
+ng_depth.cpp:calcBidiDepths:356:doing startds
+ng_depth.cpp:calcDepthFromSource:225:0: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:1: dm 0 0
+ng_depth.cpp:calcDepthFromSource:225:2: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:3: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:4: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:getDepths:257:idx=0, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=1, depths=[0,0]
+ng_depth.cpp:getDepths:257:idx=2, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=3, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=4, depths=[unr,unr]
+ng_depth.cpp:calcBidiDepths:366:doing accept
+ng_depth.cpp:calcDepthFromSource:225:0: dm 2 -2
+ng_depth.cpp:calcDepthFromSource:225:1: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:2: dm 0 0
+ng_depth.cpp:calcDepthFromSource:225:3: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:4: dm 1 -1
+ng_depth.cpp:getDepths:257:idx=0, depths=[2,2]
+ng_depth.cpp:getDepths:257:idx=1, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=2, depths=[0,0]
+ng_depth.cpp:getDepths:257:idx=3, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=4, depths=[1,1]
+ng_depth.cpp:calcBidiDepths:370:doing accepteod
+ng_depth.cpp:calcDepthFromSource:225:0: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:1: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:2: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:3: dm 0 0
+ng_depth.cpp:calcDepthFromSource:225:4: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:getDepths:257:idx=0, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=1, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=2, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=3, depths=[0,0]
+ng_depth.cpp:getDepths:257:idx=4, depths=[unr,unr]
+ng.cpp:reduceGraph:172:reduce pass 1/3
+ng_edge_redundancy.cpp:removeEdgeRedundancyNearCyclesFwd:180:found 0 removable edges.
+ng_edge_redundancy.cpp:removeEdgeRedundancyNearCyclesRev:265:found 0 removable edges.
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 4
+ng_equivalence.cpp:reduceGraphEquivalences:671:skipping equivalence processing, graph is irreducible
+ng_redundancy.cpp:removeRedundancy:830:rr som = 0
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 4
+ng_calc_components.cpp:isAlternationOfClasses:99:alternation of single states, treating as one comp
+ng_redundancy.cpp:removeRedundancy:863:found 0 removable vertices overall.
+ng_cyclic_redundancy.cpp:removeCyclicPathRedundancy:252:REVERSE PASS
+ng.cpp:reduceGraph:178:graph unchanged after pass 1, stopping
+ng_util.cpp:reorderSpecials:325:repositioning start ds
+ng_misc_opt.cpp:enlargeCyclicCR:354:hello
+ng_misc_opt.cpp:enlargeCyclicCR_rev:369:olleh
+ng_edge_redundancy.cpp:removeSiblingsOfStartDotStar:485:checking 1
+ng_mcclellan.cpp:buildMcClellan:545:attempting to build ?3? mcclellan
+ng_mcclellan.cpp:buildMcClellan:563:determinising nfa with 5 vertices
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 61 -&gt; 0
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff -&gt; 1
+ng_squash.cpp:buildPDomTree:139:vertex 2 -&gt; 4
+ng_squash.cpp:findSquashers:390:vertex 0/5
+ng_squash.cpp:findSquashers:390:vertex 1/5
+ng_squash.cpp:findSquashers:390:vertex 2/5
+ng_squash.cpp:findSquashers:390:vertex 3/5
+ng_squash.cpp:findSquashers:390:vertex 4/5
+determinise.h:determinise:81:the determinator
+determinise.h:determinise:113:curr: 0
+determinise.h:determinise:157:--&gt;0 on 61
+determinise.h:determinise:113:curr: 1
+determinise.h:determinise:157:--&gt;2 on 61
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:157:--&gt;1 on 100
+determinise.h:determinise:113:curr: 2
+ng_mcclellan.cpp:reports_i:415:marking report
+determinise.h:determinise:120:curr: 2: is accept
+determinise.h:determinise:157:--&gt;0 on 61
+determinise.h:determinise:157:--&gt;2 on 100
+determinise.h:determinise:182:ok
+dfa_min.cpp:minimize_hopcroft:315:reduced from 3 to 3 states
+ng_mcclellan.cpp:buildMcClellan:603:after determinised into 3 states, building impl dfa (a,f) = (1,0)
+mcclellancompile_util.cpp:clear_deeper_reports:167:clearing reports on states deeper than 70
+mcclellancompile_util.cpp:calc_min_dist_from_bob:140:inspecting 1
+mcclellancompile_util.cpp:calc_min_dist_from_bob:140:inspecting 2
+ng_holder.cpp:~NGHolder:63:destroying holder @ 0x1af0a30
+ng_edge_redundancy.cpp:removeSiblingsOfStartDotStar:485:checking 1
+ng_redundancy.cpp:removeRedundancy:830:rr som = 0
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 4
+ng_calc_components.cpp:isAlternationOfClasses:99:alternation of single states, treating as one comp
+ng_redundancy.cpp:removeRedundancy:863:found 0 removable vertices overall.
+ng_misc_opt.cpp:pruneUsingSuccessors:634:using cyclic 1 as base
+ng_misc_opt.cpp:pruneUsingSuccessors:655:    using 1 as killer
+ng_misc_opt.cpp:pruneUsingSuccessors:661:        looking at preds of 1
+ng_misc_opt.cpp:pruneUsingSuccessors:666:0 not a cand
+ng_misc_opt.cpp:pruneUsingSuccessors:666:1 not a cand
+ng_misc_opt.cpp:pruneUsingSuccessors:705:changed 0
+ng_literal_component.cpp:splitOffLiteral:103:examine vertex 4
+ng_literal_component.cpp:splitOffLiteral:142:loop, v=2
+ng_literal_component.cpp:splitOffLiteral:174:success: found anchored literal &#39;a&#39;
+ng_literal_component.cpp:splitOffLiteral:179:skipping literal of length 1
+ng_calc_components.cpp:isAlternationOfClasses:99:alternation of single states, treating as one comp
+ng_anchored_dots.cpp:reformAnchoredRepeats:529:component
+ng_anchored_dots.cpp:reformAnchoredRepeatsComponent:172:no candidate reformable dot found.
+ng_anchored_dots.cpp:reformUnanchoredRepeatsComponent:266:we have anchored starts, skipping
+ng_anchored_dots.cpp:collapseVariableRepeats:547:collapseVariableRepeats
+ng_calc_components.cpp:isAlternationOfClasses:99:alternation of single states, treating as one comp
+ng.cpp:addComponent:211:expr=0, comp=0: 5 vertices, 5 edges
+ng_extparam.cpp:reduceExtendedParams:994:no extparam bounds
+ng.cpp:reduceGraph:172:reduce pass 1/3
+ng_edge_redundancy.cpp:removeEdgeRedundancyNearCyclesFwd:180:found 0 removable edges.
+ng_edge_redundancy.cpp:removeEdgeRedundancyNearCyclesRev:265:found 0 removable edges.
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 4
+ng_equivalence.cpp:reduceGraphEquivalences:671:skipping equivalence processing, graph is irreducible
+ng_redundancy.cpp:removeRedundancy:830:rr som = 0
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 4
+ng_calc_components.cpp:isAlternationOfClasses:99:alternation of single states, treating as one comp
+ng_redundancy.cpp:removeRedundancy:863:found 0 removable vertices overall.
+ng_cyclic_redundancy.cpp:removeCyclicPathRedundancy:252:REVERSE PASS
+ng.cpp:reduceGraph:178:graph unchanged after pass 1, stopping
+ng_util.cpp:reorderSpecials:325:repositioning start ds
+ng_misc_opt.cpp:enlargeCyclicCR:354:hello
+ng_misc_opt.cpp:enlargeCyclicCR_rev:369:olleh
+ng_edge_redundancy.cpp:removeSiblingsOfStartDotStar:485:checking 1
+ng_region.cpp:assignRegions:446:assigning regions for 5 vertices in holder
+ng_region.cpp:reorderSpecials:317:repositioning start ds
+ng_region.cpp:liftSinks:359:no sinks found
+ng_region.cpp:buildTopoOrder:434:TOPO ORDER
+ng_region.cpp:buildTopoOrder:436:[0]
+ng_region.cpp:buildTopoOrder:436:[1]
+ng_region.cpp:buildTopoOrder:436:[4]
+ng_region.cpp:buildTopoOrder:436:[2]
+ng_region.cpp:buildTopoOrder:436:[3]
+ng_region.cpp:buildTopoOrder:438:----------
+ng_region.cpp:findDagLeaders:232:adding 0 to current
+ng_region.cpp:findDagLeaders:235:adding 1 to current
+ng_region.cpp:checkAndAddExitCandidate:102:exit 0
+ng_region.cpp:findDagLeaders:253:setting region 0
+ng_region.cpp:buildInitialCandidate:204:adding 4 to initial
+ng_region.cpp:buildInitialCandidate:214:oj size = 0
+ng_region.cpp:checkAndAddExitCandidate:102:exit 4
+ng_region.cpp:findDagLeaders:253:setting region 1
+ng_region.cpp:buildInitialCandidate:204:adding 2 to initial
+ng_region.cpp:buildInitialCandidate:214:oj size = 0
+ng_region.cpp:checkAndAddExitCandidate:102:exit 2
+ng_region.cpp:findDagLeaders:253:setting region 2
+ng_region.cpp:buildInitialCandidate:204:adding 3 to initial
+ng_region.cpp:buildInitialCandidate:214:oj size = 0
+ng_depth.cpp:calcDepthFromSource:225:0: dm 0 0
+ng_depth.cpp:calcDepthFromSource:225:1: dm 2147483647 2147483647
+ng_depth.cpp:calcDepthFromSource:232:bumping max to -2147483647
+ng_depth.cpp:calcDepthFromSource:225:2: dm 2 -2
+ng_depth.cpp:calcDepthFromSource:225:3: dm 3 -3
+ng_depth.cpp:calcDepthFromSource:225:4: dm 1 -1
+ng_depth.cpp:getDepths:257:idx=0, depths=[0,0]
+ng_depth.cpp:getDepths:257:idx=1, depths=[unr,unr]
+ng_depth.cpp:getDepths:257:idx=2, depths=[2,2]
+ng_depth.cpp:getDepths:257:idx=3, depths=[3,3]
+ng_depth.cpp:getDepths:257:idx=4, depths=[1,1]
+ng_util.cpp:cloneHolder:588:adding edge 0-&gt;1
+ng_util.cpp:cloneHolder:588:adding edge 0-&gt;4
+ng_util.cpp:cloneHolder:588:adding edge 1-&gt;1
+ng_util.cpp:cloneHolder:588:adding edge 2-&gt;3
+ng_util.cpp:cloneHolder:588:adding edge 4-&gt;2
+ng_util.cpp:clearReports:472:clearing reports without an accept edge
+rose_build_anchored.cpp:Automaton_Holder:308:5 states
+rose_build_anchored.cpp:Automaton_Holder:312:init wdelay 0
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff -&gt; 0
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 61 -&gt; 1
+determinise.h:determinise:81:the determinator
+determinise.h:determinise:113:curr: 0
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:113:curr: 1
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:157:--&gt;2 on 61
+determinise.h:determinise:157:--&gt;1 on 100
+determinise.h:determinise:113:curr: 2
+determinise.h:determinise:120:curr: 2: is accept
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:157:--&gt;2 on 100
+determinise.h:determinise:182:ok
+rose_build_anchored.cpp:isSimple:550:looking for simple case
+rose_build_anchored.cpp:isSimple:571:checking 0
+rose_build_anchored.cpp:isSimple:582:direct anchored
+rose_build_anchored.cpp:check_dupe_simple:492:no remap
+rose_build_anchored.cpp:finalise_out:675:add with report 0
+ng_holder.cpp:~NGHolder:63:destroying holder @ 0x7fff7ca357b0
+rose_build_add.cpp:addAnchoredAcyclic:1962:added anchored nfa
+rose_build_add.cpp:createVertex:115:insert vertex 2 into literal 0&#39;s vertex set
+rose_build_add.cpp:createAnchoredVertex:163:created anchored vertex 2 with lit id 0
+ng_holder.cpp:~NGHolder:63:destroying holder @ 0x1af0460
+ng.cpp:processComponents:318:all components claimed
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+hwlm_build.cpp:hwlmFloodProneSuffixLen:244:0 literals
+hwlm_build.cpp:hwlmFloodProneSuffixLen:247:noodle
+rose_build_convert.cpp:convertFloodProneSuffixes:272:flood prone suffix len = 18446744073709551615
+rose_build_compile.cpp:rehomeAnchoredLiterals:1339:considering rehoming options
+rose_build_compile.cpp:rehomeAnchoredLiterals:1343:not a heavy case 0 0
+rose_build_compile.cpp:stealEodVertices:725:hi
+rose_build_compile.cpp:checkEodStealFloating:491:no eod literals
+rose_build_compile.cpp:promoteEodToFloating:560:promoting 0 eod literals to floating table
+rose_build_compile.cpp:promoteEodToAnchored:589:promoting eod literals to anchored table
+rose_build_compile.cpp:isDirectReport:442:literal 0 (&#39;&#39;) is a direct report
+rose_build_compile.cpp:addAnchoredSmallBlockLiterals:1596:1 one-byte literals
+rose_build_compile.cpp:addSmallBlockLiteral:1374:anchored ^.{0,0}a
+rose_build_misc.cpp:getLiteralId:369:getting id for a in table 3
+rose_build_compile.cpp:addSmallBlockLiteral:1378:anchored small block literal id -&gt; 1
+rose_build_merge.cpp:dedupeSuffixes:321:deduping suffixes
+rose_build_merge.cpp:dedupeSuffixes:346:collected 0 groups
+rose_build_role_aliasing.cpp:mergeDupeLeaves:2117:inspecting vertex index=2 in_degree 1 out_degree 0
+rose_build_role_aliasing.cpp:mergeDupeLeaves:2117:inspecting vertex index=3 in_degree 1 out_degree 0
+rose_build_role_aliasing.cpp:mergeDupeLeaves:2167:find loop done
+rose_build_role_aliasing.cpp:uncalcLeaves:2320:uncalcing
+rose_build_role_aliasing.cpp:findUncalcLeavesCandidates:2297:find loop done
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 0
+rose_build_compile.cpp:findHistoryScheme:297:find history for [1,2]
+rose_build_compile.cpp:findHistoryScheme:299:u has min_offset=0, max_offset=0
+rose_build_compile.cpp:findHistoryScheme:351:examining edge [1,2] with bounds {1,1}
+rose_build_compile.cpp:findHistoryScheme:356:v in anchored table, no need for history
+rose_build_compile.cpp:findHistoryScheme:297:find history for [1,3]
+rose_build_compile.cpp:findHistoryScheme:299:u has min_offset=0, max_offset=0
+rose_build_compile.cpp:findHistoryScheme:351:examining edge [1,3] with bounds {0,0}
+rose_build_compile.cpp:findHistoryScheme:363:fixed offset -&gt; anch
+rose_build_merge.cpp:dedupeLeftfixes:219:deduping leftfixes
+rose_build_merge.cpp:dedupeLeftfixes:245:collected 0 rose groups
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_role_aliasing.cpp:aliasRoles:2003:doing role aliasing mr=0
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 2
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 0
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 3
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 1
+rose_build_role_aliasing.cpp:findCandidates:658:found 2/4 candidates
+rose_build_role_aliasing.cpp:aliasRoles:2012:candidates 2
+rose_build_role_aliasing.cpp:leftMergePass:1740:begin (2)
+rose_build_role_aliasing.cpp:leftMergePass:1769:2 candidates remaining
+rose_build_role_aliasing.cpp:rightMergePass:1900:begin
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1878:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1881:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1888:split by right-merge properties, 0 buckets
+rose_build_role_aliasing.cpp:rightMergePass:1929:2 candidates remaining
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1976:2 candidates enter
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1990:pruned 0 candidates, leaving 2
+rose_build_role_aliasing.cpp:diamondMergePass:1603:begin
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1569:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1572:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1578:split by lit table, 0 buckets
+rose_build_role_aliasing.cpp:diamondMergePass:1660:2 candidates remaining
+rose_build_role_aliasing.cpp:aliasRoles:2029:killed 0 vertices
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_merge.cpp:dedupeLeftfixes:219:deduping leftfixes
+rose_build_merge.cpp:dedupeLeftfixes:245:collected 0 rose groups
+rose_build_role_aliasing.cpp:uncalcLeaves:2320:uncalcing
+rose_build_role_aliasing.cpp:findUncalcLeavesCandidates:2297:find loop done
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 0
+rose_build_merge.cpp:dedupeLeftfixesVariableLag:1567:entry
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1386:-----
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1387:entry
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1388:-----
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1449:chunked roses into 0 groups
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1500:-----
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1501:exit
+rose_build_merge.cpp:mergeLeftfixesVariableLag:1502:-----
+rose_build_merge.cpp:mergeSmallLeftfixes:1889:entry
+rose_build_merge.cpp:mergeSmallLeftfixes:1948:chunked nfa roses into 1 groups
+rose_build_merge.cpp:mergeNfaLeftfixes:1783:0 nfa rose merge candidates
+rose_build_merge.cpp:mergeCastleLeftfixes:2020:entry
+rose_build_merge.cpp:mergeCastleLeftfixes:2055:chunked castles into 0 groups
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_role_aliasing.cpp:aliasRoles:2003:doing role aliasing mr=1
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 2
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 0
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 3
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 1
+rose_build_role_aliasing.cpp:findCandidates:658:found 2/4 candidates
+rose_build_role_aliasing.cpp:aliasRoles:2012:candidates 2
+rose_build_role_aliasing.cpp:leftMergePass:1740:begin (2)
+rose_build_role_aliasing.cpp:leftMergePass:1769:2 candidates remaining
+rose_build_role_aliasing.cpp:rightMergePass:1900:begin
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1878:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1881:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1888:split by right-merge properties, 0 buckets
+rose_build_role_aliasing.cpp:rightMergePass:1929:2 candidates remaining
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1976:2 candidates enter
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1990:pruned 0 candidates, leaving 2
+rose_build_role_aliasing.cpp:diamondMergePass:1603:begin
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1569:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1572:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1578:split by lit table, 0 buckets
+rose_build_role_aliasing.cpp:diamondMergePass:1660:2 candidates remaining
+rose_build_role_aliasing.cpp:aliasRoles:2029:killed 0 vertices
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_merge.cpp:mergeCastleSuffixes:2771:entry
+rose_build_merge.cpp:mergePuffixes:2660:entry
+rose_build_merge.cpp:mergeAcyclicSuffixes:2183:entry
+rose_build_merge.cpp:mergeAcyclicSuffixes:2215:chunked 0 suffixes into 1 groups
+rose_build_merge.cpp:mergeSuffixes:2067:group has 0 suffixes
+rose_build_merge.cpp:mergeSmallSuffixes:2245:entry
+rose_build_merge.cpp:mergeSmallSuffixes:2277:chunked 0 suffixes into 1 groups
+rose_build_merge.cpp:mergeSuffixes:2067:group has 0 suffixes
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_role_aliasing.cpp:aliasRoles:2003:doing role aliasing mr=1
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 2
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 0
+rose_build_role_aliasing.cpp:findCandidates:650:candidate 3
+rose_build_role_aliasing.cpp:findCandidates:651:lits: 1
+rose_build_role_aliasing.cpp:findCandidates:658:found 2/4 candidates
+rose_build_role_aliasing.cpp:aliasRoles:2012:candidates 2
+rose_build_role_aliasing.cpp:leftMergePass:1740:begin (2)
+rose_build_role_aliasing.cpp:leftMergePass:1769:2 candidates remaining
+rose_build_role_aliasing.cpp:rightMergePass:1900:begin
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1878:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1881:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitRightMergeBuckets:1888:split by right-merge properties, 0 buckets
+rose_build_role_aliasing.cpp:rightMergePass:1929:2 candidates remaining
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1976:2 candidates enter
+rose_build_role_aliasing.cpp:filterDiamondCandidates:1990:pruned 0 candidates, leaving 2
+rose_build_role_aliasing.cpp:diamondMergePass:1603:begin
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1569:at start, 2 candidates in 1 bucket
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1572:split by report/suffix, 1 buckets
+rose_build_role_aliasing.cpp:removeSingletonBuckets:1416:deleting 2 singleton buckets
+rose_build_role_aliasing.cpp:splitDiamondMergeBuckets:1578:split by lit table, 0 buckets
+rose_build_role_aliasing.cpp:diamondMergePass:1660:2 candidates remaining
+rose_build_role_aliasing.cpp:aliasRoles:2029:killed 0 vertices
+ue2_graph.h:renumber_vertices_impl:967:renumbering above 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_merge.cpp:mergeOutfixes:2615:merging 0 dfas, 0 nfas
+rose_build_merge.cpp:mergeOutfixNfas:2329:merging 0 nfas
+rose_build_merge.cpp:mergeOutfixDfas:2471:merging 0 nfas
+rose_build_merge.cpp:mergeOutfixCombo:2500:merge combo
+rose_build_merge.cpp:mergeOutfixCombo:2515:nfa 0 dfas present 0
+rose_build_merge.cpp:mergeOutfixCombo:2517:no combo merges possible
+rose_build_matchers.cpp:addSurroundingMask:302:no mask
+rose_build_groups.cpp:assignGroupsToLiterals:261:1 always on literals
+rose_build_groups.cpp:assignGroupsToLiterals:353:base long lit group = 1
+rose_build_groups.cpp:assignGroupsToLiterals:377:populate group to literal mapping
+rose_build_groups.cpp:assignGroupsToRoles:441:vertex 2: groups=0
+rose_build_groups.cpp:assignGroupsToRoles:441:vertex 3: groups=0
+rose_build_groups.cpp:isGroupSquasher:562:checking if 0 &#39;&#39; is a group squasher 0000000000000000
+rose_build_groups.cpp:coversGroup:529:no group - does not cover
+rose_build_groups.cpp:isGroupSquasher:570:does not cover group
+rose_build_groups.cpp:isGroupSquasher:562:checking if 1 &#39;a&#39; is a group squasher 0000000000000001
+rose_build_groups.cpp:coversGroup:540: checking against friend 1
+rose_build_groups.cpp:coversGroup:549:ok
+rose_build_groups.cpp:isGroupSquasher:603:can&#39;t squash reporter
+rose_build_castle.cpp:remapCastleTops:314:0 rose castles, 0 suffix castles
+report_manager.cpp:assignDkeys:134:assigning...
+rose_build_dedupe.cpp:RoseDedupeAuxImpl:168:1 of 1 reports are live
+rose_build_dedupe.cpp:requiresDedupeSupport:251:live reports: 0
+report_manager.cpp:assignDkeys:153:0 does not require dedupe
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:940:leftfix: check vertex 3
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 0
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 1
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 2
+rose_build_misc.cpp:canImplementGraphs:968:suffix: check vertex 3
+rose_build_bytecode.cpp:calcHistoryRequired:2150:m=0, ematcher_region_size=0
+rose_build_bytecode.cpp:buildFinalEngine:3576:longLitLengthThreshold=18446744073709551615
+rose_build_anchored.cpp:populate_holder:251:populating holder for ^.{0,0}a
+rose_build_anchored.cpp:addDotsToGraph:96:adding [0, 0] to graph
+rose_build_anchored.cpp:addToGraph:124:adding a to graph
+rose_build_anchored.cpp:Automaton_Holder:308:5 states
+rose_build_anchored.cpp:Automaton_Holder:312:init wdelay 0
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 62 63 64 65 66 67 68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff -&gt; 0
+ng_mcclellan.cpp:buildAlphabetFromEquivSets:77:eq set: 61 -&gt; 1
+determinise.h:determinise:81:the determinator
+determinise.h:determinise:113:curr: 0
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:113:curr: 1
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:157:--&gt;2 on 61
+determinise.h:determinise:157:--&gt;1 on 100
+determinise.h:determinise:113:curr: 2
+determinise.h:determinise:120:curr: 2: is accept
+determinise.h:determinise:157:--&gt;0 on 00
+determinise.h:determinise:157:--&gt;2 on 100
+determinise.h:determinise:182:ok
+ng_holder.cpp:~NGHolder:63:destroying holder @ 0x1af0790
+rose_build_anchored.cpp:mergeAnchoredDfas:156:1 dfas with small starts, 0 dfas with big starts
+rose_build_bytecode.cpp:findMinFloatingLiteralMatch:2197:skipping 0 anchored or root
+rose_build_bytecode.cpp:findMinFloatingLiteralMatch:2197:skipping 1 anchored or root
+rose_build_bytecode.cpp:findMinFloatingLiteralMatch:2197:skipping 2 anchored or root
+rose_build_bytecode.cpp:findMinFloatingLiteralMatch:2202:3 m_o = 1
+rose_build_bytecode.cpp:needsMpvCatchup:369:no mpv
+rose_build_bytecode.cpp:makeBoundaryPrograms:2544:report ^:  0
+rose_build_bytecode.cpp:makeBoundaryPrograms:2545:report $:  0
+rose_build_bytecode.cpp:makeBoundaryPrograms:2546:report ^$: 0
+rose_build_bytecode.cpp:writeProgram:2377:no program
+rose_build_bytecode.cpp:writeProgram:2377:no program
+rose_build_bytecode.cpp:writeProgram:2377:no program
+rose_build_bytecode.cpp:findEngineReports:3165:1 engine reports (of 1)
+rose_build_program.cpp:applyFinalSpecialisation:2307:replacing REPORT with FINAL_REPORT
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af0870 (opcode 38) -&gt; offset 0
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af07f0 (opcode 0) -&gt; offset 16
+rose_build_program.cpp:writeProgram:211:2 instructions, len 17
+rose_build_engine_blob.h:add:84:write 17 bytes at offset 448
+rose_build_bytecode.cpp:writeProgram:2395:prog len 17 written at offset 448
+rose_build_bytecode.cpp:buildReportPrograms:3182:program for report 0 @ 448 (0 instructions)
+rose_build_engine_blob.h:add:84:write 4 bytes at offset 468
+rose_build_bytecode.cpp:getInitialGroups:462:initial groups = 0000000000000001
+rose_build_bytecode.cpp:buildLeftfixes:1549:eager groups won&#39;t squash everyone - be lazy
+rose_build_bytecode.cpp:getInitialGroups:462:initial groups = 0000000000000001
+rose_build_bytecode.cpp:assignStateIndices:2590:assigned 0 states (from 4 vertices)
+rose_build_bytecode.cpp:buildLeftInfoTable:2691:built 0 roses with lag indices
+rose_build_bytecode.cpp:needsCatchup:254:no need for catch-up on report
+rose_build_bytecode.cpp:getInitialGroups:462:initial groups = 0000000000000001
+rose_build_groups.cpp:getVertexGroupMap:464:vertex 1
+rose_build_groups.cpp:getVertexGroupMap:467:start vertex, groups=0x1
+rose_build_groups.cpp:getVertexGroupMap:464:vertex 3
+rose_build_groups.cpp:getVertexGroupMap:477:pred 1
+rose_build_groups.cpp:getVertexGroupMap:482:pred_groups=0x1
+rose_build_groups.cpp:getVertexGroupMap:483:g[v].groups=0x0
+rose_build_groups.cpp:getVertexGroupMap:486:v_groups=0x1
+rose_build_groups.cpp:getVertexGroupMap:464:vertex 2
+rose_build_groups.cpp:getVertexGroupMap:477:pred 1
+rose_build_groups.cpp:getVertexGroupMap:482:pred_groups=0x1
+rose_build_groups.cpp:getVertexGroupMap:483:g[v].groups=0x0
+rose_build_groups.cpp:getVertexGroupMap:486:v_groups=0x1
+rose_build_groups.cpp:getVertexGroupMap:464:vertex 0
+rose_build_groups.cpp:getVertexGroupMap:467:start vertex, groups=0x1
+rose_build_groups.cpp:getSquashableGroups:511:squashable groups=0x0
+rose_build_bytecode.cpp:writeAnchoredPrograms:3112:can never match after floatingMinLiteralMatchOffset=1
+rose_build_bytecode.cpp:writeAnchoredPrograms:3138:0 anchored programs
+rose_build_bytecode.cpp:writeDelayPrograms:3078:0 delay programs
+rose_build_matchers.cpp:buildFloatingMatcherProto:913:Floating literal matcher
+rose_build_matchers.cpp:buildFloatingMatcherProto:919:empty floating matcher
+rose_build_matchers.cpp:buildDelayRebuildMatcherProto:947:Delay literal matcher
+rose_build_matchers.cpp:buildDelayRebuildMatcherProto:949:not streaming
+rose_build_matchers.cpp:buildEodAnchoredMatcherProto:1031:Eod anchored literal matcher
+rose_build_matchers.cpp:buildEodAnchoredMatcherProto:1036:no eod anchored literals
+rose_build_matchers.cpp:buildSmallBlockMatcherProto:974:Small block literal matcher
+rose_build_width.cpp:findMinWidth:110:min width 4294967295
+rose_build_matchers.cpp:buildSmallBlockMatcherProto:983:floating table has large min width 4294967295, fail
+rose_build_bytecode.cpp:buildLiteralPrograms:3022:2 fragments
+rose_build_bytecode.cpp:findInclusionGroups:2882:frag id 0
+rose_build_bytecode.cpp:findInclusionGroups:2882:frag id 1
+rose_build_bytecode.cpp:buildFragmentPrograms:2935:frag_id=0, lit_ids=[0]
+rose_build_bytecode.cpp:makeLiteralProgram:2700:lit_id=0
+rose_build_program.cpp:makeLiteralProgram:1998:lit id=0, 1 lit edges
+rose_build_program.cpp:makeCheckLiteralInstruction:712:lit=, long lit threshold 18446744073709551615
+rose_build_program.cpp:makeCheckLiteralInstruction:715:lit short enough to not need confirm
+rose_build_program.cpp:makeLiteralProgram:2040:root edge (1,2)
+rose_build_lookaround.cpp:findForwardReach:269:acceptor
+rose_build_lookaround.cpp:trimLiterals:538:pre-trim lookaround:
+rose_build_lookaround.cpp:trimLiterals:551:post-trim lookaround:
+rose_build_program.cpp:assembleProgramBlocks:1953:1 blocks before dedupe
+rose_build_program.cpp:assembleProgramBlocks:1968:1 blocks after dedupe
+rose_build_program.cpp:applyFinalSpecialisation:2307:replacing REPORT with FINAL_REPORT
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af1020 (opcode 38) -&gt; offset 0
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af02c0 (opcode 0) -&gt; offset 16
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af0870 (opcode 38) -&gt; offset 0
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af07f0 (opcode 0) -&gt; offset 16
+rose_build_bytecode.cpp:writeProgram:2385:reusing cached program at 448
+rose_build_bytecode.cpp:buildFragmentPrograms:2935:frag_id=1, lit_ids=[1]
+rose_build_bytecode.cpp:makeLiteralProgram:2700:lit_id=1
+rose_build_program.cpp:makeLiteralProgram:1998:lit id=1, 1 lit edges
+rose_build_program.cpp:makeCheckLiteralInstruction:712:lit=a, long lit threshold 18446744073709551615
+rose_build_program.cpp:makeCheckLiteralInstruction:715:lit short enough to not need confirm
+rose_build_program.cpp:makeLiteralProgram:2040:root edge (1,3)
+rose_build_lookaround.cpp:findForwardReach:269:acceptor
+rose_build_lookaround.cpp:trimLiterals:538:pre-trim lookaround:
+rose_build_lookaround.cpp:trimLiterals:551:post-trim lookaround:
+rose_build_program.cpp:assembleProgramBlocks:1953:1 blocks before dedupe
+rose_build_program.cpp:assembleProgramBlocks:1968:1 blocks after dedupe
+rose_build_program.cpp:applyFinalSpecialisation:2307:replacing REPORT with FINAL_REPORT
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af15c0 (opcode 5) -&gt; offset 0
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af1020 (opcode 38) -&gt; offset 32
+rose_build_program.cpp:makeOffsetMap:88:instr 0x1af02e0 (opcode 0) -&gt; offset 48
+rose_build_program.cpp:writeProgram:211:3 instructions, len 49
+rose_build_instructions.cpp:calc_jump:56:computing relative jump from 0x1af15c0 to 0x1af02e0
+rose_build_instructions.cpp:calc_jump:62:offsets: 0 -&gt; 48
+rose_build_engine_blob.h:add:84:write 49 bytes at offset 472
+rose_build_bytecode.cpp:writeProgram:2395:prog len 49 written at offset 472
+rose_build_bytecode.cpp:writeProgram:2377:no program
+report_manager.cpp:numDkeys:110:0 dkeys
+rose_build_bytecode.cpp:writeActiveLeftIter:2411:0 active leftfixes
+mcclellancompile_util.cpp:count_dots:57:checking 1
+mcclellancompile_util.cpp:count_dots:62:0 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:0 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:1 -&gt; 2
+mcclellancompile_util.cpp:count_dots:82:0 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:1 -&gt; 0
+mcclellancompile_util.cpp:remove_leading_dots:122:removed 0 leading dots
+dfa_min.cpp:minimize_hopcroft:315:reduced from 3 to 3 states
+mcclellancompile.cpp:mcclellanCompile8:690:building mcclellan 8
+mcclellancompile.cpp:gatherReports:276:gathering reports
+mcclellancompile.cpp:gatherReports:290:non empty r
+mcclellancompile.cpp:gatherReports:295:adding to rl 0
+mcclellancompile.cpp:gatherReports:345:single -- 448
+accel_dfa_build_strat.cpp:get_sds_or_proxy:251:looking for SDS proxy
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 1
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 2
+accel_dfa_build_strat.cpp:getAccelInfo:546:sds 0
+accel_dfa_build_strat.cpp:getAccelInfo:584:computing accel for all states
+accel_dfa_build_strat.cpp:operator():563:inspecting 1/0: 160
+accel_dfa_build_strat.cpp:find_escape_strings:349:next is 0
+accel_dfa_build_strat.cpp:find_escape_strings:349:next is 2
+accel_dfa_build_strat.cpp:find_escape_strings:357:leads to report
+accel_dfa_build_strat.cpp:get_sds_or_proxy:251:looking for SDS proxy
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 1
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 2
+accel_dfa_build_strat.cpp:find_escape_strings:406:this 1, sds proxy 0
+accel_dfa_build_strat.cpp:find_escape_strings:407:broken 1
+accel_dfa_build_strat.cpp:operator():568:state 1 is not accelerable has 256
+mcclellancompile.cpp:mcclellanCompile8:709:aux_size 48
+mcclellancompile.cpp:mcclellanCompile8:710:aux_offset 384
+mcclellancompile.cpp:mcclellanCompile8:711:rl size 8
+mcclellancompile.cpp:mcclellanCompile8:712:accel_size 0
+mcclellancompile.cpp:mcclellanCompile8:713:accel_offset 448
+mcclellancompile.cpp:mcclellanCompile8:714:total_size 448
+mcclellancompile.cpp:allocateFSN8:670:mapping state 1 to 1
+mcclellancompile.cpp:allocateFSN8:682:mapping state 2 to 2
+mcclellancompile.cpp:fillInBasicState8:629:i=2 r[i]=0
+mcclellancompile.cpp:mcclellanCompile8:754:rl size 1
+mcclellancompile.cpp:mcclellanCompile_i:979:compile done
+rose_build_anchored.cpp:buildAnchoredMatcher:919:success 512
+rose_build_engine_blob.h:add:84:write 512 bytes at offset 576
+rose_build_bytecode.cpp:buildFinalEngine:3717:rose history required 0
+multibit_build.cpp:mmbBuildInitRangePlan:211:building scatter plan for [0, 0]/0
+multibit_build.cpp:mmbBuildInitRangePlan:211:building scatter plan for [0, 0]/0
+multibit_build.cpp:mmbBuildInitRangePlan:211:building scatter plan for [0, 0]/0
+rose_build_bytecode.cpp:buildFinalEngine:3748:currOffset 1088
+rose_build_bytecode.cpp:pickRuntimeImpl:333:has_outfixes=0
+rose_build_bytecode.cpp:pickRuntimeImpl:334:has_suffixes=0
+rose_build_bytecode.cpp:pickRuntimeImpl:335:has_leftfixes=0
+rose_build_bytecode.cpp:pickRuntimeImpl:336:has_literals=1
+rose_build_bytecode.cpp:pickRuntimeImpl:337:has_states=0
+rose_build_bytecode.cpp:pickRuntimeImpl:338:checks_groups=0
+rose_build_bytecode.cpp:pickRuntimeImpl:339:has_lit_delay=0
+rose_build_bytecode.cpp:pickRuntimeImpl:340:has_lit_check=0
+rose_build_bytecode.cpp:pickRuntimeImpl:341:has_anchored=1
+rose_build_bytecode.cpp:pickRuntimeImpl:342:has_floating=0
+rose_build_bytecode.cpp:pickRuntimeImpl:343:has_eod=0
+rose_build_bytecode.cpp:isPureFloating:261:no floating table
+rose_build_bytecode.cpp:isSingleOutfix:315:has role
+rose_build_width.cpp:findMinWidth:87:2 can fire report at offset 1
+rose_build_width.cpp:findMinWidth:110:min width 1
+rose_build_width.cpp:findMinWidth:110:min width 4294967295
+rose_build_width.cpp:findMinWidth:110:min width 4294967295
+rose_build_width.cpp:findMaxBAWidth:189:looking for a max ba width for anchored
+rose_build_width.cpp:findMaxBAWidth:207:inspecting vert 2
+rose_build_width.cpp:findMaxBAWidth:215:accept not at eod
+rose_build_width.cpp:findMaxBAWidth:189:looking for a max ba width for floating
+rose_build_width.cpp:findMaxBAWidth:250:max ba width 0
+rose_build_bytecode.cpp:hasBoundaryReports:2535:no boundary reports
+rose_build_width.cpp:findMaxBAWidth:135:accept not at eod
+rose_build_bytecode.cpp:hasEodAnchors:2448:yawn
+rose_build_bytecode.cpp:fillMatcherDistances:3350:checking 0: elen 0 min/max 1/1
+rose_build_bytecode.cpp:fillMatcherDistances:3350:checking 1: elen 1 min/max 1/1
+rose_build_bytecode.cpp:fillMatcherDistances:3405:anchoredDistance = 1
+rose_build_bytecode.cpp:fillMatcherDistances:3406:floatingDistance = 0
+rose_build_bytecode.cpp:fillMatcherDistances:3407:smallBlockDistance = 1
+rose_build_bytecode.cpp:getInitialGroups:462:initial groups = 0000000000000001
+smallwrite_build.cpp:build:913:building rdfa 0x1af15f0
+mcclellancompile_util.cpp:count_dots:57:checking 1
+mcclellancompile_util.cpp:count_dots:62:0 -&gt; 2
+mcclellancompile_util.cpp:count_dots:62:1 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:0 -&gt; 2
+mcclellancompile_util.cpp:count_dots:82:1 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:0 -&gt; 0
+mcclellancompile_util.cpp:count_dots:82:1 -&gt; 0
+mcclellancompile_util.cpp:remove_leading_dots:122:removed 0 leading dots
+mcclellancompile.cpp:mcclellanCompile8:690:building mcclellan 8
+mcclellancompile.cpp:gatherReports:276:gathering reports
+mcclellancompile.cpp:gatherReports:290:non empty r
+mcclellancompile.cpp:gatherReports:295:adding to rl 0
+mcclellancompile.cpp:gatherReports:345:single -- 448
+accel_dfa_build_strat.cpp:get_sds_or_proxy:251:looking for SDS proxy
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 1
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 2
+accel_dfa_build_strat.cpp:getAccelInfo:546:sds 0
+accel_dfa_build_strat.cpp:getAccelInfo:584:computing accel for all states
+accel_dfa_build_strat.cpp:operator():563:inspecting 1/0: 160
+accel_dfa_build_strat.cpp:find_escape_strings:349:next is 2
+accel_dfa_build_strat.cpp:find_escape_strings:357:leads to report
+accel_dfa_build_strat.cpp:find_escape_strings:349:next is 0
+accel_dfa_build_strat.cpp:get_sds_or_proxy:251:looking for SDS proxy
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 1
+accel_dfa_build_strat.cpp:get_sds_or_proxy:264:basis 2
+accel_dfa_build_strat.cpp:find_escape_strings:406:this 1, sds proxy 0
+accel_dfa_build_strat.cpp:find_escape_strings:407:broken 1
+accel_dfa_build_strat.cpp:operator():568:state 1 is not accelerable has 256
+mcclellancompile.cpp:mcclellanCompile8:709:aux_size 48
+mcclellancompile.cpp:mcclellanCompile8:710:aux_offset 384
+mcclellancompile.cpp:mcclellanCompile8:711:rl size 8
+mcclellancompile.cpp:mcclellanCompile8:712:accel_size 0
+mcclellancompile.cpp:mcclellanCompile8:713:accel_offset 448
+mcclellancompile.cpp:mcclellanCompile8:714:total_size 448
+mcclellancompile.cpp:allocateFSN8:670:mapping state 1 to 1
+mcclellancompile.cpp:allocateFSN8:682:mapping state 2 to 2
+mcclellancompile.cpp:fillInBasicState8:629:i=2 r[i]=0
+mcclellancompile.cpp:mcclellanCompile8:754:rl size 1
+mcclellancompile.cpp:mcclellanCompile_i:979:compile done
+smallwrite_build.cpp:prepEngine:821:is slow
+mcclellancompile_util.cpp:clear_deeper_reports:167:clearing reports on states deeper than 35
+mcclellancompile_util.cpp:calc_min_dist_from_bob:140:inspecting 1
+mcclellancompile_util.cpp:calc_min_dist_from_bob:140:inspecting 2
+smallwrite_build.cpp:build:937:smallwrite done 0x1af2940
+rose_build_bytecode.cpp:addSmallWriteEngine:3454:adding smwr engine, size=512
+rose_build_bytecode.cpp:buildFinalEngine:3826:rose done 0x1af2b80
+compiler.cpp:dbCreate:328:db size 1704
+compiler.cpp:dbCreate:329:db platform 18000
+compiler.cpp:dbCreate:342:shift is 8
+scratch.c:alloc_scratch:131:allocated 2360 bytes at 0x1af0620 but realigning to 0x1af0640
+scratch.c:alloc_scratch:132:sizeof 512
+Scanning 3 bytes with Hyperscan
+scratch.h:markScratchInUse:236:marking scratch as in use
+report.h:clearEvec:150:clearing evec 0x1af0d6b 0
+runtime.c:hs_scan:400:Attempting small write of block 3 bytes long.
+runtime.c:runSmallWriteEngine:290:USING SMALL WRITE
+mcclellan.c:mcclellanExec8_i:395:accel 2, accept 2
+mcclellan.c:mcclellanExec8_i:397:s: 1, len 3
+mcclellan.c:doNormal8:354:c: 61 &#39;a&#39; cp:00
+mcclellan.c:doNormal8:357:s: 2
+mcclellan.c:mcclellanExec8_i:426:reporting 448
+match.c:roseReportAdaptor:578:id=448 matched at [0,1]
+program_runtime.h:roseRunProgram_i:1843:program=448, offsets [0,1], flags=8
+program_runtime.h:roseRunProgram_i:2285:instruction: FINAL_REPORT (pc=448)
+runtime.h:updateMinMatchOffset:133:min match now @1, was @0
+program_runtime.h:roseReport:487:firing callback onmatch=0, end=1
+runtime.h:updateLastMatchOffset:123:match @1, last match @0
+report.h:roseDeliverReport:184:&gt;&gt; reporting match @[0,1] for sig 0 ctxt 0x7fff7ca366f0 &lt;&lt;
+&gt;Match for pattern &quot;^a&quot; at offset 1
+mcclellan.c:doNormal8:354:c: 61 &#39;a&#39; cp:00
+mcclellan.c:doNormal8:357:s: 0
+runtime.c:hs_scan:441:done. told_to_stop_matching=0
+scratch.h:unmarkScratchInUse:251:marking scratch as not in use
+scratch.h:markScratchInUse:236:marking scratch as in use
+scratch.c:hs_free_scratch:424:scratch 0x1af0640 is really at 0x1af0620 : freeing
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>gdb分析: 带^锚点的match<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://01.org/zh/node/3777">Geoff Langdale: How we match regular expressions</a></li>
+</ul>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  //id: '页面 ID', // 可选。默认为 location.href
+  owner: 'zzqcn',
+  repo: 'zzqcn.github.io',
+  oauth: {
+    client_id: 'a6db218e886efe4953d8',
+    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
+  },
+})
+gitment.render('container')
+</script></div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hs_pre.html" class="btn btn-neutral float-right" title="hyperscan预备知识" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="regex.html" class="btn btn-neutral" title="正则表达式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Zhao Ziqing.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
