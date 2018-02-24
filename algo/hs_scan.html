@@ -37,10 +37,7 @@
         <link rel="index" title="索引"
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
-    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
-        <link rel="up" title="算法与问题" href="index.html"/>
-        <link rel="next" title="网络算法学" href="../netalgo/index.html"/>
-        <link rel="prev" title="hyperscan编译期" href="hs_compile.html"/> 
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -69,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                2018.01
               </div>
             
           
@@ -93,7 +90,7 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
@@ -254,7 +251,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">算法与问题</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="find.html">查找</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ac.html">AC算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">正则表达式</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="regex.html#id2">1. 概述</a></li>
@@ -284,35 +305,31 @@
 <li class="toctree-l2"><a class="reference internal" href="hs_intro.html">hyperscan介绍</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id1">源码结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb-compile">gdb分析: compile</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#rose-add">rose-&gt;add()</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb-match">gdb分析: match</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id2">gdb分析: 带^锚点的compile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id3">gdb分析: 带^锚点的match</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id4">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb">gdb分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id2">参考</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-graph-library">Boost Graph Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id1">右值引用与移动赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id2">委托构造</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id3">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id4">设计模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#visitor">VISITOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#builder">BUILDER</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id5">数据结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#graph">Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#intrusive-list">Intrusive List</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-library">Boost Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hs_debug.html">hyperscan调试环境与技巧</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id1">编译</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id2">第3方依赖库</a></li>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#cmake">CMake配置</a></li>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id3">编译过程</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id4">生成源码文档</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hs_parse.html">hyperscan表达式解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hs_compile.html">hyperscan编译期</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">hyperscan运行时匹配</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a><ul>
@@ -379,7 +396,20 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../lang/index.html">程序设计语言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lang/cpp11.html">C++ 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/stl.html">标准库</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
@@ -576,6 +606,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#id1">修改系统对消息队列的默认限制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/xiaomi_router.html">小米路由器开发</a><ul>
@@ -612,6 +652,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于我</a></li>
 </ul>
 
             
@@ -656,8 +697,6 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">算法与问题</a> &raquo;</li>
-        
       <li>hyperscan运行时匹配</li>
     
     
@@ -687,25 +726,15 @@
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../netalgo/index.html" class="btn btn-neutral float-right" title="网络算法学" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="hs_compile.html" class="btn btn-neutral" title="hyperscan编译期" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Zhao Ziqing.
+        &copy; Copyright 2018, 赵子清.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -723,7 +752,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.0',
+            VERSION:'2018.01.30',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

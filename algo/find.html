@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Lua语言 &mdash; zzq&#39;s blog</title>
+  <title>查找 &mdash; zzq&#39;s blog</title>
   
 
   
@@ -38,8 +38,9 @@
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
-        <link rel="next" title="语言基础" href="basic.html"/>
-        <link rel="prev" title="PC Assembly Language读书笔记" href="../asm/pcasm.html"/> 
+        <link rel="up" title="数据结构与算法" href="index.html"/>
+        <link rel="next" title="AC算法" href="ac.html"/>
+        <link rel="prev" title="排序" href="order.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -68,7 +69,7 @@
             
             
               <div class="version">
-                1.0
+                2018.01
               </div>
             
           
@@ -253,6 +254,87 @@
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">数据结构与算法</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="order.html">排序</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regex.html#id12">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb">gdb分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id1">右值引用与移动赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id2">委托构造</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id3">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id4">设计模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#visitor">VISITOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#builder">BUILDER</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id5">数据结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#graph">Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#intrusive-list">Intrusive List</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../netalgo/proto_process.html">9 Protocol Processing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../netalgo/proto_process.html#id1">9.1 缓存管理</a><ul>
@@ -316,33 +398,58 @@
 <li class="toctree-l1"><a class="reference internal" href="../wireshark/index.html">wireshark</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../algo/index.html">算法与问题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algo/regex.html">正则表达式</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id2">1. 概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#parse">2. 解析(parse)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id4">2.1 词法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id5">2.2 语法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id6">2.3 抽象语法树</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id4">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#compile">3. 编译(compile)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfa">3.1 构造NFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id8">3.4 消除死状态</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#dfa">3.5 DFA最小化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id9">3.6 DFA序列化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/stl.html">标准库</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#match">4. 匹配(match)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id10">5. 优化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id11">5.1 内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../algo/regex.html#id12">5.2 性能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#chunk">Chunk</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../algo/regex.html#id13">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#thread">thread</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -351,46 +458,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id2">一般应用: 图形界面</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#id3">一般应用: 命令行</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../asm/index.html">汇编语言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../asm/pcasm.html">PC Assembly Language读书笔记</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Lua语言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="basic.html">语言基础</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="basic.html#id2">预备知识</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#lua">获得lua</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id3">lua命令行</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id4">保留关键字</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id5">注释</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#chunk">Chunk</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="basic.html#id6">数据类型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#string">string</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#userdata">userdata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#thread">thread</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="basic.html#id7">表达式</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id8">算术运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id9">关系运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id10">逻辑运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id11">连接运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id12">运算符优先级</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="basic.html#id13">语句</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id14">赋值</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id15">局部变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id16">条件语句</a></li>
-<li class="toctree-l4"><a class="reference internal" href="basic.html#id17">循环语句</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="basic.html#id18">函数</a></li>
 </ul>
 </li>
 </ul>
@@ -477,6 +544,26 @@
 <li class="toctree-l4"><a class="reference internal" href="../tools/rest/with_vscode.html#id4">问题记录</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/latex/debug.html">错误调试</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/patch.html">补丁工具patch</a><ul>
@@ -519,7 +606,35 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#id1">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -540,6 +655,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于我</a></li>
 </ul>
 
             
@@ -584,7 +700,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Lua语言</li>
+          <li><a href="index.html">数据结构与算法</a> &raquo;</li>
+        
+      <li>查找</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -601,24 +719,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lua">
-<h1>Lua语言<a class="headerlink" href="#lua" title="永久链接至标题">¶</a></h1>
-<p>Lua本身以简单优雅为美, 着眼于处理那些C不擅长的任务. 借助C/C++为其扩展, Lua可以展现无穷的魅力. Lua本身完全遵循ANSI C写成, 只要有C编译器的地方, Lua便可以发挥它的力量. Lua不需要追求python那样大而全的库, 太多的累赘, 反而会破坏她的优美.</p>
-<blockquote>
-<div>— &lt;Lua中文教程&gt;译序</div></blockquote>
-<p>本系列文章基于lua 5.2</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="basic.html">语言基础</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="basic.html#id2">预备知识</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic.html#id6">数据类型</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic.html#id7">表达式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic.html#id13">语句</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic.html#id18">函数</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <div class="section" id="id1">
+<h1>查找<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>更新于: 2018.02.24</p>
 </div>
 
 
@@ -631,10 +734,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="basic.html" class="btn btn-neutral float-right" title="语言基础" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ac.html" class="btn btn-neutral float-right" title="AC算法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../asm/pcasm.html" class="btn btn-neutral" title="PC Assembly Language读书笔记" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="order.html" class="btn btn-neutral" title="排序" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -643,11 +746,10 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Zhao Ziqing.
+        &copy; Copyright 2018, 赵子清.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -665,7 +767,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.0',
+            VERSION:'2018.01.30',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

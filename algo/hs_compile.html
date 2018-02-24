@@ -37,10 +37,7 @@
         <link rel="index" title="索引"
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
-    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
-        <link rel="up" title="算法与问题" href="index.html"/>
-        <link rel="next" title="hyperscan运行时匹配" href="hs_scan.html"/>
-        <link rel="prev" title="hyperscan表达式解析" href="hs_parse.html"/> 
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -69,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                2018.01
               </div>
             
           
@@ -93,7 +90,7 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
@@ -254,7 +251,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../tcpip/index.html">TCP/IP详解</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">算法与问题</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="find.html">查找</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ac.html">AC算法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">正则表达式</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="regex.html#id2">1. 概述</a></li>
@@ -284,35 +305,31 @@
 <li class="toctree-l2"><a class="reference internal" href="hs_intro.html">hyperscan介绍</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id1">源码结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb-compile">gdb分析: compile</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#rose-add">rose-&gt;add()</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb-match">gdb分析: match</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id2">gdb分析: 带^锚点的compile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id3">gdb分析: 带^锚点的match</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id4">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#gdb">gdb分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html#id2">参考</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-graph-library">Boost Graph Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id1">右值引用与移动赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id2">委托构造</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id3">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id4">设计模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#visitor">VISITOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#builder">BUILDER</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#id5">数据结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#graph">Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#intrusive-list">Intrusive List</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html#boost-library">Boost Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hs_debug.html">hyperscan调试环境与技巧</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id1">编译</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id2">第3方依赖库</a></li>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#cmake">CMake配置</a></li>
-<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id3">编译过程</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="hs_debug.html#id4">生成源码文档</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hs_parse.html">hyperscan表达式解析</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">hyperscan编译期</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hs_scan.html">hyperscan运行时匹配</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../netalgo/index.html">网络算法学</a><ul>
@@ -379,7 +396,20 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../lang/index.html">程序设计语言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lang/cpp11.html">C++ 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/cpp/stl.html">标准库</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
@@ -576,6 +606,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/centos.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#id1">修改系统对消息队列的默认限制</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/xiaomi_router.html">小米路由器开发</a><ul>
@@ -612,6 +652,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutme.html">关于我</a></li>
 </ul>
 
             
@@ -656,8 +697,6 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">算法与问题</a> &raquo;</li>
-        
       <li>hyperscan编译期</li>
     
     
@@ -677,6 +716,255 @@
             
   <div class="section" id="hyperscan">
 <h1>hyperscan编译期<a class="headerlink" href="#hyperscan" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>hyperscan使用 <a class="reference external" href="https://www.colm.net/open-source/ragel/">Ragel</a> 解析并生成语法树
+Component, 然后使用Glushkov构造法将其转化为NFA.</p>
+</div>
+<div class="section" id="id2">
+<h2>主要类介绍<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="component">
+<h3>Component<a class="headerlink" href="#component" title="永久链接至标题">¶</a></h3>
+<p>Component是一个抽象基类, 用来表示正则表达式解析后的抽象语法树. 它定义的接口有:</p>
+<ul class="simple">
+<li>clone</li>
+<li>accept</li>
+<li>first</li>
+<li>last</li>
+<li>empty</li>
+<li>vacuous_everywhere</li>
+<li>repeatable</li>
+<li>optimise</li>
+<li>notePositions Informs the Glushkov build process of the positions used by this component</li>
+<li>buildFollowSet</li>
+<li>checkEmbeddedStartAnchor</li>
+<li>checkEmbeddedEndAnchor</li>
+</ul>
+<p>hyperscan在这里使用了Visitor设计模式, 定义了多个行为不同的Visitor类, 可以传入
+Component类的accept来对它进行多种遍历动作.</p>
+<p>Component的主要派生类有:</p>
+<ul class="simple">
+<li>ComponentSequence 含有子Component数组和ComponentAlternation指针</li>
+<li>ComponentAlternation 含有子Component数组</li>
+<li>ComponentClass 字符类Component抽象基类</li>
+<li>AsciiComponentClass ComponentClass的实体派生类,表示ASCII字符</li>
+<li>ComponentRepeat</li>
+</ul>
+</div>
+<div class="section" id="nfabuilder">
+<h3>NFABuilder<a class="headerlink" href="#nfabuilder" title="永久链接至标题">¶</a></h3>
+<p>NFABuilder是一个抽象基类, 它的实体派生类是NFABuilderImpl. NFABuilder用于Glushkov
+构造法从解析后的语法树(Component)构造一个NFA Graph. 它定义的接口有:</p>
+<ul class="simple">
+<li>makePositions</li>
+<li>getStart</li>
+<li>getStartDotStar</li>
+<li>getAccept</li>
+<li>getAcceptEOD</li>
+<li>isSpecialState</li>
+<li>setNodeReportID</li>
+<li>addCharReach</li>
+<li>setAssertFlag</li>
+<li>getAssertFlag</li>
+<li>addVertex</li>
+<li>addEdge</li>
+<li>hasEdge</li>
+<li>numVertices</li>
+<li>cloneRegion</li>
+<li>getGraph</li>
+</ul>
+<p>NFABuilderImpl类有一个NGHolder成员graph.</p>
+</div>
+<div class="section" id="glushkovbuildstate">
+<h3>GlushkovBuildState<a class="headerlink" href="#glushkovbuildstate" title="永久链接至标题">¶</a></h3>
+<p>此类也是一个抽象基类, 它的实体派生类是GlushkovBuildStateImpl. GlushkovBuildState封装了
+Glushkov构造法, 它定义的接口有:</p>
+<ul class="simple">
+<li>getBuilder</li>
+<li>connectRegions</li>
+<li>connectAccepts</li>
+<li>addSuccessor</li>
+<li>cloneFollowSet</li>
+<li>buildEdges</li>
+</ul>
+</div>
+<div class="section" id="ng">
+<h3>NG<a class="headerlink" href="#ng" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="ngholder">
+<h3>NGHolder<a class="headerlink" href="#ngholder" title="永久链接至标题">¶</a></h3>
+<p>Encapsulates an NFAGraph, stores special vertices and other metadata. When
+constructed, the graph will have the following stylised “special” edges:</p>
+<ul class="simple">
+<li>(start, startDs)</li>
+<li>(startDs, startDs) (self-loop)</li>
+<li>(accept, acceptEod)</li>
+</ul>
+<p>NGHolder是ue2_graph的派生类.</p>
+</div>
+<div class="section" id="ue2-graph">
+<h3>ue2_graph<a class="headerlink" href="#ue2-graph" title="永久链接至标题">¶</a></h3>
+<p>底层的图(graph)类. util/ue2_graph.h的注释里阐述了这个类的设计思想,如下:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Basic design of ue2_graph:</span>
+<span class="cm"> *</span>
+<span class="cm"> * Fairly standard adjacency list type graph structure. The main internal</span>
+<span class="cm"> * structures are vertex_node and edge_node.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Each vertex_node maintains lists of incoming and outgoing edge_nodes, a</span>
+<span class="cm"> * serial number and the vertex properties.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Each edge_node contains pointers to the source and target vertex as well as</span>
+<span class="cm"> * the serial number and edge properties.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Every time an edge_node or vertex_node is created in the graph, it is given a</span>
+<span class="cm"> * unique serial number by increasing a private counter in the graph.</span>
+<span class="cm"> *</span>
+<span class="cm"> * The main thing to note is that the in and out edge lists are intrusive lists</span>
+<span class="cm"> * with the edge_node containing the necessary hooks. This means that we can</span>
+<span class="cm"> * easily convert the edge_node to iterators of the in_edge_list and</span>
+<span class="cm"> * out_edge_list and remove them from the lists.</span>
+<span class="cm"> *</span>
+<span class="cm"> * vertex_descriptor and edge_descriptor structures both just wrap pointers to</span>
+<span class="cm"> * the relevant node structure along with the serial number. operator&lt;() for the</span>
+<span class="cm"> * descriptors is overridden to look at the serial member of the node.</span>
+<span class="cm"> * We do not use:</span>
+<span class="cm"> *    - the address of the node structure as this would lead to an unstable</span>
+<span class="cm"> *      ordering of vertices between runs.</span>
+<span class="cm"> *    - the index field as this would mean that the generation of new index</span>
+<span class="cm"> *      values (during say renumbering of vertex nodes after removing some</span>
+<span class="cm"> *      vertices) would potentially reorder vertices and corrupt containers</span>
+<span class="cm"> *      such as std::set&lt;&gt;.</span>
+<span class="cm"> * The serial number is copied into the descriptors so that we can still have</span>
+<span class="cm"> * descriptors in a container (such as set or unordered_set) after removing the</span>
+<span class="cm"> * underlying node.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Hashing of descriptors is based on the serial field for similar reasons.</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> * Main differences from boost::adjacency_list&lt;&gt; with listS:</span>
+<span class="cm"> *</span>
+<span class="cm"> * (1) Deterministic ordering for vertices and edges</span>
+<span class="cm"> *     boost::adjacency_list&lt;&gt; uses pointer ordering for vertex_descriptors. As</span>
+<span class="cm"> *     a result, ordering of vertices and edges between runs is</span>
+<span class="cm"> *     non-deterministic  unless containers, etc use custom comparators.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (2) Proper types for descriptors, etc.</span>
+<span class="cm"> *     No more void * for vertex_descriptors and trying to use it for the wrong</span>
+<span class="cm"> *     graph type.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (3) Constant time num_edges(), num_vertices(), degree(), in_degree() and</span>
+<span class="cm"> *     out_degree()</span>
+<span class="cm"> *     std::list is meant to have constant time in C++11 ::size(), but this is</span>
+<span class="cm"> *     not always implemented as people want to keep ABI compatibility with</span>
+<span class="cm"> *     existing C++98 standard libraries (gcc 4.8). As ue2_graph_h uses</span>
+<span class="cm"> *     intrusive lists rather than std::list this is not an issue for us.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (4) Constant time remove_edge(e, g)</span>
+<span class="cm"> *     ue2_graph uses boost::intrusive_lists internally so we can easily unlink</span>
+<span class="cm"> *     an edge from the in and out edgelist of its source and target.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (5) More efficient edge(u, v, g) and remove_edge(u, v, g)</span>
+<span class="cm"> *     ue2_graph will check which of u and v has the smallest relevant degree</span>
+<span class="cm"> *     and use that to search for the edge(s).</span>
+<span class="cm"> *</span>
+<span class="cm"> * (6) Automatically populate the index field of vertex and edge bundles.</span>
+<span class="cm"> *     Saves us from doing it manually. Naturally there is nothing to prevent</span>
+<span class="cm"> *     the user from stuffing up the index properties later.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (7) Different edge iteration order</span>
+<span class="cm"> *     ue2_graph does not maintain an explicit global edge list, so the</span>
+<span class="cm"> *     edge_iterator is constructed out of vertex_iterator and</span>
+<span class="cm"> *     out_edge_iterators by iterating the out_edges of each vertices. This</span>
+<span class="cm"> *     means that edge iteration order is not insertion order like for</span>
+<span class="cm"> *     adjacency_list.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (8) null_edge()</span>
+<span class="cm"> *     Because why not?</span>
+<span class="cm"> *</span>
+<span class="cm"> * (9) vertex and edge properties must have an index field.</span>
+<span class="cm"> *     We generally need them so the effort has not been put into specialising</span>
+<span class="cm"> *     for when they are not present.</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> * Possible Future Work:</span>
+<span class="cm"> *</span>
+<span class="cm"> * (1) Improve edge(u, v, g) performance</span>
+<span class="cm"> *     This function sees a fair amount of use and is O(n) in the smallest of</span>
+<span class="cm"> *     the source out_degree or target in_degree. This could be improved by</span>
+<span class="cm"> *     changes on of the edge containers to be something similar to a multiset.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (2) &#39;Lie&#39; about the number of edges / vertices</span>
+<span class="cm"> *</span>
+<span class="cm"> *     One of the main uses of num_edges() and num_vertices() is to allocate a</span>
+<span class="cm"> *     vector, etc so that it can be indexed by edge or vertex index. If</span>
+<span class="cm"> *     num_edges() and num_vertices() returned the appropriate size for such a</span>
+<span class="cm"> *     vector (at least one more than the largest index), we would be able to</span>
+<span class="cm"> *     avoid some renumbering operations. Functions would have to be provided to</span>
+<span class="cm"> *     get the real number of vertices and edges. Having num_vertices() and</span>
+<span class="cm"> *     num_edges() return an over-estimate is not without precedence in the BGL</span>
+<span class="cm"> *     - the filtered_graph adaptor does the same thing and is compatible with</span>
+<span class="cm"> *     various (all?) BGL algorithms. It is not clear that this was done</span>
+<span class="cm"> *     deliberately for the same reason or because it is difficult for</span>
+<span class="cm"> *     filtered_graph to get the true counts.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (3) Investigate slab/pooled allocation schemes for nodes.</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<p>此类主要的数据结构:</p>
+<ul class="simple">
+<li>vertex, 即图的顶点. 含有一个serial number用来排序</li>
+<li>edge, 即图中顶点之间的边. 含有一个serial number用来排序</li>
+<li>每个vertex拥有一个in_edge链表和一个out_edge链表, 其中in_edge链表中的edge由其他vertex
+拥有, 而out_edge中的edge由本vertex拥有</li>
+<li>vertex链表</li>
+<li>vertex链表和edge链表都采用intrusive list实现</li>
+<li>vertex_descriptor 封装vertex, 提供由serial number计算的hash</li>
+<li>edge_descriptor 封装edge, 提供由serial number计算的hash</li>
+</ul>
+<p>此类的接口有:</p>
+<ul class="simple">
+<li>null_vertex 返回空vertex描述符</li>
+<li>null_edge 返回空edge描述符</li>
+<li>add_vertex_impl 添加新vertex</li>
+<li>remove_vertex_impl 删除vertex,删除前应保证其in_edge链表和out_edge链表已经清空</li>
+<li>clear_in_edges_impl 清空vertex的out_edge链表</li>
+<li>source_impl 返回edge的源vertex</li>
+<li>target_impl 返回edge的目的vertex</li>
+<li>out_degree_impl 返回vertex的out_edge链表中的元素个数</li>
+<li>out_edges_impl 返回vertex的out_edge迭代器对</li>
+<li>in_degree_impl 返回vertex的in_edge链表中的元素个数</li>
+<li>in_edges_impl 返回vertex的in_edge迭代器对</li>
+<li>adjacencent_vertices_impl 返回vertex的out_edge链表的adjacency迭代器对</li>
+<li>edge_impl 返回两个vertex之间的edge</li>
+<li>inv_adjacent_vertices_impl 返回vertex的in_edge链表的inv_adjacency迭代器对</li>
+<li>add_edge_impl 给两个vertex之间添加一条edge</li>
+<li>remove_edge_impl 删除一条edge, 在内部也会从2个vertex的对应edge链表中删除相关信息</li>
+<li>remove_out_edge_if_impl 删除vertex的out_edge链表中符合某条件的元素</li>
+<li>remove_in_edge_if_impl 删除vertex的in_edge链表中符合某条件的元素</li>
+<li>remove_edge_if_impl 删除满足条件的edge</li>
+<li>remove_edge_impl 删除两个vertex之间的edge</li>
+<li>num_vertices_impl 返回vertex链表中的元素个数</li>
+<li>vertices_impl 返回vertex链表对应的vertex迭代器对</li>
+<li>num_edges_impl 返回edge个数</li>
+<li>edges_impl 返回edge迭代器对</li>
+<li>operator[](vertex_descriptor) 返回vertex对应的property</li>
+<li>operator[](edge_descriptor) 返回edge对应的property</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>编译步骤<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li>取得一个正则表达式expr</li>
+<li>使用Ragel生成的代码, 对expr进行解析(parse), 生成解析后的语法树componet</li>
+<li>对component进行优化</li>
+<li>使用Glushkov构造法, 将component编译为NFA</li>
+</ol>
+</div>
 </div>
 
 
@@ -687,25 +975,15 @@
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="hs_scan.html" class="btn btn-neutral float-right" title="hyperscan运行时匹配" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="hs_parse.html" class="btn btn-neutral" title="hyperscan表达式解析" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Zhao Ziqing.
+        &copy; Copyright 2018, 赵子清.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -723,7 +1001,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.0',
+            VERSION:'2018.01.30',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
