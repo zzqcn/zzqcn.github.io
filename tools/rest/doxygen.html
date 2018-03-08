@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -727,12 +734,12 @@
 <div class="section" id="step1">
 <h2>Step1<a class="headerlink" href="#step1" title="永久链接至标题">¶</a></h2>
 <p>运行:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">doxygen</span> <span class="o">-</span><span class="n">g</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">doxygen</span> <span class="o">-</span><span class="n">g</span>
 </pre></div>
 </div>
 <p>生成doxygen配置文件(默认文件名是Doxyfile)，然后修改此文件：</p>
 <ul class="simple">
-<li><strong>项目名称</strong> PROJECT_NAME = “MyProject”</li>
+<li><strong>项目名称</strong> PROJECT_NAME = &quot;MyProject&quot;</li>
 <li><strong>对C项目优化</strong> OPTIMIZE_OUTPUT_FOR_C  = YES</li>
 <li><strong>源文件路径</strong> INPUT = /home/tom/project/include</li>
 <li><strong>源文件编码</strong> INPUT_ENCODEING = UTF-8</li>
@@ -747,7 +754,7 @@
 <div class="section" id="step2">
 <h2>Step2<a class="headerlink" href="#step2" title="永久链接至标题">¶</a></h2>
 <p>运行:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">doxygen</span> <span class="p">[</span><span class="n">Doxyfile</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">doxygen</span> <span class="p">[</span><span class="n">Doxyfile</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>输出注释，主要是xml。</p>
@@ -756,20 +763,20 @@
 <h2>Step3<a class="headerlink" href="#step3" title="永久链接至标题">¶</a></h2>
 <p>配置conf.py，以支持breathe扩展。前提是这一扩展已经安装。</p>
 <p>加入扩展:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;breathe&#39;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;breathe&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>配置breathe:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">breathe_projects</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;myproject&quot;</span><span class="p">:</span> <span class="s2">&quot;./my_xml&quot;</span> <span class="p">}</span>
-<span class="n">breathe_default_project</span> <span class="o">=</span> <span class="s2">&quot;myproject&quot;</span>
-<span class="n">breathe_domain_by_extension</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;h&quot;</span> <span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">breathe_projects</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;myproject&quot;</span><span class="p">:</span> <span class="s">&quot;./my_xml&quot;</span> <span class="p">}</span>
+<span class="n">breathe_default_project</span> <span class="o">=</span> <span class="s">&quot;myproject&quot;</span>
+<span class="n">breathe_domain_by_extension</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;h&quot;</span> <span class="p">:</span> <span class="s">&quot;c&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="step4">
 <h2>Step4<a class="headerlink" href="#step4" title="永久链接至标题">¶</a></h2>
 <p>按breathe扩展语法编写rst文件，比如:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">API</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">My</span> <span class="n">API</span>
 <span class="o">==========</span>
 
 <span class="n">sp</span><span class="o">.</span><span class="n">h</span>
@@ -781,7 +788,7 @@
 <p>上面的语句为项目中的sp.h接口文件生成了html文档。</p>
 <p>最后，运行 <code class="docutils literal"><span class="pre">make</span> <span class="pre">html</span></code> 生成html即可。</p>
 <p>在这些步骤中，需要先调用doxygen生成xml，再调用sphinx-build(make html时自动调用)生成最终文档，如果想一步完成，可以在Makefile中加入doxygen调用:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>html:
+<div class="highlight-default"><div class="highlight"><pre>html:
 -&gt;&gt;&gt;doxygen Doxyfile
 -&gt;&gt;&gt;$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 -&gt;&gt;&gt;@echo
@@ -848,7 +855,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

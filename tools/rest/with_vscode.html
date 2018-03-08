@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -749,29 +756,29 @@
 <ol class="arabic">
 <li><p class="first">全局配置</p>
 <p>依次打开菜单: 文件/首选项/设置, 加入:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># windows</span>
-<span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">restructuredtext-lint.exe&quot;</span>
-<span class="c1"># Mac/Linux, 应该是默认值，不用设置</span>
-<span class="s2">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s2">&quot;restructuredtext-lint&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># windows</span>
+<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">restructuredtext-lint.exe&quot;</span>
+<span class="c"># Mac/Linux, 应该是默认值，不用设置</span>
+<span class="s">&quot;restructuredtext.linter.executablePath&quot;</span><span class="p">:</span> <span class="s">&quot;restructuredtext-lint&quot;</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">当前文件夹配置</p>
 <p><strong>Windows</strong></p>
 <p>假设项目文件夹为D:\dev\hds, 且reST文档源文件位于D:\dev\hds\doc, conf.py也在这个目录下,
-在D:\dev\hds.vscode\settings.json中加入以下配置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">sphinx-build.exe&quot;</span>
+在D:\dev\hds\.vscode\settings.json中加入以下配置:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.sphinxBuildPath&quot;</span>        <span class="p">:</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">Python27</span><span class="se">\\</span><span class="s">Scripts</span><span class="se">\\</span><span class="s">sphinx-build.exe&quot;</span>
 </pre></div>
 </div>
 <p><strong>Mac</strong></p>
 <p>假设项目文件夹为/Users/zzq/dev/hds, 且reST文档源文件位于/Users/zzq/dev/hds/doc,
 conf.py也在这个目录下, /Users/zzq/dev/hds/.vscode/settings.json中加入以下配置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc/_build/html&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{workspaceRoot}</span><span class="s2">/doc&quot;</span><span class="p">,</span>
-<span class="s2">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s2">&quot;true&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="s">&quot;restructuredtext.builtDocumentationPath&quot;</span> <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc/_build/html&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.confPath&quot;</span>               <span class="p">:</span> <span class="s">&quot;${workspaceRoot}/doc&quot;</span><span class="p">,</span>
+<span class="s">&quot;restructuredtext.updateOnTextChanged&quot;</span>    <span class="p">:</span> <span class="s">&quot;true&quot;</span>
 </pre></div>
 </div>
 <p>sphinx-build路径不用设置，用默认值即可.</p>
@@ -793,7 +800,7 @@ conf.py也在这个目录下, /Users/zzq/dev/hds/.vscode/settings.json中加入�
 <a class="reference external" href="https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69">https://github.com/vscode-restructuredtext/vscode-restructuredtext/issues/69</a>
 并自己编译了一个版本修正了这个bug.</p>
 <p>reStructuredText插件编译步骤(Linux):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd</span> ~
 git clone https://github.com/vscode-restructuredtext/vscode-restructuredtext.git
 <span class="nb">cd</span> ~/vscode-restructuredtext
 npm install --unsafe-perm<span class="o">=</span><span class="nb">true</span>
@@ -804,12 +811,12 @@ npm run compile
 </div>
 <p>编译完成后, 将整个rscode-restructuredtext目录拷贝到vscode插件目录即可, 不同操作系统这个目录不同:</p>
 <ul class="simple">
-<li>Windows  %USERPROFILE%.vscode\extensions</li>
+<li>Windows  %USERPROFILE%\.vscode\extensions</li>
 <li>Mac  $HOME/.vscode/extensions</li>
 <li>Linux  $HOME/.vscode/extensions</li>
 </ul>
 <p>也可以打包成vsix文件然后安装:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>npm install -g vsce
+<div class="highlight-bash"><div class="highlight"><pre>npm install -g vsce
 vsce package
 </pre></div>
 </div>
@@ -875,7 +882,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

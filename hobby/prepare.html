@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -747,7 +754,7 @@
 </div>
 <div class="section" id="id2">
 <h2>Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>默认情况下QuickTime只能通过电脑的麦克风来录音，如果想录系统声音，需要安装一个名叫soundflower的内核扩展，它会在系统中创建一个虚拟音频输出设备…（听不懂？没关系）</p>
+<p>默认情况下QuickTime只能通过电脑的麦克风来录音，如果想录系统声音，需要安装一个名叫soundflower的内核扩展，它会在系统中创建一个虚拟音频输出设备...（听不懂？没关系）</p>
 <p>到网页 <a class="reference external" href="https://github.com/mattingalls/Soundflower/releases">https://github.com/mattingalls/Soundflower/releases</a>，
 找到靠上的Dowloads区域，下载Soundflower-x.y.z.dmg （x.y.z是版本号），下载完成后安装。</p>
 <p>安装完成后，打开系统设置-声音，选择Sounflower (2ch)做为音频输出，然后打开QuickTime，选择录音，弹出的界面上红色的按钮右边有个小箭头，点它出来个菜单，在里面选择Soundflower(2ch)。现在，就可以打开播放音乐或视频进行录音了。</p>
@@ -757,7 +764,7 @@
 <p class="first admonition-title">警告</p>
 <p class="last">请注意自己是否有合法权限使用和重新发布录制的音视频</p>
 </div>
-<p>（未完待续……）</p>
+<p>（未完待续......）</p>
 <div id="container"></div>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -818,7 +825,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

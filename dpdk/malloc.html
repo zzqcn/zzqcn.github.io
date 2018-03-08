@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -736,8 +743,8 @@
 <li><p class="first">struct malloc_heap - 用于在每个socket上跟踪空闲内存</p>
 <blockquote>
 <div><p>每个NUMA节点有一个malloc_heap结构，用于给NUMA节点上的线程分配内存，然而，它无法保证此内存仅被当前NUMA节点所使用。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_heap</span> <span class="p">{</span>
-    <span class="n">rte_spinlock_t</span> <span class="n">lock</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">malloc_heap</span> <span class="p">{</span>
+    <span class="kt">rte_spinlock_t</span> <span class="n">lock</span><span class="p">;</span>
     <span class="n">LIST_HEAD</span><span class="p">(,</span> <span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_head</span><span class="p">[</span><span class="n">RTE_HEAP_NUM_FREELISTS</span><span class="p">];</span>
     <span class="kt">unsigned</span> <span class="n">alloc_count</span><span class="p">;</span>
     <span class="kt">size_t</span> <span class="n">total_size</span><span class="p">;</span>
@@ -756,7 +763,7 @@
 <li>在内存块内部作为填充首部(padding header)</li>
 <li>做为memseg的结束标记</li>
 </ol>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">malloc_heap</span><span class="o">*</span> <span class="n">heap</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">malloc_elem</span><span class="o">*</span> <span class="k">volatile</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// points to prev elem in memseg</span>
     <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">malloc_elem</span><span class="p">)</span> <span class="n">free_list</span><span class="p">;</span> <span class="c1">// list of free elements in heap</span>
@@ -795,13 +802,13 @@
 <li>将FREE节点挂到malloc heap的空闲内存链表free-list中</li>
 </ul>
 <p>以下3行代码(librte_eal/common/malloc_heap.c: malloc_heap_add_memseg)分别对应这3个过程：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">malloc_elem_init</span><span class="p">(</span><span class="n">start_elem</span><span class="p">,</span> <span class="n">heap</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">malloc_elem_init</span><span class="p">(</span><span class="n">start_elem</span><span class="p">,</span> <span class="n">heap</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">elem_size</span><span class="p">);</span>
 <span class="n">malloc_elem_mkend</span><span class="p">(</span><span class="n">end_elem</span><span class="p">,</span> <span class="n">start_elem</span><span class="p">);</span>
 <span class="n">malloc_elem_free_list_insert</span><span class="p">(</span><span class="n">start_elem</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在把FREE节点挂到free-list的时候，如前所言，会根据其大小，挂入对应的free-list。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">malloc_elem_free_list_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">malloc_elem_free_list_insert</span><span class="p">(</span><span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">size_t</span> <span class="n">idx</span><span class="p">;</span>
 
@@ -812,7 +819,7 @@
 </pre></div>
 </div>
 <p>malloc_elem_free_list_index()用于求得链表的索引，从这个函数的代码可以看到DPDK是怎么根据内存块大小来划分13个free-list的。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">malloc_elem_free_list_index</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">size_t</span> <span class="nf">malloc_elem_free_list_index</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="cp">#define MALLOC_MINSIZE_LOG2   8</span>
 <span class="cp">#define MALLOC_LOG2_INCREMENT 2</span>
@@ -921,7 +928,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

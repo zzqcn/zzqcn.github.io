@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -758,7 +765,7 @@
 <h3>3.1.1. 大页信息初始化<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <p>eal_hugepage_info_init(librte_eal/linuxapp/eal/eal_hugepage_info.c):</p>
 <p>大页信息结构为：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">hugepage_info</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">hugepage_info</span> <span class="p">{</span>
      <span class="kt">uint64_t</span> <span class="n">hugepage_sz</span><span class="p">;</span>   <span class="cm">/**&lt; size of a huge page */</span>
      <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hugedir</span><span class="p">;</span>    <span class="cm">/**&lt; dir where hugetlbfs is mounted */</span>
      <span class="kt">uint32_t</span> <span class="n">num_pages</span><span class="p">[</span><span class="n">RTE_MAX_NUMA_NODES</span><span class="p">];</span>
@@ -786,7 +793,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 <div class="section" id="id3">
 <h3>3.1.2. 大页内存初始化<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>rte_eal_memory_init (librte_eal/common/eal_common_memory.c)</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">rte_eal_process_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">RTE_PROC_PRIMARY</span> <span class="o">?</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">const</span> <span class="kt">int</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">rte_eal_process_type</span><span class="p">()</span> <span class="o">==</span> <span class="n">RTE_PROC_PRIMARY</span> <span class="o">?</span>
             <span class="n">rte_eal_hugepage_init</span><span class="p">()</span> <span class="o">:</span>
             <span class="n">rte_eal_hugepage_attach</span><span class="p">();</span>
 </pre></div>
@@ -797,7 +804,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 <li><p class="first">检查 <code class="docutils literal"><span class="pre">/proc/self/pagemap</span></code> 是否可读</p>
 </li>
 <li><p class="first">计算各种页尺寸总共需要的页总数，并分配一个页表，每一页占一项</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">num_hugepage_sizes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">num_hugepage_sizes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">used_hp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">hugepage_sz</span> <span class="o">=</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">hugepage_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">hugepage_sz</span><span class="p">;</span>
     <span class="n">nr_hugepages</span> <span class="o">+=</span> <span class="n">internal_config</span><span class="p">.</span><span class="n">hugepage_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 <span class="p">}</span>
@@ -806,11 +813,11 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 </div>
 </li>
 <li><p class="first">映射所有大页</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">map_all_hugepages</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">map_all_hugepages</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在hugetlbfs挂载的路径，如 <code class="docutils literal"><span class="pre">/mnt/huge</span></code> 下面创建num_pages个文件，文件名默认为 <code class="docutils literal"><span class="pre">rtemap_XXX</span></code> ，XXX是数字。之后以页大小将这些文件映射：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
 <span class="n">virtaddr</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="n">vma_addr</span><span class="p">,</span> <span class="n">hugepage_sz</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span>
                      <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </pre></div>
@@ -818,18 +825,18 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 <p>如果orig为真，则将映射后的虚拟地址virtaddr赋给页表项结构的orig_va。之后给文件加一把共享锁(LOCK_SH)。</p>
 </li>
 <li><p class="first">对所有页尺寸，取得上一步映射得到的虚拟地址的物理地址</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">find_physaddrs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">find_physaddrs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在此函数中，调用rte_mem_virt2phy(librte_eal/linuxapp/eal/eal_memory.c)将虚拟地址转为物理地址:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">addr</span> <span class="o">=</span> <span class="n">rte_mem_virt2phy</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">orig_va</span><span class="p">);</span>
     <span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">=</span> <span class="n">addr</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>rte_mem_virt2phy：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Cannot parse /proc/self/pagemap, no need to log errors everywhere</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="c1">// Cannot parse /proc/self/pagemap, no need to log errors everywhere</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">proc_pagemap_readable</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">RTE_BAD_PHYS_ADDR</span><span class="p">;</span>
 
@@ -853,21 +860,21 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 <p>其中，通过 <code class="docutils literal"><span class="pre">/proc/self/pagemap</span></code> 来从虚拟地址得到物理地址的可以参考 <a class="reference internal" href="#linux-pagemap" id="id4">[linux_pagemap]</a> 和 <a class="reference internal" href="#virt2phy" id="id5">[virt2phy]</a> 。</p>
 </li>
 <li><p class="first">获取每一个大页对应的NUMA socket Id</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">find_numasocket</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">find_numasocket</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>打开 <code class="docutils literal"><span class="pre">/proc/self/numa_maps</span></code> 文件，解析其中的文本行，遇到类似 <code class="docutils literal"><span class="pre">7fd94fc00000</span> <span class="pre">prefer:0</span> <span class="pre">file=/dev/hugepages/rtemap_119</span> <span class="pre">huge</span> <span class="pre">dirty=1</span> <span class="pre">N0=1</span></code>
 的行，其中的7fd94fc00000是页的虚拟地址，N0=后面的数字0是该页对应的socket Id。</p>
 </li>
 <li><p class="first">根据物理地址排序页表项</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">sort_by_physaddr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">sort_by_physaddr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp_hp</span><span class="p">[</span><span class="n">hp_offset</span><span class="p">],</span> <span class="n">hpi</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在x86上，低地址在前，高地址在后。</p>
 </li>
 <li><p class="first">把排序后的页重新map一次 (此时orig参数为0)</p>
 <p>试图把连续的物理地址块映射到连续的虚拟地址块上。首先求物理地址连续的页的个数，算出需要的虚拟地址区域长度，然后再试图取得相应大小的虚拟地址，如果无法获取，则在mmap时让系统去决定虚拟地址：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">vma_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">vma_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="n">j</span><span class="p">,</span> <span class="n">num_pages</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">hpi</span><span class="o">-&gt;</span><span class="n">num_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">!=</span> <span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">+</span> <span class="n">hugepage_sz</span><span class="p">)</span>
@@ -884,7 +891,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 </div>
 </li>
 <li><p class="first">重新创建/打开大页文件并映射，把最终的虚拟地址存入final_va成员：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">filepath</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0755</span><span class="p">);</span>
 <span class="n">virtaddr</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="n">vma_addr</span><span class="p">,</span> <span class="n">hugepage_sz</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span>
          <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 <span class="n">hugepg_tbl</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">=</span> <span class="n">virtaddr</span><span class="p">;</span>
@@ -894,7 +901,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 <li><p class="first">unmap第一次内存映射</p>
 </li>
 <li><p class="first">将页表项保存到共享内存</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">hugepage</span> <span class="o">=</span> <span class="n">create_shared_memory</span><span class="p">(</span><span class="n">eal_hugepage_info_path</span><span class="p">(),</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">hugepage</span> <span class="o">=</span> <span class="n">create_shared_memory</span><span class="p">(</span><span class="n">eal_hugepage_info_path</span><span class="p">(),</span>
          <span class="n">nr_hugefiles</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">hugepage_file</span><span class="p">));</span>
 <span class="n">copy_hugepages_to_shared_mem</span><span class="p">(</span><span class="n">hugepage</span><span class="p">,</span> <span class="n">nr_hugefiles</span><span class="p">,</span>
             <span class="n">tmp_hp</span><span class="p">,</span> <span class="n">nr_hugefiles</span><span class="p">);</span>
@@ -903,7 +910,7 @@ id，在支持NUMA的系统中先在socket 0上进行操作</li>
 </li>
 <li><p class="first">将大页信息存入memory config结构rte_mem_config</p>
 <p>若干个页根据是否连续，是否同一个socket，是否相同页尺寸等，分成最多RTE_MAX_MEMSEG(默认256)个内存段(memory segment)：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">new_memseg</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">new_memseg</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">RTE_MAX_MEMSEG</span><span class="p">)</span>
         <span class="k">break</span><span class="p">;</span>
@@ -1010,7 +1017,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

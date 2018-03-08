@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -723,7 +730,7 @@
 <h1>lua基础<a class="headerlink" href="#lua" title="永久链接至标题">¶</a></h1>
 <p>Lua本身以简单优雅为美, 着眼于处理那些C不擅长的任务. 借助C/C++为其扩展, Lua可以展现无穷的魅力. Lua本身完全遵循ANSI C写成, 只要有C编译器的地方, Lua便可以发挥它的力量. Lua不需要追求python那样大而全的库, 太多的累赘, 反而会破坏她的优美.</p>
 <blockquote>
-<div>— &lt;Lua中文教程&gt;译序</div></blockquote>
+<div>--- &lt;Lua中文教程&gt;译序</div></blockquote>
 <p>本文章基于lua 5.2.</p>
 <div class="section" id="id1">
 <h2>预备知识<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
@@ -734,11 +741,11 @@
 <div class="section" id="id3">
 <h3>lua命令行<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>安装好lua后, 即可使用lua命令行, 它的使用非常简单:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">lua</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">script</span> <span class="p">[</span><span class="n">args</span><span class="p">]]</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">usage</span><span class="p">:</span> <span class="n">lua</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">script</span> <span class="p">[</span><span class="n">args</span><span class="p">]]</span>
 <span class="n">Available</span> <span class="n">options</span> <span class="n">are</span><span class="p">:</span>
-  <span class="o">-</span><span class="n">e</span> <span class="n">stat</span>  <span class="n">execute</span> <span class="n">string</span> <span class="s1">&#39;stat&#39;</span>
-  <span class="o">-</span><span class="n">i</span>       <span class="n">enter</span> <span class="n">interactive</span> <span class="n">mode</span> <span class="n">after</span> <span class="n">executing</span> <span class="s1">&#39;script&#39;</span>
-  <span class="o">-</span><span class="n">l</span> <span class="n">name</span>  <span class="n">require</span> <span class="n">library</span> <span class="s1">&#39;name&#39;</span>
+  <span class="o">-</span><span class="n">e</span> <span class="n">stat</span>  <span class="n">execute</span> <span class="n">string</span> <span class="s">&#39;stat&#39;</span>
+  <span class="o">-</span><span class="n">i</span>       <span class="n">enter</span> <span class="n">interactive</span> <span class="n">mode</span> <span class="n">after</span> <span class="n">executing</span> <span class="s">&#39;script&#39;</span>
+  <span class="o">-</span><span class="n">l</span> <span class="n">name</span>  <span class="n">require</span> <span class="n">library</span> <span class="s">&#39;name&#39;</span>
   <span class="o">-</span><span class="n">v</span>       <span class="n">show</span> <span class="n">version</span> <span class="n">information</span>
   <span class="o">-</span><span class="n">E</span>       <span class="n">ignore</span> <span class="n">environment</span> <span class="n">variables</span>
   <span class="o">--</span>       <span class="n">stop</span> <span class="n">handling</span> <span class="n">options</span>
@@ -747,13 +754,13 @@
 </div>
 <p>不加任何参数则进入交互式环境.</p>
 <p>arg全局变量保存了所有参数, 脚本名索引为0, 脚本参数的索引从1开始, 而脚本之前参数的索引为负数. 比如运行:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$lua -e &quot;print &#39;hello&#39;&quot; test.lua a b
+<div class="highlight-default"><div class="highlight"><pre>$lua -e &quot;print &#39;hello&#39;&quot; test.lua a b
 </pre></div>
 </div>
 <p>arg保存的值如下:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lua</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">lua</span>
 <span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">e</span>
-<span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">print</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">print</span> <span class="s">&#39;hello&#39;</span>
 <span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">lua</span>
 <span class="n">arg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
 <span class="n">arg</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
@@ -763,7 +770,7 @@
 <div class="section" id="id4">
 <h3>保留关键字<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>lua的变量命令和C语言一致, 但最好不要使用下划线加大字字母的标识符, 因为这样的标识符一般供内部使用. lua的保留关键字如下:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ow">and</span>     <span class="k">break</span>   <span class="n">do</span>      <span class="k">else</span>        <span class="n">elseif</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="ow">and</span>     <span class="k">break</span>   <span class="n">do</span>      <span class="k">else</span>        <span class="n">elseif</span>
 <span class="n">end</span>     <span class="n">false</span>   <span class="k">for</span>     <span class="n">function</span>    <span class="k">if</span>
 <span class="ow">in</span>      <span class="n">local</span>   <span class="n">nil</span>     <span class="ow">not</span>         <span class="ow">or</span>
 <span class="n">repeat</span>  <span class="k">return</span>  <span class="n">then</span>    <span class="n">true</span>        <span class="n">until</span>
@@ -774,8 +781,8 @@
 <div class="section" id="id5">
 <h3>注释<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>单行注释: –</li>
-<li>多行注释 –[[  –]]</li>
+<li>单行注释: --</li>
+<li>多行注释 --[[  --]]</li>
 </ul>
 </div>
 <div class="section" id="chunk">
@@ -834,7 +841,7 @@
 <div class="section" id="id9">
 <h3>关系运算符<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>lua关系运算符包括:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span>   <span class="o">&gt;</span>   <span class="o">&lt;=</span>  <span class="o">&gt;=</span>  <span class="o">==</span>  <span class="o">~=</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">&lt;</span>   <span class="o">&gt;</span>   <span class="o">&lt;=</span>  <span class="o">&gt;=</span>  <span class="o">==</span>  <span class="o">~=</span>
 </pre></div>
 </div>
 <p>关系运算符的结果是true或false. 对于table, userdata和function, 是通过引用比较的,而不是值比较.</p>
@@ -846,14 +853,14 @@
 <div class="section" id="id10">
 <h3>逻辑运算符<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>lua逻辑运算符包括:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ow">and</span>     <span class="ow">or</span>    <span class="ow">not</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="ow">and</span>     <span class="ow">or</span>    <span class="ow">not</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">警告</p>
 <p class="last">and和or的结果不是true/false, 而是和2个操作数有关, 见下例.</p>
 </div>
-<div class="highlight-lua"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">4</span> <span class="ow">and</span> <span class="mi">5</span><span class="p">)</span>      <span class="c1">--&gt; 5</span>
+<div class="highlight-lua"><div class="highlight"><pre><span class="nb">print</span><span class="p">(</span><span class="mi">4</span> <span class="ow">and</span> <span class="mi">5</span><span class="p">)</span>      <span class="c1">--&gt; 5</span>
 <span class="nb">print</span><span class="p">(</span><span class="kc">nil</span> <span class="ow">and</span> <span class="mi">13</span><span class="p">)</span>   <span class="c1">--&gt; nil</span>
 <span class="nb">print</span><span class="p">(</span><span class="kc">false</span> <span class="ow">and</span> <span class="mi">13</span><span class="p">)</span> <span class="c1">--&gt; false</span>
 <span class="nb">print</span><span class="p">(</span><span class="mi">4</span> <span class="ow">or</span> <span class="mi">5</span><span class="p">)</span>       <span class="c1">--&gt; 4</span>
@@ -868,7 +875,7 @@
 <div class="section" id="id12">
 <h3>运算符优先级<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p>lua运算符优先级从高到低顺序如下:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">^</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">^</span>
 <span class="ow">not</span>     <span class="o">-</span> <span class="p">(</span><span class="n">unary</span><span class="p">)</span>
 <span class="o">*</span>   <span class="o">/</span>
 <span class="o">+</span>   <span class="o">-</span>
@@ -885,11 +892,11 @@
 <div class="section" id="id14">
 <h3>赋值<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
 <p>lua可以一次性给多个变量同时赋值, 变量列表和值列表的各元素用逗号隔开:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
 </pre></div>
 </div>
 <p>lua会先计算赋值语句右边所有的值, 然后再进行赋值操作, 所以在lua里可以通过下面这样来交换两个变量的值:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
 </pre></div>
 </div>
 </div>
@@ -900,24 +907,24 @@
 <div class="section" id="id16">
 <h3>条件语句<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
 <p>lua条件语句主要有3种结构:</p>
-<div class="highlight-lua"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">cond</span> <span class="kr">then</span>            <span class="c1">-- C: if(cond) {</span>
-    <span class="kr">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--     }</span>
-<span class="kr">end</span><span class="p">;</span>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">if</span> <span class="n">cond</span> <span class="k">then</span>            <span class="c1">-- C: if(cond) {</span>
+    <span class="k">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--     }</span>
+<span class="k">end</span><span class="p">;</span>
 
-<span class="kr">if</span> <span class="n">cond</span> <span class="kr">then</span>            <span class="c1">-- C: if(cond) {</span>
-    <span class="kr">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
-<span class="kr">else</span>                    <span class="c1">--    else {</span>
-    <span class="kr">else</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
-<span class="kr">end</span><span class="p">;</span>
+<span class="k">if</span> <span class="n">cond</span> <span class="k">then</span>            <span class="c1">-- C: if(cond) {</span>
+    <span class="k">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
+<span class="k">else</span>                    <span class="c1">--    else {</span>
+    <span class="k">else</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
+<span class="k">end</span><span class="p">;</span>
 
-<span class="kr">if</span> <span class="n">cond1</span> <span class="kr">then</span>           <span class="c1">-- C: if(cond1) {</span>
-    <span class="kr">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
-<span class="kr">elseif</span> <span class="n">cond2</span> <span class="kr">then</span>       <span class="c1">--    else if(cond2) {</span>
-    <span class="kr">elseif</span><span class="o">-</span><span class="n">part</span>         <span class="c1">--    }</span>
+<span class="k">if</span> <span class="n">cond1</span> <span class="k">then</span>           <span class="c1">-- C: if(cond1) {</span>
+    <span class="k">then</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
+<span class="k">elseif</span> <span class="n">cond2</span> <span class="k">then</span>       <span class="c1">--    else if(cond2) {</span>
+    <span class="k">elseif</span><span class="o">-</span><span class="n">part</span>         <span class="c1">--    }</span>
 <span class="o">..</span>                      <span class="c1">--    ..</span>
-<span class="kr">else</span>                    <span class="c1">--    else {</span>
-    <span class="kr">else</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
-<span class="kr">end</span><span class="p">;</span>
+<span class="k">else</span>                    <span class="c1">--    else {</span>
+    <span class="k">else</span><span class="o">-</span><span class="n">part</span>           <span class="c1">--    }</span>
+<span class="k">end</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>注意if语句后面的then以及最后的end.</p>
@@ -925,21 +932,21 @@
 <div class="section" id="id17">
 <h3>循环语句<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
 <p>while:</p>
-<div class="highlight-lua"><div class="highlight"><pre><span></span><span class="kr">while</span> <span class="n">cond</span> <span class="kr">do</span>       <span class="c1">-- C: while(cond) {</span>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">while</span> <span class="n">cond</span> <span class="k">do</span>       <span class="c1">-- C: while(cond) {</span>
     <span class="n">statements</span><span class="p">;</span>     <span class="c1">--    }</span>
-<span class="kr">end</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>repeat-until:</p>
-<div class="highlight-lua"><div class="highlight"><pre><span></span><span class="kr">repeat</span>              <span class="c1">-- C: do{</span>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">repeat</span>              <span class="c1">-- C: do{</span>
     <span class="n">statements</span><span class="p">;</span>     <span class="c1">--    } while(cond)</span>
-<span class="kr">until</span> <span class="n">cond</span><span class="p">;</span>
+<span class="k">until</span> <span class="n">cond</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>for:</p>
-<div class="highlight-lua"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">var</span><span class="o">=</span><span class="n">start</span><span class="p">,</span><span class="kr">end</span><span class="p">,</span><span class="n">step</span> <span class="kr">do</span>   <span class="c1">-- C: for(var=start;var&lt;=end;var+=step) {</span>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">for</span> <span class="n">var</span><span class="o">=</span><span class="n">start</span><span class="p">,</span><span class="k">end</span><span class="p">,</span><span class="n">step</span> <span class="k">do</span>   <span class="c1">-- C: for(var=start;var&lt;=end;var+=step) {</span>
     <span class="n">loop</span><span class="o">-</span><span class="n">part</span>               <span class="c1">--    }</span>
-<span class="kr">end</span>
+<span class="k">end</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1003,7 +1010,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

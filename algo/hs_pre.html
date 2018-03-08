@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -722,7 +729,7 @@
   <div class="section" id="hyperscan">
 <h1>hyperscan预备知识<a class="headerlink" href="#hyperscan" title="永久链接至标题">¶</a></h1>
 <p>hyperscan是一个开源项目, 但其代码量很大而且比较复杂, 以下是其src子目录下的代码量统计:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">-----------------------------------------------------------------</span>
 <span class="n">Language</span>       <span class="n">files</span>          <span class="n">blank</span>        <span class="n">comment</span>           <span class="n">code</span>
 <span class="o">-----------------------------------------------------------------</span>
 <span class="n">C</span><span class="o">++</span>              <span class="mi">181</span>          <span class="mi">13659</span>          <span class="mi">11401</span>          <span class="mi">69002</span>
@@ -740,7 +747,7 @@
 较为熟悉.</p>
 <div class="section" id="id1">
 <h3>右值引用与移动赋值<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cm">/** \brief Class that makes derived classes non-copyable.  */</span>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/** \brief Class that makes derived classes non-copyable.  */</span>
 <span class="k">struct</span> <span class="n">noncopyable</span> <span class="p">{</span>
     <span class="n">noncopyable</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
     <span class="n">noncopyable</span><span class="p">(</span><span class="k">const</span> <span class="n">noncopyable</span> <span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
@@ -753,7 +760,7 @@
 </div>
 <div class="section" id="id2">
 <h3>委托构造<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">explicit</span> <span class="nf">NGHolder</span><span class="p">(</span><span class="n">nfa_kind</span> <span class="n">kind</span><span class="p">);</span>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">explicit</span> <span class="nf">NGHolder</span><span class="p">(</span><span class="n">nfa_kind</span> <span class="n">kind</span><span class="p">);</span>
 <span class="n">NGHolder</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="o">:</span> <span class="n">NGHolder</span><span class="p">(</span><span class="n">NFA_OUTFIX</span><span class="p">)</span> <span class="p">{};</span>
 </pre></div>
 </div>
@@ -762,7 +769,7 @@
 <h3>其他<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <ul>
 <li><p class="first">熟练掌握C++模板类</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Graph</span><span class="p">,</span>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Graph</span><span class="p">,</span>
    <span class="k">typename</span> <span class="n">VertexPropertyType</span> <span class="o">=</span> <span class="n">graph_detail</span><span class="o">::</span><span class="n">default_vertex_property</span><span class="p">,</span>
    <span class="k">typename</span> <span class="n">EdgePropertyType</span> <span class="o">=</span> <span class="n">graph_detail</span><span class="o">::</span><span class="n">default_edge_property</span><span class="o">&gt;</span>
 <span class="k">class</span> <span class="nc">ue2_graph</span> <span class="o">:</span> <span class="n">graph_detail</span><span class="o">::</span><span class="n">graph_base</span> <span class="p">{}</span>
@@ -848,7 +855,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

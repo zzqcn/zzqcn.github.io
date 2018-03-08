@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -726,17 +733,17 @@
 <div class="section" id="id2">
 <h2>安装软件包<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>必须安装的软件包当然是sphinx了:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
 <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">Sphinx</span>
 </pre></div>
 </div>
 <p>如果要从代码注释生成API文档，需要安装doxygen和breathe插件，后者可以让sphinx处理doxygen生成的xml:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">doxygen</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">doxygen</span>
 <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">breathe</span>
 </pre></div>
 </div>
 <p>如果要生成pdf文件，需要安装texlive:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">full</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">full</span>
 </pre></div>
 </div>
 <p>如果条生成中文pdf，则需要确认安装了必要的东亚语言和字体包，比如texlive-lang-cjk和texlive-fonts-recommended，可以参考<a class="reference external" href="http://www.tuicool.com/articles/nAJJVb">http://www.tuicool.com/articles/nAJJVb</a> 。</p>
@@ -744,7 +751,7 @@
 <div class="section" id="id3">
 <h2>项目建立<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>最简单的方法是建立工作目录后（这里是doc），在其中运行sphinx-quickstart。运行此命令后sphinx会问你一些问题，根据情况回答即可。在这里我建立了一个名为foo的Project，版本是1.0，作者名为zzq，将source与build目录放开，其他都选默认:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>zzq@vmware:~/doc$ sphinx-quickstart
+<div class="highlight-default"><div class="highlight"><pre>zzq@vmware:~/doc$ sphinx-quickstart
 Welcome to the Sphinx 1.3.3 quickstart utility.
 
 Please enter values for the following settings (just press Enter to
@@ -827,28 +834,28 @@ where &quot;builder&quot; is one of the supported builders, e.g. html, latex or 
 </pre></div>
 </div>
 <p>执行完以上命令上doc目录中有以下内容（根据执行sphinx-quickstart命令时对各问题的回答不同，下文的文件内容和文件名可能有所不同):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">build</span>  <span class="n">make</span><span class="o">.</span><span class="n">bat</span>  <span class="n">Makefile</span>  <span class="n">source</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">build</span>  <span class="n">make</span><span class="o">.</span><span class="n">bat</span>  <span class="n">Makefile</span>  <span class="n">source</span>
 </pre></div>
 </div>
 <p>其中source和build分别是源文件和编译生成文件的存放目录，Makefile和make.bat分别是Linux和Windows下的makefile。</p>
 <p>source目录下有以下内容:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conf</span><span class="o">.</span><span class="n">py</span>  <span class="n">index</span><span class="o">.</span><span class="n">rst</span>  <span class="n">_static</span>  <span class="n">_templates</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">conf</span><span class="o">.</span><span class="n">py</span>  <span class="n">index</span><span class="o">.</span><span class="n">rst</span>  <span class="n">_static</span>  <span class="n">_templates</span>
 </pre></div>
 </div>
 <p>其中conf.py是配置文件，index.rst是主框架文件，_static是静态文件存放目录，比如可以放一些图片什么的，_templates是模板存放目录。</p>
 <p>我们先创建2个文件intro.rst和sample.rst，在里面只写标题。这两个文件的内容分别是：</p>
 <p>intro.rst:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">intro</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">intro</span>
 <span class="o">=====</span>
 </pre></div>
 </div>
 <p>sample.rst:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sammple</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">sammple</span>
 <span class="o">=======</span>
 </pre></div>
 </div>
 <p>然后编译index.rst，在toctree指导语句（directive）中加入刚才两个文件的文件名，后缀省略，路径是相对于源目录source的:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Welcome</span> <span class="n">to</span> <span class="n">foo</span><span class="s1">&#39;s documentation!</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">Welcome</span> <span class="n">to</span> <span class="n">foo</span><span class="s">&#39;s documentation!</span>
 <span class="o">===============================</span>
 
 <span class="n">Contents</span><span class="p">:</span>
@@ -861,7 +868,7 @@ where &quot;builder&quot; is one of the supported builders, e.g. html, latex or 
 </pre></div>
 </div>
 <p>此时，可以回到source的上一级目录（有Makefile的目录），运行make html，即可在build目录中生成HTML文件:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>zzq@vmware:~/doc/source$ cd ..
+<div class="highlight-default"><div class="highlight"><pre>zzq@vmware:~/doc/source$ cd ..
 zzq@vmware:~/doc$ make html
 sphinx-build -b html -d build/doctrees   source build/html
 Running Sphinx v1.3.3
@@ -890,9 +897,9 @@ Build finished. The HTML pages are in build/html.
 <img alt="../../_images/doc_view.png" src="../../_images/doc_view.png" />
 <p>到此，一次典型的环境配置与html生成步骤就完成了。</p>
 <p>如果觉得生成的html主题风格自己不喜欢，可以个性source/conf.py，找到:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># The theme to use for HTML and HTML Help pages.  See the documentation for</span>
-<span class="c1"># a list of builtin themes.</span>
-<span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;alabaster&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># The theme to use for HTML and HTML Help pages.  See the documentation for</span>
+<span class="c"># a list of builtin themes.</span>
+<span class="n">html_theme</span> <span class="o">=</span> <span class="s">&#39;alabaster&#39;</span>
 </pre></div>
 </div>
 <p>把alabaster改成其他主题名就好了 。内置的主题有不少，见：<a class="reference external" href="http://sphinx-doc.org/theming.html#builtin-themes">http://sphinx-doc.org/theming.html#builtin-themes</a></p>
@@ -902,29 +909,29 @@ Build finished. The HTML pages are in build/html.
 <div class="section" id="id4">
 <h3>主题样式<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>设置alabaster主题只需在html_theme中设置名字即可:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;alabaster&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">html_theme</span> <span class="o">=</span> <span class="s">&#39;alabaster&#39;</span>
 </pre></div>
 </div>
 <p>而要设置更美观的sphinx_rtd_theme主题，需要在文件头部加上:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sphinx_rtd_theme</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sphinx_rtd_theme</span>
 </pre></div>
 </div>
 <p>再设置html_theme:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_rtd_theme&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">html_theme</span> <span class="o">=</span> <span class="s">&#39;sphinx_rtd_theme&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="logo">
 <h3>LOGO<a class="headerlink" href="#logo" title="永久链接至标题">¶</a></h3>
 <p>在html_logo中设置图片文件路径:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_logo</span> <span class="o">=</span> <span class="s1">&#39;./logo.png&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">html_logo</span> <span class="o">=</span> <span class="s">&#39;./logo.png&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id5">
 <h3>不显示源文件链接<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>默认会在生成的html页中显示rst源文件链接，做如下设置后不显示:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">html_show_sourcelink</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">html_show_sourcelink</span> <span class="o">=</span> <span class="k">False</span>
 </pre></div>
 </div>
 </div>
@@ -932,7 +939,7 @@ Build finished. The HTML pages are in build/html.
 <div class="section" id="index">
 <h2>index页配置<a class="headerlink" href="#index" title="永久链接至标题">¶</a></h2>
 <p>主要是设置目录树:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
     <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">3</span>
     <span class="p">:</span><span class="n">numbered</span><span class="p">:</span>
 
@@ -1005,7 +1012,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

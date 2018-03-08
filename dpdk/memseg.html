@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -729,17 +736,17 @@
 <div class="section" id="id2">
 <h2>4.2. 数据结构<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>librte_eal/common/include/rte_memory.h</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * Physical memory segment descriptor.</span>
 <span class="cm"> */</span>
  <span class="k">struct</span> <span class="n">rte_memseg</span> <span class="p">{</span>
-     <span class="n">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>      <span class="cm">/**&lt; Start physical address. */</span>
+     <span class="kt">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>      <span class="cm">/**&lt; Start physical address. */</span>
      <span class="k">union</span> <span class="p">{</span>
          <span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">;</span>         <span class="cm">/**&lt; Start virtual address. */</span>
          <span class="kt">uint64_t</span> <span class="n">addr_64</span><span class="p">;</span>   <span class="cm">/**&lt; Makes sure addr is always 64 bits */</span>
      <span class="p">};</span>
  <span class="cp">#ifdef RTE_LIBRTE_IVSHMEM</span>
-     <span class="n">phys_addr_t</span> <span class="n">ioremap_addr</span><span class="p">;</span> <span class="cm">/**&lt; Real physical address inside the VM */</span>
+     <span class="kt">phys_addr_t</span> <span class="n">ioremap_addr</span><span class="p">;</span> <span class="cm">/**&lt; Real physical address inside the VM */</span>
  <span class="cp">#endif</span>
      <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>               <span class="cm">/**&lt; Length of the segment. */</span>
      <span class="kt">uint64_t</span> <span class="n">hugepage_sz</span><span class="p">;</span>     <span class="cm">/**&lt; The pagesize of underlying memory */</span>
@@ -757,20 +764,20 @@
 <div class="section" id="id3">
 <h2>4.3. 初始化<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>在rte_eal_hugepage_init(librte_eal/linuxapp/eal/eal_memory.c)中：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_hugefiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nr_hugefiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="cm">/* if this is a new section, create a new memseg */</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">socket_id</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">socket_id</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">socket_id</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">socket_id</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">((</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">-</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span><span class="p">)</span> <span class="o">!=</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">physaddr</span> <span class="o">-</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">physaddr</span><span class="p">)</span> <span class="o">!=</span>
         <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="nf">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">-</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">final_va</span> <span class="o">-</span>
         <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">final_va</span><span class="p">)</span> <span class="o">!=</span> <span class="n">hugepage</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">)</span>
         <span class="n">new_memseg</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
@@ -852,7 +859,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

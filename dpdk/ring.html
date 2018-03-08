@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -798,7 +805,7 @@
 </div>
 <div class="section" id="id6">
 <h2>2.4. 数据结构<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_ring</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_RING_NAMESIZE</span><span class="p">];</span>    <span class="cm">/**&lt; Name of the ring. */</span>
     <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags supplied at creation. */</span>
     <span class="k">const</span> <span class="k">struct</span> <span class="n">rte_memzone</span> <span class="o">*</span><span class="n">memzone</span><span class="p">;</span>
@@ -903,7 +910,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 57
 58
 59
-60</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
+60</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
 <span class="n">__rte_ring_mp_do_enqueue</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">const</span> <span class="o">*</span><span class="n">obj_table</span><span class="p">,</span>
              <span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="k">enum</span> <span class="n">rte_ring_queue_behavior</span> <span class="n">behavior</span><span class="p">)</span>
 <span class="p">{</span>
@@ -988,7 +995,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 19
 20
 21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define ENQUEUE_PTRS() do { \</span>
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define ENQUEUE_PTRS() do { \</span>
 <span class="cp">    const uint32_t size = r-&gt;prod.size; \</span>
 <span class="cp">    uint32_t idx = prod_head &amp; mask; \</span>
 <span class="cp">    if (likely(idx + n &lt; size)) { \</span>
@@ -1066,7 +1073,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 49
 50
 51
-52</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
+52</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span>
 <span class="n">__rte_ring_mc_do_dequeue</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">obj_table</span><span class="p">,</span>
          <span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="k">enum</span> <span class="n">rte_ring_queue_behavior</span> <span class="n">behavior</span><span class="p">)</span>
 <span class="p">{</span>
@@ -1141,7 +1148,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 19
 20
 21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define DEQUEUE_PTRS() do { \</span>
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define DEQUEUE_PTRS() do { \</span>
 <span class="cp">    uint32_t idx = cons_head &amp; mask; \</span>
 <span class="cp">    const uint32_t size = r-&gt;cons.size; \</span>
 <span class="cp">    if (likely(idx + n &lt; size)) { \</span>
@@ -1171,7 +1178,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <p>ring中的生产者和消费者指针(prod.head, prod.tail, cons.head, cons.tail)是用32位无符号整数来表示的，而ring存放对象指针的数组的大小是远小于UINT32_MAX的，计算存取对象的数组索引需要有一定技巧；另外，由于ring是一个环形buffer，这些指针值溢出后会发生回绕，计算ring中已用和空闲对象的数目也需要注意方法。</p>
 <ul>
 <li><p class="first"><strong>求索引</strong> ENQUEUE_PTRS和DEQUEUE_PTRS中:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>uint32_t idx = prod_head &amp; mask;
+<div class="highlight-default"><div class="highlight"><pre>uint32_t idx = prod_head &amp; mask;
 其中，mask = size-1
 </pre></div>
 </div>
@@ -1179,7 +1186,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <li><p class="first"><strong>求已有项数</strong></p>
 </li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
 <span class="nf">rte_ring_count</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">uint32_t</span> <span class="n">prod_tail</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prod</span><span class="p">.</span><span class="n">tail</span><span class="p">;</span>
@@ -1189,13 +1196,13 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </pre></div>
 </div>
 <p>或</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">prod_tail</span> <span class="o">-</span> <span class="n">cons_head</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">prod_tail</span> <span class="o">-</span> <span class="n">cons_head</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>求空闲项数</strong></li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="kt">unsigned</span>
 <span class="nf">rte_ring_free_count</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">r</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">uint32_t</span> <span class="n">prod_tail</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prod</span><span class="p">.</span><span class="n">tail</span><span class="p">;</span>
@@ -1205,7 +1212,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </pre></div>
 </div>
 <p>或</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">free_entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">cons_tail</span> <span class="o">-</span> <span class="n">prod_head</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">free_entries</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">cons_tail</span> <span class="o">-</span> <span class="n">prod_head</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1217,7 +1224,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <li><p class="first">初始化时，这4个指针值都为0</p>
 </li>
 <li><p class="first">p=14, c=3时:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">14</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
@@ -1225,7 +1232,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 </div>
 </li>
 <li><p class="first">p=20, c=9时:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">idx_p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">idx_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">free</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
@@ -1243,7 +1250,7 @@ visible across the lcores before the the STORE operations that follows it.</div>
 <table class="docutils citation" frame="void" id="dpdk-guide-ring" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_guide_ring]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/ring_lib.html">DPDK programmer’s guide - Ring Library </a></td></tr>
+<tr><td class="label">[dpdk_guide_ring]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/ring_lib.html">DPDK programmer's guide - Ring Library </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="freebsd-ring" rules="none">
@@ -1330,7 +1337,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

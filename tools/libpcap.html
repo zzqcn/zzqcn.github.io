@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -726,22 +733,22 @@
 <h2>创建句柄<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <div class="section" id="pcap-open-offline">
 <h3>pcap_open_offline<a class="headerlink" href="#pcap-open-offline" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
 <span class="kt">char</span> <span class="n">errbuf</span><span class="p">[</span><span class="n">PCAP_ERRBUF_SIZE</span><span class="p">];</span>
 
-<span class="n">pcap_t</span> <span class="o">*</span><span class="nf">pcap_open_offline</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">errbuf</span><span class="p">);</span>
+<span class="kt">pcap_t</span> <span class="o">*</span><span class="nf">pcap_open_offline</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">errbuf</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>通过打开pcap文件来创建一个pcap_t读取句柄.</p>
 </div>
 <div class="section" id="pcap-dump-open">
 <h3>pcap_dump_open<a class="headerlink" href="#pcap-dump-open" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="n">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_open</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">);</span>
-<span class="n">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_open_append</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">);</span>
-<span class="n">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_fopen</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">);</span>
+<span class="kt">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_open</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">);</span>
+<span class="kt">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_open_append</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">);</span>
+<span class="kt">pcap_dumper_t</span> <span class="o">*</span><span class="nf">pcap_dump_fopen</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>创建pcap文件写入(dump)句柄.</p>
@@ -751,18 +758,18 @@
 <h2>关闭句柄<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <div class="section" id="pcap-close">
 <h3>pcap_close<a class="headerlink" href="#pcap-close" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">void</span> <span class="nf">pcap_close</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">pcap_close</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>关闭读取句柄, 不论是从网卡接口还是从pcap文件创建的.</p>
 </div>
 <div class="section" id="pcap-dump-close">
 <h3>pcap_dump_close<a class="headerlink" href="#pcap-dump-close" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">void</span> <span class="nf">pcap_dump_close</span><span class="p">(</span><span class="n">pcap_dumper_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">pcap_dump_close</span><span class="p">(</span><span class="kt">pcap_dumper_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>关闭pcap文件写入(dump)句柄.</p>
@@ -772,12 +779,12 @@
 <h2>读取packet<a class="headerlink" href="#packet" title="永久链接至标题">¶</a></h2>
 <div class="section" id="pcap-open-pcap-dispatch">
 <h3>pcap_open/pcap_dispatch<a class="headerlink" href="#pcap-open-pcap-dispatch" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
 <span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">pcap_handler</span><span class="p">)(</span><span class="n">u_char</span> <span class="o">*</span><span class="n">user</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">pcap_pkthdr</span> <span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="k">const</span> <span class="n">u_char</span> <span class="o">*</span><span class="n">bytes</span><span class="p">);</span>
 
-<span class="kt">int</span> <span class="nf">pcap_loop</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">pcap_handler</span> <span class="n">callback</span><span class="p">,</span> <span class="n">u_char</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">pcap_dispatch</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">pcap_handler</span> <span class="n">callback</span><span class="p">,</span> <span class="n">u_char</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pcap_loop</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">pcap_handler</span> <span class="n">callback</span><span class="p">,</span> <span class="n">u_char</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pcap_dispatch</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">pcap_handler</span> <span class="n">callback</span><span class="p">,</span> <span class="n">u_char</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -786,9 +793,9 @@
 <h2>设置选项<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="pcap-set-promisc">
 <h3>pcap_set_promisc<a class="headerlink" href="#pcap-set-promisc" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">int</span> <span class="nf">pcap_set_promisc</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">promisc</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pcap_set_promisc</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">promisc</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>设置混杂模式, 此时句柄必须是没有被激活的.</p>
@@ -798,27 +805,27 @@
 <h2>其他<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <div class="section" id="pcap-breakloop">
 <h3>pcap_breakloop<a class="headerlink" href="#pcap-breakloop" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">void</span> <span class="nf">pcap_breakloop</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">pcap_breakloop</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>令pcap_loop()或pcap_dispatch()调用立即返回.</p>
 </div>
 <div class="section" id="pcap-file">
 <h3>pcap_file<a class="headerlink" href="#pcap-file" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">FILE</span> <span class="o">*</span><span class="nf">pcap_file</span><span class="p">(</span><span class="n">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="kt">FILE</span> <span class="o">*</span><span class="nf">pcap_file</span><span class="p">(</span><span class="kt">pcap_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>从pcap文件读取句柄得到标准文件指针.</p>
 </div>
 <div class="section" id="pcap-dump-file">
 <h3>pcap_dump_file<a class="headerlink" href="#pcap-dump-file" title="永久链接至标题">¶</a></h3>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pcap/pcap.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;pcap/pcap.h&gt;</span>
 
-<span class="kt">FILE</span> <span class="o">*</span><span class="nf">pcap_dump_file</span><span class="p">(</span><span class="n">pcap_dumper_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="kt">FILE</span> <span class="o">*</span><span class="nf">pcap_dump_file</span><span class="p">(</span><span class="kt">pcap_dumper_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>从pcap文件写入(dump)句柄得到标准文件指针.</p>
@@ -889,7 +896,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

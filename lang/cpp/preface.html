@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -723,7 +730,7 @@
             
   <div class="section" id="id1">
 <h1>前言<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>更新于: 2018.02.24</p>
+<p>更新于: 2018.03.09</p>
 <div class="section" id="c">
 <h2>C++的变化<a class="headerlink" href="#c" title="永久链接至标题">¶</a></h2>
 <p>相对于C, C++是一个变化很快的语言, 当然与其复杂性也有关系. 和我一样, 可能很多人对C++的印象和理解还停留在C++98标准, 即第一个ISO C++标准. 然而, 从那时候开始, 标准委员会又做了很多工作, 对C++标准进行了多次更新. 从C++98到目前的更新包括:</p>
@@ -766,7 +773,7 @@
 <li>将C++标准库作为学习新技术和新程序设计风格的老师. 注意它与C标准库的差异</li>
 <li>C++几乎从来不需要宏替换. 作为替代, 使用const, constexpr, enum或enum class来定义明示常量; 使用inline来避免函数调用的开销; 使用template来指明函数族和类型族; 使用namespace来避免名字冲突</li>
 <li>在真正需要一个变量时再声明它, 且声明后立即进行初始化. 声明可以出现在语句可以出现的任何位置, 以及for语句初始化部分和条件中</li>
-<li>不要使用malloc(). new运算符可以完成相同的工作, 而且完成得更好. 同样, 不要使用realloc(), 尝试用vector. 但注意不要简单地用”祼的”new和delete来代替malloc()和free()</li>
+<li>不要使用malloc(). new运算符可以完成相同的工作, 而且完成得更好. 同样, 不要使用realloc(), 尝试用vector. 但注意不要简单地用&quot;祼的&quot;new和delete来代替malloc()和free()</li>
 <li>避免使用void*, 联合以及类型转换, 除非在某些函数和类的深层实现中. 使用这些特性会限制你从类型系统中得到支持, 而且会损害性能. 在大多数情况下, 一次类型转换就暗示着一个设计错误. 如果你必须使用显式类型转换, 尝试使用命名的显式类型转换(如static_cast), 这能更精确地表达你的意图</li>
 <li>尽量减少数组和C风格字符串的使用. 与这种传统的C风格代码比, 通常可以用C++标准库中的string, array和vector写出更简单也更易维护的代码. 一般而言, 如果标准库中已经提供了相应的功能, 就尽量不要自己重新构造代码</li>
 <li>除非是在非常专门的代码中(例如内存管理器), 或者进行简单的数组遍历(例如++p), 否则要避免对指针进行算术运算</li>
@@ -846,7 +853,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

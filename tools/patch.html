@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -725,11 +732,11 @@
 <p>在使用diff之前, 你需要保留一份未修改过的源码, 然后在其它地方修改源码的一份拷贝. diff对比这两份源码生成patch. 修改过的源码必须保留原来的文件名, 例如, 如果你修改源码中的a.c文件, 那么, 修改后的文件还是名为a.c, 在修改之前你可以复制a.c为a.orig.c进行备份.</p>
 <div class="section" id="id1">
 <h2>1 为单个文件生成补丁<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -up origin.c modify.c
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -up origin.c modify.c
 </pre></div>
 </div>
 <p>这条命令会产生类似如下的输出, 你将它重定向到一个文件中, 这个文件就是patch.</p>
-<div class="highlight-diff"><div class="highlight"><pre><span></span><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gh">diff -up origin.c 2017-07-02 08:50:04.000000000 +0800</span>
 <span class="gi">+++ modify.c 2017-07-04 19:18:41.859375000 +0800</span>
 <span class="gu">@@ -1050,11 +1050,11 @@ svc_process(struct svc_rqst *rqstp)</span>
 </pre></div>
@@ -742,7 +749,7 @@
 </div>
 <div class="section" id="id2">
 <h2>2 为多个文件生成补丁<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uprN origin/ modify/
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uprN origin/ modify/
 </pre></div>
 </div>
 <p>这条命令对比了origin/和modify/两个目录下的所有源码差异.</p>
@@ -757,7 +764,7 @@
 <div class="section" id="id3">
 <h2>3 打补丁<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>生成的补丁中, 路径信息包含了你的源码根目录的名称, 但其他人的源码根目录可能是其它名字, 所以, 打补丁时, 要进入你的源码根目录, 并且告诉patch工具, 请忽略补丁中的路径的第一级目录(参数-p1).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ patch -p1 &lt; patch1.diff
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>patch -p1 &lt; patch1.diff
 </pre></div>
 </div>
 <p>diff命令必须在整个源码根目录的上一级目录中执行.</p>
@@ -766,9 +773,9 @@
 <h2>4 示例<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>给修改过的内核生成patch，然后用生成的patch给未修改过的内核打补丁</p>
 <p>其中，目录linux-2.6.31.3为未修改过的内核，目录linux-2.6.31.3_1为修改过的内核</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
-$ <span class="nb">cd</span> linux-2.6.31.3
-$ patch -p1 &lt; mypatch
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff -uparN linux-2.6.31.3 linux-2.6.31.3_1/ &gt; mypatch
+<span class="nv">$ </span><span class="nb">cd </span>linux-2.6.31.3
+<span class="nv">$ </span>patch -p1 &lt; mypatch
 </pre></div>
 </div>
 <div id="container"></div>
@@ -831,7 +838,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

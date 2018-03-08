@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -737,7 +744,7 @@ regular expressions in arbitrary number – although we are still looking! Inste
 we have a lot of optimizations in order to try to extract the best possible
 performance whether we have one simple regular expression or tens of thousands.</p>
 <p>Some of these techniques include:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>* Discovery of literal (fixed string) factors and decomposition of regular
+<div class="highlight-default"><div class="highlight"><pre>* Discovery of literal (fixed string) factors and decomposition of regular
   expressions into smaller chunks (which we call &quot;engines&quot;) separated by these
   literal factors.
 * These engines can be of many different types:
@@ -804,7 +811,7 @@ accurate simulation of the behavior of quantifiers in backtracking engines).</p>
 <h2>源码结构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>这里的源码指hyperscan软件包解压后的src目录中的内容.</p>
 <p>目录树:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>src
+<div class="highlight-default"><div class="highlight"><pre>src
  ├─compiler    #
  ├─fdr         #
  ├─hwlm        #
@@ -920,7 +927,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

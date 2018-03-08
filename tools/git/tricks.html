@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -728,18 +735,18 @@
 <p>这里以Windows上的Git Bash连接github为例, Linux, gitlab等情况相似.</p>
 <ol class="arabic">
 <li><p class="first">生成SSH key:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">C</span> <span class="s2">&quot;user@site.com&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">C</span> <span class="s">&quot;user@site.com&quot;</span>
 </pre></div>
 </div>
 <p>一路回车, 会在~/.ssh目录下生成id_rsa和id_rsa.pub两个文件, 即公钥私钥对.</p>
 </li>
 <li><p class="first">将公钥添加到github</p>
 <p>依次点击github网页上的settings/SSH and GPG keys/New SSH key,
-把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如”windows-home”</p>
+把id_rsa.pub文件的内容, 添加到key文本区. 可以给这个key取一个名字用于和其他key区分, 如&quot;windows-home&quot;</p>
 </li>
 <li><p class="first">测试添加是否正确</p>
-<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似”Hi zzqcn! You’ve successfully
-authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission denied (publickey)”
+<p>运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code> , 如果出现类似&quot;Hi zzqcn! You've successfully
+authenticated&quot;的字样, 说明SSH key配置成功. 如果出现&quot;Permission denied (publickey)&quot;
 等字样, 说明配置失败, 可以运行 <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">-v</span> <span class="pre">git&#64;github.com</span></code> 来查看详细信息.</p>
 </li>
 </ol>
@@ -757,14 +764,14 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 <li><p class="first">将脚本拷贝到用户目录(~/)</p>
 </li>
 <li><p class="first">修改~/.bash_profile, 比如</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ~/.git-completion.bash <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f ~/.git-completion.bash <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-completion.bash
 <span class="k">fi</span>
 
 <span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span>$<span class="s2">&quot;</span>
-<span class="k">fi</span>
+    <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span><span class="nv">$&quot;</span><span class="s2"></span>
+<span class="s2">fi</span>
 </pre></div>
 </div>
 <p>其中PS1可以设置成自己喜欢的样式; 另外要注意修改~/.bashrc无效</p>
@@ -781,10 +788,10 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 <li><p class="first">将此脚本拷贝到用户目录, 如~/.git-prompt.sh</p>
 </li>
 <li><p class="first">修改~/.bashrc, 加入</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f ~/.git-prompt.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">source</span> ~/.git-prompt.sh
-    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span>$<span class="s2">&quot;</span>
-<span class="k">fi</span>
+    <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\] \[\033[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[\033[00m\]\n</span><span class="nv">$&quot;</span><span class="s2"></span>
+<span class="s2">fi</span>
 </pre></div>
 </div>
 </li>
@@ -792,7 +799,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 </li>
 </ol>
 <p>另外要提醒, 最好在~/.bashrc里把force_color_prompt打开, 不然SecureCRT登录上去命令提示符没有彩色效果:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">force_color_prompt</span><span class="o">=</span><span class="n">yes</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">force_color_prompt</span><span class="o">=</span><span class="n">yes</span>
 </pre></div>
 </div>
 </div>
@@ -801,16 +808,16 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 <p>// for CentOS 7.3</p>
 <ol class="arabic">
 <li><p class="first">准备脚本:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">core</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">completion</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">cp</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">core</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">completion</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">bash_completion</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">git</span> <span class="o">.</span><span class="n">git</span><span class="o">-</span><span class="n">completion</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <p># 修改~/.bashrc:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span> <span class="p">];</span> <span class="n">then</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span> <span class="p">];</span> <span class="n">then</span>
     <span class="n">source</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span>
-    <span class="n">export</span> <span class="n">PS1</span><span class="o">=</span><span class="s2">&quot;\[</span><span class="se">\033</span><span class="s2">[36m\]\u\[</span><span class="se">\033</span><span class="s2">[m\]@\[</span><span class="se">\033</span><span class="s2">[32m\]\h:\[</span><span class="se">\033</span><span class="s2">[33;1m\]\w\[</span><span class="se">\033</span><span class="s2">[m\] \[</span><span class="se">\033</span><span class="s2">[01;36m\]\$(__git_ps1 &#39;(</span><span class="si">%s</span><span class="s2">)&#39;)\[</span><span class="se">\033</span><span class="s2">[00m\]</span><span class="se">\n</span><span class="s2">$&quot;</span>
+    <span class="n">export</span> <span class="n">PS1</span><span class="o">=</span><span class="s">&quot;\[</span><span class="se">\033</span><span class="s">[36m\]\u\[</span><span class="se">\033</span><span class="s">[m\]@\[</span><span class="se">\033</span><span class="s">[32m\]\h:\[</span><span class="se">\033</span><span class="s">[33;1m\]\w\[</span><span class="se">\033</span><span class="s">[m\] \[</span><span class="se">\033</span><span class="s">[01;36m\]\$(__git_ps1 &#39;(%s)&#39;)\[</span><span class="se">\033</span><span class="s">[00m\]</span><span class="se">\n</span><span class="s">$&quot;</span>
 <span class="n">fi</span>
 
 <span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/.</span><span class="n">git</span><span class="o">-</span><span class="n">completion</span><span class="o">.</span><span class="n">sh</span> <span class="p">];</span> <span class="n">then</span>
@@ -823,7 +830,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
 </div>
 <ol class="arabic">
 <li><p class="first">让修改生效:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/.</span><span class="n">bashrc</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">source</span> <span class="o">~/.</span><span class="n">bashrc</span>
 </pre></div>
 </div>
 </li>
@@ -875,7 +882,7 @@ authenticated”的字样, 说明SSH key配置成功. 如果出现”Permission 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

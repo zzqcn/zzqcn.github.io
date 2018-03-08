@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -724,7 +731,7 @@
   <div class="section" id="github">
 <h1>给github博客添加评论功能<a class="headerlink" href="#github" title="永久链接至标题">¶</a></h1>
 <p>使用 <code class="docutils literal"><span class="pre">github</span> <span class="pre">Pages</span> <span class="pre">+</span> <span class="pre">sphinx</span> <span class="pre">+</span> <span class="pre">reST</span></code> 构建好个人技术博客(静态HTML页面)后, 可能还需要添加评论功能. 实现第3方社会化评论的插件有不少, 如Disqus, facebook comment,
-多说, 友言等等, 但这些有的是国外的被屏蔽, 有的已经停止服务…</p>
+多说, 友言等等, 但这些有的是国外的被屏蔽, 有的已经停止服务...</p>
 <p>现在 <a class="reference external" href="https://github.com/imsun/">imsun</a> 实现了一个开源的评论系统
 <a class="reference external" href="https://github.com/imsun/gitment">gitment</a> , 原理是利用github的issue功能,
 访问博客页面的用户只需登录github账号, 就可以进行评论, 感觉非常适合技术博客.</p>
@@ -739,10 +746,10 @@
 <div class="section" id="id1">
 <h2>2. 编辑博客页面, 引入gitment<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>将以下代码拷贝到生成的HTML页面里:</p>
-<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://imsun.github.io/gitment/style/default.css&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;https://imsun.github.io/gitment/style/default.css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
 <span class="kd">var</span> <span class="nx">gitment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitment</span><span class="p">({</span>
 <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;页面 ID&#39;</span><span class="p">,</span> <span class="c1">// 可选。默认为 location.href</span>
 <span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;你的 GitHub ID&#39;</span><span class="p">,</span>
@@ -753,7 +760,7 @@
 <span class="p">},</span>
 <span class="p">})</span>
 <span class="nx">gitment</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;container&#39;</span><span class="p">)</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
 </pre></div>
 </div>
 <p>注意id可以不填, owner就是你自己的github账号, repo填自己的一个访问权限为public的repo就可以, 比如我直接填zzqcn.github.io, 之后用户的评论都将放在这个repo的issue里.</p>
@@ -830,7 +837,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

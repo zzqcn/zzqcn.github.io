@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -731,12 +738,12 @@
 <h2>9.2. 源码组织<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>dpdk源码包可以在 <a class="reference external" href="http://www.dpdk.org/download">dpdk.org</a> 下载。2.2版本后，版本号直接变为16.04。</p>
 <p>git方式获取源码（只读）:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">dpdk</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dpdk</span> <span class="p">,</span> <span class="n">或</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">dpdk</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dpdk</span> <span class="p">,</span> <span class="n">或</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">dpdk</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">dpdk</span>
 </pre></div>
 </div>
 <p>RTE_SDK是编译dpdk之前需要设置的一个环境变量，其值是dpdk源码包解压后的主目录。以下就以&lt;RTE_SDK&gt;表示dpdk源码主目录:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;RTE_SDK&gt;
+<div class="highlight-default"><div class="highlight"><pre>&lt;RTE_SDK&gt;
 ├── app           # 一些测试程序
 ├── buildtools    # XXX
 ├── config        # 配置文件
@@ -802,8 +809,8 @@
 </ul>
 <div class="section" id="dpdk">
 <h3>9.3.1. 编译dpdk<a class="headerlink" href="#dpdk" title="永久链接至标题">¶</a></h3>
-<p>在编译dpdk前，需要设置RTE_SDK环境变量，以及”arch-machine-execenv-toolchain”组成的编译目标（target）。比如，要使用gcc为x86_64架构native处理器，linux环境编译dpdk，编译目录同target:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>export RTE_TARGET=x86_64-native-linuxapp-gcc
+<p>在编译dpdk前，需要设置RTE_SDK环境变量，以及&quot;arch-machine-execenv-toolchain&quot;组成的编译目标（target）。比如，要使用gcc为x86_64架构native处理器，linux环境编译dpdk，编译目录同target:</p>
+<div class="highlight-default"><div class="highlight"><pre>export RTE_TARGET=x86_64-native-linuxapp-gcc
 cd $RTE_SDK
 make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
@@ -818,16 +825,16 @@ dpdk的路径是RTE_SDK_BIN=$RTE_SDK/$RTE_TARGET, 如果RTE_OUTPUT
 和RTE_TARGET不一致，会发生找不到库的错误. 更多环境变量见X.X节</p>
 </div>
 <p>完成后，将在&lt;RTE_SDK&gt;生成$RTE_OUTPUT子目录，其中包含对应此target的配置文件Makefile等。接着可以进行编译(这里$RTE_TARGET等于$RTE_OUTPUT):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cd $RTE_TARGET
+<div class="highlight-default"><div class="highlight"><pre>cd $RTE_TARGET
 make
 </pre></div>
 </div>
 <p>或者:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>make O=$RTE_TARGET
+<div class="highlight-default"><div class="highlight"><pre>make O=$RTE_TARGET
 </pre></div>
 </div>
 <p>编译完成后，编译目录内容为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>x86_64-native-linuxapp-gcc
+<div class="highlight-default"><div class="highlight"><pre>x86_64-native-linuxapp-gcc
 ├── .config  # 针对此target生成的配置文件
 ├── app      # 生成的自带应用程序
 ├── build    # 编译期间的临时文件
@@ -844,7 +851,7 @@ make
 在此目录下的Makefile中，需要包含dpdk的一些.mk文件，如$RTE_SDK/mk/rte.vas.mk，$RTE_SDK/mk/rte.app.mk等。具体见
 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/build_app.html">Building Your Own Application</a></p>
 <p>首先确保设置了RTE_SDK和RTE_TARGET环境变量:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">RTE_SDK</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">stable</span><span class="o">-</span><span class="mf">16.07</span><span class="o">.</span><span class="mi">2</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">export</span> <span class="n">RTE_SDK</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">stable</span><span class="o">-</span><span class="mf">16.07</span><span class="o">.</span><span class="mi">2</span>
 <span class="n">export</span> <span class="n">RTE_TARGET</span><span class="o">=</span><span class="n">x86_64</span><span class="o">-</span><span class="n">native</span><span class="o">-</span><span class="n">linuxapp</span><span class="o">-</span><span class="n">gcc</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">helloworld</span>
 <span class="n">make</span>
@@ -865,7 +872,7 @@ make
 <li>包含用户自定义的规则和变量</li>
 </ol>
 <p>以下是一个极简示例（取自examples/helloworld）:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(RTE_SDK),)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(RTE_SDK),)
 $(error &quot;Please define RTE_SDK environment variable&quot;)
 endif
 
@@ -944,11 +951,11 @@ include $(RTE_SDK)/mk/rte.extapp.mk
 <li><strong>RTE_OUTPUT</strong> 输出文件路径，默认是$(RTE_SDK)/build，但可以通过命令行中的 <code class="docutils literal"><span class="pre">O=</span></code> 选项来指定</li>
 <li><strong>RTE_TARGET</strong> 用于识别当前编译目标的字符串，格式是 <code class="docutils literal"><span class="pre">arch-machine\</span>
 <span class="pre">-execenv-toolchain</span></code></li>
-<li><strong>RTE_SDK_BIN</strong> 引用$(RTE_SDK)/$(RTE_TARGET)。注意，编译基于dpdk的外部程序时会通过$RTE_SDK_BIN来引用dpdk库，因此编译dpdk时，最好通过O=$(RTE_TARGET)指定输出目录到$(RTE_TARGET)，而不是”build”,”mybuild”等目录</li>
-<li><strong>RTE_ARCH</strong> 定义CPU架构(i686,x86_64等)，它与CONFIG_RTE_ARCH值相同，但没有两边的”号</li>
-<li><strong>RTE_MACHINE</strong> 定义machine(native, armv8a等)，它与CONFIG_RTE_MACHINE值相同，但没有两边的”号</li>
-<li><strong>RTE_TOOLCHAIN</strong> 定义编译工具链(gcc,icc,clang等)，它与CONFIG_RTE_TOOLCHAIN值相同，但没有两边的”号</li>
-<li><strong>RTE_EXEC_ENV</strong> 定义执行环境(linuxapp,bsdapp等)，它与CONFIG_RTE_EXEC_ENV值相同，但没有两边的”号</li>
+<li><strong>RTE_SDK_BIN</strong> 引用$(RTE_SDK)/$(RTE_TARGET)。注意，编译基于dpdk的外部程序时会通过$RTE_SDK_BIN来引用dpdk库，因此编译dpdk时，最好通过O=$(RTE_TARGET)指定输出目录到$(RTE_TARGET)，而不是&quot;build&quot;,&quot;mybuild&quot;等目录</li>
+<li><strong>RTE_ARCH</strong> 定义CPU架构(i686,x86_64等)，它与CONFIG_RTE_ARCH值相同，但没有两边的&quot;号</li>
+<li><strong>RTE_MACHINE</strong> 定义machine(native, armv8a等)，它与CONFIG_RTE_MACHINE值相同，但没有两边的&quot;号</li>
+<li><strong>RTE_TOOLCHAIN</strong> 定义编译工具链(gcc,icc,clang等)，它与CONFIG_RTE_TOOLCHAIN值相同，但没有两边的&quot;号</li>
+<li><strong>RTE_EXEC_ENV</strong> 定义执行环境(linuxapp,bsdapp等)，它与CONFIG_RTE_EXEC_ENV值相同，但没有两边的&quot;号</li>
 <li><strong>RTE_KERNELDIR</strong> 包含用于编译内核模块的内核源码的绝对路径，默认是/lib/modules/$(shell uname -r)/build，当目标机器也是编译机器时是没问题的，否则要在目标机器上重新编译</li>
 <li><strong>RTE_DEVEL_BUILD</strong> Stricter options (stop on warning). It defaults to y in a git tree.</li>
 </ul>
@@ -979,7 +986,7 @@ include $(RTE_SDK)/mk/rte.extapp.mk
 <p>见 <a class="reference internal" href="#root-makefile-help"><span class="std std-ref">根Makefile介绍</span></a> 和 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/ext_app_lib_make_help.html">External Application/Library Makefile Help </a> 。</p>
 <ul>
 <li><p class="first"><strong>WERROR_CFLAGS</strong> 默认设置为依赖于编译器的某特定值，推荐用法如:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>CFLAGS += $(WERROR_CFLAGS)
+<div class="highlight-default"><div class="highlight"><pre>CFLAGS += $(WERROR_CFLAGS)
 </pre></div>
 </div>
 </li>
@@ -1004,7 +1011,7 @@ include $(RTE_SDK)/mk/rte.extapp.mk
 <div class="section" id="config-target">
 <h3>9.5.1. config target<a class="headerlink" href="#config-target" title="永久链接至标题">¶</a></h3>
 <p>编译此target必须通过 <code class="docutils literal"><span class="pre">T=</span></code> 指定target名称，所有可用的target名称见&lt;RTE_SDK&gt;/config/defconfig_XXX。还可以通过 <code class="docutils literal"><span class="pre">O=</span></code> 指定输出目录，默认目录是build。示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>export RTE_TARGET=x86_64-native-linuxapp-gcc
+<div class="highlight-default"><div class="highlight"><pre>export RTE_TARGET=x86_64-native-linuxapp-gcc
 make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
 </div>
@@ -1047,7 +1054,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <li><p class="first">depgraph 此命令生成依赖项的dot graph，可用于调试循环引用问题。</p>
 <blockquote>
 <div><p>示例:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>make depgraph O=$RTE_TARGET &gt; /tmp/graph.dot &amp;&amp; dotty /tmp/graph.dot
+<div class="highlight-default"><div class="highlight"><pre>make depgraph O=$RTE_TARGET &gt; /tmp/graph.dot &amp;&amp; dotty /tmp/graph.dot
 </pre></div>
 </div>
 </div></blockquote>
@@ -1073,7 +1080,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <div class="section" id="debug">
 <h3>9.5.9. 编译Debug版本<a class="headerlink" href="#debug" title="永久链接至标题">¶</a></h3>
 <p>修改EXTRA_CFLAGS环境变量即可:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">EXTRA_CFLAGS</span><span class="o">=</span><span class="s1">&#39;-O0 -g&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">export</span> <span class="n">EXTRA_CFLAGS</span><span class="o">=</span><span class="s">&#39;-O0 -g&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1103,7 +1110,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <div class="section" id="api">
 <h4>9.6.3.1. 更新API<a class="headerlink" href="#api" title="永久链接至标题">¶</a></h4>
 <p>假设老版本函数为</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * Create an acl context object for apps to manipulate</span>
 <span class="cm"> */</span>
 <span class="k">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
@@ -1114,7 +1121,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
 </div>
 <p>现在需要修改此API，给acl context设置debug标志：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/*</span>
 <span class="cm"> * Create an acl context object for apps to manipulate</span>
 <span class="cm"> */</span>
 <span class="k">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
@@ -1126,7 +1133,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </div>
 <p>如果不使用ABI宏直接编译，那么链接此动态库的旧程序将不得不修改代码。而使用ABI宏可以让多个函数映射到同一符号，让新版动态库保持向后兼容，旧程序不需要修改代码。</p>
 <p>首先需要修改此库对应的.map文件，原本的文件内容如下（rte_acl_version.map）:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
     <span class="k">global</span><span class="p">:</span>
 
     <span class="n">rte_acl_add_rules</span><span class="p">;</span>
@@ -1150,7 +1157,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
 </div>
 <p>需要修改为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
     <span class="k">global</span><span class="p">:</span>
 
     <span class="n">rte_acl_add_rules</span><span class="p">;</span>
@@ -1181,7 +1188,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </div>
 <p>增加的部分告诉链接器新增了一个版本节点（version node）DPDK_2.1，它包含符号rte_acl_create，并继承节点DPDK_2.0的符号。当DPDK被编译为动态库时，此列表会直接翻译成导出符号表。</p>
 <p>接下来，需要在代码中指定哪个版本映射哪个rte_acl_create。首先，需要改变原函数的定义，使其命名唯一且不和公用符号名冲突:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
 <span class="o">-</span><span class="n">rte_acl_create</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">)</span>
 <span class="o">+</span><span class="n">rte_acl_create_v20</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">)</span>
 <span class="p">{</span>
@@ -1191,12 +1198,12 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
 </div>
 <p>注意符号的基本名称（指的应该是rte_acl_create_v20中的rte_acl_create前缀）保持不变，这对用于符号版本化的宏有好处。接着，把新符号名映射到版本节点2.0中的原始符号名。紧接着此函数的定义，添加一行代码:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">VERSION_SYMBOL</span><span class="p">(</span><span class="n">rte_acl_create</span><span class="p">,</span> <span class="n">_v20</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">VERSION_SYMBOL</span><span class="p">(</span><span class="n">rte_acl_create</span><span class="p">,</span> <span class="n">_v20</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>记得把rte_compat.h头文件包含到.c源码文件中。上面的宏指导链接器创建一个新符号 <code class="docutils literal"><span class="pre">rte_acl_create&#64;DPDK_2.0</span></code> ，它匹配老版本中的符号，但指向上一步我们新命名的函数。到此为止，已经把原始的rte_acl_create符号映射到原始函数，只不过改了一个新名字。</p>
 <p>然后，需要创建符号的2.1版本。实现的新版函数使用一个新的函数名，带不同的后缀:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
 <span class="n">rte_acl_create_v21</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">,</span> <span class="nb">int</span> <span class="n">debug</span><span class="p">);</span>
 <span class="p">{</span>
     <span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span><span class="n">ctx</span> <span class="o">=</span> <span class="n">rte_acl_create_v20</span><span class="p">(</span><span class="n">param</span><span class="p">);</span>
@@ -1208,7 +1215,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 </pre></div>
 </div>
 <p>同样地，需要把此函数映射到符号 <code class="docutils literal"><span class="pre">rte_acl_create&#64;DPDK_2.1</span></code> 。修改此API原型所在的头文件，添加版本宏，通知调用此函数的程序在重新链接时，默认的rte_acl_create符号应指向新版本函数:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
 <span class="o">-</span><span class="n">rte_acl_create</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">);</span>
 <span class="o">+</span><span class="n">rte_acl_create</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">,</span> <span class="nb">int</span> <span class="n">debug</span><span class="p">);</span>
 <span class="o">+</span><span class="n">BIND_DEFAULT_SYMBOL</span><span class="p">(</span><span class="n">rte_acl_create</span><span class="p">,</span> <span class="n">_v21</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">);</span>
@@ -1217,7 +1224,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <p>BIND_DEFAULT_SYMBOL宏显式地告诉包含此头文件的程序链接函数rte_acl_create_v21并对其应用版本节点DPDK_2.1。这种方法比重新实现原符号名更显式和灵活。</p>
 <p>最后，以上步骤只适用于动态链接，静态链接并没有版本化的概念，以上步骤会导致静态编译时因为找不到 <code class="docutils literal"><span class="pre">rte_acl_create</span></code> 这个符号而失败。</p>
 <p>要解决此问题，可以用MAP_STATIC_SYMBOL宏将指定函数映射到公用符号。一般来说要映射的特定函数就是最新版本的函数。因此，回到函数定义所在的.c文件，在 <code class="docutils literal"><span class="pre">rte_acl_create_v21</span></code> 定义之后，紧接着添加宏代码:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_acl_ctx</span> <span class="o">*</span>
 <span class="n">rte_acl_create_v21</span><span class="p">(</span><span class="n">const</span> <span class="n">struct</span> <span class="n">rte_acl_param</span> <span class="o">*</span><span class="n">param</span><span class="p">,</span> <span class="nb">int</span> <span class="n">debug</span><span class="p">)</span>
 <span class="p">{</span>
      <span class="o">...</span>
@@ -1249,11 +1256,11 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <div class="section" id="config-common-base">
 <h3>9.7.1. config/common_base<a class="headerlink" href="#config-common-base" title="永久链接至标题">¶</a></h3>
 <p>修改:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CONFIG_RTE_BUILD_SHARED_LIB</span><span class="o">=</span><span class="n">y</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">CONFIG_RTE_BUILD_SHARED_LIB</span><span class="o">=</span><span class="n">y</span>
 </pre></div>
 </div>
 <p>添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CONFIG_RTE_BUILD_COMBINE_LIBS</span><span class="o">=</span><span class="n">y</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">CONFIG_RTE_BUILD_COMBINE_LIBS</span><span class="o">=</span><span class="n">y</span>
 <span class="n">CONFIG_RTE_LIBNAME</span><span class="o">=</span><span class="n">intel_dpdk</span>
 </pre></div>
 </div>
@@ -1261,7 +1268,7 @@ make config T=$RTE_TARGET O=$RTE_TARGET
 <div class="section" id="mk-rte-lib-mk">
 <h3>9.7.2. mk/rte.lib.mk<a class="headerlink" href="#mk-rte-lib-mk" title="永久链接至标题">¶</a></h3>
 <p>在 <code class="docutils literal"><span class="pre">-include</span> <span class="pre">.$(LIB).cmd</span></code> 之前，添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
 O_TO_C = $(AR) crus $(LIB_ONE) $(OBJS-y)
 O_TO_C_STR = $(subst &#39;,&#39;\&#39;&#39;,$(O_TO_C)) #&#39;# fix syntax highlight
 O_TO_C_DISP = $(if $(V),&quot;$(O_TO_C_STR)&quot;,&quot;  AR_C $(@)&quot;)
@@ -1283,7 +1290,7 @@ lib_dir = [ -d $(RTE_OUTPUT)/lib ] || mkdir -p $(RTE_OUTPUT)/lib;
 </div>
 <p>$(copy_obj)把编译成的.o文件拷贝到$(RTE_OUTPUT)/build/lib目录。</p>
 <p>在 <code class="docutils literal"><span class="pre">ifeq</span> <span class="pre">($(CONFIG_RTE_BUILD_SHARED_LIB),</span> <span class="pre">y)</span></code> 判断语句块的第一个else前，添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
     $(if $(or \
         $(file_missing),\
         $(call cmdline_changed,$(O_TO_C_STR)),\
@@ -1294,7 +1301,7 @@ endif
 </pre></div>
 </div>
 <p>在这语句块结束的最后一个 <code class="docutils literal"><span class="pre">endif</span></code> 前，添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),y)
     $(if $(or \
         $(file_missing),\
         $(call cmdline_changed,$(O_TO_C_STR)),\
@@ -1308,25 +1315,25 @@ endif
 <div class="section" id="mk-rte-combinedlib-mk">
 <h3>9.7.3. mk/rte.combinedlib.mk<a class="headerlink" href="#mk-rte-combinedlib-mk" title="永久链接至标题">¶</a></h3>
 <p>首先要包含rte.build-pre.mk:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>include $(RTE_SDK)/mk/internal/rte.build-pre.mk
+<div class="highlight-default"><div class="highlight"><pre>include $(RTE_SDK)/mk/internal/rte.build-pre.mk
 </pre></div>
 </div>
 <p>修改输出库文件名，删除:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RTE_LIBNAME</span> <span class="p">:</span><span class="o">=</span> <span class="n">dpdk</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">RTE_LIBNAME</span> <span class="p">:</span><span class="o">=</span> <span class="n">dpdk</span>
 </pre></div>
 </div>
 <p>因为库名称在common_base文件中配置了。修改:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>COMBINEDLIB := lib$(CONFIG_RTE_LIBNAME)$(EXT)
+<div class="highlight-default"><div class="highlight"><pre>COMBINEDLIB := lib$(CONFIG_RTE_LIBNAME)$(EXT)
 </pre></div>
 </div>
 <p>在LIBS后面添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>OBJS = $(wildcard $(RTE_OUTPUT)/build/lib/*.o)
+<div class="highlight-default"><div class="highlight"><pre>OBJS = $(wildcard $(RTE_OUTPUT)/build/lib/*.o)
 CPU_LDFLAGS += --version-script=$(SRCDIR)/lib/libdpdk.map
 </pre></div>
 </div>
 <p>之后需要链接OBJS，libdpdk.map是上文说到的版本控制脚本。</p>
 <p>在 <code class="docutils literal"><span class="pre">all:</span> <span class="pre">FORCE</span></code> 前添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(LINK_USING_CC),1)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(LINK_USING_CC),1)
 # Override the definition of LD here, since we&#39;re linking with CC
 LD := $(CC) $(CPU_CFLAGS)
 O_TO_S = $(LD) $(call linkerprefix,$(CPU_LDFLAGS)) \
@@ -1345,7 +1352,7 @@ O_TO_S_DO = @set -e; \
 </pre></div>
 </div>
 <p>修改all目标( <code class="docutils literal"><span class="pre">all:</span> <span class="pre">FORCE</span></code> 下一行）:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>all: FORCE
+<div class="highlight-default"><div class="highlight"><pre>all: FORCE
     $(O_TO_S_DO)
 </pre></div>
 </div>
@@ -1353,13 +1360,13 @@ O_TO_S_DO = @set -e; \
 <div class="section" id="mk-rte-app-mk">
 <h3>9.7.4. mk/rte.app.mk<a class="headerlink" href="#mk-rte-app-mk" title="永久链接至标题">¶</a></h3>
 <p>此文件改动较大。首先在 <code class="docutils literal"><span class="pre">_LDLIBS-y</span> <span class="pre">+=</span> <span class="pre">-L$(RTE_SDK_BIN)/lib</span></code> 之后添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>_LDLIBS-$(CONFIG_RTE_BUILD_COMBINE_LIBS)    += -l$(CONFIG_RTE_LIBNAME)
+<div class="highlight-default"><div class="highlight"><pre>_LDLIBS-$(CONFIG_RTE_BUILD_COMBINE_LIBS)    += -l$(CONFIG_RTE_LIBNAME)
 _LDLIBS-y += -lm
 _LDLIBS-y += -lpcap
 </pre></div>
 </div>
 <p>之后，在 <code class="docutils literal"><span class="pre">_LDLIBS-y</span> <span class="pre">+=</span> <span class="pre">--whole-archive</span></code> 之前，修改为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),n)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),n)
 
 _LDLIBS-$(CONFIG_RTE_LIBRTE_DISTRIBUTOR)    += -lrte_distributor
 _LDLIBS-$(CONFIG_RTE_LIBRTE_REORDER)        += -lrte_reorder
@@ -1391,7 +1398,7 @@ endif # ! CONFIG_RTE_BUILD_COMBINE_LIBS
 </div>
 <p>之后，在 <code class="docutils literal"><span class="pre">_LDLIBS-$(CONFIG_RTE_LIBRTE_KVARGS)</span> <span class="pre">+=</span> <span class="pre">-lrte_kvargs</span></code>
 之前，添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(CONFIG_RTE_BUILD_SHARED_LIB),n)
 # The static libraries do not know their dependencies.
 # So linking with static library requires explicit dependencies.
 _LDLIBS-$(CONFIG_RTE_LIBRTE_EAL)            += -lrt
@@ -1414,7 +1421,7 @@ ifeq ($(CONFIG_RTE_BUILD_COMBINE_LIBS),n)
 </div>
 <p>之后，在 <code class="docutils literal"><span class="pre">endif</span> <span class="pre">#</span> <span class="pre">CONFIG_RTE_LIBRTE_CRYPTODEV</span></code> 之后，
 <code class="docutils literal"><span class="pre">_LDLIBS-y</span> <span class="pre">+=</span> <span class="pre">--no-whole-archive</span></code> 之前，添加:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>endif # !CONFIG_RTE_BUILD_SHARED_LIB
+<div class="highlight-default"><div class="highlight"><pre>endif # !CONFIG_RTE_BUILD_SHARED_LIB
 endif # ! CONFIG_RTE_BUILD_COMBINE_LIBS
 
 _LDLIBS-y += $(EXECENV_LDLIBS)
@@ -1422,13 +1429,13 @@ _LDLIBS-y += --end-group
 </pre></div>
 </div>
 <p>删除下面的:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>_LDLIBS-y += $(EXECENV_LDLIBS)
+<div class="highlight-default"><div class="highlight"><pre>_LDLIBS-y += $(EXECENV_LDLIBS)
 </pre></div>
 </div>
 <p>最后，将 <code class="docutils literal"><span class="pre">exe2cmd</span> <span class="pre">=</span> <span class="pre">$(strip</span> <span class="pre">$(call</span> <span class="pre">dotfile,$(patsubst</span> <span class="pre">%,%.cmd,$(1))))</span></code>
 之后，<code class="docutils literal"><span class="pre">O_TO_EXE_STR</span> <span class="pre">=</span> <span class="pre">$(subst</span> <span class="pre">','\'',$(O_TO_EXE))</span> <span class="pre">#'#</span> <span class="pre">fix</span> <span class="pre">syntax</span> <span class="pre">highlight</span></code>
 之前的内容，修改为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ifeq ($(LINK_USING_CC),1)
+<div class="highlight-default"><div class="highlight"><pre>ifeq ($(LINK_USING_CC),1)
 override EXTRA_LDFLAGS := $(call linkerprefix,$(EXTRA_LDFLAGS))
 O_TO_EXE = $(CC) $(CFLAGS) $(LDFLAGS_$(@)) \
     -Wl,-Map=$(@).map,--cref -o $@ $(OBJS-y) $(call linkerprefix,$(LDFLAGS)) \
@@ -1444,7 +1451,7 @@ endif
 <h3>9.7.5. libdpdk.map<a class="headerlink" href="#libdpdk-map" title="永久链接至标题">¶</a></h3>
 <p>最后，需要提供一个版本控制脚本libdpdk.map，将它放在$RTE_SDK/lib目录中，
 该文件内容为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">DPDK_2</span><span class="o">.</span><span class="mi">0</span> <span class="p">{</span>
 
 <span class="p">};</span>
 
@@ -1473,25 +1480,25 @@ endif
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-source-org" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_source_org]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/source_org.html">DPDK Programmer’s Guide - Source Organization </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_source_org]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/source_org.html">DPDK Programmer's Guide - Source Organization </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-build-system" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_build_system]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_build_system.html">DPDK Programmer’s Guide - Development Kit Build System </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_build_system]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_build_system.html">DPDK Programmer's Guide - Development Kit Build System </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-prog-guide-makefile-help" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_prog_guide_makefile_help]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_root_make_help.html">DPDK Programmer’s Guide - Development Kit Root Makefile Help </a></td></tr>
+<tr><td class="label">[dpdk_prog_guide_makefile_help]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/dev_kit_root_make_help.html">DPDK Programmer's Guide - Development Kit Root Makefile Help </a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="dpdk-contr-abi" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_contr_abi]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/contributing/versioning.html">DPDK Contributor’s Guidelines - Managing ABI updates </a></td></tr>
+<tr><td class="label">[dpdk_contr_abi]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/contributing/versioning.html">DPDK Contributor's Guidelines - Managing ABI updates </a></td></tr>
 </tbody>
 </table>
 <div id="container"></div>
@@ -1554,7 +1561,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

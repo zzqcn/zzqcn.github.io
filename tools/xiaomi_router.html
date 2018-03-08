@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -742,7 +749,7 @@
 <p><strong>注意</strong>：先删除掉上一步骤遗留的文件miwifi.bin, 否则会刷rom而不刷ssh.</p>
 <ol class="arabic simple">
 <li>注册小米账号, 并在路由器管理界面绑定小米账号</li>
-<li>访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的”开启SSH工具”</li>
+<li>访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的&quot;开启SSH工具&quot;</li>
 <li>依次点击“下载工具包”“接受”，需要注意的是，协议中已经写明，开启ssh后得到root权限，
 同时意味着放弃保修服务.</li>
 <li>按照上一步下载时页面的提示, 将下载的ssh工具安装到小米路由器</li>
@@ -754,13 +761,13 @@
 <p>我们一般不会直接在小米路由器上直接进行开发, 而是在PC机上建立交叉编译环境, 开发,
 编译代码然后将其部署到小米路由器上. 这里给出的是在Linux上搭建交叉编译环境的过程.</p>
 <ol class="arabic">
-<li><p class="first">访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的”插件开发文档”,
+<li><p class="first">访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的&quot;插件开发文档&quot;,
 在弹出的对话框中选择对应的产品型号下载相应的sdk</p>
 <p>目前小米路由器各型号与其对应的芯片, sdk版本的对照表如下表所示:</p>
 <img alt="../_images/xiaomi_sdk.png" src="../_images/xiaomi_sdk.png" />
 </li>
 <li><p class="first">下载后解压, 并将 <code class="docutils literal"><span class="pre">&lt;sdk&gt;/toolchain/bin</span></code> 添加到PATH:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>export PATH=$PATH:/home/zzq/sdk_package_r3p/toolchain/bin
+<div class="highlight-default"><div class="highlight"><pre>export PATH=$PATH:/home/zzq/sdk_package_r3p/toolchain/bin
 </pre></div>
 </div>
 </li>
@@ -776,7 +783,7 @@
 </li>
 <li><p class="first">设置环境变量, 指定gcc等编译工具, 除了用export命令外, 也可以以KEY=VALUE的形式
 作为参数写在./configure后面:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CC</span><span class="o">=</span><span class="n">mipsel</span><span class="o">-</span><span class="n">xiaomi</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">uclibc</span><span class="o">-</span><span class="n">gcc</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">export</span> <span class="n">CC</span><span class="o">=</span><span class="n">mipsel</span><span class="o">-</span><span class="n">xiaomi</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">uclibc</span><span class="o">-</span><span class="n">gcc</span>
 <span class="n">export</span> <span class="n">AR</span><span class="o">=</span><span class="n">mipsel</span><span class="o">-</span><span class="n">xiaomi</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">uclibc</span><span class="o">-</span><span class="n">ar</span>
 <span class="n">export</span> <span class="n">RANLIB</span><span class="o">=</span><span class="n">mipsel</span><span class="o">-</span><span class="n">xiaomi</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">uclibc</span><span class="o">-</span><span class="n">ranlib</span>
 </pre></div>
@@ -791,13 +798,13 @@
 </ol>
 <p><strong>注意</strong> configure几个参数的含义</p>
 <ul>
-<li><p class="first">–build: 编译用的当前平台, 一般不用指定, configure会自动检测</p>
+<li><p class="first">--build: 编译用的当前平台, 一般不用指定, configure会自动检测</p>
 </li>
-<li><p class="first">–host: 编译出的软件将运行于的平台, 也可以不指定, 默认与–build值相同</p>
+<li><p class="first">--host: 编译出的软件将运行于的平台, 也可以不指定, 默认与--build值相同</p>
 </li>
-<li><p class="first">–target: 编译出的软件将处理什么平台的文件, 一般编译编译器之类的软件才会使用此选项</p>
+<li><p class="first">--target: 编译出的软件将处理什么平台的文件, 一般编译编译器之类的软件才会使用此选项</p>
 </li>
-<li><p class="first">当–build值!=–host值时, 为交叉编译</p>
+<li><p class="first">当--build值!=--host值时, 为交叉编译</p>
 </li>
 <li><p class="first">示例</p>
 <table border="1" class="docutils">
@@ -808,9 +815,9 @@
 <col width="58%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">–build</th>
-<th class="head">–host</th>
-<th class="head">–target</th>
+<tr class="row-odd"><th class="head">--build</th>
+<th class="head">--host</th>
+<th class="head">--target</th>
 <th class="head">含义</th>
 </tr>
 </thead>
@@ -853,15 +860,15 @@
 <p>gdb-7.8.1以上版本需要C++编译器支持C++11, 而r1c sdk中的g++仅支持C++0x.
 r3p sdk中的g++支持C++11.</p>
 <p>如果要在MIPS平台上运行gdb-7.8.1, 需要修改源码, 否则运行时会报错:
-“GDB bug: target.c (gdb_signal_from_host): unrecognized real-time signal”,
+&quot;GDB bug: target.c (gdb_signal_from_host): unrecognized real-time signal&quot;,
 方法是修改&lt;gdb_root&gt;/gdb/common/signals.c, 在第346行左右添加最后一个if语句:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">hostsig</span> <span class="o">==</span> <span class="mi">128</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">hostsig</span> <span class="o">==</span> <span class="mi">128</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">GDB_SIGNAL_UNKNOWN</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>另外gdb依赖libtermcap, 在编译之前还需要交叉编译termcap, 并在编译gdb前通过LDFLAGS
 指定libtermcap.a所在位置:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">LDFLAGS</span><span class="o">=-</span><span class="n">L</span><span class="p">(</span><span class="n">libtermcap</span><span class="o">.</span><span class="n">a所在的目录</span><span class="p">,</span> <span class="n">它也需要交叉编译</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">export</span> <span class="n">LDFLAGS</span><span class="o">=-</span><span class="n">L</span><span class="p">(</span><span class="n">libtermcap</span><span class="o">.</span><span class="n">a所在的目录</span><span class="p">,</span> <span class="n">它也需要交叉编译</span><span class="p">)</span>
 <span class="n">export</span> <span class="n">LIBS</span><span class="o">=-</span><span class="n">ltermcap</span>
 </pre></div>
 </div>
@@ -924,7 +931,7 @@ r3p sdk中的g++支持C++11.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

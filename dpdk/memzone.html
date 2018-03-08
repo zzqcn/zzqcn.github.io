@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -730,7 +737,7 @@
 <span id="id2"></span><h2>5.2. 初始化<a class="headerlink" href="#memzone-init" title="永久链接至标题">¶</a></h2>
 <p>在EAL初始化过程中，先调用rte_eal_memory_init()进行了大页内存初始化，紧接着调用rte_eal_memzone_init()进行了memzone的初始化。</p>
 <p>rte_eal_memzone_init (librte_eal/common/eal_common_memzone.c)</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">memseg</span> <span class="o">=</span> <span class="n">rte_eal_get_physmem_layout</span><span class="p">();</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">memseg</span> <span class="o">=</span> <span class="n">rte_eal_get_physmem_layout</span><span class="p">();</span>
 
 <span class="n">rte_rwlock_write_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">mlock</span><span class="p">);</span>
 <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memzone_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -747,7 +754,7 @@ heap链表中，以供之后使用。详见 <a class="reference internal" href="
 <h2>5.3. 内存分配<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>核心函数是memzone_reserve_aligned_thread_unsafe(librte_eal/common/eal_common_memzone.c)。</p>
 <p>内存分配通过malloc_heap_alloc完成，见 <a class="reference internal" href="malloc.html#malloc-heap-alloc"><span class="std std-ref">内存分配</span></a> 。之后构造memzone结构体并返回。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="n">mz_addr</span> <span class="o">=</span> <span class="n">malloc_heap_alloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">malloc_heaps</span><span class="p">[</span><span class="n">socket</span><span class="p">],</span> <span class="nb">NULL</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="o">*</span><span class="n">mz_addr</span> <span class="o">=</span> <span class="n">malloc_heap_alloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">malloc_heaps</span><span class="p">[</span><span class="n">socket</span><span class="p">],</span> <span class="nb">NULL</span><span class="p">,</span>
             <span class="n">requested_len</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">bound</span><span class="p">);</span>
 <span class="k">const</span> <span class="k">struct</span> <span class="n">malloc_elem</span> <span class="o">*</span><span class="n">elem</span> <span class="o">=</span> <span class="n">malloc_elem_from_data</span><span class="p">(</span><span class="n">mz_addr</span><span class="p">);</span>
 <span class="k">struct</span> <span class="n">rte_memzone</span> <span class="o">*</span><span class="n">mz</span> <span class="o">=</span> <span class="n">get_next_free_memzone</span><span class="p">();</span>
@@ -769,7 +776,7 @@ heap链表中，以供之后使用。详见 <a class="reference internal" href="
 <h2>5.4. 内存释放<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>rte_memzone_free(librte_eal/common/eal_common_memzone.c).</p>
 <p>先求得memzone对应的idx，然后把该memzone结构体清0，最后释放堆内存。</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">mz</span> <span class="o">-</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memzone</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">idx</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">mz</span> <span class="o">-</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memzone</span><span class="p">);</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_memzone</span><span class="p">);</span>
 <span class="n">addr</span> <span class="o">=</span> <span class="n">mcfg</span><span class="o">-&gt;</span><span class="n">memzone</span><span class="p">[</span><span class="n">idx</span><span class="p">].</span><span class="n">addr</span><span class="p">;</span>
 
@@ -847,7 +854,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

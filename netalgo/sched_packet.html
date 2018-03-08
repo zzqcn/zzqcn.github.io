@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -755,7 +762,7 @@
 <p>RED(Random Early Detection, 参考 <a class="reference internal" href="#id41" id="id3">[red]</a> )是一种用于拥塞控制的调度机制，它已经成为一个事实上的标准，被广泛应用。</p>
 <p>RED通过监视报文队列，动态计算其拥塞程度，并据此以某种规则丢弃队列中的报文(即使此时队列仍有空间)，实现拥塞控制。</p>
 <p>相比于简单的Tail Drop，RED可以避免TCP的全局同步(即TCP发现丢了多个包，从而急剧减小window&lt;慢开始&gt;，拥塞解除；
-但后来不再拥塞时又开始加快发送速度，又一次造成拥塞…这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
+但后来不再拥塞时又开始加快发送速度，又一次造成拥塞...这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
 <p>RED只在设备上实现，不需要依赖连接双方。</p>
 <div class="section" id="id4">
 <h3>14.2.1 设计目标<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
@@ -931,7 +938,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
 <li>如果Ts &lt; t，则调整Ts = t，这意味着Scheduler调度报文的速度跟不上NIC Tx的速度，此时带宽将被浪费</li>
 </ol>
 <p>声明：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/* Timing */</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/* Timing */</span>
 <span class="kt">uint64_t</span> <span class="n">time_cpu_cycles</span><span class="p">;</span> <span class="cm">/* Current CPU time measured in CPU cyles */</span>
 <span class="kt">uint64_t</span> <span class="n">time_cpu_bytes</span><span class="p">;</span>  <span class="cm">/* Current CPU time measured in bytes */</span>
 <span class="kt">uint64_t</span> <span class="n">time</span><span class="p">;</span>            <span class="cm">/* Current NIC TX time measured in bytes */</span>
@@ -940,7 +947,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
 </div>
 <p>这里time就是Ts。</p>
 <p>配置时初始化：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/* Timing */</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/* Timing */</span>
 <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_cycles</span> <span class="o">=</span> <span class="n">rte_get_tsc_cycles</span><span class="p">();</span>
 <span class="n">port</span><span class="o">-&gt;</span><span class="n">time_cpu_bytes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">port</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -948,7 +955,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
 </pre></div>
 </div>
 <p>出队时(rte_sched_port_dequeue)调用rte_sched_port_time_resync：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span>
 <span class="nf">rte_sched_port_dequeue</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_sched_port</span> <span class="o">*</span><span class="n">port</span><span class="p">,</span> <span class="k">struct</span> <span class="n">rte_mbuf</span> <span class="o">**</span><span class="n">pkts</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">n_pkts</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">uint32_t</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span><span class="p">;</span>
@@ -990,7 +997,7 @@ h是每个报文所需的分帧开销(framing overhead)。</p>
 </pre></div>
 </div>
 <p>在grinder_handle中，会调用grinder_schedule，在其中，调用了</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/* Advance port time */</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/* Advance port time */</span>
 <span class="n">port</span><span class="o">-&gt;</span><span class="n">time</span> <span class="o">+=</span> <span class="n">pkt_len</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -1038,7 +1045,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 <p>Meter的行为由模式和2个令牌桶C(CBS)、E(EBS)决定。C桶和E桶的速度相同，都是CIR。C的大小为CBS，E的大小是EBS。</p>
 <p>设Tc、Te分别为C桶和E桶的令牌计数器，在0时刻，Tc(0)=CBS，Te(0)=EBS，
 之后每秒钟按以下规则更新Tc和Te</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tc</span> <span class="o">&lt;</span> <span class="n">CBS</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">Tc</span> <span class="o">&lt;</span> <span class="n">CBS</span><span class="p">)</span>
     <span class="n">Tc</span> <span class="o">++</span><span class="p">;</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Te</span> <span class="o">&lt;</span> <span class="n">EBS</span><span class="p">)</span>
     <span class="n">Te</span> <span class="o">++</span><span class="p">;</span>
@@ -1047,7 +1054,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 </pre></div>
 </div>
 <p>当在时刻t有一个长度为B的报文到来时，在Color-Blind模式时</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
    <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
    <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Te</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
@@ -1058,7 +1065,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 </pre></div>
 </div>
 <p>在Color-Aware模式时</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">GREEN</span> <span class="o">&amp;&amp;</span> <span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">GREEN</span> <span class="o">&amp;&amp;</span> <span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">GREEN</span><span class="p">;</span>
     <span class="n">Tc</span> <span class="o">-=</span> <span class="n">B</span><span class="p">;</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">color</span> <span class="o">==</span> <span class="n">GREEN</span> <span class="o">||</span> <span class="n">color</span> <span class="o">==</span> <span class="n">YELLOW</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
@@ -1110,7 +1117,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 <p>设Tp、Tc分别为P桶和C桶的令牌计数器，在0时刻，Tp(0)=PBS，Tc(0)=CBS，
 之后每一秒钟，Tp += PIR, Tc += CIR。</p>
 <p>当在时刻t有一个长度为B的报文到来时，在Color-Blind模式</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
@@ -1122,7 +1129,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 </pre></div>
 </div>
 <p>在Color-Aware模式时</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span> <span class="o">||</span> <span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">RED</span> <span class="o">||</span> <span class="n">Tp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="n">YELLOW</span> <span class="o">||</span> <span class="n">Tc</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="n">B</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">YELLOW</span><span class="p">;</span>
@@ -1141,7 +1148,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 <a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/qos_framework.html#traffic-metering">http://dpdk.org/doc/guides/prog_guide/qos_framework.html#traffic-metering</a>.</p>
 <p>这里只分析其中的srTCM的Color-Blind模式实现部分.</p>
 <p>dpdk meter库为每条流(flow)配置一个meter运行时上下文, 配置结构为:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_meter_srtcm_params</span> <span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_meter_srtcm_params</span> <span class="p">{</span>
     <span class="n">uint64_t</span> <span class="n">cir</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Committed</span> <span class="n">Information</span> <span class="n">Rate</span> <span class="p">(</span><span class="n">CIR</span><span class="p">)</span><span class="o">.</span> <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span> <span class="n">per</span> <span class="n">second</span><span class="o">.</span> <span class="o">*/</span>
     <span class="n">uint64_t</span> <span class="n">cbs</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Committed</span> <span class="n">Burst</span> <span class="n">Size</span> <span class="p">(</span><span class="n">CBS</span><span class="p">)</span><span class="o">.</span>  <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">.</span> <span class="o">*/</span>
     <span class="n">uint64_t</span> <span class="n">ebs</span><span class="p">;</span> <span class="o">/**&lt;</span> <span class="n">Excess</span> <span class="n">Burst</span> <span class="n">Size</span> <span class="p">(</span><span class="n">EBS</span><span class="p">)</span><span class="o">.</span>  <span class="n">Measured</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="o">.</span> <span class="o">*/</span>
@@ -1149,7 +1156,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 </pre></div>
 </div>
 <p>meter运行时上下文:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rte_meter_srtcm</span> <span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">struct</span> <span class="n">rte_meter_srtcm</span> <span class="p">{</span>
     <span class="n">uint64_t</span> <span class="n">time</span><span class="p">;</span> <span class="o">/*</span> <span class="n">Time</span> <span class="n">of</span> <span class="n">latest</span> <span class="n">update</span> <span class="n">of</span> <span class="n">C</span> <span class="ow">and</span> <span class="n">E</span> <span class="n">token</span> <span class="n">buckets</span> <span class="o">*/</span>
     <span class="n">uint64_t</span> <span class="n">tc</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">currently</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">committed</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
     <span class="n">uint64_t</span> <span class="n">te</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">currently</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">excess</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="n">token</span> <span class="n">bucket</span> <span class="o">*/</span>
@@ -1206,7 +1213,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 42
 43
 44
-45</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#ifndef RTE_METER_TB_PERIOD_MIN</span>
+45</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#ifndef RTE_METER_TB_PERIOD_MIN</span>
 <span class="cp">#define RTE_METER_TB_PERIOD_MIN      100</span>
 <span class="cp">#endif</span>
 
@@ -1291,7 +1298,7 @@ CBS和EBS应至少有一个值大于0，当它们大于0时，推荐配置为大
 34
 35
 36
-37</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kr">inline</span> <span class="k">enum</span> <span class="n">rte_meter_color</span>
+37</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">static</span> <span class="kr">inline</span> <span class="k">enum</span> <span class="n">rte_meter_color</span>
 <span class="nf">rte_meter_srtcm_color_blind_check</span><span class="p">(</span><span class="k">struct</span> <span class="n">rte_meter_srtcm</span> <span class="o">*</span><span class="n">m</span><span class="p">,</span>
     <span class="kt">uint64_t</span> <span class="n">time</span><span class="p">,</span>
     <span class="kt">uint32_t</span> <span class="n">pkt_len</span><span class="p">)</span>
@@ -1519,36 +1526,42 @@ RRP指向下一个活动队列F2。</p>
 <p>每个port的内部数据结构如下图所示(struct rte_sched_port)：</p>
 <img alt="../_images/dpdk_sched_datastruct.png" src="../_images/dpdk_sched_datastruct.png" />
 <p>其中：</p>
-<ul class="simple">
+<ul>
 <li><dl class="first docutils">
 <dt>subport表项</dt>
-<dd>struct rte_sched_subport</dd>
+<dd><p class="first last">struct rte_sched_subport</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>pipe表项</dt>
-<dd>struct rte_sched_pipe，多个pipe可以共享同一个pipe配置，因为配置结构不包括在pipe表项中，而是有一个专门的结构struct
-rte_sched_pipe_profile</dd>
+<dd><p class="first last">struct rte_sched_pipe，多个pipe可以共享同一个pipe配置，因为配置结构不包括在pipe表项中，而是有一个专门的结构struct
+rte_sched_pipe_profile</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>queue表项</dt>
-<dd>struct rte_sched_queue，存放队列的读写指针</dd>
+<dd><p class="first last">struct rte_sched_queue，存放队列的读写指针</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>队列存储区</dt>
-<dd>struct rte_mbuf*，报文队列，即一个rte_mbuf*数组</dd>
+<dd><p class="first last">struct rte_mbuf*，报文队列，即一个rte_mbuf*数组</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>活动队列bitmap</dt>
-<dd>struct rte_bitmap，标识报文队列是否活动</dd>
+<dd><p class="first last">struct rte_bitmap，标识报文队列是否活动</p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>grinder</dt>
-<dd>struct rte_sched_grinder，存放当前活动pipes的短列表，包含pipe处理期间所需的临时数据</dd>
+<dd><p class="first last">struct rte_sched_grinder，存放当前活动pipes的短列表，包含pipe处理期间所需的临时数据</p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -1882,8 +1895,8 @@ TC操作</th>
 <p>从信息处理角度看，EWMA可看成一个低通滤波器，通过控制w值，剔除短期波动，保留长期发展趋势，提供了信号的平滑形式。</p>
 <p>下面通过一个C++程序演示了EWMA的作用。程序中，假定有10个时刻，每个时刻测定的值放在数组q中；avg为估计值。程序根据用户输入的权重w，
 计算时刻0-9时的EWMA估计值avg。代码如下</p>
-<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
@@ -2039,7 +2052,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="net-algo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[net_algo]</td><td>“Network Algorithmics”, George Varghese, 2005</td></tr>
+<tr><td class="label">[net_algo]</td><td>&quot;Network Algorithmics&quot;, George Varghese, 2005</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="id39" rules="none">
@@ -2051,7 +2064,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="id41" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> “Random Early Detection Gateways for Congestion Avoidance”,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
+<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> &quot;Random Early Detection Gateways for Congestion Avoidance&quot;,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="rfc2697" rules="none">
@@ -2138,7 +2151,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

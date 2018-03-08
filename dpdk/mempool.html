@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                2018.01
+                2018.03
               </div>
             
           
@@ -447,6 +447,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
@@ -614,6 +620,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/ubuntu.html">Ubuntu应用</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
@@ -741,10 +748,10 @@
 <div class="section" id="id4">
 <h2>7.3. 数据结构<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>rte_mempool(librte_mempool/rte_mempool.h)</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_mempool</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">RTE_MEMPOOL_NAMESIZE</span><span class="p">];</span> <span class="cm">/**&lt; Name of mempool. */</span>
     <span class="k">struct</span> <span class="n">rte_ring</span> <span class="o">*</span><span class="n">ring</span><span class="p">;</span>           <span class="cm">/**&lt; Ring to store objects. */</span>
-    <span class="n">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Phys. addr. of mempool struct. */</span>
+    <span class="kt">phys_addr_t</span> <span class="n">phys_addr</span><span class="p">;</span>           <span class="cm">/**&lt; Phys. addr. of mempool struct. */</span>
     <span class="kt">int</span> <span class="n">flags</span><span class="p">;</span>                       <span class="cm">/**&lt; Flags of the mempool. */</span>
     <span class="kt">uint32_t</span> <span class="n">size</span><span class="p">;</span>                   <span class="cm">/**&lt; Size of the mempool. */</span>
     <span class="kt">uint32_t</span> <span class="n">cache_size</span><span class="p">;</span>             <span class="cm">/**&lt; Size of per-lcore local cache. */</span>
@@ -777,7 +784,7 @@
     <span class="cm">/**&lt; Virtual address of the first mempool object. */</span>
     <span class="kt">uintptr_t</span>   <span class="n">elt_va_end</span><span class="p">;</span>
     <span class="cm">/**&lt; Virtual address of the &lt;size + 1&gt; mempool object. */</span>
-    <span class="n">phys_addr_t</span> <span class="n">elt_pa</span><span class="p">[</span><span class="n">MEMPOOL_PG_NUM_DEFAULT</span><span class="p">];</span>
+    <span class="kt">phys_addr_t</span> <span class="n">elt_pa</span><span class="p">[</span><span class="n">MEMPOOL_PG_NUM_DEFAULT</span><span class="p">];</span>
     <span class="cm">/**&lt; Array of physical page addresses for the mempool objects buffer. */</span>
 
 <span class="p">}</span>  <span class="n">__rte_cache_aligned</span><span class="p">;</span>
@@ -786,7 +793,7 @@
 <p>mempool中存储的每一个对象的结构分3部分，首部，数据和尾部。每一部分都填充以做到字节对齐，在调试模式首部和尾部还可以加上cookie。</p>
 <img alt="../_images/mempool_obj.png" src="../_images/mempool_obj.png" />
 <p>rte_mempool_cache(librte_mempool/rte_mempool.h)</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">rte_mempool_cache</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="n">len</span><span class="p">;</span> <span class="cm">/**&lt; Cache len */</span>
     <span class="kt">void</span> <span class="o">*</span><span class="n">objs</span><span class="p">[</span><span class="n">RTE_MEMPOOL_CACHE_MAX_SIZE</span> <span class="o">*</span> <span class="mi">3</span><span class="p">];</span> <span class="cm">/**&lt; Cache objects */</span>
 <span class="p">}</span> <span class="n">__rte_cache_aligned</span><span class="p">;</span>
@@ -830,7 +837,7 @@ memzone相关原理见 <a class="reference internal" href="memzone.html"><span c
 <table class="docutils citation" frame="void" id="dpdk-guide-mpool" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[dpdk_guide_mpool]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html">DPDK programmer’s guide - Mempool </a></td></tr>
+<tr><td class="label">[dpdk_guide_mpool]</td><td><a class="reference external" href="http://dpdk.org/doc/guides/prog_guide/mempool_lib.html">DPDK programmer's guide - Mempool </a></td></tr>
 </tbody>
 </table>
 <div id="container"></div>
@@ -893,7 +900,7 @@ gitment.render('container')
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2018.01.30',
+            VERSION:'2018.03.09',
             LANGUAGE:'zh_CN',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
