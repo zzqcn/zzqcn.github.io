@@ -37,7 +37,10 @@
         <link rel="index" title="索引"
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
-    <link rel="top" title="zzq&#39;s blog" href="../index.html"/> 
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
+        <link rel="up" title="工具与杂项" href="index.html"/>
+        <link rel="next" title="兴趣爱好" href="../hobby/index.html"/>
+        <link rel="prev" title="小米路由器开发" href="xiaomi_router.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,7 +93,7 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
@@ -465,7 +468,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">工具与杂项</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">工具与杂项</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="vim/index.html">Vim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="vim/intro.html">简介与基本配置</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="vim/intro.html#vim">为什么要使用vim</a></li>
@@ -641,6 +644,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">配置网络</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gdb">远程gdb调试</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
@@ -703,6 +717,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">工具与杂项</a> &raquo;</li>
         
       <li>QEMU模拟器</li>
     
@@ -911,7 +927,55 @@ hello mips!
 </div>
 <div class="section" id="gdb">
 <h2>远程gdb调试<a class="headerlink" href="#gdb" title="永久链接至标题">¶</a></h2>
-<p>//TODO</p>
+<p>远程gdb调试, 需要在MIPS虚拟机上运行gdbserver, 在Ubuntu上运行交叉编译套件中的gdb,
+并连接MIPS虚拟机上的gdbserver.</p>
+<ol class="arabic">
+<li><p class="first">交叉编译好要调试的可执行程序, 如hello, scp到MIPS虚拟机(/home/user/hello)</p>
+</li>
+<li><p class="first">在QEMU MIPS虚拟机上安装gdbserver, 可以在x86主机上交叉编译一个, 也可以直接在MIPS虚拟机上通过apt-get install gdbserver安装</p>
+</li>
+<li><p class="first">在MIPS虚拟机上运行gdbserver:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">root</span><span class="nd">@debian</span><span class="o">-</span><span class="n">mips</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="c"># gdbserver --multi 192.168.10.20:1234</span>
+<span class="n">Listening</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">1234</span>
+
+<span class="n">其中192</span><span class="o">.</span><span class="mf">168.10</span><span class="o">.</span><span class="mi">20</span><span class="n">是Ubuntu的IP</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">在Ubuntu上运行交叉编译套件中的gdb, 如果提示找不到 libtermcap.so.2 文件, 可以安装libncurses5-dev, 然后找到其中的libncurses.so.5.x, 做个软链接:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo ln -s /lib/i386-linux-gnu/libncurses.so.5.9 /lib/i386-linux-gnu/libtermcap.so.2
+</pre></div>
+</div>
+</li>
+<li><p class="first">连接远程gdbserver:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">target</span> <span class="n">extended</span><span class="o">-</span><span class="n">remote</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.21</span><span class="p">:</span><span class="mi">1234</span>
+<span class="n">Remote</span> <span class="n">debugging</span> <span class="n">using</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.21</span><span class="p">:</span><span class="mi">1234</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">指定远程MIPS虚拟机上要调试的可执行文件:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">set</span> <span class="n">remote</span> <span class="n">exec</span><span class="o">-</span><span class="n">file</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">hello</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">指定本机上要调试的可执行文件:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">file</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">hello</span>
+<span class="n">Reading</span> <span class="n">symbols</span> <span class="kn">from</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">hello</span><span class="o">...</span><span class="n">done</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">接下来就可以跟在本机调试一下加断点调试了:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="n">main</span>
+<span class="n">Breakpoint</span> <span class="mi">1</span> <span class="n">at</span> <span class="mh">0x4003ac</span><span class="p">:</span> <span class="n">file</span> <span class="n">hello</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">line</span> <span class="mf">5.</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">r</span>
+<span class="n">Starting</span> <span class="n">program</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">zzq</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">hello</span>
+
+<span class="n">Breakpoint</span> <span class="mi">1</span><span class="p">,</span> <span class="n">main</span> <span class="p">()</span> <span class="n">at</span> <span class="n">hello</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">5</span>
+<span class="mi">5</span>           <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello mips!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 
@@ -922,6 +986,15 @@ hello mips!
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../hobby/index.html" class="btn btn-neutral float-right" title="兴趣爱好" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="xiaomi_router.html" class="btn btn-neutral" title="小米路由器开发" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
