@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>工具与杂项 &mdash; zzq&#39;s blog</title>
+  <title>QEMU模拟器 &mdash; zzq&#39;s blog</title>
   
 
   
@@ -37,9 +37,7 @@
         <link rel="index" title="索引"
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
-    <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
-        <link rel="next" title="Vim" href="vim/index.html"/>
-        <link rel="prev" title="Intel VTune Amplifier" href="../perf/vtune.html"/> 
+    <link rel="top" title="zzq&#39;s blog" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -92,7 +90,7 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
@@ -467,7 +465,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">工具与杂项</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">工具与杂项</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="vim/index.html">Vim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="vim/intro.html">简介与基本配置</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="vim/intro.html#vim">为什么要使用vim</a></li>
@@ -643,17 +641,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="qemu.html">QEMU模拟器</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qemu.html#id2">安装软件包</a></li>
-<li class="toctree-l3"><a class="reference internal" href="qemu.html#id3">用户模式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="qemu.html#id4">系统模式</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qemu.html#id5">一般使用</a></li>
-<li class="toctree-l4"><a class="reference internal" href="qemu.html#id6">配置网络</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="qemu.html#gdb">远程gdb调试</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
@@ -717,7 +704,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>工具与杂项</li>
+      <li>QEMU模拟器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -734,41 +721,198 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>工具与杂项<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="vim/index.html">Vim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="git/index.html">Git</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest/index.html">用reST编写文档</a></li>
-<li class="toctree-l1"><a class="reference internal" href="latex/index.html">LaTeX</a></li>
-<li class="toctree-l1"><a class="reference internal" href="patch.html">补丁工具patch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libpcap.html">libpcap使用</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cunit.html">CUnit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="centos.html">CentOS应用</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ubuntu.html">Ubuntu应用</a></li>
-<li class="toctree-l1"><a class="reference internal" href="xiaomi_router.html">小米路由器开发</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qemu.html">QEMU模拟器</a></li>
-</ul>
+  <div class="section" id="qemu">
+<h1>QEMU模拟器<a class="headerlink" href="#qemu" title="永久链接至标题">¶</a></h1>
+<p><em>本文更新于 2018.03.09</em></p>
+<p><a class="reference external" href="www.qemu.org">QEMU</a> 是一个开源的模拟器/虚拟化工具, 可以模拟多种CPU平台, 如
+x86, ARM, MIPS, PowerPC等等. 而VMware基本上只能虚拟化跟主机CPU架构一样的系统.
+有了QEMU, 我们就可以比较方便地进行移植性地测试, 比如模拟出一套big endian字节序环境, 测试我们的程序能否正确工作.</p>
+<p>本文以在Ubuntu 14.04上模拟MIPS 32bit Big Endian机器为例, 介绍如何使用QEMU.</p>
+<div class="section" id="id2">
+<h2>安装软件包<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>QEMU分为用户模式和系统模式两种运行模式, 用户模式非常简单, 装好QEMU即可运行,
+比如我们交叉编译了一个供MIPS 32位机器使用的hello程序, 那么可以通过以下命令调用它:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-mips ./hello
+</pre></div>
 </div>
-<ul>
-<li><p class="first">Linux 上有哪些工具软件堪称精美？</p>
-<blockquote>
-<div><p><a class="reference external" href="https://www.zhihu.com/question/28596616">https://www.zhihu.com/question/28596616</a></p>
-</div></blockquote>
-</li>
-<li><p class="first">plotutils</p>
-</li>
-<li><p class="first">graphviz</p>
-</li>
-<li><p class="first">gnuplot</p>
-</li>
-<li><p class="first">ditaa</p>
-<blockquote>
-<div><p>ditaa <a class="reference external" href="http://ditaa.sourceforge.net/">http://ditaa.sourceforge.net/</a></p>
-</div></blockquote>
-</li>
+<p>而系统模式则需要加载做好的磁盘映像和内核文件, 类似于我们使用VMware虚拟机, 可以在上面进行更多的操作.</p>
+<p>如果只使用用户模式, 仅需安装QEMU:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo apt-get install qemu
+</pre></div>
+</div>
+<p>要使用系统模式, 则还需要准备好内核文件和系统磁盘映像. 对于MIPS平台, debian官方已经提供了做好的文件, 地址在: <a class="reference external" href="https://people.debian.org/~aurel32/qemu/mips/">https://people.debian.org/~aurel32/qemu/mips/</a></p>
+<p>此页面已经给出了虚拟不同系统所需的命令和文件, 启动MIPS 32bit的命令为</p>
+<ul class="simple">
+<li>qemu-system-mips -M malta -kernel vmlinux-2.6.32-5-4kc-malta -hda debian_squeeze_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;</li>
+<li>qemu-system-mips -M malta -kernel vmlinux-3.2.0-4-4kc-malta -hda debian_wheezy_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;</li>
 </ul>
+<p>启动MIPS 64bit的命令为</p>
+<ul class="simple">
+<li>qemu-system-mips64 -M malta -kernel vmlinux-2.6.32-5-5kc-malta -hda debian_squeeze_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;</li>
+<li>qemu-system-mips64 -M malta -kernel vmlinux-3.2.0-4-5kc-malta -hda debian_wheezy_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;</li>
+</ul>
+<p>也可以看出4kc为32bit, 5kc为64bit; squeeze对应2.6.32内核, wheezy对应3.2.0内核.
+根据需要下载对应的文件即可.</p>
+</div>
+<div class="section" id="id3">
+<h2>用户模式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>如前所述, 用户模式非常简单, 只需使用交叉编译器编译好程序, 并使用qemu-mips调用即可.</p>
+</div>
+<div class="section" id="id4">
+<h2>系统模式<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h3>一般使用<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>比如我们使用vmlinux-3.2.0-4-4kc-malta和debian_wheezy_mips_standard.qcow2, 而且安装了桌面环境, 那么直接在终端中调用以下命令即可启动QEMU窗口:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-system-mips -M malta -kernel vmlinux-3.2.0-4-4kc-malta -hda debian_wheezy_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot;
+</pre></div>
+</div>
+<p>如果是以远程SSH登录或不想启动窗口, 则要加上 -nographic 参数. 启动成功后可以用user账户登录, 如下所示:</p>
+<div class="highlight-default"><div class="highlight"><pre>debian-mips login: user
+Password:
+Last login: Fri Mar  9 02:46:10 UTC 2018 on tty1
+Linux debian-mips 3.2.0-4-4kc-malta #1 Debian 3.2.51-1 mips
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+user@debian-mips:~$ uname -a
+Linux debian-mips 3.2.0-4-4kc-malta #1 Debian 3.2.51-1 mips GNU/Linux
+</pre></div>
+</div>
+<p>此时我们便有了一个MIPS 32bit Linux环境, 但如果需要从主机登录此虚拟机, 以便传文件或调试还是不行, 还需要配置网络.</p>
+</div>
+<div class="section" id="id6">
+<h3>配置网络<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>先说明一下当前的网络配置情况:</p>
+<ul class="simple">
+<li>Ubuntu为虚拟机, 通过NAT与宿主Windows主机通信, NAT网络为VMnet8</li>
+<li>VMnet8子网IP为192.168.128.0/24</li>
+<li>Windows主机在VMnet8中的地址是192.168.128.2/24</li>
+<li>Ubuntu配置为固定IP, 192.168.128.6/24</li>
+</ul>
+<p>主机的配置如下:</p>
+<ol class="arabic">
+<li><p class="first">安装必要的软件包:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo apt-get install bridge-utils uml-utilities
+</pre></div>
+</div>
+</li>
+<li><p class="first">编辑/etc/network/interfaces, 配置网桥br0:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">auto</span> <span class="n">eth0</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">static</span>
+<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.6</span>
+<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">gateway</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.1</span>
+<span class="n">dns</span><span class="o">-</span><span class="n">nameservers</span> <span class="mf">8.8</span><span class="o">.</span><span class="mf">8.8</span> <span class="mf">114.114</span><span class="o">.</span><span class="mf">114.114</span>
+
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="n">static</span>
+<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.20</span>
+<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">gateway</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.1</span>
+<span class="n">dns</span><span class="o">-</span><span class="n">nameservers</span> <span class="mf">8.8</span><span class="o">.</span><span class="mf">8.8</span> <span class="mf">114.114</span><span class="o">.</span><span class="mf">114.114</span>
+<span class="n">bridge_ports</span> <span class="n">eth0</span>
+<span class="n">bridge_maxwait</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">编辑QEMU网络启动脚本 /etc/qemu-ifup, 在文件后面加入:</p>
+<div class="highlight-default"><div class="highlight"><pre>echo &quot;Bringing $1 for bridged mode ...&quot;
+ifconfig $1 down
+ifconfig $1 0.0.0.0 promisc up
+echo &quot;Adding $1 to br0 ...&quot;
+brctl addif br0 $1
+sleep 3
+</pre></div>
+</div>
+</li>
+<li><p class="first">重启网络服务:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo /etc/init.d/networking restart
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动桥接网络, 注意, 如果eth0是虚拟机上与真实机器通信的网卡, 它将失效:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo ifdown eth0
+$sudo ifup br0
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动QEMU虚拟机:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo qemu-system-mips -M malta -kernel vmlinux-3.2.0-4-4kc-malta \
+-hda debian_wheezy_mips_standard.qcow2 -append &quot;root=/dev/sda1 console=tty0&quot; \
+-nographic -net nic -net tap
+</pre></div>
+</div>
+</li>
+</ol>
+<p>MIPS客户机的配置如下:</p>
+<ol class="arabic">
+<li><p class="first">配置网卡, 编辑/etc/network/interfaces:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># The loopback network interface</span>
+<span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="c"># The primary network interface</span>
+<span class="n">allow</span><span class="o">-</span><span class="n">hotplug</span> <span class="n">eth0</span>
+<span class="c">#iface eth0 inet dhcp</span>
+<span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">static</span>
+<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.21</span>
+<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">gateway</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">128.1</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">启动网卡:</p>
+<div class="highlight-default"><div class="highlight"><pre>$sudo ifup eth0
+</pre></div>
+</div>
+</li>
+<li><p class="first">检查IP是否正确:</p>
+<div class="highlight-default"><div class="highlight"><pre>user@debian-mips:~$ ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host
+    valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.128.21/24 brd 192.168.128.255 scope global eth0
+    inet6 fe80::5054:ff:fe12:3456/64 scope link
+    valid_lft forever preferred_lft forever
+
+user@debian-mips:~$ ping www.baidu.com
+PING www.a.shifen.com (119.75.216.20) 56(84) bytes of data.
+64 bytes from 127.0.0.1 (119.75.216.20): icmp_req=1 ttl=128 time=7.22 ms
+64 bytes from 127.0.0.1 (119.75.216.20): icmp_req=2 ttl=128 time=6.27 ms
+^C
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1004ms
+rtt min/avg/max/mdev = 6.276/6.750/7.224/0.474 ms
+</pre></div>
+</div>
+</li>
+</ol>
+<p>至此, 网络配置已完成, Window主机, Ubuntu虚拟机, MIPS虚拟机均可互相ping通. 但要注意的是此时Ubuntu虚拟机IP已变成网桥br0的IP 192.168.128.20, 原eth0 IP 192.168.128.6不可用.</p>
+<p>此时可以在Ubuntu虚拟机上使用scp把本地程序远程拷贝到MIPS虚拟机上执行:</p>
+<div class="highlight-default"><div class="highlight"><pre>$scp hello user@192.168.128.21:~
+user@192.168.128.21&#39;s password:
+hello                                          100%   26KB  26.2KB/s   00:00
+
+user@debian-mips:~$ ./hello
+hello mips!
+</pre></div>
+</div>
+<p>也可以通过Windows主机上的SecureCRT使用SSH连接到MIPS虚拟机.</p>
+</div>
+</div>
+<div class="section" id="gdb">
+<h2>远程gdb调试<a class="headerlink" href="#gdb" title="永久链接至标题">¶</a></h2>
+<p>//TODO</p>
+</div>
 </div>
 
 
@@ -778,15 +922,6 @@
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="vim/index.html" class="btn btn-neutral float-right" title="Vim" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../perf/vtune.html" class="btn btn-neutral" title="Intel VTune Amplifier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
