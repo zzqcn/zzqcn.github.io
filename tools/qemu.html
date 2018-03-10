@@ -650,9 +650,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">系统模式</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id5">一般使用</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gdb">远程gdb调试</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#gdb">远程gdb调试</a></li>
 </ul>
 </li>
 </ul>
@@ -772,7 +772,62 @@ x86, ARM, MIPS, PowerPC等等. 而VMware基本上只能虚拟化跟主机CPU架�
 </div>
 <div class="section" id="id3">
 <h2>用户模式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>如前所述, 用户模式非常简单, 只需使用交叉编译器编译好程序, 并使用qemu-mips调用即可.</p>
+<p>如前所述, 用户模式非常简单, 只需使用交叉编译器编译好程序, 并使用qemu-mips调用即可.
+如果程序不是静态链接(一般都不是), 需要依赖其他动态库, 则会报错:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-mips hello
+/lib/ld-uClibc.so.0: No such file or directory
+</pre></div>
+</div>
+<p>这需要通过-L参数来指定运行根目录, 即交叉编译套件中的sysroot目录:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-mips -L /opt/trendchip/mips-linux-uclibc-4.9.3/usr/mips-buildroot-linux-uclibc/sysroot  ./hello
+hello mips!
+</pre></div>
+</div>
+<p>有的程序更复杂, 不仅依赖系统库, 还需要依赖位于其他路径的第3方动态库, 这可通过-E参数来配置LD_LIBRARY_PATH环境变量来解决:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-mips -L /opt/trendchip/mips-linux-uclibc-4.9.3/usr/mips-buildroot-linux-uclibc/sysroot/ -E LD_LIBRARY_PATH=.  ./demo
+usage: ./demo &lt;pcap file&gt;
+</pre></div>
+</div>
+<p>这个demo程序依赖的第3方动态库在当前目录下(.).</p>
+<p>QEMU用户模式还支持gdb调试功能, 可以通过-g port参数来启动gdbserver, 在端口port监听:</p>
+<div class="highlight-default"><div class="highlight"><pre>$qemu-mips -L /opt/trendchip/mips-linux-uclibc-4.9.3/usr/mips-buildroot-linux-uclibc/sysroot/ -g 4444 ./hello
+</pre></div>
+</div>
+<p>然后可以在另一个终端运行交叉编译工具套件中的gdb连接此端口4444, 来进行远程调试:</p>
+<div class="highlight-default"><div class="highlight"><pre>$./mips-gdb
+GNU gdb (GDB) 7.8.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;
+and &quot;show warranty&quot; for details.
+This GDB was configured as &quot;--host=i686-pc-linux-gnu --target=mips-buildroot-linux-uclibc&quot;.
+Type &quot;show configuration&quot; for configuration details.
+For bug reporting instructions, please see:
+&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+Find the GDB manual and other documentation resources online at:
+&lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+For help, type &quot;help&quot;.
+Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;.
+(gdb) target remote localhost:4444
+Remote debugging using localhost:4444
+0x40801f20 in ?? ()
+(gdb) file hello
+A program is being debugged already.
+Are you sure you want to change the file? (y or n) y
+Reading symbols from hello...done.
+(gdb) b main
+Breakpoint 1 at 0x40078c: file hello.c, line 5.
+(gdb) c
+Continuing.
+
+Breakpoint 1, main () at hello.c:5
+5           printf(&quot;hello mips!\n&quot;);
+(gdb) n
+6           return 0;
+(gdb)
+</pre></div>
+</div>
 </div>
 <div class="section" id="id4">
 <h2>系统模式<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
@@ -924,9 +979,9 @@ hello mips!
 </div>
 <p>也可以通过Windows主机上的SecureCRT使用SSH连接到MIPS虚拟机.</p>
 </div>
-</div>
 <div class="section" id="gdb">
-<h2>远程gdb调试<a class="headerlink" href="#gdb" title="永久链接至标题">¶</a></h2>
+<h3>远程gdb调试<a class="headerlink" href="#gdb" title="永久链接至标题">¶</a></h3>
+<p>有时候不方便在虚拟机里直接运行gdb进行调试, 比如需要调试的是系统本身, 或者由于系统硬件限制无法直接运行全功能的gdb时, 这时候就需要进行远程调试.</p>
 <p>远程gdb调试, 需要在MIPS虚拟机上运行gdbserver, 在Ubuntu上运行交叉编译套件中的gdb,
 并连接MIPS虚拟机上的gdbserver.</p>
 <ol class="arabic">
@@ -976,6 +1031,7 @@ hello mips!
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 
