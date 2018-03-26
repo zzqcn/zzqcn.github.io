@@ -1,0 +1,1392 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperscan编译期 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="hyperscan" href="index.html"/>
+        <link rel="next" title="hyperscan运行时匹配" href="hs_scan.html"/>
+        <link rel="prev" title="hyperscan调试环境与技巧" href="hs_debug.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2018.03
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/eal.html">1. EAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/eal.html#id4">1.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/ring.html">2. Ring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id1">2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id4">2.2. 应用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id5">2.3. 无锁队列操作图解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step1">2.3.1. Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step2">2.3.2. Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step3">2.3.3. Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step4">2.3.4. Step4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/ring.html#step5">2.3.5. Step5</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id6">2.4. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id7">2.5. 多生产者入队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id8">2.6. 多消费者出队</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id9">2.7. 索引计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/ring.html#id10">2.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mem.html">3. Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mem.html#id1">3.1. 内存的初始化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#id2">3.1.1. 大页信息初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#id3">3.1.2. 大页内存初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mem.html#memzone">3.1.3. memzone初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mem.html#id6">3.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/memseg.html">4. Memseg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id1">4.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id2">4.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memseg.html#id3">4.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/memzone.html">5. Memzone</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id1">5.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#memzone-init">5.2. 初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id3">5.3. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id4">5.4. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/memzone.html#id5">5.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/malloc.html">6. Malloc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id1">6.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id2">6.2. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id4">6.5. 内存释放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/malloc.html#id5">6.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mempool.html">7. Mempool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id1">7.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id2">7.2. 特性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mempool.html#id3">7.2.1. 内存对齐</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mempool.html#cache">7.2.2. Cache机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id4">7.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id5">7.4. 创建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id6">7.5. 取出对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id7">7.6. 还回对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mempool.html#id8">7.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/mbuf.html">8. Mbuf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id1">8.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id2">8.2. 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id3">8.3. 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id4">8.4. 分配与回收</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id5">8.4.1. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id6">8.4.2. 分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/mbuf.html#id7">8.4.3. 回收</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id8">8.5. 元信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/mbuf.html#id9">8.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/build_sys.html">9. 编译系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id2">9.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id3">9.2. 源码组织</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config">9.2.1. config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk">9.2.2. mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#drivers">9.2.3. drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#lib">9.2.4. lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#tools">9.2.5. tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#app">9.2.6. app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#examples">9.2.7. examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id5">9.3. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk">9.3.1. 编译dpdk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id6">9.3.2. 编译外部程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk-makefile">9.4. dpdk Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id7">9.4.1. 一般规则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id8">9.4.2. 类型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id13">9.4.3. 常用变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#makefile">9.4.4. 仅可以在Makefile中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id14">9.4.5. 仅可以在命令行中设置的变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id15">9.4.6. 可以在Makefile或命令行中设置的变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#root-makefile-help">9.5. 根Makefile介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config-target">9.5.1. config target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#build-target">9.5.2. build target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#install-target">9.5.3. install target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#test-target">9.5.4. test target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#target">9.5.5. 文档target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#deps-target">9.5.6. deps target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id17">9.5.7. 杂项target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id18">9.5.8. 其他命令行变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#debug">9.5.9. 编译Debug版本</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#abi">9.6. ABI管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id19">9.6.1. 什么是ABI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#dpdk-abi">9.6.2. DPDK ABI策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id20">9.6.3. ABI宏及示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#id21">9.6.4. 验证ABI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#v16-07-2">9.7. 实例：将v16.07.2编译为单个动态库</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#config-common-base">9.7.1. config/common_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-lib-mk">9.7.2. mk/rte.lib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-combinedlib-mk">9.7.3. mk/rte.combinedlib.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#mk-rte-app-mk">9.7.4. mk/rte.app.mk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/build_sys.html#libdpdk-map">9.7.5. libdpdk.map</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/build_sys.html#id22">9.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dpdk/optimization.html#cache">10.2. Cache和内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dpdk/optimization.html#id2">10.2.1. 内存Cache简介</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">数据结构与算法</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id12">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">hyperscan</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#gdb">gdb分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_debug.html#id5">生成源码文档</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperscan编译期</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">主要类介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">编译步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hs_scan.html">hyperscan运行时匹配</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id1">9.1 缓存管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id2">9.1.1 缓存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id3">9.1.2 缓存的共享</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#dpdk">9.1.3 dpdk内存实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id5">9.4 重组</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/proto_process.html#id6">9.4.1 高效重组</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id2">14.2 拥塞控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id4">14.2.1 设计目标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id5">14.2.2 算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#wred">14.2.3 WRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-red">14.2.4 dpdk red的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id16">14.3.1 基本原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#srtcm">14.3.2 srTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#trtcm">14.3.3 trTCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-meter">14.3.4 dpdk_meter的相关实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id26">14.6 带宽保证</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id27">14.6.1 问题引入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#deficit-round-robin">14.6.1 Deficit Round-Robin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#drr">14.6.2 DRR的实现与扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id31">14.9.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id32">14.9.2 调度分层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#id33">14.9.3 实现</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id37">附录</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../netalgo/sched_packet.html#ewma">EWMA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../perf/vtune.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id2">一般应用: 图形界面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id3">一般应用: 命令行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#index">index页配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmwareip">VMware虚拟机配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id1">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/qemu.html">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#gdb">远程gdb调试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutme.html">关于我</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">数据结构与算法</a> &raquo;</li>
+        
+          <li><a href="index.html">hyperscan</a> &raquo;</li>
+        
+      <li>hyperscan编译期</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hyperscan">
+<h1>hyperscan编译期<a class="headerlink" href="#hyperscan" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>hyperscan使用 <a class="reference external" href="https://www.colm.net/open-source/ragel/">Ragel</a> 解析并生成语法树
+Component, 然后使用Glushkov构造法将其转化为NFA.</p>
+</div>
+<div class="section" id="id2">
+<h2>主要类介绍<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="component">
+<h3>Component<a class="headerlink" href="#component" title="永久链接至标题">¶</a></h3>
+<p>Component是一个抽象基类, 用来表示正则表达式解析后的抽象语法树. 它定义的接口有:</p>
+<ul class="simple">
+<li>clone</li>
+<li>accept</li>
+<li>first</li>
+<li>last</li>
+<li>empty</li>
+<li>vacuous_everywhere</li>
+<li>repeatable</li>
+<li>optimise</li>
+<li>notePositions Informs the Glushkov build process of the positions used by this component</li>
+<li>buildFollowSet</li>
+<li>checkEmbeddedStartAnchor</li>
+<li>checkEmbeddedEndAnchor</li>
+</ul>
+<p>hyperscan在这里使用了Visitor设计模式, 定义了多个行为不同的Visitor类, 可以传入
+Component类的accept来对它进行多种遍历动作.</p>
+<p>Component的主要派生类有:</p>
+<ul class="simple">
+<li>ComponentSequence 含有子Component数组和ComponentAlternation指针</li>
+<li>ComponentAlternation 含有子Component数组</li>
+<li>ComponentClass 字符类Component抽象基类</li>
+<li>AsciiComponentClass ComponentClass的实体派生类,表示ASCII字符</li>
+<li>ComponentRepeat</li>
+</ul>
+</div>
+<div class="section" id="nfabuilder">
+<h3>NFABuilder<a class="headerlink" href="#nfabuilder" title="永久链接至标题">¶</a></h3>
+<p>NFABuilder是一个抽象基类, 它的实体派生类是NFABuilderImpl. NFABuilder用于Glushkov
+构造法从解析后的语法树(Component)构造一个NFA Graph. 它定义的接口有:</p>
+<ul class="simple">
+<li>makePositions</li>
+<li>getStart</li>
+<li>getStartDotStar</li>
+<li>getAccept</li>
+<li>getAcceptEOD</li>
+<li>isSpecialState</li>
+<li>setNodeReportID</li>
+<li>addCharReach</li>
+<li>setAssertFlag</li>
+<li>getAssertFlag</li>
+<li>addVertex</li>
+<li>addEdge</li>
+<li>hasEdge</li>
+<li>numVertices</li>
+<li>cloneRegion</li>
+<li>getGraph</li>
+</ul>
+<p>NFABuilderImpl数据:</p>
+<ul class="simple">
+<li>NGHolder</li>
+<li>ReportManager</li>
+<li>NFAVertex数组</li>
+</ul>
+<p>NFABuilderImpl类有一个NGHolder成员graph.</p>
+</div>
+<div class="section" id="glushkovbuildstate">
+<h3>GlushkovBuildState<a class="headerlink" href="#glushkovbuildstate" title="永久链接至标题">¶</a></h3>
+<p>此类也是一个抽象基类, 它的实体派生类是GlushkovBuildStateImpl. GlushkovBuildState封装了
+Glushkov构造法, 它定义的接口有:</p>
+<ul class="simple">
+<li>getBuilder</li>
+<li>connectRegions</li>
+<li>connectAccepts</li>
+<li>addSuccessor</li>
+<li>cloneFollowSet</li>
+<li>buildEdges</li>
+</ul>
+</div>
+<div class="section" id="ng">
+<h3>NG<a class="headerlink" href="#ng" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="ngholder">
+<h3>NGHolder<a class="headerlink" href="#ngholder" title="永久链接至标题">¶</a></h3>
+<p>Encapsulates an NFAGraph, stores special vertices and other metadata. When
+constructed, the graph will have the following stylised “special” edges:</p>
+<ul class="simple">
+<li>(start, startDs)</li>
+<li>(startDs, startDs) (self-loop)</li>
+<li>(accept, acceptEod)</li>
+</ul>
+<p>NGHolder是ue2_graph的派生类.</p>
+</div>
+<div class="section" id="ue2-graph">
+<h3>ue2_graph<a class="headerlink" href="#ue2-graph" title="永久链接至标题">¶</a></h3>
+<p>底层的图(graph)类. util/ue2_graph.h的注释里阐述了这个类的设计思想,如下:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Basic design of ue2_graph:</span>
+<span class="cm"> *</span>
+<span class="cm"> * Fairly standard adjacency list type graph structure. The main internal</span>
+<span class="cm"> * structures are vertex_node and edge_node.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Each vertex_node maintains lists of incoming and outgoing edge_nodes, a</span>
+<span class="cm"> * serial number and the vertex properties.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Each edge_node contains pointers to the source and target vertex as well as</span>
+<span class="cm"> * the serial number and edge properties.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Every time an edge_node or vertex_node is created in the graph, it is given a</span>
+<span class="cm"> * unique serial number by increasing a private counter in the graph.</span>
+<span class="cm"> *</span>
+<span class="cm"> * The main thing to note is that the in and out edge lists are intrusive lists</span>
+<span class="cm"> * with the edge_node containing the necessary hooks. This means that we can</span>
+<span class="cm"> * easily convert the edge_node to iterators of the in_edge_list and</span>
+<span class="cm"> * out_edge_list and remove them from the lists.</span>
+<span class="cm"> *</span>
+<span class="cm"> * vertex_descriptor and edge_descriptor structures both just wrap pointers to</span>
+<span class="cm"> * the relevant node structure along with the serial number. operator&lt;() for the</span>
+<span class="cm"> * descriptors is overridden to look at the serial member of the node.</span>
+<span class="cm"> * We do not use:</span>
+<span class="cm"> *    - the address of the node structure as this would lead to an unstable</span>
+<span class="cm"> *      ordering of vertices between runs.</span>
+<span class="cm"> *    - the index field as this would mean that the generation of new index</span>
+<span class="cm"> *      values (during say renumbering of vertex nodes after removing some</span>
+<span class="cm"> *      vertices) would potentially reorder vertices and corrupt containers</span>
+<span class="cm"> *      such as std::set&lt;&gt;.</span>
+<span class="cm"> * The serial number is copied into the descriptors so that we can still have</span>
+<span class="cm"> * descriptors in a container (such as set or unordered_set) after removing the</span>
+<span class="cm"> * underlying node.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Hashing of descriptors is based on the serial field for similar reasons.</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> * Main differences from boost::adjacency_list&lt;&gt; with listS:</span>
+<span class="cm"> *</span>
+<span class="cm"> * (1) Deterministic ordering for vertices and edges</span>
+<span class="cm"> *     boost::adjacency_list&lt;&gt; uses pointer ordering for vertex_descriptors. As</span>
+<span class="cm"> *     a result, ordering of vertices and edges between runs is</span>
+<span class="cm"> *     non-deterministic  unless containers, etc use custom comparators.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (2) Proper types for descriptors, etc.</span>
+<span class="cm"> *     No more void * for vertex_descriptors and trying to use it for the wrong</span>
+<span class="cm"> *     graph type.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (3) Constant time num_edges(), num_vertices(), degree(), in_degree() and</span>
+<span class="cm"> *     out_degree()</span>
+<span class="cm"> *     std::list is meant to have constant time in C++11 ::size(), but this is</span>
+<span class="cm"> *     not always implemented as people want to keep ABI compatibility with</span>
+<span class="cm"> *     existing C++98 standard libraries (gcc 4.8). As ue2_graph_h uses</span>
+<span class="cm"> *     intrusive lists rather than std::list this is not an issue for us.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (4) Constant time remove_edge(e, g)</span>
+<span class="cm"> *     ue2_graph uses boost::intrusive_lists internally so we can easily unlink</span>
+<span class="cm"> *     an edge from the in and out edgelist of its source and target.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (5) More efficient edge(u, v, g) and remove_edge(u, v, g)</span>
+<span class="cm"> *     ue2_graph will check which of u and v has the smallest relevant degree</span>
+<span class="cm"> *     and use that to search for the edge(s).</span>
+<span class="cm"> *</span>
+<span class="cm"> * (6) Automatically populate the index field of vertex and edge bundles.</span>
+<span class="cm"> *     Saves us from doing it manually. Naturally there is nothing to prevent</span>
+<span class="cm"> *     the user from stuffing up the index properties later.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (7) Different edge iteration order</span>
+<span class="cm"> *     ue2_graph does not maintain an explicit global edge list, so the</span>
+<span class="cm"> *     edge_iterator is constructed out of vertex_iterator and</span>
+<span class="cm"> *     out_edge_iterators by iterating the out_edges of each vertices. This</span>
+<span class="cm"> *     means that edge iteration order is not insertion order like for</span>
+<span class="cm"> *     adjacency_list.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (8) null_edge()</span>
+<span class="cm"> *     Because why not?</span>
+<span class="cm"> *</span>
+<span class="cm"> * (9) vertex and edge properties must have an index field.</span>
+<span class="cm"> *     We generally need them so the effort has not been put into specialising</span>
+<span class="cm"> *     for when they are not present.</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> *</span>
+<span class="cm"> * Possible Future Work:</span>
+<span class="cm"> *</span>
+<span class="cm"> * (1) Improve edge(u, v, g) performance</span>
+<span class="cm"> *     This function sees a fair amount of use and is O(n) in the smallest of</span>
+<span class="cm"> *     the source out_degree or target in_degree. This could be improved by</span>
+<span class="cm"> *     changes on of the edge containers to be something similar to a multiset.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (2) &#39;Lie&#39; about the number of edges / vertices</span>
+<span class="cm"> *</span>
+<span class="cm"> *     One of the main uses of num_edges() and num_vertices() is to allocate a</span>
+<span class="cm"> *     vector, etc so that it can be indexed by edge or vertex index. If</span>
+<span class="cm"> *     num_edges() and num_vertices() returned the appropriate size for such a</span>
+<span class="cm"> *     vector (at least one more than the largest index), we would be able to</span>
+<span class="cm"> *     avoid some renumbering operations. Functions would have to be provided to</span>
+<span class="cm"> *     get the real number of vertices and edges. Having num_vertices() and</span>
+<span class="cm"> *     num_edges() return an over-estimate is not without precedence in the BGL</span>
+<span class="cm"> *     - the filtered_graph adaptor does the same thing and is compatible with</span>
+<span class="cm"> *     various (all?) BGL algorithms. It is not clear that this was done</span>
+<span class="cm"> *     deliberately for the same reason or because it is difficult for</span>
+<span class="cm"> *     filtered_graph to get the true counts.</span>
+<span class="cm"> *</span>
+<span class="cm"> * (3) Investigate slab/pooled allocation schemes for nodes.</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<p>此类主要的数据结构:</p>
+<ul class="simple">
+<li>vertex, 即图的顶点. 含有一个serial number用来排序</li>
+<li>edge, 即图中顶点之间的边. 含有一个serial number用来排序</li>
+<li>每个vertex拥有一个in_edge链表和一个out_edge链表, 其中in_edge链表中的edge由其他vertex
+拥有, 而out_edge中的edge由本vertex拥有</li>
+<li>vertex链表</li>
+<li>vertex链表和edge链表都采用intrusive list实现</li>
+<li>vertex_descriptor 封装vertex, 提供由serial number计算的hash</li>
+<li>edge_descriptor 封装edge, 提供由serial number计算的hash</li>
+</ul>
+<p>此类的接口有:</p>
+<ul class="simple">
+<li>null_vertex 返回空vertex描述符</li>
+<li>null_edge 返回空edge描述符</li>
+<li>add_vertex_impl 添加新vertex</li>
+<li>remove_vertex_impl 删除vertex,删除前应保证其in_edge链表和out_edge链表已经清空</li>
+<li>clear_in_edges_impl 清空vertex的out_edge链表</li>
+<li>source_impl 返回edge的源vertex</li>
+<li>target_impl 返回edge的目的vertex</li>
+<li>out_degree_impl 返回vertex的out_edge链表中的元素个数</li>
+<li>out_edges_impl 返回vertex的out_edge迭代器对</li>
+<li>in_degree_impl 返回vertex的in_edge链表中的元素个数</li>
+<li>in_edges_impl 返回vertex的in_edge迭代器对</li>
+<li>adjacencent_vertices_impl 返回vertex的out_edge链表的adjacency迭代器对</li>
+<li>edge_impl 返回两个vertex之间的edge</li>
+<li>inv_adjacent_vertices_impl 返回vertex的in_edge链表的inv_adjacency迭代器对</li>
+<li>add_edge_impl 给两个vertex之间添加一条edge</li>
+<li>remove_edge_impl 删除一条edge, 在内部也会从2个vertex的对应edge链表中删除相关信息</li>
+<li>remove_out_edge_if_impl 删除vertex的out_edge链表中符合某条件的元素</li>
+<li>remove_in_edge_if_impl 删除vertex的in_edge链表中符合某条件的元素</li>
+<li>remove_edge_if_impl 删除满足条件的edge</li>
+<li>remove_edge_impl 删除两个vertex之间的edge</li>
+<li>num_vertices_impl 返回vertex链表中的元素个数</li>
+<li>vertices_impl 返回vertex链表对应的vertex迭代器对</li>
+<li>num_edges_impl 返回edge个数</li>
+<li>edges_impl 返回edge迭代器对</li>
+<li>operator[](vertex_descriptor) 返回vertex对应的property</li>
+<li>operator[](edge_descriptor) 返回edge对应的property</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>编译步骤<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>代码: src/compiler/compiler.cpp</p>
+<p>单个正则表达式的编译步骤:</p>
+<ol class="arabic simple">
+<li>取得一个正则表达式expr</li>
+<li>使用Ragel生成的代码, 对expr进行解析(parse), 生成解析后的语法树componet</li>
+<li>对component进行优化</li>
+<li>使用Glushkov构造法, 将component编译为NFA</li>
+</ol>
+<p>XXX 添加buildGraph()之前的代码分析.</p>
+<div class="section" id="ue2-buildgraph">
+<h3>ue2::buildGraph()<a class="headerlink" href="#ue2-buildgraph" title="永久链接至标题">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">makeNFABuilder</p>
+<blockquote>
+<div><div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cm">/** \brief vertex_index values for special nodes in the NFAGraph. */</span>
+<span class="k">enum</span> <span class="n">SpecialNodes</span> <span class="p">{</span>
+    <span class="cm">/** \brief Anchored start vertex. WARNING: this may be triggered at various</span>
+<span class="cm">    * locations (not just zero) for triggered graphs. */</span>
+    <span class="n">NODE_START</span><span class="p">,</span>
+
+    <span class="cm">/** \brief Unanchored start-dotstar vertex. WARNING: this may not have a</span>
+<span class="cm">    * proper self-loop. */</span>
+    <span class="n">NODE_START_DOTSTAR</span><span class="p">,</span>
+
+    <span class="cm">/** \brief Accept vertex. All vertices that can match at arbitrary offsets</span>
+<span class="cm">    * must have an edge to this vertex. */</span>
+    <span class="n">NODE_ACCEPT</span><span class="p">,</span>
+
+    <span class="cm">/** \brief Accept-EOD vertex. Vertices that must raise a match at EOD only</span>
+<span class="cm">    * must have an edge to this vertex. */</span>
+    <span class="n">NODE_ACCEPT_EOD</span><span class="p">,</span>
+
+    <span class="cm">/** \brief Sentinel, number of special vertices. */</span>
+    <span class="n">N_SPECIALS</span>
+<span class="p">};</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">NGHolder</span><span class="p">;</span>
+<span class="n">id2vertex</span><span class="p">[</span><span class="n">NODE_START</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
+<span class="n">id2vertex</span><span class="p">[</span><span class="n">NODE_START_DOTSTAR</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">startDs</span><span class="p">;</span>
+<span class="n">id2vertex</span><span class="p">[</span><span class="n">NODE_ACCEPT</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">accept</span><span class="p">;</span>
+<span class="n">id2vertex</span><span class="p">[</span><span class="n">NODE_ACCEPT_EOD</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">-&gt;</span><span class="n">acceptEod</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>NGHolder类构造时会添加4个特殊顶点(上面的SpecialNodes), 并且会创建4条边:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>(start, startDs), 即(0, 1)</li>
+<li>(startDs, startDs), 即(1, 1)</li>
+<li>(accept, acceptEod), 即(2, 3)</li>
+</ol>
+</div></blockquote>
+<p>所以当前图情况:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">当前图的情况</span>
+<span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">makeGlushkovBuildState</p>
+<blockquote>
+<div><div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">Position</span> <span class="n">startState</span><span class="p">;</span>        <span class="c1">// 0</span>
+<span class="n">Position</span> <span class="n">startDotstarState</span><span class="p">;</span> <span class="c1">// 1</span>
+<span class="n">Position</span> <span class="n">acceptState</span><span class="p">;</span>       <span class="c1">// 2</span>
+<span class="n">Position</span> <span class="n">acceptEodState</span><span class="p">;</span>    <span class="c1">// 3</span>
+<span class="n">Position</span> <span class="n">acceptNlEodState</span><span class="p">;</span>  <span class="c1">// max</span>
+<span class="n">Position</span> <span class="n">acceptNlState</span><span class="p">;</span>     <span class="c1">// max</span>
+
+<span class="c1">// 当前图的情况</span>
+<span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="mi">3</span>
+
+<span class="c1">// XXX: a small hack to support vacuous NFAs: give start and startDs an</span>
+<span class="c1">// initial report ID.</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">setNodeReportID</span><span class="p">(</span><span class="n">startState</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">setNodeReportID</span><span class="p">(</span><span class="n">startDotstarState</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">ParsedExpression.component-&gt;notePositions(GlushkovBuildState)</p>
+<p>parsed expression由多个components组成树型结构, 此函数递归遍历这颗树. 对于”a|b”
+这个正则, 构成的树型结构为:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="n">Sequence</span>
+     <span class="n">Alternation</span> <span class="o">.....</span> <span class="o">|</span>
+       <span class="n">Sequence</span>
+         <span class="n">Ascii</span>   <span class="o">.....</span> <span class="n">a</span>
+       <span class="n">Sequence</span>
+         <span class="n">Ascii</span>   <span class="o">.....</span> <span class="n">b</span>
+
+<span class="n">对于AsciiComponentClass</span><span class="p">,</span> <span class="n">notePositions代码为</span><span class="p">:</span>
+
+<span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">cpp</span>
+
+    <span class="n">position</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">makePositions</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="o">//</span> <span class="n">添加顶点</span>
+    <span class="o">//</span> <span class="n">给顶点增加char</span> <span class="n">reach</span><span class="p">,</span> <span class="n">即用bit表示的字符连通性</span>
+    <span class="n">builder</span><span class="o">.</span><span class="n">addCharReach</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">cr</span><span class="p">);</span>
+    <span class="o">//</span> <span class="n">XXX</span> <span class="n">添加match报告</span>
+    <span class="n">builder</span><span class="o">.</span><span class="n">setNodeReportID</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span> <span class="o">/*</span> <span class="n">offset</span> <span class="n">adj</span> <span class="o">*/</span><span class="p">);</span>
+    <span class="o">//</span> <span class="n">记录此字符类对应的起始节点和终止节点</span>
+    <span class="n">recordPosBounds</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>此过程结束后, graph里增加了2个顶点, 顶点总数为6</p>
+</li>
+<li><p class="first">connectInitialStates(GlushkovBuildState, ParsedExpression)</p>
+<p>initials数组共有4, 5两个position, starts数组为startState和startDotStarState,
+即0, 1两个position. 先在initials中去掉startState和startDotStarState, 然后连接两者.</p>
+<blockquote>
+<div><div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bs</span><span class="p">.</span><span class="n">connectRegions</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">initials</span><span class="p">);</span>
+
+<span class="kt">void</span>
+<span class="n">GlushkovBuildStateImpl</span><span class="o">::</span><span class="n">connectRegions</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PositionInfo</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">lasts</span><span class="p">,</span>
+                                    <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PositionInfo</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">firsts</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">last</span> <span class="p">:</span> <span class="n">lasts</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">checkEmbeddedEndAnchor</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">firsts</span><span class="p">);</span>
+        <span class="n">connectSuccessors</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">firsts</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>此过程结束后, 图的情况:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div>实际上这里0到4,5, 1到4,5还没有实际的边(edge), 到后边GlushkovBuildState-&gt;buildEdge()
+的时候才会真正创建edges, 为表示清楚这里先这么画了.</div></blockquote>
+<ol class="arabic">
+<li><p class="first">ParsedExpression.component-&gt;buildFollowSet(GlushkovBuildState, initials)</p>
+<p>和component-&gt;notePositions()一样, 这也是一个遍历component树的过程. 但对于Ascii component, 此函数为空. 实际上这一步没做什么事情.</p>
+</li>
+<li><p class="first">connectFinalStates(GlushkovBuildState, ParsedExpression)</p>
+<p>将last, 或者final顶点连接到accept顶点. 这里finals={4,5}, accepts={2}.</p>
+<p>此过程结束后, 图的情况:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+<span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="mi">3</span>
+<span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">2</span>
+<span class="mi">5</span> <span class="o">-&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">GlushkovBuildState-&gt;buildEdge()</p>
+<p>添加以下edges: 0-&gt;4, 0-&gt;5, 1-&gt;4, 1-&gt;5, 4-&gt;2, 5-&gt;2, 至此图共有6个vertex, 9个edge.</p>
+</li>
+</ol>
+<p># return BuiltExpression</p>
+<blockquote>
+<div><div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">BuiltExpression</span> <span class="n">built_expr</span> <span class="o">=</span> <span class="n">builder</span><span class="o">-&gt;</span><span class="n">getGraph</span><span class="p">();</span>
+<span class="n">removeAssertVertices</span><span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="o">*</span><span class="n">built_expr</span><span class="p">.</span><span class="n">g</span><span class="p">,</span> <span class="n">built_expr</span><span class="p">.</span><span class="n">expr</span><span class="p">);</span>
+<span class="k">return</span> <span class="n">built_expr</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ue2-ng-addgraph">
+<h3>ue2::NG::addGraph()<a class="headerlink" href="#ue2-ng-addgraph" title="永久链接至标题">¶</a></h3>
+<ol class="arabic simple">
+<li>pruneUseless(g)</li>
+<li>pruneEmptyVertices(g)</li>
+<li>optimiseVirtualStarts(g)</li>
+<li>optimiseVirtualStarts(g);</li>
+<li>propagateExtendedParams(g, expr, rm);</li>
+<li>reduceExtendedParams(g, rm, som);</li>
+<li>smwr-&gt;add(g, expr)</li>
+<li>processComponents()</li>
+</ol>
+</div>
+<div class="section" id="smallwritebuildimpl-add-g-expr">
+<h3>SmallWriteBuildImpl::add(g, expr)<a class="headerlink" href="#smallwritebuildimpl-add-g-expr" title="永久链接至标题">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">ue2::pruneOverlong(g, max_depth, rm)</p>
+<p>计算start, startDotStar, accept, acceptEOD这4个特殊顶点到其他顶点的深度(depth),
+包括mix和max, 其中unr表示unreachable, inf表示infinite:</p>
+<p>start (0):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">5</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>startDotStar (1):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">5</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>accept (2):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">inf</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>   <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">5</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>acceptEOD (3):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">5</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">ue2::reduceGraph()</p>
+<p>进行图裁剪.</p>
+<p>在上一步可知顶点4和5冗余, 可合并为同一个顶点. 合并后的顶点编号为4, 并具有原顶点5的连通性. 此时各顶点深度为:</p>
+<p>start (0):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>startDotStar (1):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>accept (2):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">inf</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>   <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>acceptEOD (3):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-&gt;</span> <span class="mi">0</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">1</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">2</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+<span class="o">-&gt;</span> <span class="mi">3</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="o">-&gt;</span> <span class="mi">4</span> <span class="p">[</span><span class="n">unr</span><span class="p">,</span> <span class="n">unr</span><span class="p">]</span>     <span class="n">XXX</span>
+</pre></div>
+</div>
+<p>此过程结束后, 图的情况:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span>
+<span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="mi">3</span>
+<span class="mi">4</span><span class="p">(</span><span class="n">原4</span><span class="o">+</span><span class="n">原5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>4是’a’添加进来的, 5是’b’添加进来的, 这里4和5合并, 可以猜测目前5的CharReach里也有了’a’的信息, 即表示a的bit位也置1了.</p>
+<p>此时已构建NFA_OUTFIX.</p>
+</li>
+<li><p class="first">ue2::buildMcClellan</p>
+</li>
+<li><p class="first">mergeDfas()</p>
+</li>
+</ol>
+</div>
+<div class="section" id="ue2-buildmcclellan">
+<h3>ue2::buildMcClellan()<a class="headerlink" href="#ue2-buildmcclellan" title="永久链接至标题">¶</a></h3>
+<p>截止目前, 已构造成NFA_OUTFIX类型的NFA, 此函数用于构建McClellan DFA.</p>
+<p>对于状态数&lt;=NFA_STATE_LIMIT(256)的情况, 有一个fast path, 构造成Automaton_Graph,
+它使用bitfield来表示状态, 速度很快; 否则, 构造成Automaton_Big.</p>
+<div class="section" id="automaton-graph">
+<h4>Automaton_Graph的构造<a class="headerlink" href="#automaton-graph" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="automaton-big">
+<h4>Automaton_Big的构造<a class="headerlink" href="#automaton-big" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="determinise">
+<h4>determinise()<a class="headerlink" href="#determinise" title="永久链接至标题">¶</a></h4>
+<p>构造好Automaton_XXX后, 调用determinise()对其进行DFA化. 应该类似于AC算法中的NFA转DFA算法.</p>
+<p>XXX</p>
+<p>此时DFA:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-&gt;</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">-&gt;</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="o">-&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="mh">0x100</span><span class="p">)</span><span class="o">-&gt;</span><span class="mi">2</span>    <span class="o">*</span><span class="n">MATCH</span><span class="o">*</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ue2-processcomponents">
+<h3>ue2::processComponents()<a class="headerlink" href="#ue2-processcomponents" title="永久链接至标题">¶</a></h3>
+<p>检查各component中是否有小的字面值(small literal), 有的话加入 <em>Rose</em> 引擎. 此时简化了图, 简化后的图如下:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="mi">1</span> <span class="p">(</span><span class="n">accept</span><span class="p">)</span>
+<span class="mi">2</span>           <span class="n">a</span>
+<span class="mi">3</span>           <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ue2-build-ng-length">
+<h3>ue2::build(NG, length)<a class="headerlink" href="#ue2-build-ng-length" title="永久链接至标题">¶</a></h3>
+<p>生成database.</p>
+<ol class="arabic simple">
+<li>rose = generateRoseEngine(ng)</li>
+<li>bytecode = (const char <a href="#id4"><span class="problematic" id="id5">*</span></a>)(rose.get())</li>
+<li>dbCreate(bytecode, <a href="#id6"><span class="problematic" id="id7">*</span></a>length, p)</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hs_scan.html" class="btn btn-neutral float-right" title="hyperscan运行时匹配" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hs_debug.html" class="btn btn-neutral" title="hyperscan调试环境与技巧" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 赵子清.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2018.03.09',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

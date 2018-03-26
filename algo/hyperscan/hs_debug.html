@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>面向对象 &mdash; zzq&#39;s blog</title>
+  <title>hyperscan调试环境与技巧 &mdash; zzq&#39;s blog</title>
   
 
   
@@ -38,9 +38,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="搜索" href="../../search.html"/>
     <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
-        <link rel="up" title="C++ 11" href="index.html"/>
-        <link rel="next" title="标准库" href="stl.html"/>
-        <link rel="prev" title="基本功能" href="basic.html"/> 
+        <link rel="up" title="hyperscan" href="index.html"/>
+        <link rel="next" title="hyperscan编译期" href="hs_compile.html"/>
+        <link rel="prev" title="hyperscan预备知识" href="hs_pre.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -254,87 +254,87 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tcpip/index.html">TCP/IP详解</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">数据结构与算法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/list.html">链表,栈与队列</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id2">单向链表</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id3">双向链表</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id4">侵入式数据结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id5">栈</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id6">队列</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id7">基本实现</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id8">下标的处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id9">无锁队列</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">数据结构与算法</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../list.html#id9">无锁队列</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/tree.html">树</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id2">二叉查找树</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#avl">AVL树</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id3">红黑树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tree.html#id3">红黑树</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/hash.html">哈希表</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/graph.html">图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/visit.html">遍历</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/order.html">排序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/find.html">查找</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id5">2.3 抽象语法树</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id8">3.6 DFA序列化</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../regex.html#id11">5.2 性能</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../regex.html#id12">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../algo/hyperscan/index.html">hyperscan</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/hyperscan/hs_intro.html">hyperscan介绍</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_intro.html#id1">源码结构</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_intro.html#gdb">gdb分析</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_intro.html#id2">参考</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">hyperscan</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#gdb">gdb分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_intro.html#id2">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html">hyperscan预备知识</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html#c-11">C++ 11</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html#id5">设计模式</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html#id6">数据结构</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html#boost-library">Boost Library</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_pre.html#ragel">Ragel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_pre.html#ragel">Ragel</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/hyperscan/hs_debug.html">hyperscan调试环境与技巧</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_debug.html#id1">编译</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_debug.html#dump">生成dump信息</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_debug.html#id4">加速编译过程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_debug.html#id5">生成源码文档</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">生成源码文档</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/hyperscan/hs_compile.html">hyperscan编译期</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_compile.html#id1">概述</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_compile.html#id2">主要类介绍</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../algo/hyperscan/hs_compile.html#id3">编译步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_compile.html">hyperscan编译期</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hs_compile.html#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_compile.html#id2">主要类介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hs_compile.html#id3">编译步骤</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../algo/hyperscan/hs_scan.html">hyperscan运行时匹配</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hs_scan.html">hyperscan运行时匹配</a></li>
 </ul>
 </li>
 </ul>
@@ -402,60 +402,60 @@
 <li class="toctree-l1"><a class="reference internal" href="../../wireshark/index.html">wireshark</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">程序设计语言</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">C++ 11</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="preface.html">前言</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="preface.html#c">C++的变化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="preface.html#id2">对C++程序员的建议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="preface.html#id3">对C程序员的建议</a></li>
-<li class="toctree-l4"><a class="reference internal" href="preface.html#c-11">C++11主要特性</a></li>
-<li class="toctree-l4"><a class="reference internal" href="preface.html#id4">参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="basic.html">基本功能</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">面向对象</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stl.html">标准库</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boost.html">boost库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lua_basic.html">lua基础</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id1">预备知识</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id2">获得lua</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id3">lua命令行</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id4">保留关键字</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id5">注释</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#chunk">Chunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#chunk">Chunk</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id6">数据类型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#string">string</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#userdata">userdata</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#thread">thread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#thread">thread</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id7">表达式</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id8">算术运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id9">关系运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id10">逻辑运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id11">连接运算符</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id12">运算符优先级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id12">运算符优先级</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id13">语句</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id14">赋值</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id15">局部变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id16">条件语句</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id17">循环语句</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id17">循环语句</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id18">函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id18">函数</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../pcasm.html">PC Assembly Language读书笔记</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../byteorder.html">字节序与比特序</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id2">字节序</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id3">比特序</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id4">编写可移植代码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
 </ul>
@@ -723,11 +723,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">程序设计语言</a> &raquo;</li>
+          <li><a href="../index.html">数据结构与算法</a> &raquo;</li>
         
-          <li><a href="index.html">C++ 11</a> &raquo;</li>
+          <li><a href="index.html">hyperscan</a> &raquo;</li>
         
-      <li>面向对象</li>
+      <li>hyperscan调试环境与技巧</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -744,9 +744,197 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>面向对象<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p><em>更新于: 2018.03.16</em></p>
+  <div class="section" id="hyperscan">
+<h1>hyperscan调试环境与技巧<a class="headerlink" href="#hyperscan" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>编译<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>研究源码的一种方法是将它编译为调试版本, 然后可以加断点调试, 也可以查看运行过程中的输出信息.</p>
+<p>参考: <a class="reference external" href="https://intel.github.io/hyperscan/dev-reference/getting_started.html">https://intel.github.io/hyperscan/dev-reference/getting_started.html</a></p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">以4.6.0版本为准.</p>
+</div>
+<div class="section" id="id2">
+<h3>第3方依赖库<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="23%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">依赖项</th>
+<th class="head">版本</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CMake</td>
+<td>&gt;=2.8.11</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Ragel</td>
+<td>6.9</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Python</td>
+<td>2.7</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Boost</td>
+<td>&gt;=1.57</td>
+<td>仅需要头文件，无需编译</td>
+</tr>
+<tr class="row-even"><td>Pcap</td>
+<td>&gt;=0.8</td>
+<td>Optional: 仅用于示例程序</td>
+</tr>
+<tr class="row-odd"><td>SQLite</td>
+<td>?</td>
+<td>Optional: 用于编译hsbench</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<ol class="last arabic">
+<li><p class="first">boost不需要编译安装，如果通过系统包管理工具(yum/apt-get)安装的
+版本无法满足版本需要，则需要下载源码包，解压后执行类似</p>
+<p><code class="docutils literal"><span class="pre">ln</span> <span class="pre">-s</span> <span class="pre">/home/zzq/boost_1_59_0/boost</span> <span class="pre">hyperscan-4.6.0/include/boost</span></code>
+的命令创建符号链接，注意boost路径需要是绝对路径，否则可能找不到。</p>
+<p>或者使用下文描述的BOOST_ROOT选项.</p>
+</li>
+<li><p class="first">pcap库会依赖flex和bison</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="cmake">
+<h3>CMake配置<a class="headerlink" href="#cmake" title="永久链接至标题">¶</a></h3>
+<p>When CMake is invoked, it generates build files using the given options. Options
+are passed to CMake in the form -D&lt;variable name&gt;=&lt;value&gt;. Common options for
+CMake include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">参数</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CMAKE_C_COMPILER</td>
+<td>C compiler to use. Default is /usr/bin/cc.</td>
+</tr>
+<tr class="row-odd"><td>CMAKE_CXX_COMPILER</td>
+<td>C++ compiler to use. Default is /usr/bin/c++.</td>
+</tr>
+<tr class="row-even"><td>CMAKE_INSTALL_PREFIX</td>
+<td>Install directory for install target</td>
+</tr>
+<tr class="row-odd"><td>CMAKE_BUILD_TYPE</td>
+<td>Define which kind of build to generate. Valid options are
+Debug, Release, RelWithDebInfo, and MinSizeRel. Default is RelWithDebInfo.</td>
+</tr>
+<tr class="row-even"><td>BUILD_SHARED_LIBS</td>
+<td>Build Hyperscan as a shared library instead of the default static library.</td>
+</tr>
+<tr class="row-odd"><td>BUILD_STATIC_AND_SHARED</td>
+<td>Build both static and shared Hyperscan libs. Default off.</td>
+</tr>
+<tr class="row-even"><td>BOOST_ROOT</td>
+<td>Location of Boost source tree.</td>
+</tr>
+<tr class="row-odd"><td>DEBUG_OUTPUT</td>
+<td>Enable very verbose debug output. Default off.</td>
+</tr>
+<tr class="row-even"><td>FAT_RUNTIME</td>
+<td>Build the fat runtime. Default true on Linux, not available elsewhere.</td>
+</tr>
+<tr class="row-odd"><td>OPTIMISE</td>
+<td>Turns off compiler optimizations(默认TRUE)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">FAT_RUNTIME是4.4版本引入的新特性, 即在编译时同时编译出针对若干种CPU的运行时, 这个开关(在编译Release版本时)默认是打开的. fat runtime目前仅支持Linux.
+如果编译早期版本, 或者想要显式指定target architecture, 应在CMAKE_C_FLAGS和CMAKE_CXX_FLAGS中使用-march选项, 例如 <code class="docutils literal"><span class="pre">cmake</span> <span class="pre">-DCMAKE_C_FLAGS=&quot;-march=corei7&quot;</span> <span class="pre">-DCMAKE_CXX_FLAGS=&quot;-march=corei7&quot;</span>
+<span class="pre">&lt;hyperscan-source-path&gt;</span></code></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>编译过程<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>假设在用户根目录下的hs_build下面编译hyperscan，源码在~/hyperscan-4.6.0, 编译为调试版本的动态链接库(还打开了调试信息输出):</p>
+<ol class="arabic simple">
+<li>cd ~</li>
+<li>mkdir hs_build</li>
+<li>cd hs_build</li>
+<li>cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=on -DDEBUG_OUTPUT=on -DBOOST_ROOT=/Users/zzq/dev/pkg/boost_1_59_0 ../hyperscan</li>
+<li>cmake –build . (别忘了最后有个点）</li>
+</ol>
+<p>生成的.so文件放在hs_build/lib目录.</p>
+</div>
+</div>
+<div class="section" id="dump">
+<h2>生成dump信息<a class="headerlink" href="#dump" title="永久链接至标题">¶</a></h2>
+<p>hyperscan代码大量使用了dump来进行调试, 不过默认情况下dump选项是关闭的, 打开dump功能hyperscan会输出大量信息和文件, 对分析源码很有帮助. Grey类有两个成员, 用来控制dump信息的输出.</p>
+<ol class="arabic">
+<li><p class="first">dumpFlags</p>
+<p>dump选项. 所有的dump flags如下所示(见src/grey.h):</p>
+<blockquote>
+<div><div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">DumpFlags</span> <span class="p">{</span>
+    <span class="n">DUMP_NONE</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">DUMP_BASICS</span>     <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// Dump basic textual data</span>
+    <span class="n">DUMP_PARSE</span>      <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// Dump component tree to .txt</span>
+    <span class="n">DUMP_INT_GRAPH</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// Dump non-implementation graphs</span>
+    <span class="n">DUMP_IMPL</span>       <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>  <span class="c1">// Dump implementation graphs</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>它在构造函数中被初始化为0, hyperscan代码的其他部分也没有修改过此值. 因此要输出dump信息, 需要修改src/grey.cpp, 把此值改为&gt;0的值, 建议改成0xf.</p>
+</div></blockquote>
+</li>
+<li><p class="first">dumpPath</p>
+<p>dump文件保存路径. dumpFlags不为DUMP_NONE时, hyperscan会把某些文件dump到此位置,
+这个成员默认没有初始化, 如果只修改dumpFlags, hyperscan运行时会崩溃. 可以修改成</p>
+<blockquote>
+<div><p>“./”.</p>
+</div></blockquote>
+</li>
+</ol>
+<p>dump打开之后, hyperscan在运行时会输出很多dot文件, 可以使用graphviz工具直接查看其所表示的图形, 或者将其转换成图片格式. 这些图形会对我们理解内部机制有很大的帮助.</p>
+</div>
+<div class="section" id="id4">
+<h2>加速编译过程<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>hyperscan编译需要较长的时间, 修改主目录下的CMakeLists.txt, 配置其不编译某些代码,
+可以提高一些编译速度.</p>
+<p>比如, 搜索add_subdirectory, 注释掉util, unit, tools, examples等子目录的编译:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>#add_subdirectory(util)
+#add_subdirectory(unit)
+add_subdirectory(doc/dev-reference)
+if (EXISTS ${CMAKE_SOURCE_DIR}/tools/CMakeLists.txt)
+    #add_subdirectory(tools)
+endif()
+
+if(NOT WIN32)
+    #add_subdirectory(examples)
+endif()
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>生成源码文档<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>hyperscan的代码注释使用doxygen风格，对源码生成文档可以有助于我们理解源码。</p>
+<ol class="arabic simple">
+<li>在&lt;hyperscan root&gt;/src下运行 <code class="docutils literal"><span class="pre">doxygen</span> <span class="pre">-g</span></code> ， 生成Doxyfile文件</li>
+<li>参考这篇文章 <a class="reference external" href="https://www.ibm.com/developerworks/cn/aix/library/au-learningdoxygen/index.html">https://www.ibm.com/developerworks/cn/aix/library/au-learningdoxygen/index.html</a>
+修改Doxyfile, 建议开启dot支持并装好graphviz， 以生成形象的图表</li>
+<li>运行 <code class="docutils literal"><span class="pre">doxygen</span> <span class="pre">Doxyfile</span></code> 生成文档</li>
+</ol>
+</div>
 </div>
 
 
@@ -759,10 +947,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="stl.html" class="btn btn-neutral float-right" title="标准库" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hs_compile.html" class="btn btn-neutral float-right" title="hyperscan编译期" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="basic.html" class="btn btn-neutral" title="基本功能" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="hs_pre.html" class="btn btn-neutral" title="hyperscan预备知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
