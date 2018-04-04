@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -748,7 +754,7 @@
 </div>
 <p>生成doxygen配置文件(默认文件名是Doxyfile)，然后修改此文件：</p>
 <ul class="simple">
-<li><strong>项目名称</strong> PROJECT_NAME = “MyProject”</li>
+<li><strong>项目名称</strong> PROJECT_NAME = &#8220;MyProject&#8221;</li>
 <li><strong>对C项目优化</strong> OPTIMIZE_OUTPUT_FOR_C  = YES</li>
 <li><strong>源文件路径</strong> INPUT = /home/tom/project/include</li>
 <li><strong>源文件编码</strong> INPUT_ENCODEING = UTF-8</li>
@@ -804,21 +810,7 @@
 -&gt;&gt;&gt;@echo &quot;Build finished. The HTML pages are in $(BUILDDIR)/html.&quot;
 </pre></div>
 </div>
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  //id: '页面 ID', // 可选。默认为 location.href
-  owner: 'zzqcn',
-  repo: 'zzqcn.github.io',
-  oauth: {
-    client_id: 'a6db218e886efe4953d8',
-    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
-  },
-})
-gitment.render('container')
-</script></div>
+</div>
 </div>
 
 
@@ -843,7 +835,7 @@ gitment.render('container')
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -771,7 +777,7 @@
 <p>RED(Random Early Detection, 参考 <a class="reference internal" href="#id41" id="id3">[red]</a> )是一种用于拥塞控制的调度机制，它已经成为一个事实上的标准，被广泛应用。</p>
 <p>RED通过监视报文队列，动态计算其拥塞程度，并据此以某种规则丢弃队列中的报文(即使此时队列仍有空间)，实现拥塞控制。</p>
 <p>相比于简单的Tail Drop，RED可以避免TCP的全局同步(即TCP发现丢了多个包，从而急剧减小window&lt;慢开始&gt;，拥塞解除；
-但后来不再拥塞时又开始加快发送速度，又一次造成拥塞…这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
+但后来不再拥塞时又开始加快发送速度，又一次造成拥塞...这样的现象周而复始，使得一段时间内设备带宽利用率很低的现象)。</p>
 <p>RED只在设备上实现，不需要依赖连接双方。</p>
 <div class="section" id="id4">
 <h3>14.2.1 设计目标<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
@@ -2055,7 +2061,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="net-algo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[net_algo]</td><td>“Network Algorithmics”, George Varghese, 2005</td></tr>
+<tr><td class="label">[net_algo]</td><td>&#8220;Network Algorithmics&#8221;, George Varghese, 2005</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="id39" rules="none">
@@ -2067,7 +2073,7 @@ TC操作</th>
 <table class="docutils citation" frame="void" id="id41" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> “Random Early Detection Gateways for Congestion Avoidance”,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
+<tr><td class="label">[red]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id10">2</a>, <a class="fn-backref" href="#id11">3</a>)</em> &#8220;Random Early Detection Gateways for Congestion Avoidance&#8221;,Sally Floyd &amp; Van Jacobson, IEEE/ACM, 1993</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="rfc2697" rules="none">
@@ -2094,21 +2100,7 @@ TC操作</th>
 <tr><td class="label">[dpdk]</td><td><a class="reference external" href="http://dpdk.org">intel DPDK</a></td></tr>
 </tbody>
 </table>
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  //id: '页面 ID', // 可选。默认为 location.href
-  owner: 'zzqcn',
-  repo: 'zzqcn.github.io',
-  oauth: {
-    client_id: 'a6db218e886efe4953d8',
-    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
-  },
-})
-gitment.render('container')
-</script></div>
+</div>
 </div>
 
 
@@ -2133,7 +2125,7 @@ gitment.render('container')
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

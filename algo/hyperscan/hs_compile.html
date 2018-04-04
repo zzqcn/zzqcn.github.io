@@ -408,6 +408,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
@@ -448,9 +451,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -567,6 +567,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -653,17 +664,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -816,7 +822,7 @@ Glushkov构造法, 它定义的接口有:</p>
 <div class="section" id="ngholder">
 <h3>NGHolder<a class="headerlink" href="#ngholder" title="永久链接至标题">¶</a></h3>
 <p>Encapsulates an NFAGraph, stores special vertices and other metadata. When
-constructed, the graph will have the following stylised “special” edges:</p>
+constructed, the graph will have the following stylised &#8220;special&#8221; edges:</p>
 <ul class="simple">
 <li>(start, startDs)</li>
 <li>(startDs, startDs) (self-loop)</li>
@@ -1065,7 +1071,7 @@ constructed, the graph will have the following stylised “special” edges:</p>
 </div></blockquote>
 </li>
 <li><p class="first">ParsedExpression.component-&gt;notePositions(GlushkovBuildState)</p>
-<p>parsed expression由多个components组成树型结构, 此函数递归遍历这颗树. 对于”a|b”
+<p>parsed expression由多个components组成树型结构, 此函数递归遍历这颗树. 对于&#8221;a|b&#8221;
 这个正则, 构成的树型结构为:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="n">Sequence</span>
      <span class="n">Alternation</span> <span class="o">.....</span> <span class="o">|</span>
@@ -1248,7 +1254,7 @@ constructed, the graph will have the following stylised “special” edges:</p>
 <span class="mi">4</span><span class="p">(</span><span class="n">原4</span><span class="o">+</span><span class="n">原5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="mi">2</span>
 </pre></div>
 </div>
-<p>4是’a’添加进来的, 5是’b’添加进来的, 这里4和5合并, 可以猜测目前5的CharReach里也有了’a’的信息, 即表示a的bit位也置1了.</p>
+<p>4是&#8217;a&#8217;添加进来的, 5是&#8217;b&#8217;添加进来的, 这里4和5合并, 可以猜测目前5的CharReach里也有了&#8217;a&#8217;的信息, 即表示a的bit位也置1了.</p>
 <p>此时已构建NFA_OUTFIX.</p>
 </li>
 <li><p class="first">ue2::buildMcClellan</p>
@@ -1294,9 +1300,9 @@ constructed, the graph will have the following stylised “special” edges:</p>
 <h3>ue2::build(NG, length)<a class="headerlink" href="#ue2-build-ng-length" title="永久链接至标题">¶</a></h3>
 <p>生成database.</p>
 <ol class="arabic simple">
-<li>rose = generateRoseEngine(ng)</li>
-<li>bytecode = (const char <a href="#id4"><span class="problematic" id="id5">*</span></a>)(rose.get())</li>
-<li>dbCreate(bytecode, <a href="#id6"><span class="problematic" id="id7">*</span></a>length, p)</li>
+<li><cite>rose = generateRoseEngine(ng)</cite></li>
+<li><cite>bytecode = (const char *)(rose.get())</cite></li>
+<li><cite>dbCreate(bytecode, *length, p)</cite></li>
 </ol>
 </div>
 </div>
@@ -1315,7 +1321,7 @@ constructed, the graph will have the following stylised “special” edges:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

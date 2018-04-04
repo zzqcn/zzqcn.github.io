@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -782,7 +788,7 @@
 <li>将C++标准库作为学习新技术和新程序设计风格的老师. 注意它与C标准库的差异</li>
 <li>C++几乎从来不需要宏替换. 作为替代, 使用const, constexpr, enum或enum class来定义明示常量; 使用inline来避免函数调用的开销; 使用template来指明函数族和类型族; 使用namespace来避免名字冲突</li>
 <li>在真正需要一个变量时再声明它, 且声明后立即进行初始化. 声明可以出现在语句可以出现的任何位置, 以及for语句初始化部分和条件中</li>
-<li>不要使用malloc(). new运算符可以完成相同的工作, 而且完成得更好. 同样, 不要使用realloc(), 尝试用vector. 但注意不要简单地用”祼的”new和delete来代替malloc()和free()</li>
+<li>不要使用malloc(). new运算符可以完成相同的工作, 而且完成得更好. 同样, 不要使用realloc(), 尝试用vector. 但注意不要简单地用&#8221;祼的&#8221;new和delete来代替malloc()和free()</li>
 <li>避免使用void*, 联合以及类型转换, 除非在某些函数和类的深层实现中. 使用这些特性会限制你从类型系统中得到支持, 而且会损害性能. 在大多数情况下, 一次类型转换就暗示着一个设计错误. 如果你必须使用显式类型转换, 尝试使用命名的显式类型转换(如static_cast), 这能更精确地表达你的意图</li>
 <li>尽量减少数组和C风格字符串的使用. 与这种传统的C风格代码比, 通常可以用C++标准库中的string, array和vector写出更简单也更易维护的代码. 一般而言, 如果标准库中已经提供了相应的功能, 就尽量不要自己重新构造代码</li>
 <li>除非是在非常专门的代码中(例如内存管理器), 或者进行简单的数组遍历(例如++p), 否则要避免对指针进行算术运算</li>
@@ -841,7 +847,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

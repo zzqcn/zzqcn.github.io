@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -757,13 +763,13 @@ x86, ARM, MIPS, PowerPC等等. 而VMware基本上只能虚拟化跟主机CPU架�
 <p>要使用系统模式, 则还需要准备好内核文件和系统磁盘映像. 对于MIPS平台, debian官方已经提供了做好的文件, 地址在: <a class="reference external" href="https://people.debian.org/~aurel32/qemu/mips/">https://people.debian.org/~aurel32/qemu/mips/</a></p>
 <p>此页面已经给出了虚拟不同系统所需的命令和文件, 启动MIPS 32bit的命令为</p>
 <ul class="simple">
-<li>qemu-system-mips -M malta -kernel vmlinux-2.6.32-5-4kc-malta -hda debian_squeeze_mips_standard.qcow2 -append “root=/dev/sda1 console=tty0”</li>
-<li>qemu-system-mips -M malta -kernel vmlinux-3.2.0-4-4kc-malta -hda debian_wheezy_mips_standard.qcow2 -append “root=/dev/sda1 console=tty0”</li>
+<li>qemu-system-mips -M malta -kernel vmlinux-2.6.32-5-4kc-malta -hda debian_squeeze_mips_standard.qcow2 -append &#8220;root=/dev/sda1 console=tty0&#8221;</li>
+<li>qemu-system-mips -M malta -kernel vmlinux-3.2.0-4-4kc-malta -hda debian_wheezy_mips_standard.qcow2 -append &#8220;root=/dev/sda1 console=tty0&#8221;</li>
 </ul>
 <p>启动MIPS 64bit的命令为</p>
 <ul class="simple">
-<li>qemu-system-mips64 -M malta -kernel vmlinux-2.6.32-5-5kc-malta -hda debian_squeeze_mips_standard.qcow2 -append “root=/dev/sda1 console=tty0”</li>
-<li>qemu-system-mips64 -M malta -kernel vmlinux-3.2.0-4-5kc-malta -hda debian_wheezy_mips_standard.qcow2 -append “root=/dev/sda1 console=tty0”</li>
+<li>qemu-system-mips64 -M malta -kernel vmlinux-2.6.32-5-5kc-malta -hda debian_squeeze_mips_standard.qcow2 -append &#8220;root=/dev/sda1 console=tty0&#8221;</li>
+<li>qemu-system-mips64 -M malta -kernel vmlinux-3.2.0-4-5kc-malta -hda debian_wheezy_mips_standard.qcow2 -append &#8220;root=/dev/sda1 console=tty0&#8221;</li>
 </ul>
 <p>也可以看出4kc为32bit, 5kc为64bit; squeeze对应2.6.32内核, wheezy对应3.2.0内核.
 根据需要下载对应的文件即可.</p>
@@ -1055,7 +1061,7 @@ hello mips!
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

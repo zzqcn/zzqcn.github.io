@@ -40,7 +40,7 @@
     <link rel="top" title="zzq&#39;s blog" href="../index.html"/>
         <link rel="up" title="程序设计语言" href="index.html"/>
         <link rel="next" title="PC Assembly Language读书笔记" href="pcasm.html"/>
-        <link rel="prev" title="boost库" href="cpp/boost.html"/> 
+        <link rel="prev" title="Linux shell编程" href="shell/index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../tools/latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../tools/patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -739,7 +745,7 @@
 <h1>lua基础<a class="headerlink" href="#lua" title="永久链接至标题">¶</a></h1>
 <p>Lua本身以简单优雅为美, 着眼于处理那些C不擅长的任务. 借助C/C++为其扩展, Lua可以展现无穷的魅力. Lua本身完全遵循ANSI C写成, 只要有C编译器的地方, Lua便可以发挥它的力量. Lua不需要追求python那样大而全的库, 太多的累赘, 反而会破坏她的优美.</p>
 <blockquote>
-<div>— &lt;Lua中文教程&gt;译序</div></blockquote>
+<div>&#8212; &lt;Lua中文教程&gt;译序</div></blockquote>
 <p>本文章基于lua 5.2.</p>
 <div class="section" id="id1">
 <h2>预备知识<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
@@ -790,8 +796,8 @@
 <div class="section" id="id5">
 <h3>注释<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>单行注释: –</li>
-<li>多行注释 –[[  –]]</li>
+<li>单行注释: &#8211;</li>
+<li>多行注释 &#8211;[[  &#8211;]]</li>
 </ul>
 </div>
 <div class="section" id="chunk">
@@ -989,7 +995,7 @@
         <a href="pcasm.html" class="btn btn-neutral float-right" title="PC Assembly Language读书笔记" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cpp/boost.html" class="btn btn-neutral" title="boost库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="shell/index.html" class="btn btn-neutral" title="Linux shell编程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -998,7 +1004,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

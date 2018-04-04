@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -739,7 +745,7 @@
             
   <div class="section" id="id1">
 <h1>简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>写文档是开发人员日常工作中的一项重要内容，除了word之外，我更偏爱使用标记语言(Markup Language)。使用标记语言，可以利用简单、免费的文本编辑器(记事本，vim, emacs…）编写文档并设置格式，再生成html或pdf等格式，或者直接把编辑好的文件传到github或wiki上面 ，通过浏览器可以直接查看带有格式的文档。</p>
+<p>写文档是开发人员日常工作中的一项重要内容，除了word之外，我更偏爱使用标记语言(Markup Language)。使用标记语言，可以利用简单、免费的文本编辑器(记事本，vim, emacs...）编写文档并设置格式，再生成html或pdf等格式，或者直接把编辑好的文件传到github或wiki上面 ，通过浏览器可以直接查看带有格式的文档。</p>
 <p>目前标记语言主要有两种，Markdown和reStructuredText（简称reST)。该使用哪一种是一个见仁见智的选择，我在这里就不比较它们（包括其他标记语言）的优劣了，感兴趣的可以参考：</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.zhihu.com/question/19851600">知乎：Org-mode、reST、 Markdown 各有什么优缺点？</a></li>
@@ -747,21 +753,7 @@
 </ul>
 <p>对我个人来说，一开始尝试了一段时间的Markdown，由于工具不好用以及支持的格式不多的原因，转而使用reST，再配合sphinx，感觉好极了。</p>
 <p>很多开源项目的文档就是用sphinx+reST做的，比如最近我正关注的hyperscan：<a class="reference external" href="http://01org.github.io/hyperscan/dev-reference/">http://01org.github.io/hyperscan/dev-reference/</a>。大家可以点进去看一下生成的效果，它用的样式是Alabaster 0.7.6。</p>
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  //id: '页面 ID', // 可选。默认为 location.href
-  owner: 'zzqcn',
-  repo: 'zzqcn.github.io',
-  oauth: {
-    client_id: 'a6db218e886efe4953d8',
-    client_secret: '6ba8bd979b4c394a5df4b42abeed09e79e3b092e',
-  },
-})
-gitment.render('container')
-</script></div>
+</div>
 
 
            </div>
@@ -785,7 +777,7 @@ gitment.render('container')
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 

@@ -411,6 +411,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/cpp/boost.html">boost库</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../lang/lua_basic.html">lua基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lang/lua_basic.html#id1">预备知识</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../lang/lua_basic.html#id2">获得lua</a></li>
@@ -451,9 +454,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../lang/byteorder.html#id4">编写可移植代码</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../shell/index.html">Linux shell编程</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../perf/index.html">性能优化</a><ul>
@@ -570,6 +570,17 @@
 <li class="toctree-l3"><a class="reference internal" href="latex/debug.html">错误调试</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#id4">其他技巧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vpn.html#id5">参考链接</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="patch.html">补丁工具patch</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="patch.html#id1">1 为单个文件生成补丁</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patch.html#id2">2 为多个文件生成补丁</a></li>
@@ -656,17 +667,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hobby/index.html">兴趣爱好</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">准备工作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者小偶像用微博发的视频？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../hobby/fcpx_basic.html">FCPX: XXX</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#library">资源库（Library）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../hobby/fcpx_basic.html#id1">疑难点</a></li>
 </ul>
 </li>
 </ul>
@@ -758,7 +764,7 @@
 <p><strong>注意</strong>：先删除掉上一步骤遗留的文件miwifi.bin, 否则会刷rom而不刷ssh.</p>
 <ol class="arabic simple">
 <li>注册小米账号, 并在路由器管理界面绑定小米账号</li>
-<li>访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的”开启SSH工具”</li>
+<li>访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的&#8221;开启SSH工具&#8221;</li>
 <li>依次点击“下载工具包”“接受”，需要注意的是，协议中已经写明，开启ssh后得到root权限，
 同时意味着放弃保修服务.</li>
 <li>按照上一步下载时页面的提示, 将下载的ssh工具安装到小米路由器</li>
@@ -770,7 +776,7 @@
 <p>我们一般不会直接在小米路由器上直接进行开发, 而是在PC机上建立交叉编译环境, 开发,
 编译代码然后将其部署到小米路由器上. 这里给出的是在Linux上搭建交叉编译环境的过程.</p>
 <ol class="arabic">
-<li><p class="first">访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的”插件开发文档”,
+<li><p class="first">访问 <a class="reference external" href="http://miwifi.com/miwifi_open.html">http://miwifi.com/miwifi_open.html</a> , 点击页面中下方的&#8221;插件开发文档&#8221;,
 在弹出的对话框中选择对应的产品型号下载相应的sdk</p>
 <p>目前小米路由器各型号与其对应的芯片, sdk版本的对照表如下表所示:</p>
 <img alt="../_images/xiaomi_sdk.png" src="../_images/xiaomi_sdk.png" />
@@ -807,13 +813,13 @@
 </ol>
 <p><strong>注意</strong> configure几个参数的含义</p>
 <ul>
-<li><p class="first">–build: 编译用的当前平台, 一般不用指定, configure会自动检测</p>
+<li><p class="first">&#8211;build: 编译用的当前平台, 一般不用指定, configure会自动检测</p>
 </li>
-<li><p class="first">–host: 编译出的软件将运行于的平台, 也可以不指定, 默认与–build值相同</p>
+<li><p class="first">&#8211;host: 编译出的软件将运行于的平台, 也可以不指定, 默认与&#8211;build值相同</p>
 </li>
-<li><p class="first">–target: 编译出的软件将处理什么平台的文件, 一般编译编译器之类的软件才会使用此选项</p>
+<li><p class="first">&#8211;target: 编译出的软件将处理什么平台的文件, 一般编译编译器之类的软件才会使用此选项</p>
 </li>
-<li><p class="first">当–build值!=–host值时, 为交叉编译</p>
+<li><p class="first">当&#8211;build值!=&#8211;host值时, 为交叉编译</p>
 </li>
 <li><p class="first">示例</p>
 <table border="1" class="docutils">
@@ -824,9 +830,9 @@
 <col width="58%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">–build</th>
-<th class="head">–host</th>
-<th class="head">–target</th>
+<tr class="row-odd"><th class="head">&#8211;build</th>
+<th class="head">&#8211;host</th>
+<th class="head">&#8211;target</th>
 <th class="head">含义</th>
 </tr>
 </thead>
@@ -869,7 +875,7 @@
 <p>gdb-7.8.1以上版本需要C++编译器支持C++11, 而r1c sdk中的g++仅支持C++0x.
 r3p sdk中的g++支持C++11.</p>
 <p>如果要在MIPS平台上运行gdb-7.8.1, 需要修改源码, 否则运行时会报错:
-“GDB bug: target.c (gdb_signal_from_host): unrecognized real-time signal”,
+&#8220;GDB bug: target.c (gdb_signal_from_host): unrecognized real-time signal&#8221;,
 方法是修改&lt;gdb_root&gt;/gdb/common/signals.c, 在第346行左右添加最后一个if语句:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">hostsig</span> <span class="o">==</span> <span class="mi">128</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">GDB_SIGNAL_UNKNOWN</span><span class="p">;</span>
@@ -919,7 +925,7 @@ r3p sdk中的g++支持C++11.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, 赵子清.
+        &copy; 版权所有 2018, 赵子清.
 
     </p>
   </div> 
