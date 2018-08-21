@@ -1,0 +1,992 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>架构 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/my_theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="Tengine" href="index.html"/>
+        <link rel="next" title="基本概念" href="key_points.html"/>
+        <link rel="prev" title="介绍" href="intro.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2018.08
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/go/index.html">Golang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/setup.html">环境配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#go-get">使用代理以解决go get超时问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#id2">日常项目开发环境配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#ide">IDE配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/json.html">JSON解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id1">简单解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id2">不确定JSON的解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id3">复杂内容的解析</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/withc.html">C语言适配</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/withc.html#id1">调用C编写的动态库</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/books.html">学习资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/pcasm.html">PC Assembly Language读书笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../net/index.html">网络开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../net/tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../net/netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id1">9.1 缓存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id5">9.4 重组</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id2">14.2 拥塞控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id26">14.6 带宽保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id37">附录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">开源项目研究</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/eal.html">1. EAL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#linuxeal">1.1. Linux环境的EAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#id1">1.2. 内存机制与初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#cpu">1.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#lcore">1.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#id2">1.5. 多进程应用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#id3">1.6. 其他注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/eal.html#id4">1.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/ring.html">2. Ring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id1">2.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id2">2.2. 应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id3">2.3. 无锁队列操作图解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id4">2.4. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id5">2.5. 多生产者入队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id6">2.6. 多消费者出队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id7">2.7. 索引计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/ring.html#id8">2.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mem.html">3. Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id1">3.1. 内存的初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mem.html#id4">3.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memseg.html">4. Memseg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memseg.html#id1">4.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memseg.html#id2">4.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memseg.html#id3">4.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/memzone.html">5. Memzone</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memzone.html#id1">5.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memzone.html#memzone-init">5.2. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memzone.html#id3">5.3. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memzone.html#id4">5.4. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/memzone.html#id5">5.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/malloc.html">6. Malloc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#id1">6.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#id2">6.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap">6.3. malloc heap初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#malloc-heap-alloc">6.4. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#id4">6.5. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/malloc.html#id5">6.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mempool.html">7. Mempool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id1">7.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id2">7.2. 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id4">7.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id5">7.4. 创建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id6">7.5. 取出对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id7">7.6. 还回对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mempool.html#id8">7.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/mbuf.html">8. Mbuf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id1">8.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id2">8.2. 原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id3">8.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id4">8.4. 分配与回收</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id8">8.5. 元信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#directindirect-mbuf">8.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/mbuf.html#id9">8.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/build_sys.html">9. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id2">9.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id3">9.2. 源码组织</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id5">9.3. 编译系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#dpdk-makefile">9.4. dpdk Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#root-makefile-help">9.5. 根Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#abi">9.6. ABI管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#v16-07-2">9.7. 实例：将v16.07.2编译为单个动态库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/build_sys.html#id22">9.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dpdk/optimization.html">10. dpdk软件性能优化技术</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/optimization.html#id1">10.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dpdk/optimization.html#cache">10.2. Cache和内存</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Tengine</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#tengine">Tengine的由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id2">Tengine的改进</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">高性能服务器设计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">进程模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">事件处理模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">模块化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">请求处理机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="key_points.html">基本概念</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#connection">连接/connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#request">请求/request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#keepalive">keepalive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#pipeline">pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#lingering-close">lingering_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="key_points.html#id6">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure.html">基础设施</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id2">日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id3">内存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#cycle">cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id7">字符串操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id12">容器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id18">时间</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id19">网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id21">事件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id22">进程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id23">线程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id24">模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="infrastructure.html#id25">错误处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="http.html">HTTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="http.html#id1">HTTP请求处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hyperscan/index.html">hyperscan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hyperscan/hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../hyperscan/hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../hyperscan/hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_debug.html#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_debug.html#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_debug.html#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hyperscan/hs_debug.html#id5">生成源码文档</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ai/index.html">人工智能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ai/books.html">学习资料</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#pattern-recognition-and-machine-learning">Pattern Recognition and Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#convex-optimization">Convex Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-fundamentals-an-introduction-for-beginners">Deep Learning Fundamentals: An Introduction for Beginners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#optimization-in-operations-research">Optimization in Operations Research</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#artificial-intelligence-a-modern-approach">Artificial Intelligence: A Modern Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-in-natural-language-processing">Deep Learning in Natural Language Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#id2">机器学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../perf/index.html">性能优化</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../perf/vtune.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id2">一般应用: 图形界面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#id3">一般应用: 命令行</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../perf/vtune.html#vtune">附录: VTune中文在线课程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#index">index页配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id6">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id5">对不同网站使用不同的连接方式: 直接/代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#window">Window下令无法设置代理的应用程序使用代理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id6">参考链接</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vmware.html">VMWare使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#ip">配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#id1">解决启动黑屏问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id1">14.04更换阿里云源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id2">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/qemu.html">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#gdb">远程gdb调试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/prepare.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/prepare.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutme.html">关于我</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">开源项目研究</a> &raquo;</li>
+        
+          <li><a href="index.html">Tengine</a> &raquo;</li>
+        
+      <li>架构</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>架构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p><em>更新于2018.06.22</em></p>
+<div class="section" id="id2">
+<h2>高性能服务器设计<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>// TODO</p>
+<ul class="simple">
+<li>c10k问题</li>
+<li>高性能服务器编写的关键原则</li>
+<li>事件驱动的核心引擎</li>
+<li>定时器管理</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>进程模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>Nginx支持多进程与多线程的运行方式, 主流一般使用多进程. 多进程分为一个master进程与多个worker进程.</p>
+<p>master进程主要用来管理worker进程, 包含：接收来自外界的信号, 向各worker进程发送信号监控worker进程的运行状态, 当worker进程退出后(异常情况下), 会自动重新启动新的worker进程.</p>
+<p>而基本的网络事件, 则是放在worker进程中来处理了. 多个worker进程之间是对等的,
+他们同等竞争来自客户端的请求, 各进程互相之间是独立的. 一个请求, 只可能在一个worker进程中处理, 一个worker进程, 不可能处理其它进程的请求. worker进程的个数是可以设置的,
+一般我们会设置与 <strong>机器cpu核数一致</strong> , 这里面的原因与nginx的进程模型以及事件处理模型是分不开的. nginx的进程模型, 可以由下图来表示：</p>
+<div class="figure" id="id11">
+<img alt="../../_images/nginx_arch.png" src="../../_images/nginx_arch.png" />
+<p class="caption"><span class="caption-text">Nginx进程模型</span></p>
+</div>
+<div class="section" id="master">
+<h3>master进程<a class="headerlink" href="#master" title="永久链接至标题">¶</a></h3>
+<p>在nginx启动后, 如果我们要操作nginx, 要怎么做呢？从上文中我们可以看到, master来管理worker进程, 所以我们只需要与master进程通信就行了. master进程会接收来自外界发来的信号, 再根据信号做不同的事情. 所以我们要控制nginx, 只需要通过kill向master进程发送信号就行了. 比如 <code class="docutils literal"><span class="pre">kill</span> <span class="pre">-HUP</span> <span class="pre">pid</span></code> , 则是告诉nginx, <strong>从容地</strong> 重启nginx,
+我们一般用这个信号来重启nginx, 或重新加载配置, 因为是从容地重启, 因此服务是不中断的.</p>
+<p>master进程在接收到HUP信号后是怎么做的呢？首先master进程在接到信号后, 会先重新加载配置文件,
+然后再启动新的worker进程, 并向所有老的worker进程发送信号, 告诉他们可以光荣退休了.
+新的worker在启动后, 就开始接收新的请求, 而老的worker在收到来自master的信号后,
+就不再接收新的请求, 并且在当前进程中的所有未处理完的请求处理完成后, 再退出.</p>
+<p>当然,
+直接给master进程发送信号, 这是比较老的操作方式, nginx在0.8版本之后, 引入了一系列命令行参数, 来方便我们管理. 比如,  <code class="docutils literal"><span class="pre">./nginx</span> <span class="pre">-s</span> <span class="pre">reload</span></code> , 就是来重启nginx,
+<code class="docutils literal"><span class="pre">./nginx</span> <span class="pre">-s</span> <span class="pre">stop</span></code> , 就是来停止nginx的运行. 如何做到的呢？我们还是拿reload来说,
+我们看到, 执行命令时, 我们是启动一个新的nginx进程, 而新的nginx进程在解析到reload参数后, 就知道我们的目的是控制nginx来重新加载配置文件了, 它会向master进程发送信号,
+然后接下来的动作, 就和我们直接向master进程发送信号一样了.</p>
+</div>
+<div class="section" id="worker">
+<h3>worker进程<a class="headerlink" href="#worker" title="永久链接至标题">¶</a></h3>
+<p>worker进程之间是平等的, 每个进程, 处理请求的机会也是一样的. 当我们提供80端口的http服务时, 一个连接请求过来, 每个进程都有可能处理这个连接, 怎么做到的呢？首先,
+每个worker进程都是从master进程fork过来, 在master进程里面, 先建立好需要listen的socket（listenfd）之后, 然后再fork出多个worker进程.</p>
+<p>所有worker进程的listenfd会在新连接到来时变得可读, 为保证只有一个进程处理该连接,
+所有worker进程在注册listenfd读事件前 <strong>抢accept_mutex</strong> , 抢到互斥锁的那个进程注册listenfd读事件, 在读事件里调用accept接受该连接. 当一个worker进程在accept这个连接之后, 就开始读取请求, 解析请求, 处理请求, 产生数据后, 再返回给客户端,
+最后才断开连接, 这样一个完整的请求就是这样的了. 我们可以看到, <strong>一个请求,
+完全由worker进程来处理, 而且只在一个worker进程中处理.</strong></p>
+</div>
+<div class="section" id="id4">
+<h3>进程模型的优点<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>首先, 对于每个worker进程来说, 独立的进程, 不需要加锁, 所以省掉了锁带来的开销,
+同时在编程以及问题查找时, 也会方便很多. 其次, 采用独立的进程, 可以让互相之间不会影响, 一个进程退出后, 其它进程还在工作, 服务不会中断, master进程则很快启动新的worker进程. 当然, worker进程的异常退出, 肯定是程序有bug了, 异常退出, 会导致当前worker上的所有请求失败, 不过不会影响到所有请求, 所以降低了风险. 当然, 好处还有很多, 大家可以慢慢体会.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>事件处理模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>有人可能要问了, nginx采用多worker的方式来处理请求, 每个worker里面只有一个主线程,
+那能够处理的并发数很有限啊, 多少个worker就能处理多少个并发, 何来高并发呢？非也,
+这就是nginx的高明之处, nginx采用了 <strong>异步非阻塞</strong> 的方式来处理请求, 也就是说, nginx是可以同时处理成千上万个请求的. 想想apache的常用工作方式（apache也有异步非阻塞版本, 但因其与自带某些模块冲突, 所以不常用）, 每个请求会独占一个工作线程, 当并发数上到几千时, 就同时有几千的线程在处理请求了. 这对操作系统来说, 是个不小的挑战,
+线程带来的内存占用非常大, 线程的上下文切换带来的cpu开销很大, 自然性能就上不去了,
+而这些开销完全是没有意义的.</p>
+<p>先看一个请求的完整过程. 看看一个请求的完整过程. 首先, 请求过来, 要建立连接, 然后再接收数据, 接收数据后, 再发送数据. 具体到系统底层, 就是读写事件, 而当读写事件没有准备好时, 必然不可操作, 如果不用非阻塞的方式来调用, 那就得阻塞调用了, 事件没有准备好, 那就只能等了, 等事件准备好了, 你再继续吧. 阻塞调用会进入内核等待,
+cpu就会让出去给别人用了, 对单线程的worker来说, 显然不合适, 当网络事件越多时,
+大家都在等待呢, cpu空闲下来没人用, cpu利用率自然上不去了, 更别谈高并发了. 好吧,
+你说加进程数, 这跟apache的线程模型有什么区别, 注意, 别增加无谓的上下文切换. 所以,
+在nginx里面, 最忌讳阻塞的系统调用了. 不要阻塞, 那就非阻塞喽.</p>
+<p>非阻塞就是, 事件没有准备好, 马上返回EAGAIN, 告诉你, 事件还没准备好呢, 你慌什么, 过会再来吧. 好吧,
+你过一会, 再来检查一下事件, 直到事件准备好了为止, 在这期间, 你就可以先去做其它事情,
+然后再来看看事件好了没. 虽然不阻塞了, 但你得不时地过来检查一下事件的状态, 你可以做更多的事情了, 但带来的开销也是不小的. 所以, 才会有了异步非阻塞的事件处理机制,
+具体到系统调用就是像 <strong>select/poll/epoll/kqueue</strong> 这样的系统调用. 它们提供了一种机制, 让你可以同时监控多个事件, 调用他们是阻塞的, 但可以设置超时时间, 在超时时间之内, 如果有事件准备好了, 就返回.</p>
+<p>这种机制正好解决了我们上面的两个问题, 拿epoll为例(在后面的例子中, 我们多以epoll为例子, 以代表这一类函数), 当事件没准备好时,
+放到epoll里面, 事件准备好了, 我们就去读写, 当读写返回EAGAIN时, 我们将它再次加入到epoll里面. 这样, 只要有事件准备好了, 我们就去处理它, 只有当所有事件都没准备好时,
+才在epoll里面等着. 这样, 我们就可以并发处理大量的并发了, 当然, 这里的并发请求,
+是指未处理完的请求, 线程只有一个, 所以同时能处理的请求当然只有一个了, 只是在请求间进行不断地切换而已, 切换也是因为异步事件未准备好, 而主动让出的. 这里的切换是没有任何代价, 你可以理解为循环处理多个准备好的事件, 事实上就是这样的. 与多线程相比, 这种事件处理方式是有很大的优势的, 不需要创建线程, 每个请求占用的内存也很少,
+没有上下文切换, 事件处理非常的轻量级. 并发数再多也不会导致无谓的资源浪费(上下文切换). 更多的并发数, 只是会占用更多的内存而已. 我之前有对连接数进行过测试,
+在24G内存的机器上, 处理的并发请求数达到过200万. 现在的网络服务器基本都采用这种方式,
+这也是nginx性能高效的主要原因.</p>
+<p>推荐设置worker的个数为cpu的核数, 在这里就很容易理解了, 更多的worker数,
+只会导致进程来竞争cpu资源了, 从而带来不必要的上下文切换. 而且, nginx为了更好的利用多核特性, 提供了cpu亲缘性的绑定选项, 我们可以将某一个进程绑定在某一个核上,
+这样就不会因为进程的切换带来cache的失效. 像这种小的优化在nginx中非常常见, 同时也说明了nginx作者的苦心孤诣. 比如, nginx在做4个字节的字符串比较时, 会将4个字符转换成一个int型, 再作比较, 以减少cpu的指令数等等.</p>
+<div class="section" id="id6">
+<h3>不同事件的处理<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>对于一个基本的web服务器来说, 事件通常有三种类型, 网络事件、信号、定时器. 从上面的讲解中知道, 网络事件通过异步非阻塞可以很好的解决掉. 如何处理信号与定时器？</p>
+<p>首先, 信号的处理. 对nginx来说, 有一些特定的信号, 代表着特定的意义. 信号会中断掉程序当前的运行, 在改变状态后, 继续执行. 如果是系统调用, 则可能会导致系统调用的失败,
+需要重入. 关于信号的处理, 大家可以学习一些专业书籍, 这里不多说. 对于nginx来说,
+如果nginx正在等待事件（epoll_wait时）, 如果程序收到信号, 在信号处理函数处理完后,
+epoll_wait会返回错误, 然后程序可再次进入epoll_wait调用.</p>
+<p>另外, 再来看看定时器. 由于epoll_wait等函数在调用的时候是可以设置一个超时时间的,
+所以 <strong>nginx借助这个超时时间来实现定时器</strong> . nginx里面的定时器事件是放在一颗维护定时器的红黑树里面, 每次在进入epoll_wait前, 先从该红黑树里面拿到所有定时器事件的最小时间,
+在计算出epoll_wait的超时时间后进入epoll_wait. 所以, 当没有事件产生, 也没有中断信号时,
+epoll_wait会超时, 也就是说, 定时器事件到了. 这时, nginx会检查所有的超时事件,
+将他们的状态设置为超时, 然后再去处理网络事件. 由此可以看出, 当我们写nginx代码时,
+在处理网络事件的回调函数时, 通常做的第一个事情就是判断超时, 然后再去处理网络事件.</p>
+<p>我们可以用一段伪代码来总结一下nginx的事件处理模型:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">run_tasks</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">handler</span><span class="p">();</span>
+    <span class="n">update_time</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span>
+    <span class="n">timeout</span> <span class="o">=</span> <span class="n">ETERNITY</span><span class="p">;</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">wait_tasks</span><span class="p">:</span> <span class="o">/*</span> <span class="nb">sorted</span> <span class="n">already</span> <span class="o">*/</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="n">now</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">timeout_handler</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">now</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="n">nevents</span> <span class="o">=</span> <span class="n">poll_function</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nevents</span><span class="p">:</span>
+        <span class="n">task</span> <span class="n">t</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">READ</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">read_handler</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="o">/*</span> <span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">WRITE</span> <span class="o">*/</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">write_handler</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">run_tasks_add</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>模块化<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>nginx的内部结构是由核心部分和一系列的功能模块所组成. 这样划分是为了使得每个模块的功能相对简单, 便于开发, 同时也便于对系统进行功能扩展. 为了便于描述, 下文中我们将使用nginx core来称呼nginx的核心功能部分.</p>
+<p>nginx提供了web服务器的基础功能, 同时提供了web服务反向代理, email服务反向代理功能.
+nginx core实现了底层的通讯协议, 为其他模块和nginx进程构建了基本的运行时环境,
+并且构建了其他各模块的协作基础. 除此之外, 或者说大部分与协议相关的, 或者应用相关的功能都是在这些模块中所实现的.</p>
+<p>nginx将各功能模块组织成一条链, 当有请求到达的时候, 请求依次经过这条链上的部分或者全部模块, 进行处理. 每个模块实现特定的功能. 例如, 实现对请求解压缩的模块,
+实现SSI的模块, 实现与上游服务器进行通讯的模块, 实现与FastCGI服务进行通讯的模块.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">HOOK?</p>
+</div>
+<p>有两个模块比较特殊, 他们居于nginx core和各功能模块的中间. 这两个模块就是http模块和mail模块. 这2个模块在nginx core之上实现了另外一层抽象, 处理与HTTP协议和email相关协议（SMTP/POP3/IMAP）有关的事件, 并且确保这些事件能被以正确的顺序调用其他的一些功能模块.</p>
+<p>目前HTTP协议是被实现在http模块中的, 但是有可能将来被剥离到一个单独的模块中,
+以扩展nginx支持SPDY协议.</p>
+<div class="section" id="id8">
+<h3>模块分类<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>nginx的模块根据其功能基本上可以分为以下几种类型：</p>
+<ul>
+<li><p class="first"><strong>event module</strong></p>
+<p>搭建了独立于操作系统的事件处理机制的框架, 及提供了各具体事件的处理. 包括ngx_events_module,  ngx_event_core_module和ngx_epoll_module等.
+nginx具体使用何种事件处理模块, 这依赖于具体的操作系统和编译选项.</p>
+</li>
+<li><p class="first"><strong>phase handler</strong></p>
+<p>此类型的模块也被直接称为handler模块. 主要负责处理客户端请求并产生待响应内容, 比如ngx_http_static_module模块, 负责客户端的静态页面请求处理并将对应的磁盘文件准备为响应内容输出.</p>
+</li>
+<li><p class="first"><strong>output filter</strong></p>
+<p>也称为filter模块, 主要是负责对输出的内容进行处理, 可以对输出进行修改. 例如, 可以实现对输出的所有html页面增加预定义的footbar一类的工作,
+或者对输出的图片的URL进行替换之类的工作.</p>
+</li>
+<li><p class="first"><strong>upstream</strong></p>
+<p><strong>upstream模块实现反向代理的功能</strong> , 将真正的请求转发到后端服务器上,
+并从后端服务器上读取响应, 发回客户端. upstream模块是一种特殊的handler, 只不过响应内容不是真正由自己产生的, 而是从后端服务器上读取的.</p>
+</li>
+<li><p class="first"><strong>load-balancer</strong></p>
+<p>负载均衡模块, 实现特定的算法, 在众多的后端服务器中, 选择一个服务器出来作为某个请求的转发服务器.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>请求处理机制<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p><em>另见request概念中的请求处理介绍.</em></p>
+<p>所有实际上的业务处理逻辑都在worker进程. worker进程中有一个函数, 执行无限循环,
+不断处理收到的来自客户端的请求, 并进行处理, 直到整个nginx服务被停止.</p>
+<p>worker进程中, ngx_worker_process_cycle()函数就是这个无限循环的处理函数. 在这个函数中, 一个请求的简单处理流程如下：</p>
+<ol class="arabic simple">
+<li>操作系统提供的机制（例如epoll, kqueue等）产生相关的事件.</li>
+<li>接收和处理这些事件, 如是接受到数据, 则产生更高层的request对象.</li>
+<li>处理request的header和body.</li>
+<li>产生响应, 并发送回客户端.</li>
+<li>完成request的处理.</li>
+<li>重新初始化定时器及其他事件.</li>
+</ol>
+</div>
+<div class="section" id="id10">
+<h2>参考资料<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>Nginx平台初探 <a class="reference external" href="http://tengine.taobao.org/book/chapter_02.html">http://tengine.taobao.org/book/chapter_02.html</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="key_points.html" class="btn btn-neutral float-right" title="基本概念" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral" title="介绍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 赵子清.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2018.08.20',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
