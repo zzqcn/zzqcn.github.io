@@ -1,0 +1,1649 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>调优指南: Xeon E5 v3 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/hacks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="Intel VTune Amplifier" href="index.html"/>
+        <link rel="next" title="工具与杂项" href="../../tools/index.html"/>
+        <link rel="prev" title="教程: 优化伪共享" href="tutorial_false_sharing.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2018.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/go/index.html">Golang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/setup.html">环境配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#go-get">使用代理以解决go get超时问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#id2">日常项目开发环境配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#ide">IDE配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/json.html">JSON解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id1">简单解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id2">不确定JSON的解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id3">复杂内容的解析</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/withc.html">C语言适配</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/withc.html#id1">调用C编写的动态库</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/books.html">学习资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/asm/index.html">汇编语言</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/arch.html">计算机体系结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#cpu">CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id5">内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id6">中断</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/asm_intro.html">汇编语言简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id2">汇编代码的两种记法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#centosnasm">CentOS运行nasm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id3">操作数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id4">基本指令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id5">指示符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id6">输入输出</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id7">代码模板</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id8">第一个程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/basic.html">语言基础</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id2">数据移动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id3">算术运算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id4">位操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id7">控制流</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id8">栈操作与函数调用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/simd.html">intel SIMD指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/debug.html">调试</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/debug.html#linux-gdb">Linux + gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/withc.html">与C语言互操作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id1">调用约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id2">C调用汇编代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id3">汇编调用C代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id4">结构体</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../net/index.html">网络开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../net/tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../net/netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id1">9.1 缓存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id5">9.4 重组</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id2">14.2 拥塞控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id26">14.6 带宽保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id37">附录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../opensource/index.html">开源项目研究</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/intro.html">1. 引言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id2">1.1. 由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#dpdk">1.2. DPDK最佳实践</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id3">1.3. dpdk框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id4">1.4. dpdk的应用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html">2. 深入浅出dpdk: cache与内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#cache">2.1. 内存Cache简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id3">2.2. Cache地址映射与变换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id4">2.3. Cache的写策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id5">2.4. Cache预取</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id8">2.5. Cache一致性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#tlb">2.6. TLB和大页</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#ddio">2.7. DDIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#numa">2.8. NUMA系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id9">2.9. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_parallel.html">3. 深入浅出dpdk: 并行计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html">4. 深入浅出dpdk: 同步充斥机制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id1">4.1. 原子锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id2">4.2. 读写锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id3">4.3. 自旋锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id4">4.4. 无锁机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html">5. 深入浅出dpdk: 报文转发</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id1">5.1. 网络处理模块分解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id2">5.2. 转发模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id3">5.3. 转发算法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_io.html">6. 深入浅出dpdk: PCIe与包处理IO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html">7. 深入浅出dpdk: 网卡性能优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id1">7.1. dpdk轮询模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#burst">7.2. burst收发包的思想与实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id2">7.3. 硬件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id3">7.4. 软件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id4">7.5. 队列长度及各种阈值的设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html">8. 深入浅出dpdk: 流分类与多队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id1">8.1. 多队列技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id2">8.2. 流分类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_hw_accel.html">9. 深入浅出dpdk: 硬件加速与功能卸载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/eal.html">10. 源码分析: EAL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#linuxeal">10.1. Linux环境的EAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id1">10.2. 内存机制与初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#cpu">10.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#lcore">10.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id2">10.5. 多进程应用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id3">10.6. 其他注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id4">10.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/ring.html">11. 源码分析: Ring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id1">11.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id2">11.2. 应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id3">11.3. 无锁队列操作图解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id4">11.4. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id5">11.5. 多生产者入队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id6">11.6. 多消费者出队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id7">11.7. 索引计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id8">11.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mem.html">12. 源码分析: Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id1">12.1. 内存的初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id4">12.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memseg.html">13. 源码分析: Memseg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id1">13.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id2">13.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id3">13.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memzone.html">14. 源码分析: Memzone</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id1">14.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#memzone-init">14.2. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id3">14.3. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id4">14.4. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id5">14.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/malloc.html">15. 源码分析: Malloc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id1">15.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id2">15.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap">15.3. malloc heap初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap-alloc">15.4. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id4">15.5. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id5">15.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mempool.html">16. 源码分析: Mempool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id1">16.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id2">16.2. 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id4">16.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id5">16.4. 创建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id6">16.5. 取出对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id7">16.6. 还回对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id8">16.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mbuf.html">17. 源码分析: Mbuf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id1">17.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id2">17.2. 原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id3">17.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id4">17.4. 分配与回收</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id8">17.5. 元信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#directindirect-mbuf">17.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id9">17.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/build_sys.html">18. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id2">18.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id3">18.2. 源码组织</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id5">18.3. 编译系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#dpdk-makefile">18.4. dpdk Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#root-makefile-help">18.5. 根Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#abi">18.6. ABI管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#v16-07-2">18.7. 实例：将v16.07.2编译为单个动态库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id22">18.8. 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/tengine/index.html">Tengine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#tengine">Tengine的由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#id2">Tengine的改进</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/arch.html">架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id2">高性能服务器设计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id3">进程模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id5">事件处理模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id7">模块化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id9">请求处理机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/key_points.html">基本概念</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#connection">连接/connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#request">请求/request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#keepalive">keepalive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#pipeline">pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#lingering-close">lingering_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#id6">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/infrastructure.html">基础设施</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id2">日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id3">内存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#cycle">cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id7">字符串操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id12">容器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id18">时间</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id19">网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id21">事件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id22">进程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id23">线程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id24">模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id25">错误处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/http.html">HTTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/http.html#id1">HTTP请求处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/hyperscan/index.html">hyperscan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id5">生成源码文档</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ai/index.html">人工智能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ai/books.html">学习资料</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#pattern-recognition-and-machine-learning">Pattern Recognition and Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#convex-optimization">Convex Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-fundamentals-an-introduction-for-beginners">Deep Learning Fundamentals: An Introduction for Beginners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#optimization-in-operations-research">Optimization in Operations Research</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#artificial-intelligence-a-modern-approach">Artificial Intelligence: A Modern Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-in-natural-language-processing">Deep Learning in Natural Language Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#id2">机器学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">性能优化</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpu/index.html">CPU知识</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/microprocessor.html">理解微处理器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#code-and-data-a-closer-look">Code and Data: a closer look</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#meet-the-file-clerk">meet the &#8220;file clerk&#8221;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#refining-the-model">Refining the model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#ram-when-the-registers-alone-don-t-cut-it">RAM: when the registers alone don&#8217;t cut it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#a-closer-look-at-the-code-stream-the-program">A closer look at the code stream: the program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#excursus-op-codes-and-machine-language">Excursus: Op codes and machine language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#the-programming-model-and-the-isa">The programming model and the ISA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#branch-instructions">Branch instructions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/pipeline.html">理解流水线与超标量执行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#pipelining-explained">Pipelining Explained</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#superscalar-execution">Superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#combining-pipelined-and-superscalar-execution">Combining pipelined and superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#conclusions">Conclusions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/bandwidth.html">理解带宽与时延</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/intel_p4.html">NetBurst: The Microarchitecture of the Pentium 4 Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id1">引言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#netburst">NetBurst微架构概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id4">时钟频率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id6">NetBurst微架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id10">性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id11">结论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id12">作者</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/glossary.html">CPU相关术语及缩略语</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../simd_demo.html">SIMD指令编程demo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id1">正常代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id2">一次循环计算4次</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#sse">使用SSE指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#avx">使用AVX指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id3">性能对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id4">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_dev_manual/index.html">Intel开发手册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_dev_manual/vol1/index.html">卷1: 基础架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/1.html">1 About This Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/2.html">2 INTEL 64 AND IA-32 ARCHITECTURES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/3.html">3 BASIC EXECUTION ENVIRONMENT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_opt_manual/index.html">Intel优化手册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/2.html">2 INTEL 64 AND IA-32 PROCESSOR ARCHITECTURES</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#skylake-server">Skylake Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#skylake">Skylake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#haswell">Haswell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#haswell-e">Haswell-E</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#broadwell">Broadwell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#sandy-bridge">Sandy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#ivy-bridge">Ivy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#core-enhanced-core">Core &amp; Enhanced Core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#nehalem">Nehalem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#id1">超线程技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#id2">64位架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#simd">SIMD技术</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/3.html">3 一般性优化原则</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id2">3.1 性能工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id4">3.2 处理器全景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id7">3.3 编程规则, 建议及调整提示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id8">3.4 优化前端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#optimizing-the-execution-core">3.5 OPTIMIZING THE EXECUTION CORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#optimizing-memory-accesses">3.6 OPTIMIZING MEMORY ACCESSES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#prefetching">3.7 PREFETCHING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#floating-point-considerations">3.8 FLOATING-POINT CONSIDERATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#maximizing-pcie-performance">3.9 MAXIMIZING PCIE PERFORMANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/7.html">7 优化cache使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#general-prefetch-coding-guidelines">7.1 GENERAL PREFETCH CODING GUIDELINES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#prefetch-and-cacheability-instructions">7.2 PREFETCH AND CACHEABILITY INSTRUCTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#prefetch">7.3 PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#cacheability-control">7.4 CACHEABILITY CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#memory-optimization-using-prefetch">7.5 MEMORY OPTIMIZATION USING PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#memory-optimization-using-non-temporal-stores">7.6 MEMORY OPTIMIZATION USING NON-TEMPORAL STORES</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel VTune Amplifier</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id2">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id3">调优方法论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id4">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_hotspots.html">教程: 优化热点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hotspots.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hotspots.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hotspots.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hotspots.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_hardware.html">教程: 优化硬件利用率</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hardware.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hardware.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hardware.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hardware.html#id4">优化代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_hardware.html#id5">进一步分析和优化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_false_sharing.html">教程: 优化伪共享</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_false_sharing.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_false_sharing.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_false_sharing.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorial_false_sharing.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">调优指南: Xeon E5 v3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intel-xeon-e5-v3-family">1 Intel Xeon E5 v3 Family</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">2 性能测量的复杂性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3 发现性能问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#front-end-bound">4 调优Front-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#back-end-bound">5 调优Back-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bad-speculation">6 调优Bad Speculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#retiring">7 调优Retiring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">8 附加主题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#index">index页配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id6">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id5">对不同网站使用不同的连接方式: 直接/代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#window">Window下令无法设置代理的应用程序使用代理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id6">参考链接</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vmware.html">VMWare使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#ip">配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#id1">解决启动黑屏问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#pip">安装pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id1">14.04更换阿里云源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id2">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/qemu.html">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#gdb">远程gdb调试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/record_bilibili.html">录制B站直播</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#ffmpeg">安装ffmpeg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id1">解析直播地址</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id2">录制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/video_trick.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutme.html">关于我</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">性能优化</a> &raquo;</li>
+        
+          <li><a href="index.html">Intel VTune Amplifier</a> &raquo;</li>
+        
+      <li>调优指南: Xeon E5 v3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xeon-e5-v3">
+<h1>调优指南: Xeon E5 v3<a class="headerlink" href="#xeon-e5-v3" title="永久链接至标题">¶</a></h1>
+<p><em>本文更新于 2018.10.30</em></p>
+<p>参考:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://software.intel.com/en-us/articles/processor-specific-performance-analysis-papers">Tuning Guides and Performance Analysis Papers</a></li>
+<li><a class="reference external" href="https://software.intel.com/file/433571/download">Haswell-E平台调优指南(适用于Xeon E5 v3系列处理器)</a></li>
+<li><a class="reference external" href="https://ark.intel.com/products/family/78583/Intel-Xeon-Processor-E5-v3-Family">Intel Xeon Processor E5 v3 Family</a></li>
+</ul>
+<div class="section" id="intel-xeon-e5-v3-family">
+<h2>1 Intel Xeon E5 v3 Family<a class="headerlink" href="#intel-xeon-e5-v3-family" title="永久链接至标题">¶</a></h2>
+<p>架构:</p>
+<img alt="../../_images/e5v3_family.png" src="../../_images/e5v3_family.png" />
+<p>处理器列表:
+<a class="reference external" href="https://ark.intel.com/products/family/78583/Intel-Xeon-Processor-E5-v3-Family">https://ark.intel.com/products/family/78583/Intel-Xeon-Processor-E5-v3-Family</a></p>
+</div>
+<div class="section" id="id1">
+<h2>2 性能测量的复杂性<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>Xeon E5 v3系列处理器的两个特性对性能测量有重大影响:</p>
+<ul class="simple">
+<li>超线程</li>
+<li>Burbo Boost 2.0</li>
+</ul>
+<p>当开启这两个特性时, 测量和解读性能数据会变得更加复杂. 一些专家喜欢在关掉这些特性的情况下分析性能, 完成分析后再打开它们. 这两个特性都是可以通过BIOS设置关掉的.</p>
+</div>
+<div class="section" id="id2">
+<h2>3 发现性能问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>主要流程如下:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>for each hotspot
+    determine efficiency
+        if inefficient:
+            determine primary bottleneck
+            identify architectural reason for inefficiency
+            optimize the issue
+repeat
+</pre></div>
+</div>
+<div class="section" id="hotspot">
+<h3>3.1 确定hotspot<a class="headerlink" href="#hotspot" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">What: hotspot就是程序中花费时间最多的部分</p>
+</li>
+<li><p class="first">Why: 优化的主要精力应集中在这儿</p>
+<blockquote>
+<div><p>为什么要优化一个只占用2%运行时间的函数呢?</p>
+</div></blockquote>
+</li>
+<li><p class="first">How: VTune Basic Hotspots / Advanced Hotspots分析类型</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>3.2 确定执行效率<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="section" id="efficiency-method-1-retiring-pipeline-slots">
+<h4>3.2.1 Efficiency Method 1: % retiring pipeline slots<a class="headerlink" href="#efficiency-method-1-retiring-pipeline-slots" title="永久链接至标题">¶</a></h4>
+<ul>
+<li><p class="first">Why: 理解代码使用处理器的效率</p>
+</li>
+<li><p class="first">How: General Exploration profile, Metric: Retiring</p>
+</li>
+<li><p class="first">What Now: 对于给定hotspot:</p>
+<p>如果75%及以上的pipeline slots retiring(0.75+), 见efficiency method 3,
+code study 1 - 看矢量化能对否进一步提升性能</p>
+<p>否则, 见下一步.</p>
+<p>This metric is based on the fact that when operating at peak performance, the
+pipeline on this CPU should be able to retire 4 micro-operations per clock cycle (or
+“clocktick”). The formula looks at “slots” in the pipeline for each core, and sees if
+the slots are filled, and if so, whether they contained a micro-op that retired.
+More details on this methodology are available in the coming slides or in this
+paper:
+<a class="reference external" href="http://software.intel.com/en-us/articles/how-to-tune-applications-using-atop-down-characterization-of-microarchitectural-issues">http://software.intel.com/en-us/articles/how-to-tune-applications-using-atop-down-characterization-of-microarchitectural-issues</a></p>
+</li>
+<li><p class="first">What Now: 对于pipeline slots retiring&lt;75%的hotspot, 在确定效率的时候要考虑到程序的类型. 对照下表, 如果小于对应值, 则代码是不高效的:</p>
+<img alt="../../_images/e5v3_table.png" src="../../_images/e5v3_table.png" />
+</li>
+</ul>
+</div>
+<div class="section" id="efficiency-method-2-changes-in-cycles-per-instruction-cpi">
+<h4>3.2.2 Efficiency Method 2: Changes in Cycles per Instruction (CPI)<a class="headerlink" href="#efficiency-method-2-changes-in-cycles-per-instruction-cpi" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li>Why: 另一项效率衡量指标, 表示代码执行一条指令所花的平均时间</li>
+<li>How: General Exploration profile, Metric: CPI Rate</li>
+<li>What Now: 根据程序和平台不同, CPI值变化很大; 如果代码大小不变, 优化可关注于降低CPI</li>
+</ul>
+<p>Threshold:</p>
+<blockquote>
+<div><p>In the interface, CPI will be highlighted if &gt; 1. This is a very general rule based
+on the fact that some well tuned apps achieve CPIs of 1 or below. However,
+many apps will naturally have a CPI of over 1 – it is very dependent on workload
+and platform. It is best used as a comparison factor – know your app’s CPI and
+see if over time it is moving upward (that is bad) or reducing (good!).</p>
+<p>Note that CPI is a ratio! Cycles per instruction. So if the code size changes for a
+binary, CPI will change. In general, if CPI reduces as a result of optimizations,
+that is good, and if it increases, that is bad. However there are exceptions.
+Some code can have a very low CPI but still be inefficient because more
+instructions are executed than are needed. This problem is discussed using the
+Code Examination method for determining efficiency.</p>
+<p>Additionally, CPI can be affected if using Intel® Hyper-threading. In a serial
+workload, or a workload with Intel® Hyper-threading disabled the theoretical best
+CPI on a hardware thread is 0.25 because the core can allocate and retire 4
+instructions per cycle. In a workload with Intel® Hyper-threading enabled which
+utilizes both hardware threads effectively, the ideal CPI per-thread would be 0.5
+instead of 0.25. This is because the hardware threads share allocation and
+retirement resources on the core.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Optimized code (e.g. with AVX instructions) may actually increase the CPI,
+and increase stall % – but improve the performance. CPI is just a general
+efficiency metric – the real measure of efficiency is work taking less time.</p>
+</div>
+</div>
+<div class="section" id="efficiency-method-3">
+<h4>3.2.3 Efficiency Method 3: 代码审查<a class="headerlink" href="#efficiency-method-3" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li>Why: method 1和2测量指令的执行时间. 低效的另一原因是执行了太多的指令</li>
+<li>How: 把VTune做为一个源码和反汇编查看器</li>
+<li>What Now: 不使用现代指令将增加代码大小. 下文进行了可能性分析</li>
+</ul>
+<p>This method involves looking at the disassembly to make sure the most efficient
+instruction streams are generated. This can be complex and can require an
+expert knowledge of the Intel instruction set and compiler technology. What we
+have done is describe how to find 3 easy-to-detect code patterns and suggest
+how they may be implemented more efficiently using new features of the CPU.</p>
+<div class="section" id="efficiency-method-3-code-study-1-avx-avx2">
+<h5>3.2.3.1 Efficiency Method 3, Code Study 1: 将浮点或整数代码转换为AVX/AVX2<a class="headerlink" href="#efficiency-method-3-code-study-1-avx-avx2" title="永久链接至标题">¶</a></h5>
+<ul class="simple">
+<li>Why: 使用SIMD指令可大幅提升浮点性能. 将已有浮点或整数SSE代码转为AVX指令具有很多优点</li>
+<li>How: 审查程序汇编代码中未对齐(not packed)SSE, MMX或浮点指令(如faddp, fmul或addss)</li>
+<li>What Now:<ul>
+<li>icc: -xCore-AVX2(Linux), /QxCORE-AVX2(Windows)</li>
+<li>gcc: -march=core-avx2</li>
+<li>优化为AVX见Intel 65 and IA-32 Architectures Optimization Reference Manual第11章</li>
+</ul>
+</li>
+</ul>
+<p>For more on AVX, see:
+<a class="reference external" href="http://software.intel.com/en-us/blogs/2011/06/13/haswell-new-instruction-descriptions-now-available/">http://software.intel.com/en-us/blogs/2011/06/13/haswell-new-instruction-descriptions-now-available/</a>
+For more on vectorization in general:
+<a class="reference external" href="http://software.intel.com/en-us/articles/vectorization-toolkit">http://software.intel.com/en-us/articles/vectorization-toolkit</a></p>
+<p>SSE instructions will look like: addps xmm4, xmm5.</p>
+<p><code class="docutils literal"><span class="pre">addss</span></code> is a s(calar) Intel® SSE instruction – packed SSE instructions such as
+addps are a better choice</p>
+</div>
+<div class="section" id="efficiency-method-3-code-study-2-fused-multiply-add-fma">
+<h5>3.2.3.2 Efficiency Method 3, Code Study 2: 使用Fused Multiply Add(FMA)指令<a class="headerlink" href="#efficiency-method-3-code-study-2-fused-multiply-add-fma" title="永久链接至标题">¶</a></h5>
+<ul class="simple">
+<li>Why: Hashwell中的FMA指令与FP Multiply有相同的时延. 2个新的FMA单元提供2倍于前代的峰值FLOPs/cycle</li>
+<li>How: 检查代码中的类似操作: <cite>r=(x*y)+z, r=(x*y)-z, r=-(x*y)+z</cite> 或 <cite>r=-x(x*y)-z</cite>
+然后查看生成的汇编代码是否使用了FMA指令. FMA指令开头字母是VFM(如VFMADD123PD或VFMSUBADD132PD)或VFNF(如VFNMADD132PD)</li>
+<li>What Now:<ul>
+<li>让编译器生成FMA指令</li>
+<li>icc: -fma或/Qfma with CORE-AVX2及更高选项 -x或/Qx, 或-march或/arch</li>
+<li>gcc: -xfma或-march=core-avx2</li>
+</ul>
+</li>
+</ul>
+<p>Note that FMA instructions perform a multiply, add, and round. A multiply
+followed by an add would have 2 rounds (one after the multiply and one after the
+add). Since the FMA eliminates the intermediate rounding operation, results may
+be different when using FMAs as opposed to multiplies followed by adds. For
+more information, see the Intel® 64 and IA-32 Architectures Software
+Developer’s Manual at
+<a class="reference external" href="http://download.intel.com/products/processor/manual/325462.pdf">http://download.intel.com/products/processor/manual/325462.pdf</a>, section 13.5.</p>
+</div>
+<div class="section" id="efficiency-method-3-code-study-3-intel-aes-ni">
+<h5>3.2.3.3 Efficiency Method 3, Code Study 3: 使用Intel AES-NI<a class="headerlink" href="#efficiency-method-3-code-study-3-intel-aes-ni" title="永久链接至标题">¶</a></h5>
+<p>(略)...</p>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>3.3 确定主要瓶颈<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>如果上述method 1或2确定代码是不高效的, 首先确定主要瓶颈.</p>
+<p>General Exploration中的Top-Down分层将代码对CPU的使用分为4类:</p>
+<ul class="simple">
+<li>Front-End Bound</li>
+<li>Back-End Bound</li>
+<li>Bad Speculation</li>
+<li>Retiring</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">主要瓶颈在pipeline slot中有最高的比例(fraction), 应首先对其进行分析!</p>
+</div>
+<p>对于某个低效hotspot来说, 确定主要瓶颈点是首要工作. 优化主要瓶颈点以外的代码可能无法提升性能 - 最大的性能提升来自于解决最大的瓶颈. 一般来说, 如果Retiring是主要性能瓶颈, 是不错的. 见下文.</p>
+<div class="section" id="id5">
+<h4>3.3.1 问题分类<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>Pipeline slot是个抽象的概念 - 它表示处理一个微操作所需的硬件资源.</p>
+<p>在此CPU上, 每个core每个cycle有4个pipeline slots. 根据每个可用slot发生事件的不同,
+性能可进行如下分类:</p>
+<img alt="../../_images/e5v3_2.png" src="../../_images/e5v3_2.png" />
+<p>Note the way that this methodology allows us to classify what percentage of all
+pipeline slots end up in each category, for each cycle and for each core. It is
+possible that for a given dataset, there may be a significant percentage of
+pipeline slots in multiple categories that merit investigation. Start with the
+category with the highest percentage of pipeline slots. Ideally a large percentage
+of slots will fall into the “Retiring” category, but even then, it may be possible to
+make your code more efficient.</p>
+<p>For a complete description of this methodology, see
+<a class="reference external" href="http://software.intel.com/en-us/articles/how-to-tune-applications-using-a-top-down-characterization-ofmicroarchitectural-issues">http://software.intel.com/en-us/articles/how-to-tune-applications-using-a-top-down-characterization-ofmicroarchitectural-issues</a></p>
+</div>
+<div class="section" id="id6">
+<h4>3.3.2 调查瓶颈点<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>确定哪一类是主要瓶颈, 然后将其所占比例与下表对比, 如果你的hot spot的%超过所示范围,
+那么就可调查此类中的问题:</p>
+<img alt="../../_images/e5v3_table2.png" src="../../_images/e5v3_table2.png" />
+<p>The distribution of pipeline slots in these four categories is very useful for
+developers. Although metrics based on events have been possible for many
+years, before this characterization there was no approach for identifying which
+possible performance issues were the most impactful. When performance metrics
+are placed into this framework, a developer can see which issues need to be
+tackled first. Within VTune Amplifier XE, if an issue is highlighted, it doesn’t need
+to be investigated unless it is from the primary bottleneck category. Fixing issues
+that are not within the primary bottleneck category may not improve
+performance.</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>3.4 确定低效原因<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>问题被分为几类进行分析. 对于每个可能因素, 都有几个重点信息:</p>
+<ul class="simple">
+<li>Why: 为什么要关注这个问题</li>
+<li>How: 使用VTune中的那些profile和metric. 如果数据被高亮, 则应对其进行调查</li>
+<li>What Now: 给出后续分析或优化建议, 有助于解决性能问题.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="front-end-bound">
+<h2>4 调优Front-End Bound<a class="headerlink" href="#front-end-bound" title="永久链接至标题">¶</a></h2>
+<p>the Front-End of the pipeline:</p>
+<ul class="simple">
+<li>取指令</li>
+<li>将指令解码为微操作</li>
+<li>每个cycle最多把4个微操作送到Back-End</li>
+</ul>
+<img alt="../../_images/e5v3_3.png" src="../../_images/e5v3_3.png" />
+<p>Front-End issues are caused by delays in fetching code (due to caching or ITLB
+issues) or in decoding instructions (due to specific instruction types or queuing
+issues). Front-End issues are generally resolved by compiler techniques like code
+layout (co-locating hot code), reducing code footprint, and Profile-Guided
+Optimization (PGO).</p>
+<img alt="../../_images/e5v3_4.png" src="../../_images/e5v3_4.png" />
+<div class="section" id="front-end-latency">
+<h3>4.1 Front-end latency<a class="headerlink" href="#front-end-latency" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>Why: Front-end latency可导致Back-End拿不到要执行的微操作(指令饥饿)</li>
+<li>How: Front-End latency子类, Metrics: ITLB Overhead, ICache Misses, Length-Changing
+Prefixes</li>
+<li>What Now: 使用更好的代码布局和生成技术:<ul>
+<li>使用编译器自带的PGO</li>
+<li>使用链接排序技术(微软链接器: /ORDER, gcc: 链接器脚本)</li>
+<li>使用减小代码大小的开关, 如/O1或/Os</li>
+<li>对于动态生成的代码, 尝试co-locating hot code, 减小代码大小, 及避免间接调用</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="back-end-bound">
+<h2>5 调优Back-End Bound<a class="headerlink" href="#back-end-bound" title="永久链接至标题">¶</a></h2>
+<p>the Back-End of the pipeline:</p>
+<ul class="simple">
+<li>从Front-End接收微操作</li>
+<li>对其进行必要的调整, 以将其调度到执行单元中执行</li>
+<li>从内存中取需要的操作数</li>
+<li>执行操作</li>
+<li>提交结果到内存</li>
+</ul>
+<img alt="../../_images/e5v3_5.png" src="../../_images/e5v3_5.png" />
+<p>The back-end is the most common category for hotspots, and is most likely to be
+the primary bottleneck.</p>
+<img alt="../../_images/e5v3_6.png" src="../../_images/e5v3_6.png" />
+<img alt="../../_images/e5v3_7.png" src="../../_images/e5v3_7.png" />
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">The metrics L3 Bound, DRAM Bound, Memory Bandwidth, and Memory
+Latency are only available if the collection was run on a machine with Intel
+Hyper-Threading Technology disabled</p>
+</div>
+<div class="section" id="cache-miss">
+<h3>5.1 Cache Miss<a class="headerlink" href="#cache-miss" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: cache miss会增大CPI. 关注2级和3级缓存miss造成的高延迟数据访问</p>
+</li>
+<li><p class="first">How: Memory Bound子类, Metrics: L3 Latency, Local DRAM</p>
+</li>
+<li><p class="first">What Now: 考虑减小miss:</p>
+<blockquote>
+<div><ul class="simple">
+<li>修改算法, 减小数据存储</li>
+<li>将数据访问分块化(block)以放进cache</li>
+<li>检查共享问题(见Contested Accesses)</li>
+<li>对齐数据以便矢量化(并告知编译器)</li>
+<li>使用cacheline替换分析, 见Intel优化手册 B.3.4.2</li>
+<li>使用流式store</li>
+<li>使用软件prefetch</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>5.2 远端内存访问<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: 在NUMA架构上, 从远端内存load延迟较大</p>
+</li>
+<li><p class="first">How: Gereral Exploration profile, Metrics: Remote DRAM</p>
+</li>
+<li><p class="first">What Now: 提高NUMA亲和性:</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果有线程迁移问题, 将线程与CPU核进行亲和性绑定</li>
+<li><strong>确保首次访问(不是分配)内存的是使用它的线程</strong></li>
+<li>为OpenMP使用亲和性环境</li>
+<li>在可能时支持程序使用NUMA选项(如对SQL Server使用softnuma)</li>
+<li>使用对NUMA有效的线程调度器(如Intel Threading Building Blocks或Intel Cilk Plus)</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Malloc() or VirtualAlloc() is not touching memory. The o/s only reserves a virtual
+address for the request. Physical memory is not allocated until the address is
+accessed. Each 4K page will be physically allocated on the node where the thread
+makes the first reference. Note that this metric measures only remote memory
+(DRAM) accesses, and does not include data found in cache in the remote socket</p>
+</div>
+<div class="section" id="id9">
+<h3>5.3 访问竞争<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: 在核间共享已修改的数据(在2级缓存)会导致数据访问延迟</p>
+</li>
+<li><p class="first">How: Memory Bound子类, Metric: Contested Accesses</p>
+</li>
+<li><p class="first">What Now: 定位产生HITM的代码行:</p>
+<blockquote>
+<div><ul class="simple">
+<li>查找MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM_PS事件, 它将tag到产生HITM的下一条指令</li>
+<li>检查代码是否有真共享或假共享, 并进行合适地修正:<ul>
+<li>对真共享, 减小共享需求</li>
+<li>对假共享, 将变量pad到cache line边界</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>This metric is also called write sharing. It occurs when one core needs data that
+is found in a modified state in another core’s cache. This causes the line to be
+invalidated in the holding core’s cache and moved to the requesting core’s cache.
+If it is written again and another core requests it, the process starts again. The
+cacheline ping pong-ing between caches causes longer access time than if it could
+be simply shared amongst cores (as with read-sharing).</p>
+<p>Write sharing can be caused by true sharing, as with a lock or hot shared data
+structure, or by false sharing, meaning that the cores are modifying 2 separate
+pieces of data stored on the same cacheline. This metric measures write sharing
+at the L2 level only – that is, within one socket. If write sharing is observed at
+this level it is possible it is occurring across sockets as well.</p>
+<p>Note that in the case of real write sharing that is caused by a lock, Amplifier XE’s
+Locks and Waits analysis should also indicate a problem. This hardware-level
+analysis will detect other cases as well though (such as false sharing or write
+sharing a hot data structure).</p>
+</div>
+<div class="section" id="id10">
+<h3>5.4 数据共享<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: 在核间(在2级缓存)共享clean data(read sharing)会至少在第一次(?)带来性能损失</p>
+</li>
+<li><p class="first">How: Memory Bound子类, Metrics: Data Sharing</p>
+</li>
+<li><p class="first">What Now: 定位产生HIT的代码行:</p>
+<blockquote>
+<div><ul class="simple">
+<li>查找MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT_PS事件, 它将tag到产生HIT的下一条指令</li>
+<li>检查代码是否有真共享或假共享, 并进行合适地修正:<ul>
+<li>对真共享, 减小共享需求</li>
+<li>对假共享, 将变量pad到cache line边界</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>This metric measures read sharing, or sharing of “clean” data, across L2 caches
+within 1 CPU socket. The L3 cache has a set of “core valid” bits that indicate
+whether each cacheline could be found in any L2 caches on the same socket, and
+if so, which ones. The first time a line is brought into the L3 cache, it will have
+core valid bits set to 1 for whichever L2 cache it went into. If that line is then
+read by a different core, then it will be fetched from L3, where the core valid bits
+will indicate it is present in one other core. The other L2 will have to be snooped,
+resulting in a longer latency access for that line. This metric measures the impact
+of that additional access time, when the cacheline in question is only being readshared.</p>
+<p>In the case of read-sharing, the line can co-exist in multiple L2 caches in
+shared state, and for future accesses more than one core valid bit will be set.
+Then when other cores request the line, no L2 caches will need to be snooped,
+because the presence of 2 or more core valid bits tells the LLC that the line is
+shared (for reading) and ok to serve. Thus the impact of this only happens the
+first time a cacheline is requested for reading by a second L2 after it has already
+been placed in the L3 cache. The impact of sharing modified data across L2s is
+different and is measured with the “Contested Accesses” metric.</p>
+</div>
+<div class="section" id="blocked-loads-due-to-no-store-forwarding">
+<h3>5.5 其他数据访问问题: Blocked Loads Due to No Store Forwarding<a class="headerlink" href="#blocked-loads-due-to-no-store-forwarding" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>Why: 如果无法通过pipeline转发store的结果, 依赖的load将被block</li>
+<li>How: Memory Bound子类, Metric: Loads Blocked by Store Forwarding</li>
+<li>What Now: 查看代码并查找LD_BLOCKS.STORE_FORWARD事件. 通过此事件tag到load尝试被block的下一条指令. 定位load, 并尝试查找不能被转发的store, 它通常在前面10-15条指令内.最常见的情况是store到比load更小的内存空间. store到同样大小或更大的空间可解决store问题.</li>
+</ul>
+<p>Store forwarding occurs when there are two memory instructions in the pipeline,
+a store followed by a load from the same address. Instead of waiting for the data
+to be stored to the cache, it is “forwarded” back along the pipeline to the load
+instruction, saving a load from the cache. Store forwarding is the desired
+behavior, however, in certain cases, the store may not be able to be forwarded,
+so the load instruction becomes blocked waiting for the store to write to the cache
+and then to load it.</p>
+</div>
+<div class="section" id="k-aliasing">
+<h3>5.6 其他数据访问问题: 4K Aliasing<a class="headerlink" href="#k-aliasing" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>Why: Aliasing冲突导致不得不重新发出load</li>
+<li>How: Memory Bound子类, metric: 4K Aliasing</li>
+<li><dl class="first docutils">
+<dt>What Now: 通过修改load的对齐修复此问题. 尝试将数据对齐到32字节, 修改输入和输出缓冲间</dt>
+<dd>的offset(如果可能), 或对没有32字节对齐的内存使用16字节内存访问.</dd>
+</dl>
+</li>
+</ul>
+<p>This occurs when a load is issued after a store and their memory addresses are
+offset by (4K). When this is processed in the pipeline, the issue of the load will
+match the previous store (the full address is not used at this point), so pipeline
+will try to forward the results of the store and avoid doing the load (this is store
+forwarding). Later on when the address of the load is fully resolved, it will not
+match the store, and so the load will have to be re-issued from a later point in the
+pipe. This has a 5-cycle penalty in the normal case, but could be worse in certain
+situations, like with un-aligned loads that span 2 cache lines.</p>
+</div>
+<div class="section" id="ktlb-misses">
+<h3>5.7 其他数据访问问题: KTLB misses<a class="headerlink" href="#ktlb-misses" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>Why: 1级缓存DTLB load miss(hits in the STLB)导致时延问题. 需要page walk的2级缓存miss影响程序性能</li>
+<li>How: Memory Bound子类, Metric: DTLB Overhead</li>
+<li>What Now: 要解决此问题, 将数据局部性到TLB大小, 在虚拟化系统上使用扩展页表(Extended
+Page Table, EPT), 使用大页(仅服务器/数据库应用), 使用更好的内存分配或PGO增加数据局部性.</li>
+</ul>
+<p>On target data locality to TLB size: this is accomplished via data blocking and
+trying to minimize random access patterns.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">this is more likely to occur with server applications or applications with a
+large random dataset</p>
+</div>
+</div>
+</div>
+<div class="section" id="bad-speculation">
+<h2>6 调优Bad Speculation<a class="headerlink" href="#bad-speculation" title="永久链接至标题">¶</a></h2>
+<p>Speculation is when:</p>
+<ul class="simple">
+<li>A micro-operation is allowed to execute, before it is known whether that operation
+will retire</li>
+<li>Allows for greater instructio-level Parallelism in an out-of-order pipeline</li>
+</ul>
+<img alt="../../_images/e5v3_8.png" src="../../_images/e5v3_8.png" />
+<p>Micro-operations that are removed from the Back-End most likely happen because
+the Front-End mispredicted a branch. This is discovered in the Back-End when
+the branch operation is executed. At this point, if the target of the branch was
+incorrectly predicted, the micro-operation and all subsequent incorrectly predicted
+operations are removed and the Front-End is redirected to begin fetching
+instructions from the correct target.</p>
+<div class="section" id="id11">
+<h3>6.1 分支错误预测<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: 分支错误预测导致pipeline低效, 因为执行浪费或指令饥饿(当等待取指新指令时)</p>
+</li>
+<li><p class="first">How: General Exploration profile, Metric: Branch Mispredict</p>
+</li>
+<li><p class="first">What Now: 尝试降低错误预测影响:</p>
+<blockquote>
+<div><ul class="simple">
+<li>使用编译器选项或PGO来提升代码生成</li>
+<li>手工调整代码, 比如提升(hoisting)最可能执行的分支</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Note that all applications will have some branch mispredicts - it is not the number
+of mispredicts that is the problem but the impact.</p>
+<p>To do hand-tuning, you need to locate the branch causing the mispredicts. This
+can be difficult to track down due to the fact that this event will normally tag to
+the first instruction in the correct path that the branch takes.</p>
+</div>
+<div class="section" id="machine-clears">
+<h3>6.2 Machine Clears<a class="headerlink" href="#machine-clears" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: Machine clears使pipeline被flush, store buffer为空, 造成重大时延</p>
+</li>
+<li><p class="first">How: General Exploration, Metric: Machine Clears</p>
+</li>
+<li><p class="first">Now What: 使用指定事件确定原因:</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果MACHINE_CLEARS.MEMORY_ORDERING很大, 从代码级检查. 可能的原因包含4K
+Aliasing冲突或锁竞争</li>
+<li>如果MACHINE_CLEARS.SMC很大, 原因是应避免的self-modifying code</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Machine clears are generally caused by either contention on a lock, or failed
+memory disambiguation from 4k aliasing (both earlier issues). The other
+potential cause is self-modifying code (SMC).</p>
+</div>
+</div>
+<div class="section" id="retiring">
+<h2>7 调优Retiring<a class="headerlink" href="#retiring" title="永久链接至标题">¶</a></h2>
+<p>Retirement is:</p>
+<ul class="simple">
+<li>The completion of a micro-op&#8217;s execution</li>
+<li>if the micro-ops is the last micro-op for an instruction, it is also the completion
+of an instruction&#8217;s execution</li>
+<li>when results of an instruction&#8217;s execution are committed to the architectural
+state(cache, memory, etc...)</li>
+</ul>
+<img alt="../../_images/e5v3_9.png" src="../../_images/e5v3_9.png" />
+<p>In general, having as many pipeline slots retiring per cycle as possible is the goal.
+Besides algorithmic improvements like parallelism, There are two potential areas
+to investigate for the retiring category. The first is whether vectorization can be
+applied to make the instructions that are retiring even more efficient. See Code
+Study 1 for more on this. The second is whether microcode assists can be
+eliminated from the instruction stream. See next 2 slides.</p>
+<img alt="../../_images/e5v3_10.png" src="../../_images/e5v3_10.png" />
+<div class="section" id="microcode-assits">
+<h3>7.1 Microcode Assits<a class="headerlink" href="#microcode-assits" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: Assists from the microcode sequencer can have long latency penalties.</p>
+</li>
+<li><p class="first">How: General Exploration, Metric: Microcode sequencer</p>
+</li>
+<li><p class="first">What Now: 使用额外的assist事件重新采样, 来确定原因:</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果FP_ASSIST.ANY/INST_RETIRED.ANY很高, 检查denormals. To fix enable FTZ
+and/or DAZ if using SSE/AVX instructions or scale your results up or down
+depending on the problem</li>
+<li>if ((OTHER_ASSIST.AVX_TO_SSE_NP*75)/CPU_CLK_UNHALTED.THREAD)或
+((OTHER_ASSIST.SSE_TO_AVX_NP*75)/CPU_CLK_UNHALTED)大于.1, 减少SSE和AVX代码之间的转换. 见
+<a class="reference external" href="http://software.intel.com/en-us/articles/avoiding-avx-sse-transition-penalties">http://software.intel.com/en-us/articles/avoiding-avx-sse-transition-penalties</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>There are many instructions that can cause assists when there is no performance
+problem. If you see MS_CYCLES it doesn’t necessarily mean there is an issue,
+but whenever you do see a significant amount of MS_CYCLES, check the other
+metrics to see if it’s one of the problems we mention.</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>8 附加主题<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<div class="section" id="memory-bandwidth">
+<h3>8.1 Memory Bandwidth<a class="headerlink" href="#memory-bandwidth" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p class="first">Why: 带宽瓶颈会增加cache miss带来的时延</p>
+</li>
+<li><p class="first">How: Bandwidth Analysis</p>
+</li>
+<li><p class="first">What Now:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">计算系统上每个socket的最大理论内存带宽(GB/s):</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>&lt;MT/s&gt; *8Bytes/clock*&lt;num channel&gt;)/1000
+</pre></div>
+</div>
+</li>
+<li><p class="first">运行带宽分析. 如果每个socket的总带宽大于75%的理论最大带宽, 程序可能
+experiencing loaded (higher) latencies</p>
+</li>
+<li><p class="first">如果合适, 进行系统调优调整(升级/平衡DIMMs, 禁用HW prefetchers)</p>
+</li>
+<li><p class="first">尽可能减少带宽占用: 去掉不高效的SW prefetch, 修改算法以减小内存存储/共享,
+减少数据更新, 以及平衡socket间的数据访问</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Max theoretical bandwidth, per socket, for processor with DDR 1600 and 4
+memory channels: 51.2 GB/s</p>
+</div>
+<div class="section" id="tsx-exploration">
+<h3>8.2 TSX Exploration<a class="headerlink" href="#tsx-exploration" title="永久链接至标题">¶</a></h3>
+<img alt="../../_images/e5v3_11.png" src="../../_images/e5v3_11.png" />
+<p>Intel® Transactional Synchronization Extensions (Intel® TSX) provide hardware
+transactional memory support. They expose a speculative execution mode to the
+programmer to improve locking performance. For more detailed information about
+developing software with Intel TSX see <a class="reference external" href="http://www.intel.com/software/tsx">http://www.intel.com/software/tsx</a>.</p>
+<p>A large percentage of aborted cycles may represent a negative performance
+impact from the use of Intel TSX. Use this Analysis Type along with other
+performance metrics like elapsed time, CPI, or Retiring Percentage to measure
+how Intel TSX is affecting your performance.</p>
+<p>For known issues with Intel® TSX see the Haswell Specification here:
+<a class="reference external" href="http://www.intel.com/content/dam/www/public/us/en/documents/specificationupdates/">http://www.intel.com/content/dam/www/public/us/en/documents/specificationupdates/</a>
+4th-gen-core-family-desktop-specification-update.pdf</p>
+<img alt="../../_images/e5v3_12.png" src="../../_images/e5v3_12.png" />
+<p>For a detailed description of Intel® TSX performance recommendations, see
+Chapter 12 of the Intel® 64 and IA-32 Architectures Optimization Reference
+Manual.</p>
+</div>
+<div class="section" id="multiplexing-reliability">
+<h3>8.3 Multiplexing Reliability<a class="headerlink" href="#multiplexing-reliability" title="永久链接至标题">¶</a></h3>
+<p>The General Exploration analysis type multiplexes hardware events during
+collection, which can result in imprecise results if too few samples are collected.
+The MUX Reliability metric represents a confidence level in the metrics for a given
+row in the grid. The metric ranges from 0 to 1 with values above 0.9 representing
+a high level of confidence. If MUX Reliability is low for your area of interest,
+consider increasing the runtime of the analysis or allowing multiple runs via the
+project properties.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../tools/index.html" class="btn btn-neutral float-right" title="工具与杂项" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial_false_sharing.html" class="btn btn-neutral" title="教程: 优化伪共享" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 赵子清.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2018.12.01',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -11,6 +11,13 @@
 }
  */
 
+.wy-plain-list-decimal,
+.rst-content .section ol,
+.rst-content ol.arabic,
+article ol {
+    margin-bottom: 0px;
+}
+
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 4px;
 }
@@ -39,11 +46,12 @@
 .wy-nav-content-wrap.shift {position:fixed;min-width:100%;margin-left:0px;top:0;height:100%;overflow:scroll;}
 */
 
-
+/*
 p {
     margin-top: 12px;
     margin-bottom: 12px;
 }
+*/
 
 .rst-content .highlight>pre, .rst-content .linenodiv>pre {font-size: 90%;}
 .rst-content code {font-size: 90%;}

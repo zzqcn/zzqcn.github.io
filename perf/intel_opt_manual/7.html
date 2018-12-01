@@ -1,0 +1,2552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7 优化cache使用 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/hacks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="Intel优化手册" href="index.html"/>
+        <link rel="next" title="Intel VTune Amplifier" href="../intel_vtune/index.html"/>
+        <link rel="prev" title="3 一般性优化原则" href="3.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2018.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/go/index.html">Golang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/setup.html">环境配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#go-get">使用代理以解决go get超时问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#id2">日常项目开发环境配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#ide">IDE配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/json.html">JSON解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id1">简单解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id2">不确定JSON的解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id3">复杂内容的解析</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/withc.html">C语言适配</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/withc.html#id1">调用C编写的动态库</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/books.html">学习资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/asm/index.html">汇编语言</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/arch.html">计算机体系结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#cpu">CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id5">内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id6">中断</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/asm_intro.html">汇编语言简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id2">汇编代码的两种记法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#centosnasm">CentOS运行nasm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id3">操作数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id4">基本指令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id5">指示符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id6">输入输出</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id7">代码模板</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id8">第一个程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/basic.html">语言基础</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id2">数据移动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id3">算术运算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id4">位操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id7">控制流</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id8">栈操作与函数调用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/simd.html">intel SIMD指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/debug.html">调试</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/debug.html#linux-gdb">Linux + gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/withc.html">与C语言互操作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id1">调用约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id2">C调用汇编代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id3">汇编调用C代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id4">结构体</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../net/index.html">网络开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../net/tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../net/netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id1">9.1 缓存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id5">9.4 重组</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id2">14.2 拥塞控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id26">14.6 带宽保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id37">附录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../opensource/index.html">开源项目研究</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/intro.html">1. 引言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id2">1.1. 由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#dpdk">1.2. DPDK最佳实践</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id3">1.3. dpdk框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id4">1.4. dpdk的应用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html">2. 深入浅出dpdk: cache与内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#cache">2.1. 内存Cache简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id3">2.2. Cache地址映射与变换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id4">2.3. Cache的写策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id5">2.4. Cache预取</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id8">2.5. Cache一致性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#tlb">2.6. TLB和大页</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#ddio">2.7. DDIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#numa">2.8. NUMA系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id9">2.9. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_parallel.html">3. 深入浅出dpdk: 并行计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html">4. 深入浅出dpdk: 同步充斥机制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id1">4.1. 原子锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id2">4.2. 读写锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id3">4.3. 自旋锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id4">4.4. 无锁机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html">5. 深入浅出dpdk: 报文转发</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id1">5.1. 网络处理模块分解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id2">5.2. 转发模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id3">5.3. 转发算法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_io.html">6. 深入浅出dpdk: PCIe与包处理IO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html">7. 深入浅出dpdk: 网卡性能优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id1">7.1. dpdk轮询模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#burst">7.2. burst收发包的思想与实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id2">7.3. 硬件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id3">7.4. 软件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id4">7.5. 队列长度及各种阈值的设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html">8. 深入浅出dpdk: 流分类与多队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id1">8.1. 多队列技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id2">8.2. 流分类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_hw_accel.html">9. 深入浅出dpdk: 硬件加速与功能卸载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/eal.html">10. 源码分析: EAL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#linuxeal">10.1. Linux环境的EAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id1">10.2. 内存机制与初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#cpu">10.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#lcore">10.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id2">10.5. 多进程应用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id3">10.6. 其他注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id4">10.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/ring.html">11. 源码分析: Ring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id1">11.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id2">11.2. 应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id3">11.3. 无锁队列操作图解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id4">11.4. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id5">11.5. 多生产者入队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id6">11.6. 多消费者出队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id7">11.7. 索引计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id8">11.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mem.html">12. 源码分析: Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id1">12.1. 内存的初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id4">12.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memseg.html">13. 源码分析: Memseg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id1">13.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id2">13.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id3">13.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memzone.html">14. 源码分析: Memzone</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id1">14.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#memzone-init">14.2. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id3">14.3. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id4">14.4. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id5">14.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/malloc.html">15. 源码分析: Malloc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id1">15.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id2">15.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap">15.3. malloc heap初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap-alloc">15.4. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id4">15.5. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id5">15.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mempool.html">16. 源码分析: Mempool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id1">16.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id2">16.2. 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id4">16.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id5">16.4. 创建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id6">16.5. 取出对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id7">16.6. 还回对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id8">16.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mbuf.html">17. 源码分析: Mbuf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id1">17.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id2">17.2. 原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id3">17.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id4">17.4. 分配与回收</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id8">17.5. 元信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#directindirect-mbuf">17.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id9">17.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/build_sys.html">18. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id2">18.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id3">18.2. 源码组织</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id5">18.3. 编译系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#dpdk-makefile">18.4. dpdk Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#root-makefile-help">18.5. 根Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#abi">18.6. ABI管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#v16-07-2">18.7. 实例：将v16.07.2编译为单个动态库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id22">18.8. 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/tengine/index.html">Tengine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#tengine">Tengine的由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#id2">Tengine的改进</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/arch.html">架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id2">高性能服务器设计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id3">进程模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id5">事件处理模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id7">模块化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id9">请求处理机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/key_points.html">基本概念</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#connection">连接/connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#request">请求/request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#keepalive">keepalive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#pipeline">pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#lingering-close">lingering_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#id6">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/infrastructure.html">基础设施</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id2">日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id3">内存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#cycle">cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id7">字符串操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id12">容器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id18">时间</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id19">网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id21">事件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id22">进程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id23">线程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id24">模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id25">错误处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/http.html">HTTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/http.html#id1">HTTP请求处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/hyperscan/index.html">hyperscan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id5">生成源码文档</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ai/index.html">人工智能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ai/books.html">学习资料</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#pattern-recognition-and-machine-learning">Pattern Recognition and Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#convex-optimization">Convex Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-fundamentals-an-introduction-for-beginners">Deep Learning Fundamentals: An Introduction for Beginners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#optimization-in-operations-research">Optimization in Operations Research</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#artificial-intelligence-a-modern-approach">Artificial Intelligence: A Modern Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-in-natural-language-processing">Deep Learning in Natural Language Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#id2">机器学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">性能优化</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpu/index.html">CPU知识</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/microprocessor.html">理解微处理器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#code-and-data-a-closer-look">Code and Data: a closer look</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#meet-the-file-clerk">meet the &#8220;file clerk&#8221;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#refining-the-model">Refining the model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#ram-when-the-registers-alone-don-t-cut-it">RAM: when the registers alone don&#8217;t cut it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#a-closer-look-at-the-code-stream-the-program">A closer look at the code stream: the program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#excursus-op-codes-and-machine-language">Excursus: Op codes and machine language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#the-programming-model-and-the-isa">The programming model and the ISA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#branch-instructions">Branch instructions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/microprocessor.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/pipeline.html">理解流水线与超标量执行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#pipelining-explained">Pipelining Explained</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#superscalar-execution">Superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#combining-pipelined-and-superscalar-execution">Combining pipelined and superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/pipeline.html#conclusions">Conclusions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/bandwidth.html">理解带宽与时延</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/intel_p4.html">NetBurst: The Microarchitecture of the Pentium 4 Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id1">引言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#netburst">NetBurst微架构概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id4">时钟频率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id6">NetBurst微架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id10">性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id11">结论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cpu/intel_p4.html#id12">作者</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpu/glossary.html">CPU相关术语及缩略语</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../simd_demo.html">SIMD指令编程demo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id1">正常代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id2">一次循环计算4次</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#sse">使用SSE指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#avx">使用AVX指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id3">性能对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id4">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_dev_manual/index.html">Intel开发手册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_dev_manual/vol1/index.html">卷1: 基础架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/1.html">1 About This Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/2.html">2 INTEL 64 AND IA-32 ARCHITECTURES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/3.html">3 BASIC EXECUTION ENVIRONMENT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel优化手册</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="2.html">2 INTEL 64 AND IA-32 PROCESSOR ARCHITECTURES</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="2.html#skylake-server">Skylake Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#skylake">Skylake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#haswell">Haswell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#haswell-e">Haswell-E</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#broadwell">Broadwell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#sandy-bridge">Sandy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#ivy-bridge">Ivy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#core-enhanced-core">Core &amp; Enhanced Core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#nehalem">Nehalem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#id1">超线程技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#id2">64位架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2.html#simd">SIMD技术</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="3.html">3 一般性优化原则</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="3.html#id2">3.1 性能工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#id4">3.2 处理器全景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#id7">3.3 编程规则, 建议及调整提示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#id8">3.4 优化前端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#optimizing-the-execution-core">3.5 OPTIMIZING THE EXECUTION CORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#optimizing-memory-accesses">3.6 OPTIMIZING MEMORY ACCESSES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#prefetching">3.7 PREFETCHING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#floating-point-considerations">3.8 FLOATING-POINT CONSIDERATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3.html#maximizing-pcie-performance">3.9 MAXIMIZING PCIE PERFORMANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7 优化cache使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-prefetch-coding-guidelines">7.1 GENERAL PREFETCH CODING GUIDELINES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prefetch-and-cacheability-instructions">7.2 PREFETCH AND CACHEABILITY INSTRUCTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prefetch">7.3 PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cacheability-control">7.4 CACHEABILITY CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-optimization-using-prefetch">7.5 MEMORY OPTIMIZATION USING PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-optimization-using-non-temporal-stores">7.6 MEMORY OPTIMIZATION USING NON-TEMPORAL STORES</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_vtune/index.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id2">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id3">调优方法论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id4">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html">教程: 优化热点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html">教程: 优化硬件利用率</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id4">优化代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id5">进一步分析和优化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html">教程: 优化伪共享</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html">调优指南: Xeon E5 v3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#intel-xeon-e5-v3-family">1 Intel Xeon E5 v3 Family</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id1">2 性能测量的复杂性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id2">3 发现性能问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#front-end-bound">4 调优Front-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#back-end-bound">5 调优Back-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#bad-speculation">6 调优Bad Speculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#retiring">7 调优Retiring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id12">8 附加主题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#index">index页配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id6">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id5">对不同网站使用不同的连接方式: 直接/代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#window">Window下令无法设置代理的应用程序使用代理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id6">参考链接</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vmware.html">VMWare使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#ip">配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#id1">解决启动黑屏问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#pip">安装pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id1">14.04更换阿里云源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id2">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/qemu.html">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#gdb">远程gdb调试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/record_bilibili.html">录制B站直播</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#ffmpeg">安装ffmpeg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id1">解析直播地址</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id2">录制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/video_trick.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutme.html">关于我</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">性能优化</a> &raquo;</li>
+        
+          <li><a href="index.html">Intel优化手册</a> &raquo;</li>
+        
+      <li>7 优化cache使用</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cache">
+<h1>7 优化cache使用<a class="headerlink" href="#cache" title="永久链接至标题">¶</a></h1>
+<p><em>本文更新于 2018.12.01</em></p>
+<p><strong>格式说明:</strong></p>
+<ul class="simple">
+<li><span class="red">重点, 需理解</span></li>
+<li><span class="maroon">次要重点</span></li>
+<li><span class="navy">需强调的某些内容</span></li>
+<li><span class="purple">还未理解的内容</span></li>
+<li><em>zzq注解</em> 批注,扩展阅读资料等</li>
+<li>note/warning等注解: 原文内的注解或自己添加的备忘信息</li>
+</ul>
+<p><span class="red">Over the past decade, processor speed has increased. Memory access speed has increased
+at a slower pace. The resulting disparity has made it important to tune applications
+in one of two ways: either (a) a majority of data accesses are fulfilled from
+processor caches, or (b) effectively masking memory latency to utilize peak memory
+bandwidth as much as possible.</span></p>
+<p><span class="red">Hardware prefetching mechanisms are enhancements in microarchitecture to facilitate
+the latter aspect, and will be most effective when combined with software tuning.
+The performance of most applications can be considerably improved if the data required
+can be fetched from the processor caches or if memory traffic can take advantage
+of hardware prefetching effectively.</span></p>
+<p>Standard techniques to bring data into the processor before it is needed involve
+additional programming which can be difficult to implement and may require special
+steps to prevent performance degradation. Streaming SIMD Extensions addressed this
+issue by providing various prefetch instructions.</p>
+<p>Streaming SIMD Extensions introduced the various non-temporal store instructions.
+SSE2 extends this support to new data types and also introduce non-temporal store
+support for the 32-bit integer registers.</p>
+<p>This chapter focuses on:</p>
+<ul class="simple">
+<li>Hardware Prefetch Mechanism, Software Prefetch and Cacheability Instructions —
+Discusses micro-architectural feature and instructions that allow you to affect
+data caching in an application.</li>
+<li>Memory Optimization Using Hardware Prefetching, Software Prefetch and Cacheability
+Instructions — Discusses techniques for implementing memory optimizations using
+the above instructions.</li>
+<li>Using deterministic cache parameters to manage cache hierarchy.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">In a number of cases presented, the prefetching and cache utilization
+described are specific to current implementations of Intel NetBurst microarchitecture
+but are largely applicable for the future processors.</p>
+</div>
+<div class="section" id="general-prefetch-coding-guidelines">
+<h2>7.1 GENERAL PREFETCH CODING GUIDELINES<a class="headerlink" href="#general-prefetch-coding-guidelines" title="永久链接至标题">¶</a></h2>
+<p>The following guidelines will help you to reduce memory traffic and utilize peak
+memory system bandwidth more effectively when large amounts of data movement
+must originate from the memory system:</p>
+<ul>
+<li><p class="first"><span class="red">Take advantage of the hardware prefetcher’s ability to prefetch data that are
+accessed in linear patterns, in either a forward or backward direction.</span></p>
+</li>
+<li><p class="first"><span class="red">Take advantage of the hardware prefetcher’s ability to prefetch data that are
+accessed in a regular pattern with access strides that are substantially smaller
+than half of the trigger distance of the hardware prefetch.</span></p>
+</li>
+<li><p class="first">Facilitate compiler optimization by:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="red">Minimize use of global variables and pointers.</span></li>
+<li><span class="red">Minimize use of complex control flow.</span></li>
+<li>Use the const modifier, avoid register modifier.</li>
+<li><span class="red">Choose data types carefully (see below) and avoid type casting.</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">Use cache blocking techniques</span> (for example, strip mining) as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="red">Improve cache hit rate by using cache blocking techniques such as strip-mining
+(one dimensional arrays) or loop blocking (two dimensional arrays).</span></li>
+<li><span class="red">Explore using hardware prefetching mechanism if your data access pattern has
+sufficient regularity to allow alternate sequencing of data accesses (for
+example: tiling) for improved spatial locality. Otherwise use PREFETCHNTA.</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Balance single-pass versus multi-pass execution:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Single-pass, or unlayered execution passes a single data element through an
+entire computation pipeline.</li>
+<li>Multi-pass, or layered execution performs a single stage of the pipeline on
+a batch of data elements before passing the entire batch on to the next stage.</li>
+<li>If your algorithm is single-pass use PREFETCHNTA. If your algorithm is multi-pass
+use PREFETCHT0.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">Resolve memory bank conflict issues. Minimize memory bank conflicts by applying
+array grouping to group contiguously used data together or by allocating data
+within 4-KByte memory pages.</span></p>
+</li>
+<li><p class="first"><span class="red">Resolve cache management issues. Minimize the disturbance of temporal data held
+within processor’s caches by using streaming store instructions.</span></p>
+</li>
+<li><p class="first"><span class="red">Optimize software prefetch scheduling distance:</span></p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="red">Far ahead enough to allow interim computations to overlap memory access time.</span></li>
+<li><span class="red">Near enough that prefetched data is not replaced from the data cache.</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">Use software prefetch concatenation. Arrange prefetches to avoid unnecessary
+prefetches at the end of an inner loop and to prefetch the first few iterations
+of the inner loop inside the next outer loop.</span></p>
+</li>
+<li><p class="first"><span class="red">Minimize the number of software prefetches. Prefetch instructions are not
+completely free in terms of bus cycles, machine cycles and resources; excessive
+usage of prefetches can adversely impact application performance.</span></p>
+</li>
+<li><p class="first"><span class="red">Interleave prefetches with computation instructions. For best performance,
+software prefetch instructions must be interspersed with computational instructions
+in the instruction sequence (rather than clustered together).</span></p>
+</li>
+</ul>
+</div>
+<div class="section" id="prefetch-and-cacheability-instructions">
+<h2>7.2 PREFETCH AND CACHEABILITY INSTRUCTIONS<a class="headerlink" href="#prefetch-and-cacheability-instructions" title="永久链接至标题">¶</a></h2>
+<p>The PREFETCH instruction, inserted by the programmers or compilers, accesses a
+minimum of two cache lines of data on the Pentium 4 processor prior to the data
+actually being needed (one cache line of data on the Pentium M processor). This
+hides the latency for data access in the time required to process data already
+resident in the cache.</p>
+<p>Many algorithms can provide information in advance about the data that is to be
+required. In cases where memory accesses are in long, regular data patterns; the
+automatic hardware prefetcher should be favored over software prefetches.</p>
+<p>The cacheability control instructions allow you to control data caching strategy
+in order to increase cache efficiency and minimize cache pollution.</p>
+<p>Data reference patterns can be classified as follows:</p>
+<ul class="simple">
+<li><strong>Temporal</strong> — Data will be used again soon. (时间局部性)</li>
+<li><strong>Spatial</strong> — Data will be used in adjacent locations (for example, on the same
+cache line). (空间局部性)</li>
+<li><strong>Non-temporal</strong> — Data which is referenced once and not reused in the immediate
+future (for example, for some multimedia data types, as the vertex buffer in a
+3D graphics application).</li>
+</ul>
+<p>These data characteristics are used in the discussions that follow.</p>
+</div>
+<div class="section" id="prefetch">
+<h2>7.3 PREFETCH<a class="headerlink" href="#prefetch" title="永久链接至标题">¶</a></h2>
+<p>This section discusses the mechanics of the software PREFETCH instructions. In general,
+<span class="red">software prefetch instructions should be used to supplement the practice of tuning
+an access pattern to suit the automatic hardware prefetch mechanism.</span></p>
+<div class="section" id="software-data-prefetch">
+<h3>7.3.1 Software Data Prefetch<a class="headerlink" href="#software-data-prefetch" title="永久链接至标题">¶</a></h3>
+<p>The PREFETCH instruction can hide the latency of data access in performance-critical
+sections of application code by allowing data to be fetched in advance of actual
+usage. PREFETCH instructions do not change the user-visible semantics of a program,
+although they may impact program performance. PREFETCH merely provides a hint to
+the hardware and generally does not generate exceptions or faults.</p>
+<p>PREFETCH loads either non-temporal data or temporal data in the specified cache
+level. This data access type and the cache level are specified as a hint. Depending
+on the implementation, the instruction fetches 32 or more aligned bytes (including
+the specified address byte) into the instruction-specified cache levels.</p>
+<p><span class="red">PREFETCH is implementation-specific; applications need to be tuned to each
+implementation to maximize performance.</span></p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Using the PREFETCH instruction is recommended only if data does not fit
+in cache. Use of software prefetch should be limited to memory addresses that
+are managed or owned within the application context. Prefetching to addresses
+that are not mapped to physical pages can experience non-deterministic performance
+penalty. For example specifying a NULL pointer (0L) as address for a prefetch
+can cause long delays.</p>
+</div>
+<p>PREFETCH provides a hint to the hardware; it does not generate exceptions or faults
+except for a few special cases (see Section 7.3.3, “Prefetch and Load Instructions”).
+<span class="red">However, excessive use of PREFETCH instructions may waste memory bandwidth and result
+in a performance penalty due to resource constraints.</span></p>
+<p>Nevertheless, PREFETCH can lessen the overhead of memory transactions by preventing
+cache pollution and by using caches and memory efficiently. This is particularly
+important for applications that share critical system resources, such as the
+memory bus. See an example in Section 7.6.2.1, “Video Encoder.”</p>
+<p>PREFETCH is mainly designed to improve application performance by hiding memory
+latency in the background. If segments of an application access data in a
+predictable manner (for example, using arrays with known strides), they are good
+candidates for using PREFETCH to improve performance.</p>
+<p>Use the PREFETCH instructions in:</p>
+<ul class="simple">
+<li>Predictable memory access patterns.</li>
+<li>Time-consuming innermost loops.</li>
+<li>Locations where the execution pipeline may stall if data is not available.</li>
+</ul>
+</div>
+<div class="section" id="prefetch-instructions">
+<h3>7.3.2 Prefetch Instructions<a class="headerlink" href="#prefetch-instructions" title="永久链接至标题">¶</a></h3>
+<p>Streaming SIMD Extensions include four PREFETCH instruction variants; one non-temporal
+and three temporal. They correspond to two types of operations, temporal and non-temporal.
+Additionally, the PREFETCHW instruction is a hint to fetch data closer to the
+processor and invalidates any other cached copy in anticipation of a write.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">At the time of PREFETCH, if data is already found in a cache level that
+is closer to the processor than the cache level specified by the instruction,
+no data movement occurs.</p>
+</div>
+<p>The implementation details of the prefetch hint instructions vary across different
+microarchitectures. A summary is given below.</p>
+<ul>
+<li><p class="first"><span class="red">PREFETCHNTA — fetch data into non-temporal cache close to the processor, minimizing
+cache pollution.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>Pentium III processor: 1st level cache.</li>
+<li>Processors based on Intel NetBurst microarchitecture: 2nd level cache.</li>
+<li>Intel Core duo, Core 2 processors, Intel Atom processors: 1st but not 2nd level cache.</li>
+<li>Intel Core Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 1st, but not 2nd level cache; may fetch into 3rd level
+cache with fast replacement.</li>
+<li>Intel Xeon Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: must fetch into 3rd level cache with fast replacement.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">PREFETCHT0 — fetch data into all cache levels.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>Pentium III processor: 1st and 2nd level cache.</li>
+<li>Processors based on Intel NetBurst microarchitecture: 2nd level cache.</li>
+<li>Intel Core duo, Core 2 processors, Intel Atom processors: 1st and 2nd level cache.</li>
+<li>Intel Core Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 1st, 2nd and 3rd level cache.</li>
+<li>Intel Xeon Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 1st, 2nd and 3rd level cache.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">PREFETCHT1 — fetch data into 2nd and 3rd level caches.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>Pentium III processor: 2nd level cache.</li>
+<li>Processors based on Intel NetBurst microarchitecture: 2nd level cache.</li>
+<li>Intel Core duo, Core 2 processors, Intel Atom processors: 2nd level cache.</li>
+<li>Intel Core Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 2nd and 3rd level cache.</li>
+<li>Intel Xeon Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 2nd and 3rd level cache.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">PREFETCHT2 — this instruction is identical to PREFETCHT1.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>Pentium III processor: 2nd level cache.</li>
+<li>Processors based on Intel NetBurst microarchitecture: 2nd level cache.</li>
+<li>Intel Core duo, Core 2 processors, Intel Atom processors: 2nd level cache.</li>
+<li>Intel Core Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 2nd and 3rd level cache.</li>
+<li>Intel Xeon Processors based on Nehalem, Westmere, Sandy Bridge and newer
+microarchitectures: 2nd and 3rd level cache.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">PREFETCHW — fetch data into cache in anticipation of write; invalidate cached copies.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>Intel Atom processors based on Silvermont and newer microarchitectures: 1st and 2nd level cache.</li>
+<li>Intel Core Processors based on Broadwell and Skylake microarchitectures: 1st, 2nd and 3rd level cache.</li>
+<li>Intel Xeon Processors based on Broadwell and Skylake microarchitectures: 1st, 2nd and 3rd level cache.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="prefetch-and-load-instructions">
+<h3>7.3.3 Prefetch and Load Instructions<a class="headerlink" href="#prefetch-and-load-instructions" title="永久链接至标题">¶</a></h3>
+<p>Most of the recent generations of microarchitectures have decoupled execution and
+memory pipelines. This allows instructions to be executed independently with memory
+accesses if there are no data and resource dependencies. Programs or compilers can
+use dummy load instructions to imitate PREFETCH functionality, but preloading is
+not completely equivalent to using PREFETCH instructions. PREFETCH provides greater
+performance than preloading.</p>
+<p>PREFETCH can provide greater performance than preloading because:</p>
+<ul class="simple">
+<li>Has no destination register, it only updates cache lines.</li>
+<li>Does not stall the normal instruction retirement.</li>
+<li>Does not affect the functional behavior of the program.</li>
+<li>Has no cache line split accesses.</li>
+<li>Does not cause exceptions except when the LOCK prefix is used. The LOCK prefix
+is not a valid prefix for use with PREFETCH.</li>
+<li>Does not complete its own execution if that would cause a fault.</li>
+</ul>
+<p>The advantages of PREFETCH over preloading instructions are processor specific.
+This may change in the future.</p>
+<p>There are cases where a PREFETCH will not perform the data prefetch. These include:</p>
+<ul class="simple">
+<li>In older microarchitectures, PREFETCH causing a Data Translation Lookaside Buffer
+(DTLB) miss would be dropped. In processors based on Nehalem, Westmere, Sandy
+Bridge, and newer microar-chitectures, Intel Core 2 processors, and Intel Atom
+processors, PREFETCH causing a DTLB miss can be fetched across a page boundary.</li>
+<li>An access to the specified address that causes a fault/exception.</li>
+<li>If the memory subsystem runs out of request buffers between the first-level cache
+and the second-level cache.</li>
+<li>PREFETCH targets an uncacheable memory region (for example, USWC and UC).</li>
+<li>The LOCK prefix is used. This causes an invalid opcode exception.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="cacheability-control">
+<h2>7.4 CACHEABILITY CONTROL<a class="headerlink" href="#cacheability-control" title="永久链接至标题">¶</a></h2>
+<p>This section covers the mechanics of cacheability control instructions.</p>
+<div class="section" id="the-non-temporal-store-instructions">
+<h3>7.4.1 The Non-temporal Store Instructions<a class="headerlink" href="#the-non-temporal-store-instructions" title="永久链接至标题">¶</a></h3>
+<p>This section describes the behavior of streaming stores and reiterates some of
+the information presented in the previous section.</p>
+<p><span class="red">In Streaming SIMD Extensions, the MOVNTPS, MOVNTPD, MOVNTQ, MOVNTDQ, MOVNTI,
+MASKMOVQ and MASKMOVDQU instructions are streaming, non-temporal stores.</span> With
+regard to memory characteristics and ordering, they are similar to the
+Write-Combining (WC) memory type:</p>
+<ul class="simple">
+<li>Write combining — Successive writes to the same cache line are combined.</li>
+<li>Write collapsing — Successive writes to the same byte(s) result in only the last
+write being visible.</li>
+<li>Weakly ordered — No ordering is preserved between WC stores or between WC stores
+and other loads or stores.</li>
+<li>Uncacheable and not write-allocating — Stored data is written around the cache
+and will not generate a read-for-ownership bus request for the corresponding cache line.</li>
+</ul>
+<div class="section" id="fencing">
+<h4>7.4.1.1 Fencing<a class="headerlink" href="#fencing" title="永久链接至标题">¶</a></h4>
+<p><span class="red">Because streaming stores are weakly ordered, a fencing operation is required to
+ensure that the stored data is flushed from the processor to memory. Failure to
+use an appropriate fence may result in data being “trapped” within the processor
+and will prevent visibility of this data by other processors or system agents.</span></p>
+<p>WC stores require software to ensure coherence of data by performing the fencing
+operation. See Section 7.4.5, “FENCE Instructions.”</p>
+</div>
+<div class="section" id="streaming-non-temporal-stores">
+<h4>7.4.1.2 Streaming Non-temporal Stores<a class="headerlink" href="#streaming-non-temporal-stores" title="永久链接至标题">¶</a></h4>
+<p><span class="red">Streaming stores can improve performance by:</span></p>
+<ul class="simple">
+<li><span class="red">Increasing store bandwidth if the 64 bytes that fit within a cache line are
+written consecutively</span> (since they do not require read-for-ownership bus requests
+and 64 bytes are combined into a single bus write transaction).</li>
+<li><span class="red">Reducing disturbance of frequently used cached (temporal) data</span> (since they write
+around the processor caches).</li>
+</ul>
+<p>Streaming stores allow cross-aliasing of memory types for a given memory region.
+For instance, a region may be mapped as write-back (WB) using page attribute tables
+(PAT) or memory type range registers (MTRRs) and yet is written using a streaming store.</p>
+</div>
+<div class="section" id="memory-type-and-non-temporal-stores">
+<h4>7.4.1.3 Memory Type and Non-temporal Stores<a class="headerlink" href="#memory-type-and-non-temporal-stores" title="永久链接至标题">¶</a></h4>
+<p>Memory type can take precedence over a non-temporal hint, leading to the following
+considerations:</p>
+<ul>
+<li><p class="first">If the programmer specifies a non-temporal store to strongly-ordered uncacheable
+memory (for example, Uncacheable (UC) or Write-Protect (WP) memory types), then
+the store behaves like an uncacheable store. The non-temporal hint is ignored
+and the memory type for the region is retained.</p>
+</li>
+<li><p class="first">If the programmer specifies the weakly-ordered uncacheable memory type of
+Write-Combining (WC), then the non-temporal store and the region have the same
+semantics and there is no conflict.</p>
+</li>
+<li><p class="first">If the programmer specifies a non-temporal store to cacheable memory (for example,
+Write-Back (WB) or Write-Through (WT) memory types), two cases may result:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">CASE 1 — If the data is present in the cache hierarchy, the instruction will
+ensure consistency. A particular processor may choose different ways to
+implement this. The following approaches are probable: (a) updating data
+in-place in the cache hierarchy while preserving the memory type semantics
+assigned to that region or (b) evicting the data from the caches and writing
+the new non-temporal data to memory (with WC semantics).</p>
+<p>The approaches (separate or combined) can be different for future processors.
+Pentium 4, Intel Core Solo and Intel Core Duo processors implement the latter
+policy (of evicting data from all processor caches). The Pentium M processor
+implements a combination of both approaches.</p>
+<p>If the streaming store hits a line that is present in the first-level cache,
+the store data is combined in place within the first-level cache. If the
+streaming store hits a line present in the second-level, the line and stored
+data is flushed from the second-level to system memory.</p>
+</li>
+<li><p class="first">CASE 2 — If the data is not present in the cache hierarchy and the destination
+region is mapped as WB or WT; the transaction will be weakly ordered and is
+subject to all WC memory semantics. This non-temporal store will not write-allocate.
+Different implementations may choose to collapse and combine such stores.</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="write-combining">
+<h4>7.4.1.4 Write-Combining<a class="headerlink" href="#write-combining" title="永久链接至标题">¶</a></h4>
+<p>Generally, WC semantics require software to ensure coherence with respect to other
+processors and other system agents (such as graphics cards). Appropriate use of
+synchronization and a fencing operation must be performed for producer-consumer
+usage models (see Section 7.4.5, “FENCE Instructions”).</p>
+<p><span class="red">Fencing ensures that all system agents have global visibility of the stored data.
+For instance, failure to fence may result in a written cache line staying within
+a processor, and the line would not be visible to other agents.</span></p>
+<p>For processors which implement non-temporal stores by updating data in-place that
+already resides in the cache hierarchy, the destination region should also be mapped
+as WC. Otherwise, if mapped as WB or WT, there is a potential for speculative
+processor reads to bring the data into the caches. In such a case, non-temporal
+stores would then update in place and data would not be flushed from the processor
+by a subsequent fencing operation.</p>
+<p>The memory type visible on the bus in the presence of memory type aliasing is
+implementation-specific. As one example, the memory type written to the bus may
+reflect the memory type for the first store to the line, as seen in program order.
+Other alternatives are possible. This behavior should be considered reserved and
+dependence on the behavior of any particular implementation risks future incompatibility.</p>
+</div>
+</div>
+<div class="section" id="streaming-store-usage-models">
+<h3>7.4.2 Streaming Store Usage Models<a class="headerlink" href="#streaming-store-usage-models" title="永久链接至标题">¶</a></h3>
+<p>The two primary usage domains for streaming store are coherent requests and non-coherent requests.</p>
+<div class="section" id="coherent-requests">
+<h4>7.4.2.1 Coherent Requests<a class="headerlink" href="#coherent-requests" title="永久链接至标题">¶</a></h4>
+<p>Coherent requests are normal loads and stores to system memory, which may also hit
+cache lines present in another processor in a multiprocessor environment. With
+coherent requests, a streaming store can be used in the same way as a regular store
+that has been mapped with a WC memory type (PAT or MTRR). An SFENCE instruction
+must be used within a producer-consumer usage model in order to ensure coherency
+and visibility of data between processors.</p>
+<p>Within a single-processor system, the CPU can also re-read the same memory location
+and be assured of coherence (that is, a single, consistent view of this memory location).
+The same is true for a multiprocessor (MP) system, assuming an accepted MP software
+producer-consumer synchronization policy is employed.</p>
+</div>
+<div class="section" id="non-coherent-requests">
+<h4>7.4.2.2 Non-coherent requests<a class="headerlink" href="#non-coherent-requests" title="永久链接至标题">¶</a></h4>
+<p>Non-coherent requests arise from an I/O device, such as an AGP graphics card, that
+reads or writes system memory using non-coherent requests, which are not reflected
+on the processor bus and thus will not query the processor’s caches. An SFENCE
+instruction must be used within a producer-consumer usage model in order to ensure
+coherency and visibility of data between processors. In this case, if the processor
+is writing data to the I/O device, a streaming store can be used with a processor
+with any behavior of Case 1 (Section 7.4.1.3) only if the region has also been
+mapped with a WC memory type (PAT, MTRR).</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Failure to map the region as WC may allow the line to be speculatively
+read into the processor caches (via the wrong path of a mispredicted branch).</p>
+</div>
+<p>In case the region is not mapped as WC, the streaming might update in-place in
+the cache and a subsequent SFENCE would not result in the data being written to
+system memory. Explicitly mapping the region as WC in this case ensures that any
+data read from this region will not be placed in the processor’s caches. A read of
+this memory location by a non-coherent I/O device would return incorrect/out-of-date results.</p>
+<p>For a processor which solely implements Case 2 (Section 7.4.1.3), a streaming store
+can be used in this non-coherent domain without requiring the memory region to also
+be mapped as WB, since any cached data will be flushed to memory by the streaming store.</p>
+</div>
+</div>
+<div class="section" id="streaming-store-instruction-descriptions">
+<h3>7.4.3 Streaming Store Instruction Descriptions<a class="headerlink" href="#streaming-store-instruction-descriptions" title="永久链接至标题">¶</a></h3>
+<p>MOVNTQ/MOVNTDQ (non-temporal store of packed integer in an MMX technology or Streaming
+SIMD Extensions register) store data from a register to memory. They are implicitly
+weakly-ordered, do no write-allocate, and so minimize cache pollution.</p>
+<p>MOVNTPS (non-temporal store of packed single precision floating-point) is similar
+to MOVNTQ. It stores data from a Streaming SIMD Extensions register to memory in
+16-byte granularity. Unlike MOVNTQ, the memory address must be aligned to a 16-byte
+boundary or a general protection exception will occur. The instruction is implicitly
+weakly-ordered, does not write-allocate, and thus minimizes cache pollution.</p>
+<p>MASKMOVQ/MASKMOVDQU (non-temporal byte mask store of packed integer in an MMX
+technology or Streaming SIMD Extensions register) store data from a register to
+the location specified by the EDI register. The most significant bit in each byte
+of the second mask register is used to selectively write the data of the first
+register on a per-byte basis. The instructions are implicitly weakly-ordered (that
+is, successive stores may not write memory in original program-order), do not
+write-allocate, and thus mini- mize cache pollution.</p>
+</div>
+<div class="section" id="the-streaming-load-instruction">
+<h3>7.4.4 The Streaming Load Instruction<a class="headerlink" href="#the-streaming-load-instruction" title="永久链接至标题">¶</a></h3>
+<p>SSE4.1 introduces the MOVNTDQA instruction. MOVNTDQA loads 16 bytes from memory
+using a non- temporal hint if the memory source is WC type. For WC memory type,
+the non-temporal hint may be implemented by loading into a temporary internal
+buffer with the equivalent of an aligned cache line without filling this data to
+the cache. Subsequent MOVNTDQA reads to unread portions of the buffered WC data
+will cause 16 bytes of data transferred from the temporary internal buffer to an
+XMM register if data is available.</p>
+<p>If used appropriately, MOVNTDQA can help software achieve significantly higher
+throughput when loading data in WC memory region into the processor than other means.</p>
+<p>Chapter 1 provides a reference to an application note on using MOVNTDQA. Additional
+information and requirements to use MOVNTDQA appropriately can be found in Chapter
+12, “Programming with SSE3, SSSE3 and SSE4” of Intel® 64 and IA-32 Architectures
+Software Developer’s Manual, Volume 1, and the instruction reference pages of
+MOVNTDQA in Intel® 64 and IA-32 Architectures Software Developer’s Manual, Volume 2A.</p>
+</div>
+<div class="section" id="fence-instructions">
+<h3>7.4.5 FENCE Instructions<a class="headerlink" href="#fence-instructions" title="永久链接至标题">¶</a></h3>
+<p>The following fence instructions are available: SFENCE, lFENCE, and MFENCE.</p>
+<div class="section" id="sfence-instruction">
+<h4>7.4.5.1 SFENCE Instruction<a class="headerlink" href="#sfence-instruction" title="永久链接至标题">¶</a></h4>
+<p>The SFENCE (STORE FENCE) instruction makes it possible for every STORE instruction
+that precedes an SFENCE in program order to be globally visible before any STORE
+that follows the SFENCE. SFENCE provides an efficient way of ensuring ordering
+between routines that produce weakly-ordered results.</p>
+<p>The use of weakly-ordered memory types can be important under certain data sharing
+relationships (such as a producer-consumer relationship). Using weakly-ordered
+memory can make assembling the data more efficient, but care must be taken to
+ensure that the consumer obtains the data that the producer intended to see.</p>
+<p>Some common usage models may be affected by weakly-ordered stores. Examples are:</p>
+<ul class="simple">
+<li>Library functions, which use weakly-ordered memory to write results.</li>
+<li>Compiler-generated code, which also benefits from writing weakly-ordered results.</li>
+<li>Hand-crafted code.</li>
+</ul>
+<p>The degree to which a consumer of data knows that the data is weakly-ordered can
+vary for different cases. As a result, SFENCE should be used to ensure ordering
+between routines that produce weakly- ordered data and routines that consume this data.</p>
+</div>
+<div class="section" id="lfence-instruction">
+<h4>7.4.5.2 LFENCE Instruction<a class="headerlink" href="#lfence-instruction" title="永久链接至标题">¶</a></h4>
+<p>The LFENCE (LOAD FENCE) instruction makes it possible for every LOAD instruction
+that precedes the LFENCE instruction in program order to be globally visible before
+any LOAD instruction that follows the LFENCE.</p>
+<p>The LFENCE instruction provides a means of segregating LOAD instructions from other LOADs.</p>
+</div>
+<div class="section" id="mfence-instruction">
+<h4>7.4.5.3 MFENCE Instruction<a class="headerlink" href="#mfence-instruction" title="永久链接至标题">¶</a></h4>
+<p>The MFENCE (MEMORY FENCE) instruction makes it possible for every LOAD/STORE instruction
+preceding MFENCE in program order to be globally visible before any LOAD/STORE following
+MFENCE. MFENCE provides a means of segregating certain memory instructions from
+other memory references.</p>
+<p>The use of a LFENCE and SFENCE is not equivalent to the use of a MFENCE since the
+load and store fences are not ordered with respect to each other. In other words,
+the load fence can be executed before prior stores and the store fence can be
+executed before prior loads.</p>
+<p>MFENCE should be used whenever the cache line flush instruction (CLFLUSH) is used
+to ensure that speculative memory references generated by the processor do not
+interfere with the flush. See Section 7.4.6, “CLFLUSH Instruction.”</p>
+</div>
+</div>
+<div class="section" id="clflush-instruction">
+<h3>7.4.6 CLFLUSH Instruction<a class="headerlink" href="#clflush-instruction" title="永久链接至标题">¶</a></h3>
+<p>The CLFLUSH instruction invalidates the cache line associated with the linear
+address that contain the byte address of the memory location, from all levels of
+the processor cache hierarchy (data and instruc- tion). This invalidation is broadcast
+throughout the coherence domain. If, at any level of the cache hierarchy, a line
+is inconsistent with memory (dirty), it is written to memory before invalidation.
+Other characteristics include:</p>
+<ul class="simple">
+<li>The data size affected is the cache coherency size, which is enumerated by the
+CPUID instruction. It is typically 64 bytes.</li>
+<li>The memory attribute of the page containing the affected line has no effect on
+the behavior of this instruction.</li>
+<li>The CLFLUSH instruction can be used at all privilege levels and is subject to
+all permission checking and faults associated with a byte load.</li>
+</ul>
+<p>Executions of the CLFLUSH instruction are ordered with respect to each other and
+with respect to writes, locked read-modify-write instructions, fence instructions,
+and executions of CLFLUSHOPT to the same cache line(注1). They are not ordered with
+respect to executions of CLFLUSHOPT to different cache lines. For updated memory
+order details of CLFLUSH and other memory traffic, please refer to the CLFLUSH
+reference pages in Chapter 3 of Intel® 64 and IA-32 Architectures Software Developer’s
+Manual, Volume 2A, and the “Memory Ordering” section in Chapter 8 of Intel® 64 and
+IA-32 Architectures Software Developer’s Manual, Volume 3A.</p>
+<p>As an example, consider a video usage model where a video capture device is using
+non-coherent accesses to write a capture stream directly to system memory. Since
+these non-coherent writes are not broadcast on the processor bus, they will not
+flush copies of the same locations that reside in the processor caches. As a result,
+before the processor re-reads the capture buffer, it should use CLFLUSH to ensure
+that stale, cached copies of the capture buffer are flushed from the processor caches.</p>
+<p>注1: Memory order recommendation of CLFLUSH in previous manuals had required
+software to add MFENCE after CLFLUSH. MFENCE is not required following CLFLUSH as
+all processors implementing the CLFLUSH instruction also order it relative to the
+other operations enumerated above.</p>
+<p>Example 7-1 provides pseudo-code for CLFLUSH usage.</p>
+<p>Example 7-1. Pseudo-code Using CLFLUSH:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">buffer_ready</span><span class="p">}</span> <span class="p">{}</span>
+<span class="n">sfence</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">num_cachelines</span><span class="p">;</span><span class="n">i</span><span class="o">+=</span><span class="n">cacheline_size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">clflush</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">buffer</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="n">prefnta</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">VAR</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>The throughput characteristics of using CLFLUSH to flush cache lines can vary
+significantly depending on several factors. In general using CLFLUSH back-to-back
+to flush a large number of cache lines will expe- rience larger cost per cache line
+than flushing a moderately-sized buffer (e.g. less than 4KB); the reduc- tion of
+CLFLUSH throughput can be an order of magnitude. Flushing cache lines in modified
+state are more costly than flushing cache lines in non-modified states.</p>
+</div>
+<div class="section" id="clflushopt-instruction">
+<h3>7.4.7 CLFLUSHOPT Instruction<a class="headerlink" href="#clflushopt-instruction" title="永久链接至标题">¶</a></h3>
+<p>The CLFLUSHOPT instruction is first introduced in the 6th Generation Intel Core
+Processors. Similar to CLFLUSH, CLFLUSHOPT invalidates the cache line associated
+with the linear address that contain the byte address of the memory location, in
+all levels of the processor cache hierarchy (data and instruction).</p>
+<p>Executions of the CLFLUSHOPT instruction are ordered with respect to locked
+read-modify-write instructions, fence instructions, and writes to the cache line
+being invalidated. (They are also ordered with respect to executions of CLFLUSH
+and CLFLUSHOPT to the same cache line.) They are not ordered with respect to writes
+to cache lines other than the one being invalidated. (They are also not ordered
+with respect to executions of CLFLUSH and CLFLUSHOPT to different cache lines.)
+Software can insert an SFENCE instruction between CFLUSHOPT and a store to another
+cache line with which the CLFLUSHOPT should be ordered.</p>
+<p>In general, CLFLUSHOPT throughput is higher than that of CLFLUSH, because CLFLUSHOPT
+orders itself with respect to a smaller set of memory traffic as described above
+and in Section 7.4.6. The throughput of CLFLUSHOPT will also vary. When using CLFLUSHOPT,
+flushing modified cache lines will experience a higher cost than flushing cache
+lines in non-modified states. CLFLUSHOPT will provide a performance benefit over
+CLFLUSH for cache lines in any coherence states. CLFLUSHOPT is more suitable to
+flush large buffers (e.g. greater than many KBytes), compared to CLFLUSH. In
+single-threaded applications, flushing buffers using CLFLUSHOPT may be up to 9X
+better than using CLFLUSH with Skylake microarchi- tecture.</p>
+<p>Figure 7-1 shows the comparison of the performance characteristics of executing
+CLFLUSHOPT versus CLFLUSH for buffers of various sizes.</p>
+<img alt="../../_images/fig_7_1.png" src="../../_images/fig_7_1.png" />
+<p><strong>User/Source Coding Rule 17.</strong> If CLFLUSHOPT is available, use CLFLUSHOPT over
+CLFLUSH and use SFENCE to guard CLFLUSHOPT to ensure write order is globally
+observed. If CLUSHOPT is not available, consider flushing large buffers with
+CLFLUSH in smaller chunks of less than 4KB.</p>
+<p>Example 7-2 gives equivalent assembly sequences of flushing cache lines using
+CLFLUSH or CLFLUSHOPT. The corresponding sequence in C are:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// CLFLUSH:</span>
+<span class="n">For</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">iSizeOfBufferToFlush</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">CACHE_LINE_SIZE</span><span class="p">)</span>
+    <span class="n">_mm_clflush</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">pBufferToFlush</span><span class="p">[</span> <span class="n">i</span> <span class="p">]</span> <span class="p">);</span>
+
+<span class="c1">// CLFLUSHOPT:</span>
+<span class="n">_mm_sfence</span><span class="p">();</span>
+<span class="n">For</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">iSizeOfBufferToFlush</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">CACHE_LINE_SIZE</span><span class="p">)</span>
+    <span class="n">_mm_clflushopt</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">pBufferToFlush</span><span class="p">[</span> <span class="n">i</span> <span class="p">]</span> <span class="p">);</span>
+<span class="n">_mm_sfence</span><span class="p">();</span>
+</pre></div>
+</div>
+<img alt="../../_images/example_7_2.png" src="../../_images/example_7_2.png" />
+</div>
+</div>
+<div class="section" id="memory-optimization-using-prefetch">
+<h2>7.5 MEMORY OPTIMIZATION USING PREFETCH<a class="headerlink" href="#memory-optimization-using-prefetch" title="永久链接至标题">¶</a></h2>
+<p>Recent generations of Intel processors have two mechanisms for data prefetch:
+software-controlled prefetch and an automatic hardware prefetch.</p>
+<div class="section" id="software-controlled-prefetch">
+<h3>7.5.1 Software-Controlled Prefetch<a class="headerlink" href="#software-controlled-prefetch" title="永久链接至标题">¶</a></h3>
+<p>The software-controlled prefetch is enabled using the four PREFETCH instructions
+introduced with Streaming SIMD Extensions instructions. These instructions are
+hints to bring a cache line of data in to various levels and modes in the cache
+hierarchy. The software-controlled prefetch is not intended for prefetching code.
+Using it can incur significant penalties on a multiprocessor system when code is shared.</p>
+<p>Software prefetching has the following characteristics:</p>
+<ul class="simple">
+<li>Can handle irregular access patterns which do not trigger the hardware prefetcher.</li>
+<li>Can use less bus bandwidth than hardware prefetching; see below.</li>
+<li>Software prefetches must be added to new code, and do not benefit existing applications.</li>
+</ul>
+</div>
+<div class="section" id="hardware-prefetch">
+<h3>7.5.2 Hardware Prefetch<a class="headerlink" href="#hardware-prefetch" title="永久链接至标题">¶</a></h3>
+<p>Automatic hardware prefetch can bring cache lines into the unified last-level cache
+based on prior data misses. It will attempt to prefetch two cache lines ahead of
+the prefetch stream. Characteristics of the hardware prefetcher are:</p>
+<ul>
+<li><p class="first"><span class="red">It requires some regularity in the data access patterns.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>If a data access pattern has constant stride, hardware prefetching is effective
+if the access stride is less than half of the trigger distance of hardware prefetcher.</li>
+<li>If the access stride is not constant, the automatic hardware prefetcher can
+mask memory latency if the strides of two successive cache misses are less
+than the trigger threshold distance (small-stride memory traffic).</li>
+<li>The automatic hardware prefetcher is most effective if the strides of two
+successive cache misses remain less than the trigger threshold distance and
+close to 64 bytes.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><span class="red">There is a start-up penalty before the prefetcher triggers and there may be fetches
+an array finishes. For short arrays, overhead can reduce effectiveness.</span></p>
+<blockquote>
+<div><ul class="simple">
+<li>The hardware prefetcher requires a couple misses before it starts operating.</li>
+<li>Hardware prefetching generates a request for data beyond the end of an array,
+which is not be utilized. This behavior wastes bus bandwidth. In addition
+this behavior results in a start-up penalty when fetching the beginning of
+the next array. Software prefetching may recognize and handle these cases.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">It will not prefetch across a 4-KByte page boundary. A program has to initiate
+demand loads for the new page before the hardware prefetcher starts prefetching
+from the new page.</p>
+</li>
+<li><p class="first">The hardware prefetcher may consume extra system bandwidth if the application’s
+memory traffic has significant portions with strides of cache misses greater than
+the trigger distance threshold of hardware prefetch (large-stride memory traffic).</p>
+</li>
+<li><p class="first">The effectiveness with existing applications depends on the proportions of small-stride
+versus large-stride accesses in the application’s memory traffic. An application
+with a preponderance of small-stride memory traffic with good temporal locality
+will benefit greatly from the automatic hardware prefetcher.</p>
+</li>
+<li><p class="first">In some situations, memory traffic consisting of a preponderance of large-stride
+cache misses can be transformed by re-arrangement of data access sequences to alter
+the concentration of small-stride cache misses at the expense of large-stride cache
+misses to take advantage of the automatic hardware prefetcher.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="example-of-effective-latency-reduction-with-hardware-prefetch">
+<h3>7.5.3 Example of Effective Latency Reduction with Hardware Prefetch<a class="headerlink" href="#example-of-effective-latency-reduction-with-hardware-prefetch" title="永久链接至标题">¶</a></h3>
+<p>Consider the situation that an array is populated with data corresponding to a
+constant-access-stride, circular pointer chasing sequence (see Example 7-3).
+<span class="orange">The potential of employing the automatic hardware prefetching mechanism to reduce
+the effective latency of fetching a cache line from memory can be illustrated
+by varying the access stride between 64 bytes and the trigger threshold distance
+of hardware prefetch when populating the array for circular pointer chasing.</span></p>
+<p>Example 7-3. Populating an Array for Circular Pointer Chasing with Constant Stride:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">register</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">p</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="c1">// Populating pArray for circular pointer</span>
+            <span class="c1">// chasing with constant access stride</span>
+            <span class="c1">// p = (char **) *p; loads a value pointing to next load</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">pArray</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">aperture</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">stride</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">pArray</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">stride</span> <span class="o">&gt;=</span> <span class="n">g_array_aperture</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pArray</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pArray</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">stride</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span> <span class="c1">// populate the address of the next node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The effective latency reduction for several microarchitecture implementations is
+shown in Figure 7-2. For a constant-stride access pattern, the benefit of the
+automatic hardware prefetcher begins at half the trigger threshold distance and
+reaches maximum benefit when the cache-miss stride is 64 bytes.</p>
+<img alt="../../_images/fig_7_2.png" src="../../_images/fig_7_2.png" />
+</div>
+<div class="section" id="example-of-latency-hiding-with-s-w-prefetch-instruction">
+<h3>7.5.4 Example of Latency Hiding with S/W Prefetch Instruction<a class="headerlink" href="#example-of-latency-hiding-with-s-w-prefetch-instruction" title="永久链接至标题">¶</a></h3>
+<p><span class="red">Achieving the highest level of memory optimization using PREFETCH instructions
+requires an understanding of the architecture of a given machine.</span> This section
+translates the key architectural implications into several simple guidelines for
+programmers to use.</p>
+<p>Figure 7-3 and Figure 7-4 show two scenarios of a simplified 3D geometry pipeline
+as an example. A 3D geometry pipeline typically fetches one vertex record at a
+time and then performs transformation and lighting functions on it. Both figures
+show two separate pipelines, an execution pipeline, and a memory pipeline (front-side bus).</p>
+<p><span class="red">Since the Pentium 4 processor (similar to the Pentium II and Pentium III processors)
+completely decouples the functionality of execution and memory access, the two
+pipelines can function concurrently.</span> Figure 7-3 shows “bubbles” in both the execution
+and memory pipelines. <span class="red">When loads are issued for accessing vertex data, the execution
+units sit idle and wait until data is returned. On the other hand, the memory bus
+sits idle while the execution units are processing vertices. This scenario severely
+decreases the advantage of having a decoupled architecture.</span></p>
+<img alt="../../_images/fig_7_3.png" src="../../_images/fig_7_3.png" />
+<p>The performance loss caused by poor utilization of resources can be completely
+eliminated by correctly scheduling the PREFETCH instructions. As shown in Figure 7-4,
+<span class="red">prefetch instructions are issued two vertex iterations ahead. This assumes that
+only one vertex gets processed in one iteration and a new data cache line is needed
+for each iteration. As a result, when iteration n, vertex Vn, is being processed;
+the requested data is already brought into cache. In the meantime, the front-side
+bus is transferring the data needed for iteration n+1, vertex Vn+1. Because there
+is no dependence between Vn+1 data and the execution of Vn, the latency for data
+access of Vn+1 can be entirely hidden behind the execution of Vn.</span> Under such
+circumstances, no “bubbles” are present in the pipelines and thus the best possible
+performance can be achieved.</p>
+<img alt="../../_images/fig_7_4.png" src="../../_images/fig_7_4.png" />
+<p><span class="red">Prefetching is useful for inner loops that have heavy computations, or are close
+to the boundary between being compute-bound and memory-bandwidth-bound. It is
+probably not very useful for loops which are predominately memory bandwidth-bound.</span></p>
+<p><span class="red">When data is already located in the first level cache, prefetching can be useless
+and could even slow down the performance because the extra μops either back up
+waiting for outstanding memory accesses or may be dropped altogether. This behavior
+is platform-specific and may change in the future.</span></p>
+</div>
+<div class="section" id="software-prefetching-usage-checklist">
+<h3>7.5.5 Software Prefetching Usage Checklist<a class="headerlink" href="#software-prefetching-usage-checklist" title="永久链接至标题">¶</a></h3>
+<p>The following <span class="red">checklist</span> covers issues that need to be addressed and/or resolved to
+use the software PREFETCH instruction properly:</p>
+<ul class="simple">
+<li>Determine software prefetch scheduling distance.</li>
+<li>Use software prefetch concatenation.</li>
+<li>Minimize the number of software prefetches.</li>
+<li>Mix software prefetch with computation instructions.</li>
+<li>Use cache blocking techniques (for example, strip mining).</li>
+<li>Balance single-pass versus multi-pass execution.</li>
+<li>Resolve memory bank conflict issues.</li>
+<li>Resolve cache management issues. Subsequent sections discuss the above items.</li>
+</ul>
+</div>
+<div class="section" id="software-prefetch-scheduling-distance">
+<h3>7.5.6 Software Prefetch Scheduling Distance<a class="headerlink" href="#software-prefetch-scheduling-distance" title="永久链接至标题">¶</a></h3>
+<p>Determining the ideal prefetch placement in the code depends on many architectural
+parameters, including: the amount of memory to be prefetched, cache lookup latency,
+system memory latency, and estimate of computation cycle. <span class="red">The ideal distance for
+prefetching data is processor- and platform-dependent. If the distance is too
+short, the prefetch will not hide the latency of the fetch behind computation.
+If the prefetch is too far ahead, prefetched data may be flushed out of the cache
+by the time it is required.</span></p>
+<p>Since prefetch distance is not a well-defined metric, for this discussion, we define
+a new term, prefetch scheduling distance (PSD), which is represented by the number
+of iterations. <span class="red">For large loops, prefetch scheduling distance can be set to 1 (that
+is, schedule prefetch instructions one iteration ahead). For small loop bodies (that
+is, loop iterations with little computation), the prefetch scheduling distance must
+be more than one iteration.</span></p>
+<p>A simplified equation to compute PSD is deduced from the mathematical model.</p>
+<p>Example 7-4 illustrates the use of a prefetch within the loop body. The prefetch
+scheduling distance is set to 3, ESI is effectively the pointer to a line, EDX is
+the address of the data being referenced and XMM1-XMM4 are the data used in
+computation. Example 7-5 uses two independent cache lines of data per iteration.
+<span class="red">The PSD would need to be increased/decreased if more/less than two cache lines
+are used per iteration.</span></p>
+<p>Example 7-4. Prefetch Scheduling Distance:</p>
+<div class="highlight-nasm"><div class="highlight"><pre><span></span><span class="nl">top_loop:</span>
+    <span class="nf">prefetchnta</span> <span class="p">[</span><span class="nb">edx</span> <span class="o">+</span> <span class="nb">esi</span> <span class="o">+</span> <span class="mi">128</span><span class="o">*</span><span class="mi">3</span><span class="p">]</span>
+    <span class="nf">prefetchnta</span> <span class="p">[</span><span class="nb">edx</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="nb">esi</span> <span class="o">+</span> <span class="mi">128</span><span class="o">*</span><span class="mi">3</span><span class="p">]</span>
+    <span class="nf">.....</span>
+    <span class="nf">movaps</span> <span class="nv">xmm1</span><span class="p">,</span> <span class="p">[</span><span class="nb">edx</span> <span class="o">+</span> <span class="nb">esi</span><span class="p">]</span>
+    <span class="nf">movaps</span> <span class="nv">xmm2</span><span class="p">,</span> <span class="p">[</span><span class="nb">edx</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="nb">esi</span><span class="p">]</span>
+    <span class="nf">movaps</span> <span class="nv">xmm3</span><span class="p">,</span> <span class="p">[</span><span class="nb">edx</span> <span class="o">+</span> <span class="nb">esi</span> <span class="o">+</span> <span class="mi">16</span><span class="p">]</span>
+    <span class="nf">movaps</span> <span class="nv">xmm4</span><span class="p">,</span> <span class="p">[</span><span class="nb">edx</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="nb">esi</span> <span class="o">+</span> <span class="mi">16</span><span class="p">]</span>
+    <span class="nf">.....</span>
+    <span class="nf">.....</span>
+    <span class="nf">add</span> <span class="nb">esi</span><span class="p">,</span> <span class="mi">128</span>
+    <span class="nf">cmp</span> <span class="nb">esi</span><span class="p">,</span> <span class="nb">ecx</span>
+    <span class="nf">jl</span>  <span class="nv">top_loop</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="software-prefetch-concatenation">
+<h3>7.5.7 Software Prefetch Concatenation<a class="headerlink" href="#software-prefetch-concatenation" title="永久链接至标题">¶</a></h3>
+<p><span class="red">Maximum performance can be achieved when the execution pipeline is at maximum
+throughput, without incurring any memory latency penalties. This can be achieved
+by prefetching data to be used in successive iterations in a loop. De-pipelining
+memory generates bubbles in the execution pipeline.</span></p>
+<p>To explain this performance issue, a 3D geometry pipeline that processes 3D vertices
+in strip format is used as an example. A strip contains a list of vertices whose
+predefined vertex order forms contiguous triangles. It can be easily observed that
+the memory pipe is de-pipelined on the strip boundary due to ineffective prefetch
+arrangement. The execution pipeline is stalled for the first two iterations for
+each strip. As a result, the average latency for completing an iteration will be
+165 (FIX) clocks.</p>
+<p>This memory de-pipelining creates inefficiency in both the memory pipeline and
+execution pipeline. This de-pipelining effect can be removed by applying a technique
+called <span class="navy">prefetch concatenation</span>. With this technique, the memory access and execution
+can be fully pipelined and fully utilized.</p>
+<p><span class="red">For nested loops, memory de-pipelining could occur during the interval between the
+last iteration of an inner loop and the next iteration of its associated outer loop.
+Without paying special attention to prefetch insertion, loads from the first iteration
+of an inner loop can miss the cache and stall the execution pipeline waiting for
+data returned, thus degrading the performance.</span></p>
+<p><span class="red">In Example 7-5, the cache line containing A[ii][0] is not prefetched at all and
+always misses the cache. This assumes that no array A[][] footprint resides in
+the cache. The penalty of memory de-pipelining stalls can be amortized across the
+inner loop iterations. However, it may become very harmful when the inner loop is
+short. In addition, the last prefetch in the last PSD iterations are wasted and
+consume machine resources. Prefetch concatenation is introduced here in order to
+eliminate the performance issue of memory de-pipelining.</span></p>
+<p>Example 7-5. Using Prefetch Concatenation:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">jj</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">jj</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">jj</span><span class="o">+=</span><span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">prefetch</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+        <span class="n">computation</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><span class="red">Prefetch concatenation can bridge the execution pipeline bubbles between the boundary
+of an inner loop and its associated outer loop. Simply by unrolling the last iteration
+out of the inner loop and specifying the effective prefetch address for data used
+in the following iteration, the performance loss of memory de-pipelining can be
+completely removed.</span> Example 7-6 gives the rewritten code.</p>
+<p>Example 7-6. Concatenation and Unrolling the Last Iteration of Inner Loop:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="hll">    <span class="k">for</span> <span class="p">(</span><span class="n">jj</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">jj</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">;</span> <span class="n">jj</span><span class="o">+=</span><span class="mi">8</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* N-1 iterations */</span>
+</span>        <span class="n">prefetch</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+        <span class="n">computation</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">prefetch</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span>    <span class="n">computation</span> <span class="n">a</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span>   <span class="cm">/* Last iteration */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This code segment for data prefetching is improved and only the first iteration
+of the outer loop suffers any memory access latency penalty, assuming the computation
+time is larger than the memory latency. Inserting a prefetch of the first data
+element needed prior to entering the nested loop computation would eliminate or
+reduce the start-up penalty for the very first iteration of the outer loop. This
+uncomplicated high-level code optimization can improve memory performance significantly.</p>
+</div>
+<div class="section" id="minimize-number-of-software-prefetches">
+<h3>7.5.8 Minimize Number of Software Prefetches<a class="headerlink" href="#minimize-number-of-software-prefetches" title="永久链接至标题">¶</a></h3>
+<p>Prefetch instructions are not completely free in terms of bus cycles, machine cycles
+and resources, even though they require minimal clock and memory bandwidth.</p>
+<p><span class="red">Excessive prefetching may lead to performance penalties because of issue penalties
+in the front end of the machine and/or resource contention in the memory sub-system.
+This effect may be severe in cases where the target loops are small and/or cases
+where the target loop is issue-bound.</span></p>
+<p><span class="red">One approach to solve the excessive prefetching issue is to unroll and/or
+software-pipeline loops to reduce the number of prefetches required.</span> Figure 7-5
+presents a code example which implements prefetch and unrolls the loop to remove
+the redundant prefetch instructions whose prefetch addresses hit the previously
+issued prefetch instructions. In this particular example, unrolling the original
+loop once saves six prefetch instructions and nine instructions for conditional
+jumps in every other iteration.</p>
+<img alt="../../_images/fig_7_5.png" src="../../_images/fig_7_5.png" />
+<p>Figure 7-6 demonstrates the effectiveness of software prefetches in latency hiding.</p>
+<img alt="../../_images/fig_7_6.png" src="../../_images/fig_7_6.png" />
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">这里图7-6是错的, intel官方文档如此.</p>
+</div>
+<p>The X axis in Figure 7-6 indicates the number of computation clocks per loop (each
+iteration is independent). The Y axis indicates the execution time measured in
+clocks per loop. The secondary Y axis indicates the percentage of bus bandwidth
+utilization. The tests vary by the following parameters:</p>
+<ul class="simple">
+<li>Number of load/store streams — Each load and store stream accesses one 128-byte
+cache line each per iteration.</li>
+<li>Amount of computation per loop — This is varied by increasing the number of
+dependent arithmetic operations executed.</li>
+<li>Number of the software prefetches per loop — For example, one every 16 bytes,
+32 bytes, 64 bytes, 128 bytes.</li>
+</ul>
+<p>As expected, the leftmost portion of each of the graphs in Figure 7-6 shows that
+<span class="red">when there is not enough computation to overlap the latency of memory access,
+prefetch does not help and that the execution is essentially memory-bound. The
+graphs also illustrate that redundant prefetches do not increase performance.</span></p>
+</div>
+<div class="section" id="mix-software-prefetch-with-computation-instructions">
+<h3>7.5.9 Mix Software Prefetch with Computation Instructions<a class="headerlink" href="#mix-software-prefetch-with-computation-instructions" title="永久链接至标题">¶</a></h3>
+<p><span class="red">It may seem convenient to cluster all of PREFETCH instructions at the beginning
+of a loop body or before a loop, but this can lead to severe performance degradation.
+In order to achieve the best possible performance, PREFETCH instructions must
+be interspersed with other computational instructions in the instruction sequence
+rather than clustered together. If possible, they should also be placed apart from
+loads. This improves the instruction level parallelism and reduces the potential
+instruction resource stalls. In addition, this mixing reduces the pressure on the
+memory access resources and in turn reduces the possibility of the prefetch retiring
+without fetching data.</span></p>
+<p>Figure 7-7 illustrates distributing PREFETCH instructions. A simple and useful
+heuristic of prefetch spreading for a Pentium 4 processor is to insert a PREFETCH
+instruction every 20 to 25 clocks. <span class="red">Rearranging PREFETCH instructions could yield
+a noticeable speedup for the code which stresses the cache resource.</span></p>
+<img alt="../../_images/fig_7_7.png" src="../../_images/fig_7_7.png" />
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">To avoid instruction execution stalls due to the over-utilization of
+the resource, PREFETCH instructions must be interspersed with computational instructions</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">7.5.10还需要仔细阅读</p>
+</div>
+</div>
+<div class="section" id="software-prefetch-and-cache-blocking-techniques">
+<h3>7.5.10 Software Prefetch and Cache Blocking Techniques<a class="headerlink" href="#software-prefetch-and-cache-blocking-techniques" title="永久链接至标题">¶</a></h3>
+<p>Cache blocking techniques (such as strip-mining) are used to improve temporal
+locality and the cache hit rate. Strip-mining is one-dimensional temporal locality
+optimization for memory. When two-dimensional arrays are used in programs, loop
+blocking technique (similar to strip-mining but in two dimensions) can be applied
+for a better memory performance.</p>
+<p><span class="red">If an application uses a large data set that can be reused across multiple passes
+of a loop, it will benefit from strip mining. Data sets larger than the cache will
+be processed in groups small enough to fit into cache. This allows temporal data
+to reside in the cache longer, reducing bus traffic.</span></p>
+<p>Data set size and temporal locality (data characteristics) fundamentally affect
+how PREFETCH instructions are applied to strip-mined code. Figure 7-8 shows two
+simplified scenarios for temporally-adjacent data and temporally-non-adjacent data.</p>
+<img alt="../../_images/fig_7_8.png" src="../../_images/fig_7_8.png" />
+<p>In the temporally-adjacent scenario, subsequent passes use the same data and find
+it already in second level cache. Prefetch issues aside, this is the preferred
+situation. In the temporally non-adjacent scenario, data used in pass m is displaced
+by pass (m+1), requiring data re-fetch into the first level cache and perhaps the
+second level cache if a later pass reuses the data. If both data sets fit into the
+second level cache, load operations in passes 3 and 4 become less expensive.</p>
+<p>Figure 7-9 shows how prefetch instructions and strip-mining can be applied to
+increase performance in both of these scenarios.</p>
+<img alt="../../_images/fig_7_9.png" src="../../_images/fig_7_9.png" />
+<p>For Pentium 4 processors, the left scenario shows a graphical implementation of
+using PREFETCHNTA to prefetch data into selected ways of the second-level cache
+only (SM1 denotes strip mine one way of second-level), minimizing second-level
+cache pollution. Use PREFETCHNTA if the data is only touched once during the entire
+execution pass in order to minimize cache pollution in the higher level caches.
+This provides instant availability, assuming the prefetch was issued far ahead
+enough, when the read access is issued.</p>
+<p>In scenario to the right (see Figure 7-9), keeping the data in one way of the
+second-level cache does not improve cache locality. Therefore, use PREFETCHT0 to
+prefetch the data. This amortizes the latency of the memory references in passes
+1 and 2, and keeps a copy of the data in second-level cache, which reduces memory
+traffic and latencies for passes 3 and 4. To further reduce the latency, it might
+be worth considering extra PREFETCHNTA instructions prior to the memory references
+in passes 3 and 4.</p>
+<p>In Example 7-7, consider the data access patterns of a 3D geometry engine first
+without strip-mining and then incorporating strip-mining. Note that 4-wide SIMD
+instructions of Pentium III processor can process 4 vertices per every iteration.</p>
+<p>Without strip-mining, all the x,y,z coordinates for the four vertices must be
+re-fetched from memory in the second pass, that is, the lighting loop. This causes
+under-utilization of cache lines fetched during transformation loop as well as
+bandwidth wasted in the lighting loop.</p>
+<p><span class="red">Example 7-7. Data Access of a 3D Geometry Engine without Strip-mining:</span></p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">nvtx</span> <span class="o">&lt;</span> <span class="n">MAX_NUM_VTX</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span> <span class="n">data</span>    <span class="c1">// v =[x,y,z,nx,ny,nz,tu,tv]</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">1</span> <span class="n">data</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">2</span> <span class="n">data</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">3</span> <span class="n">data</span>
+<span class="n">TRANSFORMATION</span> <span class="n">code</span>             <span class="c1">// use only x,y,z,tu,tv of a vertex</span>
+    <span class="n">nvtx</span><span class="o">+=</span><span class="mi">4</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">nvtx</span> <span class="o">&lt;</span> <span class="n">MAX_NUM_VTX</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span> <span class="n">data</span>    <span class="c1">// v =[x,y,z,nx,ny,nz,tu,tv]</span>
+                                <span class="c1">// x,y,z fetched again</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">1</span> <span class="n">data</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">2</span> <span class="n">data</span>
+    <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">3</span> <span class="n">data</span>
+    <span class="n">compute</span> <span class="n">the</span> <span class="n">light</span> <span class="n">vectors</span>   <span class="c1">// use only x,y,z</span>
+    <span class="n">LOCAL</span> <span class="n">LIGHTING</span> <span class="n">code</span>         <span class="c1">// use only nx,ny,nz</span>
+    <span class="n">nvtx</span><span class="o">+=</span><span class="mi">4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now consider the code in Example 7-8 where strip-mining has been incorporated into the loops.</p>
+<p><span class="red">Example 7-8. Data Access of a 3D Geometry Engine with Strip-mining:</span></p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">nstrip</span> <span class="o">&lt;</span> <span class="n">NUM_STRIP</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Strip-mine the loop to fit data into one way of the second-level cache */</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">nvtx</span> <span class="o">&lt;</span> <span class="n">MAX_NUM_VTX_PER_STRIP</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">prefetchnta</span> <span class="n">vertexi</span> <span class="n">data</span>        <span class="c1">// v=[x,y,z,nx,ny,nz,tu,tv]</span>
+        <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">1</span> <span class="n">data</span>
+        <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">2</span> <span class="n">data</span>
+        <span class="n">prefetchnta</span> <span class="n">vertexi</span><span class="o">+</span><span class="mi">3</span> <span class="n">data</span>
+        <span class="n">TRANSFORMATION</span> <span class="n">code</span>
+            <span class="n">nvtx</span><span class="o">+=</span><span class="mi">4</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">nvtx</span> <span class="o">&lt;</span> <span class="n">MAX_NUM_VTX_PER_STRIP</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* x y z coordinates are in the second-level cache, no prefetch is required */</span>
+        <span class="n">compute</span> <span class="n">the</span> <span class="n">light</span> <span class="n">vectors</span>
+        <span class="n">POINT</span> <span class="n">LIGHTING</span> <span class="n">code</span>
+        <span class="n">nvtx</span><span class="o">+=</span><span class="mi">4</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With strip-mining, all vertex data can be kept in the cache (for example, one way
+of second-level cache) during the strip-mined transformation loop and reused in
+the lighting loop. Keeping data in the cache reduces both bus traffic and the number
+of prefetches used.</p>
+<p>Table 7-1 summarizes the steps of the basic usage model that incorporates only
+software prefetch with strip-mining. The steps are:</p>
+<ul class="simple">
+<li>Do strip-mining: partition loops so that the dataset fits into second-level cache.</li>
+<li>Use PREFETCHNTA if the data is only used once or the dataset fits into 32 KBytes
+(one way of second-level cache). Use PREFETCHT0 if the dataset exceeds 32 KBytes.</li>
+</ul>
+<p>The above steps are platform-specific and provide an implementation example. The
+variables NUM_STRIP and MAX_NUM_VX_PER_STRIP can be heuristically determined for
+peak performance for specific application on a specific platform.</p>
+<img alt="../../_images/table_7_1.png" src="../../_images/table_7_1.png" />
+</div>
+<div class="section" id="hardware-prefetching-and-cache-blocking-techniques">
+<h3>7.5.11 Hardware Prefetching and Cache Blocking Techniques<a class="headerlink" href="#hardware-prefetching-and-cache-blocking-techniques" title="永久链接至标题">¶</a></h3>
+<p><span class="red">Tuning data access patterns for the automatic hardware prefetch mechanism can
+minimize the memory access costs of the first-pass of the read-multiple-times and
+some of the read-once memory references. An example of the situations of read-once
+memory references can be illustrated with a matrix or image transpose, reading
+from a column-first orientation and writing to a row-first orientation, or vice versa.</span></p>
+<p>Example 7-9 shows a nested loop of data movement that represents a typical matrix/image
+transpose problem. If the dimension of the array are large, not only the footprint
+of the dataset will exceed the last level cache but cache misses will occur at large
+strides. If the dimensions happen to be powers of 2, aliasing condition due to
+finite number of way-associativity (see “Capacity Limits and Aliasing in Caches”
+in Chapter) will exacerbate the likelihood of cache evictions.</p>
+<p>注: <a class="reference external" href="https://en.wikipedia.org/wiki/Memory_footprint">memory footprint</a></p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Memory footprint refers to the amount of main memory that a program uses or
+references while running.
+</pre></div>
+</div>
+<p>Example 7-9. Using HW Prefetch to Improve Read-Once Memory Traffic:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">)</span> <span class="n">Un</span><span class="o">-</span><span class="n">optimized</span> <span class="n">image</span> <span class="n">transpose</span>
+<span class="c1">// dest and src represent two-dimensional arrays</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUMCOLS</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// inner loop reads single column</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">NUMROWS</span><span class="p">;</span> <span class="n">j</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Each read reference causes large-stride cache miss</span>
+        <span class="n">dest</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">NUMROWS</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">NUMROWS</span> <span class="o">+</span> <span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">b</span><span class="p">)</span>
+<span class="c1">// tilewidth = L2SizeInBytes/2/TileHeight/Sizeof(element)</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUMCOLS</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">tilewidth</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">NUMROWS</span><span class="p">;</span> <span class="n">j</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// access multiple elements in the same row in the inner loop</span>
+        <span class="c1">// access pattern friendly to hw prefetch and improves hit rate</span>
+        <span class="k">for</span><span class="p">(</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">tilewidth</span><span class="p">;</span> <span class="n">k</span> <span class="o">++</span><span class="p">)</span>
+            <span class="n">dest</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">NUMROWS</span><span class="p">]</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">NUMROWS</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">画出2段代码访问内存顺序的示意图</p>
+</div>
+<p>Example 7-9 (b) shows applying the techniques of tiling with optimal selection of
+tile size and tile width to take advantage of hardware prefetch. With tiling, one
+can choose the size of two tiles to fit in the last level cache. <span class="red">Maximizing the
+width of each tile for memory read references enables the hardware prefetcher to
+initiate bus requests to read some cache lines before the code actually reference
+the linear addresses.</span></p>
+</div>
+<div class="section" id="single-pass-versus-multi-pass-execution">
+<h3>7.5.12 Single-pass versus Multi-pass Execution<a class="headerlink" href="#single-pass-versus-multi-pass-execution" title="永久链接至标题">¶</a></h3>
+<p>An algorithm can use single- or multi-pass execution defined as follows:</p>
+<ul class="simple">
+<li><span class="navy">Single-pass, or unlayered execution passes a single data element through an entire
+computation pipeline.</span></li>
+<li><span class="navy">Multi-pass, or layered execution performs a single stage of the pipeline on a
+batch of data elements, before passing the batch on to the next stage.</span></li>
+</ul>
+<p>A characteristic feature of both single-pass and multi-pass execution is that a
+specific trade-off exists depending on an algorithm’s implementation and use of a
+single-pass or multiple-pass execution. See Figure 7-10.</p>
+<p>Multi-pass execution is often easier to use when implementing a general purpose API,
+where the choice of code paths that can be taken depends on the specific combination
+of features selected by the application (for example, for 3D graphics, this might
+include the type of vertex primitives used and the number and type of light sources).</p>
+<p>With such a broad range of permutations possible, a single-pass approach would be
+complicated, in terms of code size and validation. In such cases, each possible
+permutation would require a separate code sequence. For example, an object with
+features A, B, C, D can have a subset of features enabled, say, A, B, D. This stage
+would use one code path; another combination of enabled features would have a different
+code path. It makes more sense to perform each pipeline stage as a separate pass,
+with conditional clauses to select different features that are implemented within
+each stage. By using strip-mining, the number of vertices processed by each stage
+(for example, the batch size) can be selected to ensure that the batch stays within
+the processor caches through all passes. An intermediate cached buffer is used to
+pass the batch of vertices from one stage or pass to the next one.</p>
+<p>Single-pass execution can be better suited to applications which limit the number
+of features that may be used at a given time. A single-pass approach can reduce
+the amount of data copying that can occur with a multi-pass engine. <span class="red">See Figure 7-10.</span></p>
+<img alt="../../_images/fig_7_10.png" src="../../_images/fig_7_10.png" />
+<p>The choice of single-pass or multi-pass can have a number of performance implications.
+For instance, in a multi-pass pipeline, stages that are limited by bandwidth (either
+input or output) will reflect more of this performance limitation in overall
+execution time. In contrast, for a single-pass approach, bandwidth limitations
+can be distributed/amortized across other computation-intensive stages. Also,
+the choice of which prefetch hints to use are also impacted by whether a single-pass
+or multi-pass approach is used.</p>
+</div>
+</div>
+<div class="section" id="memory-optimization-using-non-temporal-stores">
+<h2>7.6 MEMORY OPTIMIZATION USING NON-TEMPORAL STORES<a class="headerlink" href="#memory-optimization-using-non-temporal-stores" title="永久链接至标题">¶</a></h2>
+<p>Non-temporal stores can also be used to manage data retention in the cache. Uses
+for non-temporal stores include:</p>
+<ul class="simple">
+<li>To combine many writes without disturbing the cache hierarchy.</li>
+<li>To manage which data structures remain in the cache and which are transient.</li>
+</ul>
+<p>Detailed implementations of these usage models are covered in the following sections.</p>
+<div class="section" id="non-temporal-stores-and-software-write-combining">
+<h3>7.6.1 Non-temporal Stores and Software Write-Combining<a class="headerlink" href="#non-temporal-stores-and-software-write-combining" title="永久链接至标题">¶</a></h3>
+<p>Use non-temporal stores in the cases when the data to be stored is:</p>
+<ul class="simple">
+<li>Write-once (non-temporal).</li>
+<li>Too large and thus cause cache thrashing.</li>
+</ul>
+<p>Non-temporal stores do not invoke a cache line allocation, which means they are
+not write-allocate. As a result, caches are not polluted and no dirty writeback
+is generated to compete with useful data bandwidth. Without using non-temporal
+stores, bus bandwidth will suffer when caches start to be thrashed because of
+dirty writebacks.</p>
+<p><span class="red">In Streaming SIMD Extensions implementation, when non-temporal stores are written
+into writeback or write-combining memory regions, these stores are weakly-ordered
+and will be combined internally inside the processor’s write-combining buffer and
+be written out to memory as a line burst transaction. To achieve the best possible
+performance, it is recommended to align data along the cache line boundary and write
+them consecutively in a cache line size while using non-temporal stores. If the
+consecutive writes are prohibitive due to programming constraints, then software
+write-combining (SWWC) buffers can be used to enable line burst transaction.</span></p>
+<p>You can declare small SWWC buffers (a cache line for each buffer) in your application
+to enable explicit write-combining operations. Instead of writing to non-temporal
+memory space immediately, the program writes data into SWWC buffers and combines
+them inside these buffers. The program only writes a SWWC buffer out using non-temporal
+stores when the buffer is filled up, that is, a cache line (128 bytes for the
+Pentium 4 processor). Although the SWWC method requires explicit instructions for
+performing temporary writes and reads, this ensures that the transaction on the
+front-side bus causes line transaction rather than several partial transactions.
+Application performance gains considerably from implementing this technique.
+These SWWC buffers can be maintained in the second-level and re-used throughout
+the program.</p>
+</div>
+<div class="section" id="cache-management">
+<h3>7.6.2 Cache Management<a class="headerlink" href="#cache-management" title="永久链接至标题">¶</a></h3>
+<p><span class="red">Streaming instructions (PREFETCH and STORE) can be used to manage data and minimize
+disturbance of temporal data held within the processor’s caches.</span></p>
+<p>In addition, the Pentium 4 processor takes advantage of Intel C++ Compiler support
+for C++ language-level features for the Streaming SIMD Extensions. Streaming
+SIMD Extensions and MMX technology instructions provide intrinsics that allow you
+to optimize cache utilization. Examples of such Intel compiler intrinsics are
+_MM_PREFETCH, _MM_STREAM, _MM_LOAD, _MM_SFENCE. For detail, refer to the Intel
+C++ Compiler User’s Guide documentation.</p>
+<p>The following examples of using prefetching instructions in the operation of video
+encoder and decoder as well as in simple 8-byte memory copy, illustrate performance
+gain from using the prefetching instructions for efficient cache management.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">从下文的视频编解码器, memcopy优化示例来揣摩non-temporal store</p>
+</div>
+<div class="section" id="video-encoder">
+<h4>7.6.2.1 Video Encoder<a class="headerlink" href="#video-encoder" title="永久链接至标题">¶</a></h4>
+<p>In a video encoder, some of the data used during the encoding process is kept in
+the processor’s second-level cache. This is done to minimize the number of reference
+streams that must be re-read from system memory. To ensure that other writes do
+not disturb the data in the second-level cache, streaming stores (MOVNTQ) are used
+to write around all processor caches.</p>
+<p>The prefetching cache management implemented for the video encoder reduces the memory
+traffic. The second-level cache pollution reduction is ensured by preventing
+single-use video frame data from entering the second-level cache. Using a non-temporal
+PREFETCH (PREFETCHNTA) instruction brings data into only one way of the second-level
+cache, thus reducing pollution of the second-level cache.</p>
+<p>If the data brought directly to second-level cache is not re-used, then there is
+a performance gain from the non-temporal prefetch over a temporal prefetch. The
+encoder uses non-temporal prefetches to avoid pollution of the second-level cache,
+increasing the number of second-level cache hits and decreasing the number of
+polluting write-backs to memory. The performance gain results from the more efficient
+use of the second-level cache, not only from the prefetch itself.</p>
+</div>
+<div class="section" id="video-decoder">
+<h4>7.6.2.2 Video Decoder<a class="headerlink" href="#video-decoder" title="永久链接至标题">¶</a></h4>
+<p>In the video decoder example, completed frame data is written to local memory of
+the graphics card, which is mapped to WC (Write-combining) memory type. A copy of
+reference data is stored to the WB memory at a later time by the processor in order
+to generate future data. The assumption is that the size of the reference data is
+too large to fit in the processor’s caches. A streaming store is used to write the
+data around the cache, to avoid displaying other temporal data held in the caches.
+Later, the processor re-reads the data using PREFETCHNTA, which ensures maximum
+bandwidth, yet minimizes disturbance of other cached temporal data by using the
+non-temporal (NTA) version of prefetch.</p>
+</div>
+<div class="section" id="conclusions-from-video-encoder-and-decoder-implementation">
+<h4>7.6.2.3 Conclusions from Video Encoder and Decoder Implementation<a class="headerlink" href="#conclusions-from-video-encoder-and-decoder-implementation" title="永久链接至标题">¶</a></h4>
+<p>These two examples indicate that by using an appropriate combination of non-temporal
+prefetches and non-temporal stores, an application can be designed to lessen the
+overhead of memory transactions by preventing second-level cache pollution, keeping
+useful data in the second-level cache and reducing costly write-back transactions.
+Even if an application does not gain performance significantly from having data
+ready from prefetches, it can improve from more efficient use of the second-level
+cache and memory. Such design reduces the encoder’s demand for such critical resource
+as the memory bus. This makes the system more balanced, resulting in higher performance.</p>
+</div>
+<div class="section" id="optimizing-memory-copy-routines">
+<h4>7.6.2.4 Optimizing Memory Copy Routines<a class="headerlink" href="#optimizing-memory-copy-routines" title="永久链接至标题">¶</a></h4>
+<p>Creating memory copy routines for large amounts of data is a common task in software
+optimization. Example 7-10 presents a basic algorithm for a the simple memory copy.</p>
+<p>Example 7-10. Basic Algorithm of a Simple Memory Copy:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define N 512000</span>
+<span class="kt">double</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This task can be optimized using various coding techniques. <span class="red">One technique uses
+software prefetch and streaming store instructions.</span> It is discussed in the following
+paragraph and a code example shown in Example 7-11.</p>
+<p><span class="red">The memory copy algorithm can be optimized using the Streaming SIMD Extensions with
+these considerations:</span></p>
+<ul class="simple">
+<li><span class="red">Alignment of data.</span></li>
+<li><span class="red">Proper layout of pages in memory.</span></li>
+<li><span class="red">Cache size.</span></li>
+<li><span class="red">Interaction of the transaction lookaside buffer (TLB) with memory accesses.</span></li>
+<li><span class="red">Combining prefetch and streaming-store instructions.</span></li>
+</ul>
+<p>The guidelines discussed in this chapter come into play in this simple example.
+<span class="purple">TLB priming</span> is required for the Pentium 4 processor just as it is for the Pentium
+III processor, since software prefetch instructions will not initiate page table
+walks on either processor.</p>
+<p>Example 7-11. <span class="red">A Memory Copy Routine Using Software Prefetch:</span></p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define PAGESIZE 4096</span>
+<span class="cp">#define NUMPERPAGE 512  </span><span class="c1">// # of elements to fit a page</span>
+
+<span class="kt">double</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="n">temp</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">kk</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">kk</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">kk</span><span class="o">+=</span><span class="n">NUMPERPAGE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">kk</span><span class="o">+</span><span class="n">NUMPERPAGE</span><span class="p">];</span>    <span class="c1">// TLB priming</span>
+    <span class="c1">// use block size = page size,</span>
+    <span class="c1">// prefetch entire block, one cache line per loop</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">kk</span><span class="o">+</span><span class="mi">16</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">kk</span><span class="o">+</span><span class="n">NUMPERPAGE</span><span class="p">;</span> <span class="n">j</span><span class="o">+=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_mm_prefetch</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">_MM_HINT_NTA</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// copy 128 byte per loop</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">kk</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">kk</span><span class="o">+</span><span class="n">NUMPERPAGE</span><span class="p">;</span> <span class="n">j</span><span class="o">+=</span><span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>    <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">],</span>  <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">4</span><span class="p">],</span>  <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">4</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">6</span><span class="p">],</span>  <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">6</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">8</span><span class="p">],</span>  <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">8</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">10</span><span class="p">],</span> <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">10</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">12</span><span class="p">],</span> <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">12</span><span class="p">]));</span>
+        <span class="n">_mm_stream_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">14</span><span class="p">],</span> <span class="n">_mm_load_ps</span><span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">14</span><span class="p">]));</span>
+    <span class="p">}</span> <span class="c1">// finished copying one block</span>
+<span class="p">}</span> <span class="c1">// finished copying N elements</span>
+<span class="n">_mm_sfence</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><em>zzq注解</em> _mm_stream_ps:
+Store 128-bits (composed of 4 packed single-precision (32-bit) floating-point elements)
+from a into memory using a non-temporal memory hint. mem_addr must be aligned on
+a 16-byte boundary or a general-protection exception may be generated.</p>
+</div>
+<div class="section" id="tlb-priming">
+<h4>7.6.2.5 TLB Priming<a class="headerlink" href="#tlb-priming" title="永久链接至标题">¶</a></h4>
+<p><span class="red">The TLB is a fast memory buffer that is used to improve performance of the translation
+of a virtual memory address to a physical memory address by providing fast access
+to page table entries. If memory pages are accessed and the page table entry is
+not resident in the TLB, a TLB miss results and the page table must be read from memory.</span></p>
+<p>The TLB miss results in a performance degradation since another memory access must
+be performed (assuming that the translation is not already present in the processor
+caches) to update the TLB. <span class="red">The TLB can be preloaded with the page table entry for
+the next desired page by accessing (or touching) an address in that page. This is
+similar to prefetch, but instead of a data cache line the page table entry is being
+loaded in advance of its use. This helps to ensure that the page table entry is
+resident in the TLB and that the prefetch happens as requested subsequently.</span></p>
+</div>
+<div class="section" id="using-the-8-byte-streaming-stores-and-software-prefetch">
+<h4>7.6.2.6 Using the 8-byte Streaming Stores and Software Prefetch<a class="headerlink" href="#using-the-8-byte-streaming-stores-and-software-prefetch" title="永久链接至标题">¶</a></h4>
+<p>Example 7-11 presents the copy algorithm that uses second level cache. The algorithm
+performs the following steps:</p>
+<ol class="arabic simple">
+<li>Uses <span class="red">blocking technique</span> to transfer 8-byte data from memory into second-level
+cache using the _MM_PREFETCH intrinsic, 128 bytes at a time to fill a block.
+<span class="red">The size of a block should be less than one half of the size of the second-level
+cache, but large enough to amortize the cost of the loop.</span></li>
+<li>Loads the data into an XMM register using the _MM_LOAD_PS intrinsic.</li>
+<li>Transfers the 8-byte data to a different memory location via the _MM_STREAM
+intrinsics, bypassing the cache. For this operation, <span class="red">it is important to ensure
+that the page table entry prefetched for the memory is preloaded in the TLB.</span></li>
+</ol>
+<p>In Example 7-11, eight _MM_LOAD_PS and _MM_STREAM_PS intrinsics are used so that
+all of the data prefetched (a 128-byte cache line) is written back. <span class="red">The prefetch
+and streaming-stores are executed in separate loops to minimize the number of
+transitions between reading and writing data. This significantly improves the
+bandwidth of the memory accesses.</span></p>
+<p>The <span class="green">temp = a[kk+NUMPERPAGE]</span> instruction is used to ensure the page table entry for
+array, and a is entered in the TLB prior to prefetching. This is essentially a
+prefetch itself, as a cache line is filled from that memory location with this
+instruction. Hence, the prefetching starts from kk+4 (zzq:这里kk+4应该有误) in this loop.</p>
+<p>This example assumes that the destination of the copy is not temporally adjacent
+to the code. If the copied data is destined to be reused in the near future, then
+the streaming store instructions should be replaced with regular 128 bit stores
+(_MM_STORE_PS). This is required because the implementation of streaming stores
+on Pentium 4 processor writes data directly to memory, maintaining cache coherency.</p>
+</div>
+<div class="section" id="using-16-byte-streaming-stores-and-hardware-prefetch">
+<h4>7.6.2.7 Using 16-byte Streaming Stores and Hardware Prefetch<a class="headerlink" href="#using-16-byte-streaming-stores-and-hardware-prefetch" title="永久链接至标题">¶</a></h4>
+<p>An alternate technique for optimizing a large region memory copy is to take advantage
+of hardware prefetcher, 16-byte streaming stores, and <span class="red">apply a segmented approach
+to separate bus read and write transactions.</span> See Section 3.6.12, “Minimizing Bus Latency.”</p>
+<p>The technique employs two stages. In the first stage, a block of data is read from
+memory to the cache sub-system. In the second stage, cached data are written to
+their destination using streaming stores.</p>
+<p>Example 7-12. Memory Copy Using Hardware Prefetch and Bus Segmentation:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">block_prefetch</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dst</span><span class="p">,</span><span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">_asm</span> <span class="p">{</span>
+        <span class="n">mov</span> <span class="n">edi</span><span class="p">,</span><span class="n">dst</span>
+        <span class="n">mov</span> <span class="n">esi</span><span class="p">,</span><span class="n">src</span>
+        <span class="n">mov</span> <span class="n">edx</span><span class="p">,</span><span class="n">SIZE</span>
+        <span class="n">align</span> <span class="mi">16</span>
+    <span class="nl">main_loop</span><span class="p">:</span>
+        <span class="n">xor</span> <span class="n">ecx</span><span class="p">,</span><span class="n">ecx</span>
+        <span class="n">align</span> <span class="mi">16</span>
+    <span class="nl">prefetch_loop</span><span class="p">:</span>
+        <span class="n">movaps</span> <span class="n">xmm0</span><span class="p">,</span> <span class="p">[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="p">]</span>
+        <span class="n">movaps</span> <span class="n">xmm0</span><span class="p">,</span> <span class="p">[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">64</span><span class="p">]</span>
+        <span class="n">add</span> <span class="n">ecx</span><span class="p">,</span><span class="mi">128</span>
+        <span class="n">cmp</span> <span class="n">ecx</span><span class="p">,</span><span class="n">BLOCK_SIZE</span>
+        <span class="n">jne</span> <span class="n">prefetch_loop</span>
+        <span class="n">xor</span> <span class="n">ecx</span><span class="p">,</span><span class="n">ecx</span>
+        <span class="n">align</span> <span class="mi">16</span>
+    <span class="nl">cpy_loop</span><span class="p">:</span>
+        <span class="n">movdqa</span> <span class="n">xmm0</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm1</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">16</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm2</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">32</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm3</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">48</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm4</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">64</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm5</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">16</span><span class="o">+</span><span class="mi">64</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm6</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">32</span><span class="o">+</span><span class="mi">64</span><span class="p">]</span>
+        <span class="n">movdqa</span> <span class="n">xmm7</span><span class="p">,[</span><span class="n">esi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">48</span><span class="o">+</span><span class="mi">64</span><span class="p">]</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="p">],</span><span class="n">xmm0</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">16</span><span class="p">],</span><span class="n">xmm1</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">32</span><span class="p">],</span><span class="n">xmm2</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">48</span><span class="p">],</span><span class="n">xmm3</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">64</span><span class="p">],</span><span class="n">xmm4</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">80</span><span class="p">],</span><span class="n">xmm5</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">96</span><span class="p">],</span><span class="n">xmm6</span>
+        <span class="n">movntdq</span> <span class="p">[</span><span class="n">edi</span><span class="o">+</span><span class="n">ecx</span><span class="o">+</span><span class="mi">112</span><span class="p">],</span><span class="n">xmm7</span>
+        <span class="n">add</span> <span class="n">ecx</span><span class="p">,</span><span class="mi">128</span>
+        <span class="n">cmp</span> <span class="n">ecx</span><span class="p">,</span><span class="n">BLOCK_SIZE</span>
+        <span class="n">jne</span> <span class="n">cpy_loop</span>
+
+        <span class="n">add</span> <span class="n">esi</span><span class="p">,</span><span class="n">ecx</span>
+        <span class="n">add</span> <span class="n">edi</span><span class="p">,</span><span class="n">ecx</span>
+        <span class="n">sub</span> <span class="n">edx</span><span class="p">,</span><span class="n">ecx</span>
+        <span class="n">jnz</span> <span class="n">main_loop</span>
+        <span class="n">sfence</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="performance-comparisons-of-memory-copy-routines">
+<h4>7.6.2.8 Performance Comparisons of Memory Copy Routines<a class="headerlink" href="#performance-comparisons-of-memory-copy-routines" title="永久链接至标题">¶</a></h4>
+<p>The throughput of a large-region, memory copy routine depends on several factors:</p>
+<ul class="simple">
+<li>Coding techniques that implements the memory copy task.</li>
+<li>Characteristics of the system bus (speed, peak bandwidth, overhead in read/write
+transaction protocols).</li>
+<li>Microarchitecture of the processor.</li>
+</ul>
+<p>A comparison of the two coding techniques discussed above and two un-optimized
+techniques is shown in Table 7-2.</p>
+<img alt="../../_images/table_7_2.png" src="../../_images/table_7_2.png" />
+<p>The baseline for performance comparison is the throughput (bytes/sec) of 8-MByte
+region memory copy on a first-generation Pentium M processor (CPUID signature 0x69n)
+with a 400-MHz system bus using byte-sequential technique similar to that shown
+in Example 7-10. The degree of improvement relative to the performance baseline
+for some recent processors and platforms with higher system bus speed using different
+coding techniques are compared.</p>
+<p>The second coding technique moves data at 4-Byte granularity(zzq:粒度) using REP string
+instruction. The third column compares the performance of the coding technique
+listed in Example 7-11. The fourth column of performance compares the throughput
+of fetching 4-KBytes of data at a time (using hardware prefetch to aggregate bus
+read transactions) and writing to memory via 16-Byte streaming stores.</p>
+<p>Increases in bus speed is the primary contributor to throughput improvements.
+The technique shown in Example 7-12 will likely take advantage of the faster bus
+speed in the platform more efficiently. Additionally, increasing the block size
+to multiples of 4-KBytes while keeping the total working set within the second-level
+cache can improve the throughput slightly.</p>
+<p>The relative performance figure shown in Table 7-2 is representative of clean
+microarchitectural conditions within a processor (e.g. looping s simple sequence
+of code many times). The net benefit of integrating a specific memory copy routine
+into an application (full-featured applications tend to create many complicated
+micro-architectural conditions) will vary for each application.</p>
+</div>
+</div>
+<div class="section" id="deterministic-cache-parameters">
+<h3>7.6.3 Deterministic Cache Parameters<a class="headerlink" href="#deterministic-cache-parameters" title="永久链接至标题">¶</a></h3>
+<p>If CPUID supports the deterministic parameter leaf, software can use the leaf to
+query each level of the cache hierarchy. Enumeration of each cache level is by
+specifying an index value (starting form 0) in the ECX register (see “CPUID-CPU
+Identification” in Chapter 3 of the Intel® 64 and IA-32 Architectures Soft- ware
+Developer’s Manual, Volume 2A).</p>
+<p>The list of parameters is shown in Table 7-3.</p>
+<img alt="../../_images/table_7_3.png" src="../../_images/table_7_3.png" />
+<p>The deterministic cache parameter leaf provides a means to implement software with
+a degree of forward compatibility with respect to enumerating cache parameters.
+Deterministic cache parameters can be used in several situations, including:</p>
+<ul class="simple">
+<li>Determine the size of a cache level.</li>
+<li>Adapt cache blocking parameters to different sharing topology of a cache-level
+across Hyper-Threading Technology, multicore and single-core processors.</li>
+<li>Determine multithreading resource topology in an MP system (See Chapter 8,
+“Multiple-Processor Management,” of the Intel® 64 and IA-32 Architectures Software
+Developer’s Manual, Volume 3A).</li>
+<li>Determine cache hierarchy topology in a platform using multicore processors (See
+topology enumeration white paper and reference code listed at the end of CHAPTER 1).</li>
+<li>Manage threads and processor affinities.</li>
+<li>Determine prefetch stride.</li>
+</ul>
+<p>The size of a given level of cache is given by:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>(# of Ways) * (Partitions) * (Line_size) * (Sets) = (EBX[31:22] + 1) *
+(EBX[21:12] + 1) * (EBX[11:0] + 1) * (ECX + 1)
+</pre></div>
+</div>
+<div class="section" id="cache-sharing-using-deterministic-cache-parameters">
+<h4>7.6.3.1 Cache Sharing Using Deterministic Cache Parameters<a class="headerlink" href="#cache-sharing-using-deterministic-cache-parameters" title="永久链接至标题">¶</a></h4>
+<p>Improving cache locality is an important part of software optimization. For example,
+a cache blocking algorithm can be designed to optimize block size at runtime for
+single-processor implementations and a variety of multiprocessor execution environments
+(including processors supporting HT Technology, or multicore processors).</p>
+<p><span class="red">The basic technique is to place an upper limit of the blocksize to be less than
+the size of the target cache level divided by the number of logical processors
+serviced by the target level of cache.</span> This technique is applicable to multithreaded
+application programming. The technique can also benefit single-threaded applications
+that are part of a multi-tasking workloads.</p>
+</div>
+<div class="section" id="cache-sharing-in-single-core-or-multicore">
+<h4>7.6.3.2 Cache Sharing in Single-Core or Multicore<a class="headerlink" href="#cache-sharing-in-single-core-or-multicore" title="永久链接至标题">¶</a></h4>
+<p>Deterministic cache parameters are useful for managing shared cache hierarchy in
+multithreaded applications for more sophisticated situations. <span class="red">A given cache level
+may be shared by logical processors in a processor or it may be implemented to be
+shared by logical processors in a physical processor package.</span></p>
+<p>Using the deterministic cache parameter leaf and initial APIC_ID associated with
+each logical processor in the platform, software can extract information on the
+number and the topological relationship of logical processors sharing a cache level.</p>
+</div>
+<div class="section" id="determine-prefetch-stride">
+<h4>7.6.3.3 Determine Prefetch Stride<a class="headerlink" href="#determine-prefetch-stride" title="永久链接至标题">¶</a></h4>
+<p>The prefetch stride (see description of CPUID.01H.EBX) provides the length of the
+region that the processor will prefetch with the PREFETCHh instructions (PREFETCHT0,
+PREFETCHT1, PREFETCHT2 and PREFETCHNTA). Software will use the length as the stride
+when prefetching into a particular level of the cache hierarchy as identified by
+the instruction used. The prefetch size is relevant for cache types of Data Cache
+(1) and Unified Cache (3); it should be ignored for other cache types. Software
+should not assume that the coherency line size is the prefetch stride.</p>
+<p>If the prefetch stride field is zero, then software should assume a default size
+of 64 bytes is the prefetch stride. Software should use the following algorithm
+to determine what prefetch size to use depending on whether the deterministic cache
+parameter mechanism is supported or the legacy mechanism:</p>
+<ul class="simple">
+<li>If a processor supports the deterministic cache parameters and provides a non-zero
+prefetch size, then that prefetch size is used.</li>
+<li>If a processor supports the deterministic cache parameters and does not provides
+a prefetch size then default size for each level of the cache hierarchy is 64 bytes.</li>
+<li>If a processor does not support the deterministic cache parameters but provides
+a legacy prefetch size descriptor (0xF0 - 64 byte, 0xF1 - 128 byte) will be the
+prefetch size for all levels of the cache hierarchy.</li>
+<li>If a processor does not support the deterministic cache parameters and does not
+provide a legacy prefetch size descriptor, then 32-bytes is the default size for
+all levels of the cache hierarchy.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../intel_vtune/index.html" class="btn btn-neutral float-right" title="Intel VTune Amplifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="3.html" class="btn btn-neutral" title="3 一般性优化原则" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 赵子清.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2018.12.01',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

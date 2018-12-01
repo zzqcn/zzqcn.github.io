@@ -1,0 +1,1658 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>理解微处理器 &mdash; zzq&#39;s blog</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/hacks.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../search.html"/>
+    <link rel="top" title="zzq&#39;s blog" href="../../index.html"/>
+        <link rel="up" title="CPU知识" href="index.html"/>
+        <link rel="next" title="理解流水线与超标量执行" href="pipeline.html"/>
+        <link rel="prev" title="CPU知识" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> 赵子清技术文章
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2018.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lang/index.html">程序设计语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/cpp/index.html">C++ 11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/preface.html">前言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c">C++的变化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id2">对C++程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id3">对C程序员的建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#c-11">C++11主要特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/cpp/preface.html#id4">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/basic.html">基本功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/oop.html">面向对象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/stl.html">标准库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/cpp/boost.html">boost库</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/go/index.html">Golang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/setup.html">环境配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#go-get">使用代理以解决go get超时问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#id2">日常项目开发环境配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/setup.html#ide">IDE配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/json.html">JSON解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id1">简单解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id2">不确定JSON的解析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/json.html#id3">复杂内容的解析</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/withc.html">C语言适配</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/go/withc.html#id1">调用C编写的动态库</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/go/books.html">学习资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/lua/lua_basic.html">lua基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id1">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id2">获得lua</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id3">lua命令行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id4">保留关键字</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id5">注释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#chunk">Chunk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id6">数据类型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#string">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#userdata">userdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#thread">thread</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id7">表达式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id8">算术运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id9">关系运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id10">逻辑运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id11">连接运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id12">运算符优先级</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id13">语句</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id14">赋值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id15">局部变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id16">条件语句</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/lua/lua_basic.html#id17">循环语句</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/lua/lua_basic.html#id18">函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/shell/index.html">Linux shell编程</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/asm/index.html">汇编语言</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/arch.html">计算机体系结构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#cpu">CPU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id5">内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/arch.html#id6">中断</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/asm_intro.html">汇编语言简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id2">汇编代码的两种记法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#centosnasm">CentOS运行nasm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id3">操作数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id4">基本指令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id5">指示符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id6">输入输出</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id7">代码模板</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/asm_intro.html#id8">第一个程序</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/basic.html">语言基础</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id2">数据移动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id3">算术运算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id4">位操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id7">控制流</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/basic.html#id8">栈操作与函数调用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/simd.html">intel SIMD指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/debug.html">调试</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/debug.html#linux-gdb">Linux + gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/asm/withc.html">与C语言互操作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id1">调用约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id2">C调用汇编代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id3">汇编调用C代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lang/asm/withc.html#id4">结构体</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lang/byteorder.html">字节序与比特序</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id2">字节序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id3">比特序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lang/byteorder.html#id4">编写可移植代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../algo/index.html">数据结构与算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/list.html">链表,栈与队列</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id2">单向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id3">双向链表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id4">侵入式数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id5">栈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/list.html#id6">队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id7">基本实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id8">下标的处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/list.html#id9">无锁队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/tree.html">树</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id2">二叉查找树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#avl">AVL树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/tree.html#id3">红黑树</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/hash.html">哈希表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/graph.html">图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/visit.html">遍历</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/order.html">排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/find.html">查找</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/ac.html">AC算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../algo/regex.html">正则表达式</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id2">1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#parse">2. 解析(parse)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id3">2.1 词法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id4">2.2 语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id5">2.3 抽象语法树</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#compile">3. 编译(compile)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfa">3.1 构造NFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#nfadfa">3.2 NFA转DFA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id7">3.4 消除死状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#dfa">3.5 DFA最小化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id8">3.6 DFA序列化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#match">4. 匹配(match)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id9">5. 优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id10">5.1 内存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../algo/regex.html#id11">5.2 性能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../algo/regex.html#id12">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../net/index.html">网络开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../net/tcpip/index.html">TCP/IP详解</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../net/netalgo/index.html">网络算法学</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/proto_process.html">9 Protocol Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id1">9.1 缓存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#crcchecksum">9.2 CRC和Checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id4">9.3 通用协议处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id5">9.4 重组</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/proto_process.html#id7">9.5 结论</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../net/netalgo/sched_packet.html">14 Scheduling Packets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id1">14.1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id2">14.2 拥塞控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id13">14.3 带宽与突发限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id24">14.4 多队列与优先级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id25">14.5 资源预留协议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id26">14.6 带宽保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id30">14.7 时延保证</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#scalable-fair-queuing">14.8 Scalable Fair Queuing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk">14.9 dpdk分层调度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#diffserv">14.10 DiffServ架构介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#dpdk-qos">14.11 dpdk QoS框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id37">附录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../net/netalgo/sched_packet.html#id38">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../opensource/index.html">开源项目研究</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/dpdk/index.html">DPDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/intro.html">1. 引言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id2">1.1. 由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#dpdk">1.2. DPDK最佳实践</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id3">1.3. dpdk框架</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/intro.html#id4">1.4. dpdk的应用</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html">2. 深入浅出dpdk: cache与内存</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#cache">2.1. 内存Cache简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id3">2.2. Cache地址映射与变换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id4">2.3. Cache的写策略</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id5">2.4. Cache预取</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id8">2.5. Cache一致性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#tlb">2.6. TLB和大页</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#ddio">2.7. DDIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#numa">2.8. NUMA系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_mem_cache.html#id9">2.9. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_parallel.html">3. 深入浅出dpdk: 并行计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html">4. 深入浅出dpdk: 同步充斥机制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id1">4.1. 原子锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id2">4.2. 读写锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id3">4.3. 自旋锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_sync.html#id4">4.4. 无锁机制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html">5. 深入浅出dpdk: 报文转发</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id1">5.1. 网络处理模块分解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id2">5.2. 转发模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_forward.html#id3">5.3. 转发算法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_pkt_io.html">6. 深入浅出dpdk: PCIe与包处理IO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html">7. 深入浅出dpdk: 网卡性能优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id1">7.1. dpdk轮询模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#burst">7.2. burst收发包的思想与实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id2">7.3. 硬件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id3">7.4. 软件平台的影响</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_nic_optimize.html#id4">7.5. 队列长度及各种阈值的设置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html">8. 深入浅出dpdk: 流分类与多队列</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id1">8.1. 多队列技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/hf_classify.html#id2">8.2. 流分类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/hf_hw_accel.html">9. 深入浅出dpdk: 硬件加速与功能卸载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/eal.html">10. 源码分析: EAL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#linuxeal">10.1. Linux环境的EAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id1">10.2. 内存机制与初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#cpu">10.3. CPU信息取得与核绑定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#lcore">10.4. 线程/lcore的初始化与启动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id2">10.5. 多进程应用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id3">10.6. 其他注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/eal.html#id4">10.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/ring.html">11. 源码分析: Ring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id1">11.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id2">11.2. 应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id3">11.3. 无锁队列操作图解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id4">11.4. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id5">11.5. 多生产者入队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id6">11.6. 多消费者出队</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id7">11.7. 索引计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/ring.html#id8">11.8. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mem.html">12. 源码分析: Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id1">12.1. 内存的初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mem.html#id4">12.2. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memseg.html">13. 源码分析: Memseg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id1">13.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id2">13.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memseg.html#id3">13.3. 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/memzone.html">14. 源码分析: Memzone</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id1">14.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#memzone-init">14.2. 初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id3">14.3. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id4">14.4. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/memzone.html#id5">14.5. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/malloc.html">15. 源码分析: Malloc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id1">15.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id2">15.2. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap">15.3. malloc heap初始化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#malloc-heap-alloc">15.4. 内存分配</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id4">15.5. 内存释放</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/malloc.html#id5">15.6. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mempool.html">16. 源码分析: Mempool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id1">16.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id2">16.2. 特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id4">16.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id5">16.4. 创建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id6">16.5. 取出对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id7">16.6. 还回对象</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mempool.html#id8">16.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/mbuf.html">17. 源码分析: Mbuf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id1">17.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id2">17.2. 原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id3">17.3. 数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id4">17.4. 分配与回收</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id8">17.5. 元信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#directindirect-mbuf">17.6. Direct和Indirect mbuf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/mbuf.html#id9">17.7. 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/dpdk/build_sys.html">18. 编译系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id2">18.1. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id3">18.2. 源码组织</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id5">18.3. 编译系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#dpdk-makefile">18.4. dpdk Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#root-makefile-help">18.5. 根Makefile介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#abi">18.6. ABI管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#v16-07-2">18.7. 实例：将v16.07.2编译为单个动态库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/dpdk/build_sys.html#id22">18.8. 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/tengine/index.html">Tengine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#tengine">Tengine的由来</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/intro.html#id2">Tengine的改进</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/arch.html">架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id2">高性能服务器设计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id3">进程模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id5">事件处理模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id7">模块化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id9">请求处理机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/arch.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/key_points.html">基本概念</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#connection">连接/connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#request">请求/request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#keepalive">keepalive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#pipeline">pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#lingering-close">lingering_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/key_points.html#id6">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/infrastructure.html">基础设施</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id2">日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id3">内存管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#cycle">cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id7">字符串操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id12">容器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id18">时间</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id19">网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id21">事件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id22">进程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id23">线程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id24">模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/infrastructure.html#id25">错误处理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/tengine/http.html">HTTP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/tengine/http.html#id1">HTTP请求处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/wireshark/index.html">wireshark</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../opensource/hyperscan/index.html">hyperscan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html">hyperscan介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#how-we-match-regular-expressions">首席工程师: How we match regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id1">源码结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_intro.html#id2">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html">hyperscan预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#c-11">C++ 11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id5">设计模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#id6">数据结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#boost-library">Boost Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_pre.html#ragel">Ragel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html">hyperscan调试环境与技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id1">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#dump">生成dump信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id4">加速编译过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../opensource/hyperscan/hs_debug.html#id5">生成源码文档</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ai/index.html">人工智能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ai/books.html">学习资料</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#pattern-recognition-and-machine-learning">Pattern Recognition and Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#convex-optimization">Convex Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-fundamentals-an-introduction-for-beginners">Deep Learning Fundamentals: An Introduction for Beginners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#optimization-in-operations-research">Optimization in Operations Research</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#artificial-intelligence-a-modern-approach">Artificial Intelligence: A Modern Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning-in-natural-language-processing">Deep Learning in Natural Language Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#id2">机器学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ai/books.html#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">性能优化</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">CPU知识</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">理解微处理器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-and-data-a-closer-look">Code and Data: a closer look</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#meet-the-file-clerk">meet the &#8220;file clerk&#8221;</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#refining-the-model">Refining the model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ram-when-the-registers-alone-don-t-cut-it">RAM: when the registers alone don&#8217;t cut it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-closer-look-at-the-code-stream-the-program">A closer look at the code stream: the program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#excursus-op-codes-and-machine-language">Excursus: Op codes and machine language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-programming-model-and-the-isa">The programming model and the ISA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#branch-instructions">Branch instructions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html">理解流水线与超标量执行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#pipelining-explained">Pipelining Explained</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#superscalar-execution">Superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#combining-pipelined-and-superscalar-execution">Combining pipelined and superscalar execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pipeline.html#conclusions">Conclusions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bandwidth.html">理解带宽与时延</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intel_p4.html">NetBurst: The Microarchitecture of the Pentium 4 Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id1">引言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#netburst">NetBurst微架构概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id4">时钟频率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id6">NetBurst微架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id10">性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id11">结论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intel_p4.html#id12">作者</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html">CPU相关术语及缩略语</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../simd_demo.html">SIMD指令编程demo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id1">正常代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id2">一次循环计算4次</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#sse">使用SSE指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#avx">使用AVX指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id3">性能对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simd_demo.html#id4">更多参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_dev_manual/index.html">Intel开发手册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_dev_manual/vol1/index.html">卷1: 基础架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/1.html">1 About This Manual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/2.html">2 INTEL 64 AND IA-32 ARCHITECTURES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_dev_manual/vol1/3.html">3 BASIC EXECUTION ENVIRONMENT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_opt_manual/index.html">Intel优化手册</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/2.html">2 INTEL 64 AND IA-32 PROCESSOR ARCHITECTURES</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#skylake-server">Skylake Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#skylake">Skylake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#haswell">Haswell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#haswell-e">Haswell-E</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#broadwell">Broadwell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#sandy-bridge">Sandy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#ivy-bridge">Ivy Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#core-enhanced-core">Core &amp; Enhanced Core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#nehalem">Nehalem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#id1">超线程技术</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#id2">64位架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/2.html#simd">SIMD技术</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/3.html">3 一般性优化原则</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id2">3.1 性能工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id4">3.2 处理器全景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id7">3.3 编程规则, 建议及调整提示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#id8">3.4 优化前端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#optimizing-the-execution-core">3.5 OPTIMIZING THE EXECUTION CORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#optimizing-memory-accesses">3.6 OPTIMIZING MEMORY ACCESSES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#prefetching">3.7 PREFETCHING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#floating-point-considerations">3.8 FLOATING-POINT CONSIDERATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/3.html#maximizing-pcie-performance">3.9 MAXIMIZING PCIE PERFORMANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_opt_manual/7.html">7 优化cache使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#general-prefetch-coding-guidelines">7.1 GENERAL PREFETCH CODING GUIDELINES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#prefetch-and-cacheability-instructions">7.2 PREFETCH AND CACHEABILITY INSTRUCTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#prefetch">7.3 PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#cacheability-control">7.4 CACHEABILITY CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#memory-optimization-using-prefetch">7.5 MEMORY OPTIMIZATION USING PREFETCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_opt_manual/7.html#memory-optimization-using-non-temporal-stores">7.6 MEMORY OPTIMIZATION USING NON-TEMPORAL STORES</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_vtune/index.html">Intel VTune Amplifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/intro.html">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id2">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id3">调优方法论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id4">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/intro.html#id10">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html">教程: 优化热点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hotspots.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html">教程: 优化硬件利用率</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id4">优化代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_hardware.html#id5">进一步分析和优化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html">教程: 优化伪共享</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id2">编译示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#vtune">创建vtune工程并运行分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id3">分析代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tutorial_false_sharing.html#id4">优化代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html">调优指南: Xeon E5 v3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#intel-xeon-e5-v3-family">1 Intel Xeon E5 v3 Family</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id1">2 性能测量的复杂性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id2">3 发现性能问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#front-end-bound">4 调优Front-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#back-end-bound">5 调优Back-End Bound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#bad-speculation">6 调优Bad Speculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#retiring">7 调优Retiring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../intel_vtune/tunning_guide_e5v3.html#id12">8 附加主题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools/index.html">工具与杂项</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vim/index.html">Vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vim/intro.html">简介与基本配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#vim">为什么要使用vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id2">本系列文章的指导思想和一些约定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vim/intro.html#id3">学习之前的基本配置和几个需要了解的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/git/index.html">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/basic_command.html">Git常用命令</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id2">一、新建代码库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id3">二、配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id4">三、增加/删除文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id5">四、代码提交</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id6">五、分支</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id7">六、标签</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id8">七、查看信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id9">八、远程同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id10">九、撤销</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/basic_command.html#id11">十、其他</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/git/tricks.html">小技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#shellsshgithub">shell通过SSH连接github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/git/tricks.html#id2">在命令提示符中显示当前分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/rest/index.html">用reST编写文档</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/intro.html">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/setup.html">安装与基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id2">安装软件包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id3">项目建立</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#conf-py">conf.py配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#index">index页配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/setup.html#id6">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/grammar.html">reST语法介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id1">章节标题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id2">段落</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id3">行内标记</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id4">列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id5">代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id6">超链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id7">图片</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id8">表格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id9">引用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id10">脚注</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id11">提醒</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id12">替换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/grammar.html#id13">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/style.html">修改样式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/style.html#step3">Step3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/topdf.html">生成PDF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#xetex">方法一：使用xeTex(推荐)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#cjkutf8">方法二: 使用CJKutf8包 (默认)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/topdf.html#id1">终极解决办法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/doxygen.html">生成API文档</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step1">Step1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step2">Step2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step3">Step3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/doxygen.html#step4">Step4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/with_vscode.html">在Visual Studio Code中使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id1">安装步骤</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id3">使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/with_vscode.html#id4">问题记录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/rest/add_comment.html">给github博客添加评论功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#oauth-application">1. 注册OAuth Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id1">2. 编辑博客页面, 引入gitment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id2">3. 初始化评论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/rest/add_comment.html#id3">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/latex/index.html">LaTeX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/setup.html">安装与配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id2">1. 安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/latex/setup.html#id3">2. 卸载</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/quick_start.html">快速入门示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/text.html">文本与段落</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/code.html">程序代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/figure_table.html">图像与表格</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/latex/debug.html">错误调试</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vpn.html">VPS+Shadowsocks科学上网</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#vps">购买VPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#shadowsocks">配置shadowsocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id2">服务器端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id3">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id4">其他技巧</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#id5">对不同网站使用不同的连接方式: 直接/代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/vpn.html#window">Window下令无法设置代理的应用程序使用代理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vpn.html#id6">参考链接</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/patch.html">补丁工具patch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id1">1 为单个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id2">2 为多个文件生成补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id3">3 打补丁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/patch.html#id4">4 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/libpcap.html">libpcap使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id1">创建句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-offline">pcap_open_offline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-open">pcap_dump_open</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id2">关闭句柄</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-close">pcap_close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-close">pcap_dump_close</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#packet">读取packet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-open-pcap-dispatch">pcap_open/pcap_dispatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id3">设置选项</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-set-promisc">pcap_set_promisc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-breakloop">pcap_breakloop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-file">pcap_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/libpcap.html#pcap-dump-file">pcap_dump_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/libpcap.html#id5">参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/cunit.html">CUnit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/cunit.html#cunit-2-1-3">编译安装CUnit-2.1-3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/vmware.html">VMWare使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#ip">配置静态IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/vmware.html#id1">解决启动黑屏问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/centos.html">CentOS应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centos7-3minimalc-c">CentOS7.3Minimal从零配置C/C++开发环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#failed-to-start-lsb-bring-up-down-networking">网络配置失败,显示Failed to start LSB: Bring up/down networking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#centoswindows">共享CentOS虚拟机上的文件给Windows本机访问</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/centos.html#pip">安装pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/ubuntu.html">Ubuntu应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id1">14.04更换阿里云源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#youcompleteme">安装YouCompleteMe插件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cpu">隔离某些cpu核心</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#vmware-workstationubuntu-server">VMware Workstation中的Ubuntu Server虚拟机重启后共享文件夹消失</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory">Cannot set LC_CTYPE to default locale: No such file or directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#man">man文档不全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/ubuntu.html#id2">修改系统对消息队列的默认限制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/xiaomi_router.html">小米路由器开发</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#rom">用ROM刷机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#ssh">开启SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id2">交叉编译环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id3">交叉编译库或工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#libpcap">编译libpcap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#helloworld">编译helloworld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#gdb">编译gdb</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/xiaomi_router.html#id4">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/xiaomi_router.html#id5">在小米路由器上部署静态网页</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools/qemu.html">QEMU模拟器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id2">安装软件包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id3">用户模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tools/qemu.html#id4">系统模式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id5">一般使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#id6">配置网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tools/qemu.html#gdb">远程gdb调试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hobby/index.html">兴趣爱好</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/record_bilibili.html">录制B站直播</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#ffmpeg">安装ffmpeg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id1">解析直播地址</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/record_bilibili.html#id2">录制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hobby/video_trick.html">视频制作相关小技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#b">如何下载B站视频，或者用微博发的视频？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#mac">Mac系统下应该用什么软件做视频编辑？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#q-mac-gif">Q: Mac系统如何做动图（gif）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#gif-fcpx">我有一些动图（gif），怎么将它们导入到fcpx？直接导入发现它们不动了啊！</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../hobby/video_trick.html#id2">Mac系统如何录制系统自己发出的声音，比如我正在听一首很好听的歌但是不方便下载它？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutme.html">关于我</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">赵子清技术文章</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">性能优化</a> &raquo;</li>
+        
+          <li><a href="index.html">CPU知识</a> &raquo;</li>
+        
+      <li>理解微处理器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>理解微处理器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p><em>本文更新于 2018.10.22</em></p>
+<p>参考: <a class="reference external" href="http://archive.arstechnica.com/paedia/c/cpu/part-1/cpu1-1.html">http://archive.arstechnica.com/paedia/c/cpu/part-1/cpu1-1.html</a></p>
+<p><em>by Jon &#8220;Hannibal&#8221; Stokes</em></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>I&#8217;ve been writing on CPU technology here at Ars for almost five years now, and
+during that time I&#8217;ve done my best to communicate computing concepts in as plain
+and accessible a manner as possible while still retaining some level of technical
+sophistication. Without exception, though, all of my CPU articles have been oriented
+towards the investigation of technologies currently on the market; I&#8217;ve written
+no general introduction to any of the concepts that I&#8217;ve used in these investigations,
+opting instead to integrate some introductory material into the more advanced
+discussions as space allows. As a result, I always get feedback from people
+who express regret that there were portions of my articles that they didn&#8217;t
+understand due to their lack of background in the material. This is unfortunate,
+and for some time I&#8217;ve considered doing a more generalized introduction to the
+basic concepts in computing. Events have recently conspired to afford me that
+opportunity, hence the present article, which is the first in a series on the
+basics of microprocessor technology.</p>
+<p>There are a number of good reasons to do an article like this, now. One reason,
+as I&#8217;ve suggested above, is to provide readers with a better background for
+understanding my previous work. After reading this article you should be able
+to go back and revisit some older articles that you only half digested and get
+more out of them. But the main reason for doing a general introduction to
+microprocessor technology is forward-looking: that there are a number of new
+processors slated to come out in the next year and this article will help to lay
+the groundwork for my coverage of those designs. Itanium2, Yamhill, the PPC 970,
+AMD&#8217;s Hammer, and even the Playstation3 are all on the horizon, and we at Ars
+want to be proactive about helping you get ready to understand what makes all
+of those technologies tick.</p>
+<p>Due to the continuing success of the <a class="reference external" href="http://archive.arstechnica.com/paedia/storage.html">Ars RAM Guide</a> , I&#8217;ve chosen to model the
+present series on it. I&#8217;ll start out at a very basic level with this first
+article, and as the series progresses I&#8217;ll advance along the axes of chronology
+and complexity from older, more primitive technologies to newer, more advanced
+ones. The one important difference between this article and the RAM guide is in
+this article&#8217;s relative lack of real-world examples. There are a number of reasons
+why I&#8217;ve chosen to forego detailed discussions of present-day implementations,
+but the primary one is that such discussions constitute almost every CPU article
+I&#8217;ve written. If you&#8217;re looking for real-world examples, then you should start
+with the articles listed, <a class="reference external" href="http://archive.arstechnica.com/cpu/index.html">here</a> .</p>
+</div>
+<div class="section" id="code-and-data-a-closer-look">
+<h2>Code and Data: a closer look<a class="headerlink" href="#code-and-data-a-closer-look" title="永久链接至标题">¶</a></h2>
+<p>Judging by the steady stream of feedback I&#8217;ve gotten on it over the years, the
+following, which was part of <a class="reference external" href="http://www.arstechnica.com/cpu/1q00/simd/simd-1.html">my article on SIMD</a> ,
+has proven to be one of the most
+popular diagrams I&#8217;ve ever made. (It&#8217;s my vain suspicion that it had some influence
+on the Intel hyper-threading ads that previously adorned certain pages here at Ars.)
+This being the case, I want to develop our general discussion of the types of
+tasks computers do by first presenting this simple conceptual diagram and then
+elaborating on it and nuancing it until a more complete picture of the
+microprocessor emerges.</p>
+<img alt="../../_images/processor_1.gif" src="../../_images/processor_1.gif" />
+<p>The above diagram is a variation on the traditional way of representing a
+processor&#8217;s arithmetic logic unit (ALU), which is the part of the processor that
+does the actual addition, subtraction, etc. of numbers. However, instead of
+showing two operands entering the top ports and a result exiting the bottom (as
+is the custom in the literature) I&#8217;ve depicted a code stream and a data stream
+entering and a results stream leaving. For the purposes of our initial discussion,
+we can generalize by saying that the code stream is made up of different types of
+operations and the data stream consists of the data on which those operations
+operate. To illustrate this point and to put a more concrete face on the diagram
+above, imagine that one of those little black boxes is an addition operator
+(a &#8220;+&#8221; sign) and two of the white boxes contain the two integers to be added.</p>
+<img alt="../../_images/processor_2.png" src="../../_images/processor_2.png" />
+<p>The kind of simple arithmetic operation pictured above represents the sort of
+thing that we intuitively think computers do: like a pocket calculator, the
+computer takes numbers and arithmetic operators (like +, -, /, &gt;, &lt;, etc.) as
+input, performs the requested operation, and then spits out the results. These
+results might be in the form of pixel values that make up a rendered scene in a
+computer game, or they might be entries in a spreadsheet.</p>
+</div>
+<div class="section" id="meet-the-file-clerk">
+<h2>meet the &#8220;file clerk&#8221;<a class="headerlink" href="#meet-the-file-clerk" title="永久链接至标题">¶</a></h2>
+<p>This &#8220;calculator&#8221; model of computing, while appropriate in many respects, isn&#8217;t
+the only or even the best way to think about what computers do. As an alternative,
+consider the following definition of a computer:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>A computer is a device that shuffles numbers around from place to place, reading,
+writing, erasing, and rewriting different numbers in different locations according to
+
+* a set of inputs,
+* a fixed set of rules for processing those inputs,
+* and the prior history of all the inputs that the computer has seen since it
+  was last reset,
+
+until a predefined set of criteria are met which cause the computer to halt.
+</pre></div>
+</div>
+<p>We might, after Richard Feynman(费曼), call this idea of a computer as a reader, writer,
+and shuffler of numbers the &#8220;file clerk&#8221;(档案管理者) model of computing (as opposed to the
+aforementioned calculator model). In the file clerk model, the computer accesses
+a large (theoretically infinite) store of numbers, arranged sequentially, for the
+purpose of altering that store to achieve a desired result. Once this desired
+result is achieved, the computer &#8220;halts&#8221; so that the now modified store of numbers
+can be read and interpreted by humans.</p>
+<p>The file clerk model of computing might not initially strike you as all that useful,
+but as this article progresses you&#8217;ll begin to understand how important it is.
+Just to give you a general sense of its relevance here at the outset, I&#8217;ll point
+out that the power of this way of looking at computers lies in the fact that it
+emphasizes the end product of computation, and not the computation itself. After all,
+the purpose of computers isn&#8217;t to just &#8220;compute&#8221; in the abstract, but to produce
+usable results from a given data set. In other words, what matters in computing
+applications is not that you did some math, but that you started with a body of
+numbers, applied a sequence of operations to it, and got a list of results. Those
+results could, again, represent pixel values for a rendered scene or an environmental
+snapshot in a weather simulation. Indeed, the idea that a computer is a device
+that transforms one set of numbers into another should be intuitively(直观地) obvious
+to anyone who&#8217;s ever used a Photoshop filter.</p>
+<p>Once we understand computers not in terms of the math they do, but in terms of
+the numbers they move and modify, we can begin to get a fuller picture of how
+they operate.</p>
+<p>(Those of you who&#8217;ve studied computer science will recognize in the above the
+beginnings of a discussion of a Turing machine. The Turing machine is, however,
+too abstract for our purposes here, so I won&#8217;t actually describe one. The
+description that I develop here sticks closer to the classic RISC load-store
+model, where the computer is &#8220;fixed&#8221; along with the storage. Again, the Turing
+model of a computer as a movable read-write head (with a state table) traversing
+a linear &#8220;tape&#8221; is too far from real-life hardware organization to be anything
+more than confusing in a discussion like the present one.)</p>
+<p>If we take the file clerk metaphor and apply it to the initial diagram with which
+we started our discussion, we can see the code stream as a series of instructions
+that tell the computer how to manipulate a set of numbers by reading and writing
+either the original numbers or altered versions of them. The flow of numbers
+into the computer that result from this reading activity is the data stream, and
+the flow of numbers leaving the computer that results from this writing activity
+is the results stream. The data stream flows from the large storage area that the
+computer is manipulating, and the results stream flows back to that same storage
+area to overwrite previously stored data. This process continues until the code
+stream reaches an end.</p>
+<p>Let&#8217;s go ahead and expand that initial diagram to show the storage area:</p>
+<img alt="../../_images/processor_3.png" src="../../_images/processor_3.png" />
+<p>(You&#8217;ll notice that in this diagram I&#8217;ve modified the earlier depiction of the
+ALU&#8211;this is mainly because right angles make it easier for me to lay everything
+out visually.)</p>
+</div>
+<div class="section" id="refining-the-model">
+<h2>Refining the model<a class="headerlink" href="#refining-the-model" title="永久链接至标题">¶</a></h2>
+<p>If we were to animate the diagram at the beginning of the article, you&#8217;d first
+see the code stream flow into the right-hand port of the ALU. Once it had entered
+the unit, the data stream would follow it as bits of data began to trickle in
+from storage in accordance with the demands of the instructions in the code stream.
+Last of all, the results stream would emerge from the bottom of the unit and make
+its way back to storage. What I&#8217;ll do in this section is zoom in on the relationship
+between the code, data and results streams.</p>
+<p>For a computer to add two numbers, it must go through the following sequence of steps:</p>
+<ol class="arabic simple">
+<li>Obtain the two numbers to be added from storage.</li>
+<li>Add the numbers.</li>
+<li>Place the results back into storage.</li>
+</ol>
+<p>Since the numbers must first be fetched from storage before they can be added,
+we want our storage space to be as fast as possible so that the operation can be
+carried out quickly. Since the ALU is the part of the processor that does the
+actual addition, we&#8217;d like to place the storage as close to it as possible so
+that the operands can be read almost instantaneously. However, practical
+considerations, such as a modern CPU&#8217;s limited die space, constrain the size of
+the storage area that we can stick next to the ALU. This means that in real life,
+most computers have a relatively small number of very fast storage locations
+attached to the ALU. These storage locations are called registers, and the first
+x86 computers only had 8 of them to work with. These registers store only a small
+subset of the data that the computer is currently working with. (We&#8217;ll talk about
+where the rest of that data lives, shortly.)</p>
+<p>Filling out our previous, 3-step description of what goes on when a computer adds
+two numbers, we can replace it with the following sequence of steps.</p>
+<ol class="arabic simple">
+<li>Obtain the two numbers to be added (or, the &#8220;operands&#8221;) from two registers.</li>
+<li>Add the numbers.</li>
+<li>Place the results back in a register.</li>
+</ol>
+<p>To take a more concrete example, let&#8217;s take the case of a simple computer with
+only 4 registers, labeled A, B, C, and D. Suppose each of these registers contains
+an integer, and we want to add the contents of two registers together and overwrite
+the contents of one of those registers with the resulting sum, as in the following
+operation:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Code        Comments
+----------- ----------------------------------------------------------------
+A = A + B   Add the contents of registers A and B and place the result in A,
+            overwriting whatever&#39;s there.
+</pre></div>
+</div>
+<p>The ALU in our simple computer would perform the following series of steps:</p>
+<ol class="arabic simple">
+<li>Read the contents of registers A and B.</li>
+<li>Add the contents of A and B.</li>
+<li>Write the result back to register A.</li>
+</ol>
+<p>This is quite simple, but that&#8217;s how it really works. In fact, you should stop
+and take a quick look at the <a class="reference external" href="http://www.arstechnica.com/cpu/01q2/p4andg4e/p4andg4e-6.html">P4&#8217;s pipeline</a> , because it
+actually has separate <strong>stages</strong> for each of these operations. Stages 15 and 16 of
+the P4&#8217;s pipeline are dedicated to loading the register files with data and to
+the ALU&#8217;s reading of the register files. Stage 16 is the actual execute stage.
+(Don&#8217;t worry if you don&#8217;t know what a <strong>pipeline</strong> is, because that&#8217;s a topic
+for a future article.)</p>
+<p>So the P4&#8217;s ALU reads two operands from the integer register file, adds them
+together and writes the sum back to the integer register file. If we were to stop
+our discussion right here, you&#8217;d already understand the core stages of the P4&#8217;s
+main integer pipeline&#8211;all those other stages are either just preparation to get
+to this point or they&#8217;re clean-up work after it.</p>
+<div class="section" id="putting-some-pieces-together">
+<h3>Putting some pieces together<a class="headerlink" href="#putting-some-pieces-together" title="永久链接至标题">¶</a></h3>
+<p>If you&#8217;ve been reading closely, you might have noticed that there&#8217;s a homology
+between the three steps of the read-&gt;calculate-&gt;write structure that I&#8217;ve been
+repeatedly illustrating and the three bullet points in our initial &#8220;file clerk&#8221;
+definition of a computer. Here&#8217;s the parallel laid out explicitly:</p>
+<blockquote>
+<div><p>A computer is a device that shuffles numbers around from place to place,
+reading, writing, erasing, and rewriting different numbers in different locations
+according to</p>
+<ul class="simple">
+<li>a set of inputs, [read]</li>
+<li>a fixed set of rules for processing those inputs, [calculate]</li>
+<li>and the prior history of all the inputs that the computer has seen since it
+was last reset, [write]</li>
+</ul>
+<p>until a predefined set of criteria are met which cause the computer to halt.</p>
+</div></blockquote>
+<p>That, in a nutshell, sums up what a computer does. And in fact, that&#8217;s all that
+it does. Whether you&#8217;re playing a game or listening to music, everything that&#8217;s
+going on under the computer&#8217;s hood fits into the model above.</p>
+<p>All of this is fairly simple so far, and I&#8217;ve even been a bit repetitive with the
+explanations. This was done in order to drive home the basic read-&gt;calculate-&gt;write
+structure of all computer operations. It&#8217;s important to grasp this structure in
+its simplicity, because as we increase our computing model&#8217;s level of complexity
+we&#8217;ll see this structure repeated at every level.</p>
+</div>
+</div>
+<div class="section" id="ram-when-the-registers-alone-don-t-cut-it">
+<h2>RAM: when the registers alone don&#8217;t cut it<a class="headerlink" href="#ram-when-the-registers-alone-don-t-cut-it" title="永久链接至标题">¶</a></h2>
+<p>Obviously, four (or even eight) registers aren&#8217;t even close to the theoretically
+infinite storage space I&#8217;ve been talking about throughout this article. In order
+to make a viable computer that does useful work, you need to be able to store much
+larger data sets. This is where main memory, or RAM, comes in. Main memory stores
+the data set on which the computer operates, and only a small portion of that data
+set at a time is moved to the registers for easy access from the ALU. To return
+to our file clerk metaphor, we can think of main memory as the filing cabinet and
+the registers as the desktop where the file clerk (the ALU) temporarily places the
+papers on which it&#8217;s currently working. So the computer must first retrieve a file
+from the cabinet (memory) and place it on the desktop (the registers) before it
+can manipulate it.</p>
+<p>Main memory is situated quite a bit further away from the ALU, so it takes a
+non-trivial amount of time to transfer data between main memory and the registers.
+In fact, if there were no registers and the ALU had to read data directly from
+RAM for each calculation, computers would run very slowly. If we ignore the
+relatively small amount of time that it takes to perform register reads and writes,
+then we can consider the registers to be almost a part of the ALU from the
+standpoint of the rest of the system. Take a look at the following diagram
+(temporarily ignoring the fact that code and data are mixed together in main memory):</p>
+<img alt="../../_images/processor_4.png" src="../../_images/processor_4.png" />
+<p>Now, look closely at what&#8217;s going on. The ALU + registers act as one large ALU in
+that they both work together to modify main memory. If we rewrite the preceding
+three steps with the above picture in mind, they look as follows:</p>
+<ul class="simple">
+<li><strong>Load</strong> the two operands from main memory into the two registers.</li>
+<li><dl class="first docutils">
+<dt><strong>Add</strong> the contents of the registers.</dt>
+<dd><ol class="first last loweralpha">
+<li>Read the contents of registers A and B.</li>
+<li>Add the contents of A and B.</li>
+<li>Write the result back to register A.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><strong>Store</strong> the contents of the modified register back to main memory.</li>
+</ul>
+<p>Since steps 2a, 2b, and 2c all take a trivial amount of time to complete relative
+to steps 1 and 3, we can just ignore them from here on out. Hence our addition
+looks as follows:</p>
+<ul class="simple">
+<li><strong>Load</strong> the two operands from main memory into the two registers.</li>
+<li><strong>Add</strong> the contents of the registers.</li>
+<li><strong>Store</strong> the contents of the modified register back to main memory.</li>
+</ul>
+<p>I went to the trouble of repeating the list above without step 2&#8217;s three
+sub-components, because in this form the list finally represents the level of
+abstraction at which the user has control over the operations of the system.
+What I mean is that in modern microprocessor systems steps 2a, 2b, and 2c are
+all handled automatically by the computer when it&#8217;s told by a user or programmer
+to add two numbers. But when it comes to moving data between memory and the
+registers, the programmer has control over when and how this happens. In other
+words, the three steps above represent the kinds of instructions you find when
+you take a close look at the code stream.</p>
+</div>
+<div class="section" id="a-closer-look-at-the-code-stream-the-program">
+<h2>A closer look at the code stream: the program<a class="headerlink" href="#a-closer-look-at-the-code-stream-the-program" title="永久链接至标题">¶</a></h2>
+<p>Because a computer&#8217;s labors can be conveniently divided into arithmetic operations
+and &#8220;filing&#8221; tasks (i.e. reading and writing), we can divide most of the instructions
+in the code stream into two main types:</p>
+<ul class="simple">
+<li>Arithmetic instructions</li>
+<li>Memory access instructions</li>
+</ul>
+<p>(We&#8217;ll talk about a third type, branch instructions, in a moment.)</p>
+<p>The first type of instruction, the arithmetic instruction, fits with our calculator
+metaphor and is the type most familiar to anyone who&#8217;s worked with computers.
+Instructions like integer and floating-point addition, subtraction, multiplication,
+and division all fall under this general category. (Note that in order to simplify
+the discussion and reduce the number of terms, I&#8217;ve also included logical
+operations like AND, OR, NOT, NOR, etc. under the general heading of &#8220;arithmetic
+instructions.&#8221; My apologies to the purists.) The second type of instruction, the
+memory access, is just as important as the arithmetic instruction, since, as I
+noted above, without it the computer couldn&#8217;t do arithmetic. It is the memory
+access instructions that allow the reading and writing activities that give rise
+to the data and results streams.</p>
+<p>In order to get the processor to move the two operands from main memory into the
+registers so they can be added, you need to tell the processor quite explicitly
+that you want to move the data in two specific memory cells to two specific
+registers. This &#8220;filing&#8221; operation is done via a memory access instruction, the
+LOAD. A LOAD instruction loads the appropriate data from main memory into the
+appropriate registers so that the data are available for the subsequent ADD
+instruction. The reverse of the LOAD instruction is the STORE instruction, which
+takes data from a register and writes it back out to a location in main memory.</p>
+<p>Let&#8217;s look at a concrete example to illustrate what I&#8217;ve been talking about.
+Assume that there are four registers, labeled A, B, C, and D for convenience&#8217;s
+sake. Also assume that main memory is laid out as a line of memory cells,
+numbered #0 to #99. Finally, all instructions in this example are in the
+following format:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>instruction destination register, source register
+</pre></div>
+</div>
+<p>Now consider the following piece of code:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Line#   Code          Comments
+------- ------------- ------------------------------------------------------
+    1   LOAD A, #12   Read the number in memory cell #12 into register A
+    2   LOAD B, #13   Read the number in memory cell #13 into register B
+    3   ADD A, B      Add the numbers in registers A and B and store the result in A
+    4   STORE A, #14  Write the result of the addition into memory cell #14
+</pre></div>
+</div>
+<p>Each of the above lines must be executed in sequence in order to achieve the
+desired result. Such an ordered sequence of instructions or commands is called a
+program. It is such sequential programs that constitute the code stream to which
+I&#8217;ve been referring this entire section.</p>
+<p>If we take main memory to look as follows before the preceding program is run:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Cell#   #11   #12   #13   #14
+------  ----  ----  ----  ----
+Value     0     6     2     3
+</pre></div>
+</div>
+<p>then after doing our addition and storing the results its contents would be
+changed so that cell #14 contains the sum of cells #12 and #13:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Cell#   #11   #12   #13   #14
+------  ----  ----  ----  ----
+Value     0     6     2     8
+</pre></div>
+</div>
+</div>
+<div class="section" id="excursus-op-codes-and-machine-language">
+<h2>Excursus: Op codes and machine language<a class="headerlink" href="#excursus-op-codes-and-machine-language" title="永久链接至标题">¶</a></h2>
+<p>As you probably already know, the computer actually only understands 1&#8217;s and 0&#8217;s
+(or &#8220;high&#8221; and &#8220;low&#8221; electric voltages) and not English words like &#8220;ADD&#8221;, &#8220;LOAD&#8221;
+and &#8220;STORE&#8221; or letters and numbers like A, B, 12, and 13. In order for the computer
+to run the above program, then, all of its instructions must be rendered in
+binary notation. The translation of assembly language programs of any complexity
+into machine language is a massive undertaking that&#8217;s meant to be done by a
+computer, but I&#8217;ll show you the basics of how it works so you can understand what&#8217;s
+going on. The following example is simplified, but useful nonetheless.</p>
+<p>English words like ADD, LOAD, and STORE, called <strong>mnemonics</strong> , are all mapped to
+strings of binary numbers, called <strong>op codes</strong> , that the computer can understand.
+Each op code designates a different operation that the processor can perform.
+Here&#8217;s a sample table that maps each of the mnemonics used above to a 4-bit
+op code:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Mnemonic    Op code
+---------   --------
+ADD         0000
+LOAD        0001
+STORE       0010
+</pre></div>
+</div>
+<p>Since the machine has a fixed number of registers in which to store instructions
+(in our example there are four registers), we can map the register names to binary
+codes as follows:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Register    Code
+---------   -----
+A           00
+B           01
+C           10
+D           11
+</pre></div>
+</div>
+<p>The binary values representing the op codes and the register codes are arranged
+in one of the two following formats to get a complete instruction in the form of
+a binary number that can be stored in RAM and used by the processor.</p>
+<p>Arithmetic Instruction:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>                    Byte 1
+| op code | destination register | source register |
+</pre></div>
+</div>
+<p>Memory Access Instruction:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>          Byte 1          |    Byte 2
+| op code | register | 00 |   address   |
+</pre></div>
+</div>
+<p>(Those two 0&#8217;s in byte 1 of the memory access instruction are just padding to fill
+out the byte.) Now, let&#8217;s plug in the above binary values to the ADD instruction
+in line 3 of our program to get that instruction&#8217;s 1-byte (or 8-bit) machine
+language translation:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>ADD A, B = 00000001
+</pre></div>
+</div>
+<p>Here are a few more examples of arithmetic instructions, just so you can get the
+hang of it:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>ADD C, D = 00001011
+ADD D, B = 00001101
+</pre></div>
+</div>
+<p>Now let&#8217;s translate the memory access instruction in line 1 of our program (12 is
+1100 in binary notation):</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Load A, #12 = 00010000 00001100
+</pre></div>
+</div>
+<p>So, for our simple computer with four registers, three instructions, and 99 memory
+cells, it&#8217;s trivial to translate our 4-line program into the following
+machine-readable binary representation:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Line#   Assembly Language   Machine Language
+------  ------------------  ------------------
+1       LOAD A, #12         00010000 00001100
+2       LOAD B, #13         00010100 00001101
+3       ADD A, B            00000001
+4       STORE A, #14        00100000 00001110
+</pre></div>
+</div>
+<p>Those 1&#8217;s and 0&#8217;s represent the high and low voltages that the computer &#8220;thinks&#8221; in.</p>
+<p>Increasing the number of binary digits in the op code and register numbers
+increases the total number of instructions the machine can use and the number of
+registers it can have. For example, if you know anything about binary notation,
+then you know that a 4-bit op code allows the processor to map up to 2^4 mnemonics,
+which means that it can have up to 2^4 or 16 instructions in its <strong>instruction set</strong> ;
+increasing the op code size to 8 bits would allow the processor&#8217;s instruction
+set to contain up to 2^8 or 256 instructions.</p>
+<p>Likewise, increasing the address size in the LOAD and STORE instructions from one
+byte (as in our current example) to, say, four bytes (or 32 bits) would allow us
+to store many more addresses. This is one of the things that&#8217;s meant by 32-bit
+computing versus 16-bit computing or 64-bit computing. The memory access
+instructions take larger addresses, which means that they can access more memory
+space.</p>
+<p>Real machine language instructions are usually longer and more complex than the
+simple ones I&#8217;ve given above, but the basic idea is exactly the same. Program
+instructions translate into machine language in a mechanical, predefined manner,
+and even in the case of a fully modern microprocessor doing such translations by
+hand is merely a matter of knowing the op code formats and having access to the
+right charts and tables. Of course, for the most part the only people who do such
+translations by hand are computer engineering students who&#8217;ve been assigned them
+for homework. This wasn&#8217;t always the case, though.</p>
+</div>
+<div class="section" id="the-programming-model-and-the-isa">
+<h2>The programming model and the ISA<a class="headerlink" href="#the-programming-model-and-the-isa" title="永久链接至标题">¶</a></h2>
+<p>Back in the bad old days, programmers had to enter programs directly in machine
+language (after having walked five miles in the snow uphill both ways). In the
+very early stages of computing, this was done by flipping switches. You toggled
+strings of 1&#8217;s and 0&#8217;s into the computer&#8217;s very limited memory, ran the program,
+and then pored over the resulting strings of 1&#8217;s and 0&#8217;s in order to decode your
+answer.</p>
+<p>Once memory sizes and processing power increased to the point where programmer
+time and effort was valuable enough relative to computing time and memory space,
+computer scientists devised ways of allowing the computer use a portion of its
+power and memory to take on some of the burden of making its cryptic input and
+output a little more human-friendly. In short, the tedious task of converting
+human-readable programs into machine-readable binary was automated, and hence
+the birth of <strong>assembly language</strong> programming. Programs could now be written using
+mnemonics, register names, and memory locations, before being converted by an
+<strong>assembler</strong> into machine language for processing.</p>
+<p>In order to write assembly language programs for a machine, you have to have am
+understanding of the machine&#8217;s available resources, i.e. how many registers it
+has, what instructions it supports, etc. In short, you need a model of the
+machine to which you can code. The <strong>programming model</strong> is the programmer&#8217;s interface
+to the microprocessor. It hides all of the processor&#8217;s complex implementation
+details behind a relatively simple, clean layer of abstraction that exposes to
+the programmer all of the processor&#8217;s functionality. (Fore more on the history
+and development of the programming model as a programmer friendly abstraction,
+see my article on x86 and the future of the ISA.) Below is a diagram of a
+programming model for an 8-register machine.</p>
+<img alt="../../_images/processor_5.png" src="../../_images/processor_5.png" />
+<p>By now, most of the parts of the diagram above should be familiar to you. The ALU
+performs arithmetic, the registers store numbers, and I/O unit is responsible
+for interacting with memory and the rest of the system (via LOADs and STOREs).
+The parts of the processor that we haven&#8217;t yet met lie in the control unit. Of
+these, we&#8217;ll cover the program counter (PC) and the instruction register (IR)
+right now.</p>
+<p>If you look back at the diagram above that shows the ALU, registers and memory,
+you might have noticed that the code and data were mixed up in memory. Some blocks
+of the memory had code, while others had data. This is because code and data are
+both stored in main memory in large blocks called <strong>pages</strong> . A given series of memory
+addresses will hold either a page of code or a page of data, and the computer has
+ways of distinguishing one type of page from the next. (I won&#8217;t get into pages,
+segments and the like at this point, though; that&#8217;ll have to wait for a future
+article on memory management.)</p>
+<p>Since code is stored in memory and memory is arranged as a linear series of
+addresses, each line of assembly code lives at its own memory address. And since
+programs are made up of an ordered series of instructions that are executed in
+sequence, in order to step through the lines of a program all you need to do is
+begin at that program&#8217;s starting address and then step through each successive
+memory location, fetching each successive instruction from memory and executing it.</p>
+<p>If the starting address in the assembly language program we&#8217;ve been working with
+were #500, then it would look as follows in memory:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Cell#   #500        #501        #502     #503
+------  ----------  ----------  -------  -----------
+Value   LOAD A,#12  LOAD B,#13  ADD A,B  STORE A,#14
+</pre></div>
+</div>
+<p>An instruction fetch is really a specific type of LOAD that the processor executes
+automatically for each line of code. It loads each instruction of a program from
+memory into the instruction register, where that instruction is decoded before
+being executed. And while that instruction is decoding, the processor places the
+address of the next instruction into the program counter (PC) by incrementing the
+address of the instruction currently in the instruction register.</p>
+<p>Here are the four steps that the processor goes through in order to execute a program:</p>
+<ol class="arabic simple">
+<li><strong>Fetch</strong> the next instruction from the address stored in the program counter.</li>
+<li>Store that instruction in the instruction register and <strong>decode</strong> it, and increment
+the address in the program counter.</li>
+<li><strong>Execute</strong> the instruction in the instruction register.</li>
+<li>Repeat steps 1-3.</li>
+</ol>
+<p>Again, these four steps are fairly straightforward, and with one major modification
+they describe the way that most microprocessors execute programs. That major
+modification, which I&#8217;ll cover in the following section, is due to the branch
+instruction.</p>
+<p>Before moving on to the branch instruction, though, let&#8217;s go through the four steps
+above with our example program as it&#8217;s shown in the previous table. This example
+presumes that the first instruction, which is at #500, is already in the
+instruction register and that #501 is in the program counter.</p>
+<ol class="arabic simple">
+<li><strong>Fetch</strong> the instruction at #501.</li>
+<li>Store &#8220;LOAD B, #13&#8221; in the instruction register and <strong>decode</strong> it, and set the
+program counter to #502.</li>
+<li><strong>Execute</strong> &#8220;LOAD B, #13&#8221; from the instruction register.</li>
+<li><strong>Fetch</strong> the instruction at #502.</li>
+<li>Store &#8220;ADD A, B&#8221; in the instruction register and <strong>decode</strong> it, and set the
+program counter to #503.</li>
+<li><strong>Execute</strong> &#8220;ADD A, B&#8221; from the instruction register.</li>
+<li><strong>Fetch</strong> the instruction at #503.</li>
+<li>Store &#8220;STORE A, #14&#8221; in the instruction register and <strong>decode</strong> it, and set the
+program counter to #504.</li>
+<li><strong>Execute</strong> &#8220;STORE A, #14&#8221; from the instruction register.</li>
+</ol>
+<p>And of course, to zoom in on the <strong>Execute</strong> steps of the above sequence, just go back
+and revisit the sections entitled &#8220;Refining the model&#8221; and &#8220;RAM: when the registers
+along won&#8217;t cut it.&#8221; If you do that, then you&#8217;ll have a pretty good understanding
+of what&#8217;s involved in executing a program on any machine. Sure, there are
+machine-specific variations on most of what I&#8217;ve presented here, but the general
+outlines (and even a decent number of the specifics) are the same.</p>
+</div>
+<div class="section" id="branch-instructions">
+<h2>Branch instructions<a class="headerlink" href="#branch-instructions" title="永久链接至标题">¶</a></h2>
+<p>As I&#8217;ve presented it so far, the processor moves through each line in a program
+in sequence until it reaches the end of the program, at which point the program&#8217;s
+output is available to the user. There are certain instructions in the code stream,
+however, that allow the processor to jump to a program line number which is out of
+sequence. For instance, by inserting a branch instruction into line 5 of a program,
+we can cause it to jump all the way down to line 20 and begin executing there
+(a forward branch); or, we can also cause it to jump back up to line 1 (a backward
+branch). Since a program is an ordered sequence of instructions, by including
+forward and backward branch instructions we can arbitrarily move about in the
+program by inserting branches, a powerful ability that makes branches an essential
+part of computing.</p>
+<p>I just described the two main types of branch&#8211;the forward branch and the backward
+branch&#8211;but forward and backward branches themselves fall into one of two categories:
+the conditional branch and the unconditional branch. An unconditional branch
+instruction consists of two parts: the branch instruction and the target address:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Code            Comments
+------------    --------------------------------------------------
+JUMP target     Jump to the address specified by the value target.
+</pre></div>
+</div>
+<p>Unconditional branches are fairly easy to execute, since all we need to do upon
+decoding such a branch in the IR is to replace the address currently in the PC
+with branch&#8217;s target address. Then the next time the processor goes to fetch the
+instruction at the address given by the PC, it&#8217;ll fetch the address at the branch
+target instead.</p>
+<p>The conditional branch instruction is a little more complicated, because it
+involves jumping to the target address only if certain conditions are met. For
+instance, we might want to jump to a new line of the program only if the previous
+arithmetic instruction&#8217;s result was a zero; if the result was non-zero, then we
+want to continue executing normally. Because of such jumps, we need a special
+register to store information about the results of our arithmetic instructions,
+information like whether the previous result was zero or non-zero, positive or
+negative, etc. This is the function of the <strong>processor status word (PSW)</strong> . To
+execute a conditional branch, the processor checks the appropriate bit in the PSW
+to see if the condition on which the branch depends was true or false.</p>
+<p>For example, suppose we had just subtracted the number in register A from the
+number in register B, and if the result was a zero (i.e. the two numbers were
+equal) then we want to jump to the instruction at memory address #105. The
+assembler code for such a conditional branch might look as follows:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>.
+.
+16 SUB A, B
+17 JMPZ #105
+.
+.
+</pre></div>
+</div>
+<p>The JMPZ instruction causes the processor to check the PSW to determine if a
+certain bit is 1 (= true) or 0 (= false). If the bit is 1, then the result of the
+subtraction command was zero and the PC must be replaced with #105.</p>
+<p>Now that we understand the basics of branching, we can modify our four-step summary
+of program execution to include the possibility of a branch instruction:</p>
+<ol class="arabic simple">
+<li>Fetch the next instruction from the address stored in the program counter.</li>
+<li>Store that instruction in the instruction register and decode it, and increment
+the address in the program counter.</li>
+<li>Execute the instruction in the instruction register, and <em>if that instruction</em>
+<em>is a branch which should be taken then load the branch&#8217;s target address into the PC.</em></li>
+<li>Repeat steps 1-3.</li>
+</ol>
+<p>In conclusion, you might say that branch instructions allow the programmer to
+redirect the processor as it &#8220;travels&#8221; through the code stream. These instructions
+point the processor to different sections of the code by manipulating its control
+unit, which is the &#8220;rudder&#8221; or &#8220;steering wheel&#8221; of the CPU.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="永久链接至标题">¶</a></h2>
+<p>As a way of wrapping up this article and consolidating your knowledge, I&#8217;d highly
+encourage you to go back and look at my <a class="reference external" href="http://arstechnica.com/cpu/01q2/p4andg4e/p4andg4e-1.html">second article</a> comparing the P4 and
+G4e. You&#8217;re now equipped to understand almost all of the <a class="reference external" href="http://arstechnica.com/cpu/01q2/p4andg4e/p4andg4e-3.html#g4_architecture">G4e&#8217;s pipeline</a> and
+the last 5 stages of the <a class="reference external" href="http://www.arstechnica.com/cpu/01q2/p4andg4e/p4andg4e-6.html">P4&#8217;s 20-stage pipeline</a> . In fact,
+just reading through the two pages on the G4e&#8217;s and P4&#8217;s pipeline will give you
+two concrete, real-world examples of most of what I&#8217;ve said, here.</p>
+<p>In my next article, I&#8217;ll build on the groundwork laid here by discussing more
+advanced processor designs. Specifically, I&#8217;ll look at pipelined and superscalar
+execution, topics I&#8217;ve covered in the past but have never treated in the context
+of a general introduction. I&#8217;ll also go into more detail on the advantages and
+disadvantages of different ways of doing things, with more links to past articles
+containing examples of different design philosophies.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pipeline.html" class="btn btn-neutral float-right" title="理解流水线与超标量执行" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="CPU知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, 赵子清.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2018.12.01',
+            LANGUAGE:'zh_CN',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
