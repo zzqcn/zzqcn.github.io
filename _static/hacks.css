@@ -10,6 +10,15 @@
     max-width: 1080px
 }
 
+.rst-content .highlight>pre,
+.rst-content .linenodiv>pre {
+    font-size: 90%;
+}
+
+.rst-content code {
+    font-size: 90%;
+}
+
 /* Colors and text decoration.
  For example, :black:`text in black` or :blink:`text blinking` in rST. */
 
